@@ -14,11 +14,11 @@ public class UsuarioDAO extends Conexion {
         super();
     }
 
-    public List<Cuenta> clientes() {
-        List<Cuenta> cuentas = new ArrayList<>();
+    public List<Usuario> usuarios() {
+        List<Usuario> cuentas = new ArrayList<>();
         try {
-            cuentas = (List<Cuenta>) QR.query(getConn(), "SELECT * FROM cuenta",
-                    new BeanListHandler(Cuenta.class));
+            cuentas = (List<Usuario>) QR.query(getConn(), "SELECT * FROM usuario",
+                    new BeanListHandler(Usuario.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }

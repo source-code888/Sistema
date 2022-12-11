@@ -5,11 +5,14 @@ import java.io.Serializable;
 public class Area implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private int id;
+    private int idArea;
     private String nombre;
 
-    public Area(int id, String nombre) {
-        this.id = id;
+    public Area() {
+    }
+
+    public Area(int idArea, String nombre) {
+        this.idArea = idArea;
         this.nombre = nombre;
     }
 
@@ -17,15 +20,12 @@ public class Area implements Serializable {
         this.nombre = nombre;
     }
 
-    public Area() {
+    public int getIdArea() {
+        return idArea;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setIdArea(int idArea) {
+        this.idArea = idArea;
     }
 
     public String getNombre() {
@@ -38,7 +38,6 @@ public class Area implements Serializable {
 
     @Override
     public String toString() {
-        return "Area{" + "id=" + id + ", nombre=" + nombre + '}';
+        return "Area{" + "idArea=" + idArea + ", nombre=" + nombre + '}';
     }
-
 }

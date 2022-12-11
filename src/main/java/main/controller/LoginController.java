@@ -25,7 +25,7 @@ public class LoginController implements ActionListener {
         if(obj instanceof JButton){
             JButton btn = (JButton) obj;
             if(btn.getText().equals("Aceptar")){
-                System.out.println(usuario.clientes().get(0).getPassword());
+                System.out.println(usuario.usuarios().get(0).getPassword());
             }
         }
     }

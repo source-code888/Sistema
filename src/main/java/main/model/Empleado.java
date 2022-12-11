@@ -5,43 +5,33 @@ import java.io.Serializable;
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private int idEmpleado;
+    private int id;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String telefono;
-
     private String email;
     private int idArea;
-
-    public Empleado(int idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, int idArea) {
-        this.idEmpleado = idEmpleado;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
-        this.email = email;
-        this.idArea = idArea;
-    }
-
-    public Empleado(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, int idArea) {
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
-        this.email = email;
-        this.idArea = idArea;
-    }
 
     public Empleado() {
     }
 
-    public int getIdEmpleado() {
-        return idEmpleado;
+    public Empleado(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, int idArea) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
+        this.email = email;
+        this.idArea = idArea;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -94,6 +84,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", email=" + email + ", idArea=" + idArea + '}';
+        return "Empleado{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", email=" + email + ", idArea=" + idArea + '}';
     }
+    
 }

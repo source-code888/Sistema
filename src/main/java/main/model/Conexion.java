@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    private static final String dbName = "procidatabase";
+    private static final String dbName = "sistema_bd";
     private static final String URL = "jdbc:mysql://localhost:3306/" + dbName + "?useSSL=false&useTimezone=true";
     private Connection conn;
 
