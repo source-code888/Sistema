@@ -6,22 +6,22 @@ public class Usuario {
     private int idUsuario;
     private String usuario;
     private String password;
-    private int id;
-
-    public Usuario(int idUsuario, String usuario, String password, int id) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
-        this.password = password;
-        this.id = id;
-    }
+    private int idEmpleado;
 
     public Usuario() {
     }
 
-    public Usuario(String usuario, String password, int id) {
+    public Usuario(int idUsuario, String usuario, String password, int idEmpleado) {
+        this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.password = password;
-        this.id = id;
+        this.idEmpleado = idEmpleado;
+    }
+
+    public Usuario(String usuario, String password, int idEmpleado) {
+        this.usuario = usuario;
+        this.password = password;
+        this.idEmpleado = idEmpleado;
     }
 
     public int getIdUsuario() {
@@ -48,17 +48,17 @@ public class Usuario {
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public int getIdEmpleado() {
+        return idEmpleado;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", password=" + password + ", id=" + id + '}';
+        return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", password=" + password + ", idEmpleado=" + idEmpleado + '}';
     }
-
+    
 }
