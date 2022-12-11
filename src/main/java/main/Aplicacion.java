@@ -11,7 +11,5 @@ public class Aplicacion {
        l.setResizable(false);
        l.setLocationRelativeTo(l);
        l.setVisible(true);
-       
-        System.out.println("kakatronika");
     }
 }
