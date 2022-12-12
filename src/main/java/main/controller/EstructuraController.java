@@ -19,20 +19,18 @@ import main.view.Estructura;
  *
  * @author heber
  */
-public class EstructuraController implements ActionListener, MenuListener, MouseListener {
+public class EstructuraController implements ActionListener, MouseListener {
     
     private Estructura estructura;
     private JMenu ajustes;
     private JMenu cerrar;
-    private JPopupMenu menuAjustes;
 
-    public EstructuraController(Estructura estructura, JMenu ajustes, JMenu cerrar, JPopupMenu menuAjustes ) {
+    public EstructuraController(Estructura estructura, JMenu ajustes, JMenu cerrar) {
         
         super();
         this.estructura = estructura;
         this.ajustes = ajustes;
         this.cerrar = cerrar;
-        this.menuAjustes = menuAjustes;
     }
 
     @Override
@@ -45,24 +43,6 @@ public class EstructuraController implements ActionListener, MenuListener, Mouse
                 estructura.dispose();
             }
         }
-    }
-
-    @Override
-    public void menuSelected(MenuEvent e) {
-        JMenu source = (JMenu) e.getSource();
-        if (source.getText().equals("Ajustes")) {
-            source.setComponentPopupMenu(menuAjustes);
-        }
-    }
-
-    @Override
-    public void menuDeselected(MenuEvent e) {
-        
-    }
-
-    @Override
-    public void menuCanceled(MenuEvent e) {
-        //POR HACER
     }
 
     @Override
