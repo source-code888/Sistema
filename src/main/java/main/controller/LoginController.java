@@ -132,6 +132,9 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                     labels.get(0).setText("Ingresa tu nombre de usuario");
                     labels.get(0).setForeground(Color.red);
                 }
+                if (e.getKeyChar() == '\n') {
+                txtPassword.requestFocus();
+                }
 
             }
         }
