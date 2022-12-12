@@ -72,6 +72,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                             //La contraseña y el usuario corresponden a una cuenta
                             limpiarLoginText();
                             System.out.println("Inicio de sesion exitoso");
+                            //LO QUE SE VA A HACER UNA VEZ SE INICIE SESION
                         }else{
                             txtPassword.setText("");
                             labels.get(2).setVisible(true);
