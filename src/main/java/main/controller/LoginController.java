@@ -14,7 +14,7 @@ import main.model.UsuarioDAO;
 import main.view.Login;
 
 public class LoginController implements ActionListener, KeyListener, FocusListener {
-    
+
     private Login login;
     private UsuarioDAO usuario;
 
@@ -23,7 +23,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
     private JTextField txtUsuario;
     private JPasswordField txtPassword;
     private List<JLabel> labels;
-    
+
     public LoginController(Login login, JButton btnAceptar, JTextField txtUsuario, JPasswordField txtPassword, List<JLabel> labels) {
         super();
         this.login = login;
@@ -33,7 +33,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
         this.labels = labels;
         usuario = new UsuarioDAO();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
@@ -79,7 +79,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
             }
         }
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
         Object obj = e.getSource();
@@ -92,11 +92,11 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
             }
         }
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
     }
-    
+
     @Override
     public void keyReleased(KeyEvent e) {
         Object obj = e.getSource();
@@ -114,7 +114,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                     labels.get(0).setText("Ingresa tu nombre de usuario");
                     labels.get(0).setForeground(Color.red);
                 }
-                
+
             }
         }
         if (obj instanceof JPasswordField) {
@@ -130,11 +130,11 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
             }
         }
     }
-    
+
     @Override
     public void focusGained(FocusEvent e) {
     }
-    
+
     @Override
     public void focusLost(FocusEvent e) {
         Object obj = e.getSource();
@@ -157,5 +157,5 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
             }
         }
     }
-    
+
 }
