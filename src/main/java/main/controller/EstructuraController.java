@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.event.MenuEvent;
@@ -36,20 +37,19 @@ public class EstructuraController implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
        Object source = e.getSource();
-        System.out.println("hola");
-        if (source instanceof JMenu) {
-            System.out.println("sisisi");
-            if (((JMenu) source).getText().equals("cerrar")) {
-                estructura.dispose();
-            }
+       
+        if (source instanceof JMenuItem) {//Si es un JMenuItem entra aqui 
+            //System.out.println("MENU ITEM");  VERIFICANDO QUE FUNCIONE
+            
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Object source = e.getSource();
-        if (source instanceof JMenu) {
+        Object source = e.getSource();//el objeto que fue clickeado
+        if (source instanceof JMenu) {//si es un JMenu entra aqui
             if (((JMenu) source).getText().equals("Cerrar")) {
+                //Le pregunta si esta seguro de cerrar con un JOption pane
                 if (JOptionPane.showConfirmDialog(estructura, "¿Estas seguro de cerrar el programa?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
                     estructura.dispose();
                 }
