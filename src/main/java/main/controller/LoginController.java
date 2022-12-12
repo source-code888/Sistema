@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
 import main.model.UsuarioDAO;
+import main.view.Estructura;
 import main.view.Login;
 
 public class LoginController implements ActionListener, KeyListener, FocusListener {
@@ -72,7 +73,11 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                             //La contraseña y el usuario corresponden a una cuenta
                             limpiarLoginText();
                             System.out.println("Inicio de sesion exitoso");
-                            //LO QUE SE VA A HACER UNA VEZ SE INICIE SESION
+                            Estructura estructura = new Estructura();
+                            estructura.setResizable(false);
+                            estructura.setLocationRelativeTo(estructura);
+                            estructura.setVisible(true);
+                            login.setVisible(false);
                         }else{
                             txtPassword.setText("");
                             labels.get(2).setVisible(true);
