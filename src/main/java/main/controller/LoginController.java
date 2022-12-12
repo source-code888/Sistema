@@ -40,6 +40,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
         if (obj instanceof JButton) {
             JButton btn = (JButton) obj;
             if (btn.getText().equals("Aceptar")) {
+                //System.out.println(e.getActionCommand() + " \\\\ " + e.getID());
                 if (String.valueOf(txtPassword.getPassword()).isBlank() && txtUsuario.getText().isBlank()) {
                     labels.get(0).setText("Ingresa tu nombre de usuario");
                     labels.get(0).setForeground(Color.red);
@@ -47,7 +48,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                     labels.get(1).setForeground(Color.red);
                     txtUsuario.requestFocus();
                 } else if (String.valueOf(txtPassword.getPassword()).isBlank()) {
-                    labels.get(1).setText("Ingresa tu ncontraseña");
+                    labels.get(1).setText("Ingresa tu contraseña");
                     labels.get(1).setForeground(Color.red);
                     txtPassword.requestFocus();
                 } else if (txtUsuario.getText().isBlank()) {
@@ -57,27 +58,42 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                 } else {
                     String password = String.valueOf(txtPassword.getPassword());
                     String usuarioTxt = txtUsuario.getText();
-                    int count = usuario.usuarios().stream().filter(
+                    boolean existeUsuario = usuario.usuarios().stream().filter(
                             usuario -> usuario.getUsuario().equals(usuarioTxt)
-                            && usuario.getPassword().equals(password)
-                    ).collect(Collectors.toList()).size();
-                    if (count == 1) {
+                    //&& usuario.getPassword().equals(password)
+                    ).collect(Collectors.toList()).size() == 1;
+                    if (existeUsuario) {
                         //Quiere decir q el usuario existe
-                        txtUsuario.setText("");
-                        txtPassword.setText("");
-                        //Lo que vayamos a implementar
+                        boolean contrasenaCorrecta = usuario.usuarios().stream().filter(
+                                usuario -> usuario.getUsuario().equals(usuarioTxt)
+                                        && usuario.getPassword().equals(password)
+                        ).collect(Collectors.toList()).size() == 1;
+                        if (contrasenaCorrecta) {
+                            //La contraseña y el usuario corresponden a una cuenta
+                            limpiarLoginText();
+                            System.out.println("Inicio de sesion exitoso");
+                        }else{
+                            txtPassword.setText("");
+                            labels.get(2).setVisible(true);
+                            labels.get(2).setText("Contraseña incorrecta");
+                            labels.get(2).setForeground(Color.red);
+                        }
                     } else {
                         //El label mensaje
-                        txtUsuario.setText("");
-                        txtPassword.setText("");
+                        limpiarLoginText();
                         labels.get(2).setVisible(true);
-                        labels.get(2).setText("Usuario no encontrado");
+                        labels.get(2).setText("El usuario no existe");
                         labels.get(2).setForeground(Color.red);
                         txtUsuario.requestFocus();
                     }
                 }
             }
         }
+    }
+
+    private void limpiarLoginText() {
+        txtUsuario.setText("");
+        txtPassword.setText("");
     }
 
     @Override
@@ -90,6 +106,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                     e.consume();
                 }
             }
+            
         }
     }
 
@@ -119,6 +136,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
         }
         if (obj instanceof JPasswordField) {
             JPasswordField pwd = (JPasswordField) obj;
+            
             if (pwd.equals(txtPassword)) {
                 if (!String.valueOf(txtPassword.getPassword()).isBlank()) {
                     labels.get(1).setText("Contraseña");
@@ -127,6 +145,10 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                     labels.get(1).setText("Ingresa tu contraseña");
                     labels.get(1).setForeground(Color.red);
                 }
+            }
+            if (e.getKeyChar() == '\n') {
+                actionPerformed(new ActionEvent(btnAceptar, 1001 , "Aceptar"));
+                
             }
         }
     }
