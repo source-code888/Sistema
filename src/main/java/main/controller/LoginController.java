@@ -74,10 +74,11 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                             limpiarLoginText();
                             System.out.println("Inicio de sesion exitoso");
                             Estructura estructura = new Estructura();
+                            System.out.println("kakaka");
                             estructura.setResizable(false);
                             estructura.setLocationRelativeTo(estructura);
                             estructura.setVisible(true);
-                            login.setVisible(false);
+                            login.dispose();
                         }else{
                             txtPassword.setText("");
                             labels.get(2).setVisible(true);
