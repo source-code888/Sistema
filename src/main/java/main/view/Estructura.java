@@ -117,6 +117,8 @@ public class Estructura extends javax.swing.JFrame {
         jMenuAjustes.setText("Ajustes");
         jMenuBar.add(jMenuAjustes);
 
+        EstructuraController estructuraController = new EstructuraController(this, jMenuAjustes, jMenuCerrar);
+        this.jMenuCerrar.addActionListener(estructuraController);
         jMenuCerrar.setText("Cerrar");
         jMenuBar.add(jMenuCerrar);
 

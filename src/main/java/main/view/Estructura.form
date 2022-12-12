@@ -13,6 +13,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cerrar"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController estructuraController = new EstructuraController(this, jMenuAjustes, jMenuCerrar);&#xa;this.jMenuCerrar.addActionListener(estructuraController);"/>
+          </AuxValues>
         </Menu>
       </SubComponents>
     </Menu>
