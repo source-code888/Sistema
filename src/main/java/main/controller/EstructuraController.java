@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -40,8 +41,37 @@ public class EstructuraController implements ActionListener, MouseListener {
        
         if (source instanceof JMenuItem) {//Si es un JMenuItem entra aqui 
             //System.out.println("MENU ITEM");  VERIFICANDO QUE FUNCIONE
+            if (((JMenuItem) source).getText().equals("Area")) {
+                //POR HACER PROCEDIMIENTO PARA HACER EL INGESO, EDICION Y AJUSTES DE LAS AREAS
+            }
+            switch (((JMenuItem) source).getText()){
+                case "Areas":
+                    System.out.println("AREA");
+                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
+                    //HACER VISTA
+                    break;
+                case "Clasificaciones":
+                    System.out.println("CLASIFICACIONES");
+                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
+                    //HACER VISTA
+                    break;
+                case "Tiendas":
+                    System.out.println("TIENDAS");
+                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
+                    //HACER VISTA
+                    break;
+                case "Unidades":
+                    System.out.println("UNIDADES");
+                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
+                    //HACER VISTA
+                    break;
+                default:
+                    System.out.println(((JMenuItem) source).getText());
+                    
+            }
             
         }
+       
     }
 
     @Override
