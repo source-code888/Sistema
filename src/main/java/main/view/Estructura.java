@@ -17,7 +17,7 @@ public class Estructura extends javax.swing.JFrame {
         tabbedPane = new javax.swing.JTabbedPane();
         panelMateriales = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTblMateriales = new javax.swing.JTable();
         btnAgregarNuevoMaterial = new javax.swing.JButton();
         panelSalidas = new javax.swing.JPanel();
         panelEmpleados = new javax.swing.JPanel();
@@ -31,7 +31,7 @@ public class Estructura extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTblMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -57,15 +57,16 @@ public class Estructura extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jTblMateriales.getTableHeader().setReorderingAllowed(false);
+        jTblMateriales.setSelectionMode(0);
+        jScrollPane1.setViewportView(jTblMateriales);
+        if (jTblMateriales.getColumnModel().getColumnCount() > 0) {
+            jTblMateriales.getColumnModel().getColumn(0).setResizable(false);
+            jTblMateriales.getColumnModel().getColumn(1).setResizable(false);
+            jTblMateriales.getColumnModel().getColumn(2).setResizable(false);
+            jTblMateriales.getColumnModel().getColumn(3).setResizable(false);
+            jTblMateriales.getColumnModel().getColumn(4).setResizable(false);
+            jTblMateriales.getColumnModel().getColumn(5).setResizable(false);
         }
 
         EstructuraController controller = new EstructuraController(this);
@@ -178,7 +179,7 @@ public class Estructura extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuCerrar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTblMateriales;
     private javax.swing.JMenuItem menuItemAreas;
     private javax.swing.JMenuItem menuItemClasificaciones;
     private javax.swing.JMenuItem menuItemTiendas;

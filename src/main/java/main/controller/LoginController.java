@@ -72,9 +72,8 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                         if (contrasenaCorrecta) {
                             //La contraseña y el usuario corresponden a una cuenta
                             limpiarLoginText();
-                            System.out.println("Inicio de sesion exitoso");
+                            //System.out.println("Inicio de sesion exitoso");
                             Estructura estructura = new Estructura();
-                            System.out.println("kakaka");
                             estructura.setResizable(false);
                             estructura.setLocationRelativeTo(estructura);
                             estructura.setVisible(true);

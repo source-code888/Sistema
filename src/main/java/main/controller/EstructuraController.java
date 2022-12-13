@@ -16,6 +16,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import main.view.Estructura;
+import main.view.TablasBase;
 
 /**
  *
@@ -45,8 +46,10 @@ public class EstructuraController implements ActionListener, MouseListener {
             switch (((JMenuItem) source).getText()){
                 case "Areas":
                     System.out.println("AREA");
-                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
-                    //HACER VISTA
+                    TablasBase tablaArea = new TablasBase();
+                    tablaArea.setLocationRelativeTo(estructura);
+                    tablaArea.setResizable(false);
+                    tablaArea.setVisible(true);
                     break;
                 case "Clasificaciones":
                     System.out.println("CLASIFICACIONES");
