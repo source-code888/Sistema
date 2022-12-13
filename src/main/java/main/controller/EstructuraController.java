@@ -46,25 +46,31 @@ public class EstructuraController implements ActionListener, MouseListener {
             switch (((JMenuItem) source).getText()){
                 case "Areas":
                     System.out.println("AREA");
-                    TablasBase tablaArea = new TablasBase();
+                    TablasBase tablaArea = new TablasBase("Area");
                     tablaArea.setLocationRelativeTo(estructura);
                     tablaArea.setResizable(false);
                     tablaArea.setVisible(true);
                     break;
                 case "Clasificaciones":
                     System.out.println("CLASIFICACIONES");
-                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
-                    //HACER VISTA
+                    TablasBase tablaBase = new TablasBase("Clasificacion");
+                    tablaBase.setLocationRelativeTo(estructura);
+                    tablaBase.setResizable(false);
+                    tablaBase.setVisible(true);
                     break;
                 case "Tiendas":
                     System.out.println("TIENDAS");
-                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
-                    //HACER VISTA
+                    TablasBase tablaTienda = new TablasBase("Tienda");
+                    tablaTienda.setLocationRelativeTo(estructura);
+                    tablaTienda.setResizable(false);
+                    tablaTienda.setVisible(true);
                     break;
                 case "Unidades":
                     System.out.println("UNIDADES");
-                    //FALTA HACER EL INGRESO DE TODAS ESTAS A LA BASE DE DATOS
-                    //HACER VISTA
+                    TablasBase tablaUnidad = new TablasBase("Unidad");
+                    tablaUnidad.setLocationRelativeTo(estructura);
+                    tablaUnidad.setResizable(false);
+                    tablaUnidad.setVisible(true);
                     break;
                 default:
                     System.out.println(((JMenuItem) source).getText());

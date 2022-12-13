@@ -6,6 +6,7 @@ package main.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import main.view.TablasBase;
 
 /**
@@ -22,6 +23,11 @@ public class TablasBaseController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        Object source = e.getSource();
+        if (source instanceof JButton) {
+            if (((JButton) source).getText().equals("Aceptar")) {
+                tablaBase.dispose();
+            }
+        }
     }
 }
