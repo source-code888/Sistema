@@ -7,22 +7,9 @@ public class Estructura extends javax.swing.JFrame {
 
     public Estructura() {
         initComponents();
-       // inicializarMenu();
+     
     }
     
-    /*private void inicializarMenu(){
-        JMenuItem tienda = new JMenuItem("Tienda");
-        JMenuItem unidad = new JMenuItem("Unidad");
-        JMenuItem clasificacion = new JMenuItem("Clasificacion");
-        JMenuItem area = new JMenuItem("Area");
-        
-        popMenuAjustes.add(area);
-        popMenuAjustes.add(clasificacion);
-        popMenuAjustes.add(tienda);
-        popMenuAjustes.add(unidad);
-        System.out.println("BBBBBBB");
-        jMenuAjustes.setComponentPopupMenu(popMenuAjustes);
-    }*/
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
