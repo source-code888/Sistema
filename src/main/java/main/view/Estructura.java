@@ -68,7 +68,7 @@ public class Estructura extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        EstructuraController controller = new EstructuraController(this, jMenuAjustes, jMenuCerrar);
+        EstructuraController controller = new EstructuraController(this);
         btnAgregarNuevoMaterial.setText("Agregar Nuevo Material");
         this.jMenuAjustes.addMouseListener(controller);
         this.jMenuCerrar.addMouseListener(controller);

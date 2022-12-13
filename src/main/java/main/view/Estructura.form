@@ -183,7 +183,7 @@
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this, jMenuAjustes, jMenuCerrar);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);"/>
               </AuxValues>
             </Component>
           </SubComponents>
