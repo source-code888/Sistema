@@ -27,12 +27,10 @@ public class EstructuraController implements ActionListener, MouseListener {
     private JMenu ajustes;
     private JMenu cerrar;
 
-    public EstructuraController(Estructura estructura, JMenu ajustes, JMenu cerrar) {
+    public EstructuraController(Estructura estructura) {
         
         super();
         this.estructura = estructura;
-        this.ajustes = ajustes;
-        this.cerrar = cerrar;
     }
 
     @Override
