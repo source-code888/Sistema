@@ -210,6 +210,7 @@ public class TablasBase extends javax.swing.JFrame {
         this.tbBase.addKeyListener(controller);
         this.btnAgregar.addActionListener(controller);
         this.txtNombre.addKeyListener(controller);
+        this.txtBuscador.addKeyListener(controller);
         this.btnEliminar.addActionListener(controller);
         this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
         this.setAutoRequestFocus(true);
