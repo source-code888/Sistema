@@ -7,6 +7,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
@@ -14,24 +16,31 @@ import main.model.UsuarioDAO;
 import main.view.Estructura;
 import main.view.Login;
 
-public class LoginController implements ActionListener, KeyListener, FocusListener {
+public class LoginController extends MouseAdapter implements ActionListener, KeyListener, FocusListener {
 
     private Login login;
     private UsuarioDAO usuario;
 
     //ELEMENTOS VISIBLES EN EL JFRAME
     private JButton btnAceptar;
+    private JButton btnClose;
     private JTextField txtUsuario;
     private JPasswordField txtPassword;
     private List<JLabel> labels;
-
-    public LoginController(Login login, JButton btnAceptar, JTextField txtUsuario, JPasswordField txtPassword, List<JLabel> labels) {
+    private JPanel header;
+    private int xMouse;
+    private int yMouse;
+    private JButton btnMinimizar;
+    public LoginController(Login login, JButton btnAceptar,JButton btnClose,JButton btnMinimizar, JTextField txtUsuario, JPasswordField txtPassword, List<JLabel> labels, JPanel header) {
         super();
         this.login = login;
         this.btnAceptar = btnAceptar;
+        this.btnClose = btnClose;
+        this.btnMinimizar = btnMinimizar;
         this.txtUsuario = txtUsuario;
         this.txtPassword = txtPassword;
         this.labels = labels;
+        this.header = header;
         usuario = new UsuarioDAO();
     }
 
@@ -94,6 +103,12 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                     }
                 }
             }
+            if(btn.equals(btnClose)){
+                System.exit(0);
+            }
+            if(btn.equals(btnMinimizar)){
+                login.setExtendedState(JFrame.ICONIFIED);
+            }
         }
     }
 
@@ -108,7 +123,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
         if (obj instanceof JPasswordField) {
             JPasswordField pwd = (JPasswordField) obj;
             if (pwd.equals(txtPassword)) {
-                if (String.valueOf(txtPassword.getPassword()).length() > 8) {
+                if (String.valueOf(txtPassword.getPassword()).length() > 7) {
                     e.consume();
                 }
             }
@@ -132,7 +147,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
                         labels.get(2).setVisible(false);
                     }
                     labels.get(0).setText("Usuario");
-                    labels.get(0).setForeground(Color.black);
+                    labels.get(0).setForeground(new Color(102,102,102));
                 } else {
                     labels.get(0).setText("Ingresa tu nombre de usuario");
                     labels.get(0).setForeground(Color.red);
@@ -149,7 +164,7 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
             if (pwd.equals(txtPassword)) {
                 if (!String.valueOf(txtPassword.getPassword()).isBlank()) {
                     labels.get(1).setText("Contraseña");
-                    labels.get(1).setForeground(Color.black);
+                    labels.get(1).setForeground(new Color(102,102,102));
                 } else {
                     labels.get(1).setText("Ingresa tu contraseña");
                     labels.get(1).setForeground(Color.red);
@@ -188,5 +203,28 @@ public class LoginController implements ActionListener, KeyListener, FocusListen
             }
         }
     }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        Object obj = e.getSource();
+        if (obj instanceof JPanel) {
+            JPanel panel = (JPanel) obj;
+            if (panel.equals(header)) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                login.setLocation(x - xMouse, y - yMouse);
+            }
+        }
+    }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+        Object obj = e.getSource();
+        if (obj instanceof JPanel) {
+            JPanel panel = (JPanel) obj;
+            if (panel.equals(header)) {
+                xMouse = e.getX();
+                yMouse = e.getY();
+            }
+        }
+    }
 }

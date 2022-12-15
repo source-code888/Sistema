@@ -73,7 +73,7 @@ public class EstructuraController extends MouseAdapter implements ActionListener
             if (((JMenu) source).getText().equals("Cerrar")) {
                 //Le pregunta si esta seguro de cerrar con un JOption pane
                 if (JOptionPane.showConfirmDialog(estructura, "¿Estas seguro de cerrar el programa?", "Aviso", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
-                    estructura.dispose();
+                    System.exit(0);
                 }
             }
         }

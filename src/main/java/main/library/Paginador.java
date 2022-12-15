@@ -1,10 +1,10 @@
-
 package main.library;
 
 import java.util.List;
 import javax.swing.JLabel;
 
-public class Paginador <T>{
+public class Paginador<T> {
+
     private final List<T> dataList;
     private final JLabel lbl;
     private static int maxReg;
