@@ -51,4 +51,18 @@ public class ClasificacionDAO extends Conexion {
             ex.printStackTrace(System.out);
         }
     }
+    
+    public void remove(int idRegistro, Object[] data) throws SQLException {
+        try {
+            final QueryRunner qr = new QueryRunner();
+            getConn().setAutoCommit(false);
+            String sqlRemove = "DELETE FROM `sistema_bd`.`clasificacion` WHERE (`id` = '" + idRegistro +"');";
+            qr.execute(getConn(), sqlRemove);
+            getConn().commit();
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+            getConn().rollback();
+            ex.printStackTrace(System.out);
+        }
+    }
 }
