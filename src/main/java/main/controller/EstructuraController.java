@@ -44,14 +44,10 @@ public class EstructuraController extends MouseAdapter implements ActionListener
                     break;
                 case "Tiendas":
                     //Tiendas
-<<<<<<< Updated upstream
                     TablasBase tablaTienda = new TablasBase("Tienda");
                     tablaTienda.setLocationRelativeTo(estructura);
                     tablaTienda.setResizable(false);
                     tablaTienda.setVisible(true);
-=======
-                    tablaBase("Tienda");
->>>>>>> Stashed changes
                     break;
                 case "Unidades":
                     //Unidad
