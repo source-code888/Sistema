@@ -55,7 +55,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         this.header = header;
         this.spinner = spinner;
         labels.get(0).setText(titulo);
-        reestablecer(false);
+        reestablecer();
     }
 
     @Override
@@ -65,48 +65,67 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
             JButton btn = (JButton) source;
             if (btn.equals(buttons.get(0))) {
                 //Agregar
-                System.out.println("Agregar");
                 if (!textFields.get(0).getText().isBlank()) {
                     if (accion.equals("insert")) {
                         //Conocer la tabla
-                        Object[] data = {
-                            textFields.get(0).getText()
-                        };
-                        try {
-                            if (titulo.equals("Area")) {
-                                new AreaDAO().insert(data);
-                            } else if (titulo.equals("Clasificacion")) {
-                                new ClasificacionDAO().insert(data);
-                            } else if (titulo.equals("Tienda")) {
-                                new TiendaDAO().insert(data);
-                            } else if (titulo.equals("Unidad")) {
-                                new UnidadDAO().insert(data);
+                        boolean existe = !lista.stream().filter(
+                                base
+                                -> base.getNombre().equals(textFields.get(0).getText())
+                        ).collect(Collectors.toList()).isEmpty();
+                        if (!existe) {
+                            Object[] data = {
+                                textFields.get(0).getText()
+                            };
+                            try {
+                                if (titulo.equals("Area")) {
+                                    new AreaDAO().insert(data);
+                                } else if (titulo.equals("Clasificacion")) {
+                                    new ClasificacionDAO().insert(data);
+                                } else if (titulo.equals("Tienda")) {
+                                    new TiendaDAO().insert(data);
+                                } else if (titulo.equals("Unidad")) {
+                                    new UnidadDAO().insert(data);
+                                }
+                                reestablecer();
+                            } catch (SQLException ex) {
+                                ex.printStackTrace(System.out);
                             }
-                            reestablecer(false);
-                        } catch (SQLException ex) {
-                            ex.printStackTrace(System.out);
+                        } else {
+                            //PODEMOS MOSTRAR UN MENSAJE DE Q YA EXISTE
+                            JOptionPane.showMessageDialog(null, "Esta " + titulo + " ya existe.");
+                            reestablecer();
                         }
                     } else if (accion.equals("update")) {
-                        Object[] data = {
-                            textFields.get(0).getText()
-                        };
-                        try {
-                            if (titulo.equals("Area")) {
-                                new AreaDAO().update(idRegistro, data);
-                            } else if (titulo.equals("Clasificacion")) {
-                                new ClasificacionDAO().update(idRegistro, data);
-                            } else if (titulo.equals("Tienda")) {
-                                new TiendaDAO().update(idRegistro, data);
-                            } else if (titulo.equals("Unidad")) {
-                                new UnidadDAO().update(idRegistro, data);
+                        boolean existe = !lista.stream().filter(
+                                base
+                                -> base.getNombre().equals(textFields.get(0).getText())
+                        ).collect(Collectors.toList()).isEmpty();
+                        if (!existe) {
+                            Object[] data = {
+                                textFields.get(0).getText()
+                            };
+                            try {
+                                if (titulo.equals("Area")) {
+                                    new AreaDAO().update(idRegistro, data);
+                                } else if (titulo.equals("Clasificacion")) {
+                                    new ClasificacionDAO().update(idRegistro, data);
+                                } else if (titulo.equals("Tienda")) {
+                                    new TiendaDAO().update(idRegistro, data);
+                                } else if (titulo.equals("Unidad")) {
+                                    new UnidadDAO().update(idRegistro, data);
+                                }
+                                reestablecer();
+                            } catch (SQLException ex) {
+                                ex.printStackTrace(System.out);
                             }
-                            reestablecer(false);
-                        } catch (SQLException ex) {
-                            ex.printStackTrace(System.out);
+                        } else {
+                            //SE PUEDE PONER UN MENSAJE
+                            JOptionPane.showMessageDialog(null, "Esta " + titulo + " ya existe.");
+                            reestablecer();
                         }
                     }
                 } else {
-                    reestablecer(false);
+                    reestablecer();
                 }
             }
             if (btn.equals(buttons.get(1))) {
@@ -124,7 +143,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                     } else if (titulo.equals("Unidad")) {
                         new UnidadDAO().remove(idRegistro, data);
                     }
-                    reestablecer(false);
+                    reestablecer();
                 } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                 }
@@ -177,7 +196,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         }
     }
 
-    private void buscar(String data, boolean estricto) {
+    private void buscar(String data) {
         List<TablaBase> filter;
         String titulos[] = {
             "ID",
@@ -185,11 +204,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         };
         defaultTableModel = new DefaultTableModel(null, titulos);
         int start = (pagNum - 1) * rows;
-        if (estricto) {
-            filter = lista.stream().filter(base
-                    -> base.getNombre().equalsIgnoreCase(data)
-            ).skip(start).limit(rows).collect(Collectors.toList());
-        } else if (data.equals("")) {
+        if (data.equals("")) {
             filter = lista.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = lista.stream().filter(base
@@ -264,7 +279,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                 }
             }
         }
-        buscar("", false);
+        buscar("");
     }
 
     private void mostrarRegistrosPorPagina() {
@@ -274,17 +289,15 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         if (!lista.isEmpty()) {
             paginador = new Paginador<>(lista, labels.get(4), rows);
         }
-        buscar("", false);
+        buscar("");
     }
 
-    private void reestablecer(boolean buscador) {
+    private void reestablecer() {
         accion = "insert";
         textFields.get(0).setText("");
-        if (!buscador) {
-            textFields.get(1).setText("");
-            textFields.get(0).requestFocus();
-        }
-        //textFields.get(1).setText("");
+        textFields.get(1).setText("");
+        textFields.get(0).requestFocus();
+        textFields.get(1).setText("");
         labels.get(0).setText(titulo);
         labels.get(0).setForeground(Color.black);
         labels.get(1).setText("Nombre:");
@@ -295,12 +308,13 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         labels.get(3).setForeground(Color.black);
         labels.get(4).setText("Paginas");
         labels.get(4).setForeground(Color.black);
+        inicializarLista();
         if (!lista.isEmpty()) {
             paginador = new Paginador<>(lista, labels.get(4), rows);
         }
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(numberModel);
-        buscar("", false);
+        buscar("");
         mostrarRegistrosPorPagina();
         buttons.get(1).setVisible(false);
     }
@@ -332,7 +346,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(1))) {
-                reestablecer(true);
+                buscar(textFields.get(1).getText());
             }
         }
         if (obj instanceof JTable) {

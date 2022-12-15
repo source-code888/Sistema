@@ -250,6 +250,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 objetosUnidad[i] = unidades.get(i).getNombre();
             }
             DefaultComboBoxModel boxModelU = new DefaultComboBoxModel(objetosUnidad);
+            boxModelU.setSelectedItem(null);
             combos.get(0).setModel(boxModelU);
         } else if (data.equals("clasificacion")) {
             var clasificaciones = new ClasificacionDAO().clasificaciones();
@@ -258,6 +259,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 objetosClasificacion[i] = clasificaciones.get(i).getNombre();
             }
             DefaultComboBoxModel boxModelC = new DefaultComboBoxModel(objetosClasificacion);
+            boxModelC.setSelectedItem(null);
             combos.get(1).setModel(boxModelC);
         } else if (data.equals("tienda")) {
             var tiendas = new TiendaDAO().tiendas();
@@ -266,6 +268,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 objetosTienda[i] = tiendas.get(i).getNombre();
             }
             DefaultComboBoxModel boxModelT = new DefaultComboBoxModel(objetosTienda);
+            boxModelT.setSelectedItem(null);
             combos.get(2).setModel(boxModelT);
         }
     }
