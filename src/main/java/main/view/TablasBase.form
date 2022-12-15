@@ -38,8 +38,8 @@
               <Component id="header" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" max="32767" attributes="0"/>
                   <Component id="jPanel2" max="32767" attributes="0"/>
+                  <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -60,22 +60,26 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <Component id="jScrollPane1" pref="480" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtBuscador" min="-2" pref="250" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtBuscador" min="-2" pref="250" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="lblPaginadorReg" max="32767" attributes="0"/>
-                              <Component id="spinner" max="32767" attributes="0"/>
+                              <Component id="spinner" min="-2" pref="113" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnPrimero" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnAnterior" min="-2" pref="32" max="-2" attributes="0"/>
@@ -84,13 +88,11 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnUltimo" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="lblPaginador" max="32767" attributes="0"/>
+                              <Component id="lblPaginador" min="-2" pref="164" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" alignment="0" pref="480" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -103,21 +105,26 @@
                       <Component id="txtBuscador" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="229" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblPaginadorReg" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblPaginador" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblPaginador" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnPrimero" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnAnterior" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnSiguiente" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnUltimo" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblPaginadorReg" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="spinner" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="spinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnPrimero" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="btnAnterior" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="btnSiguiente" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="btnUltimo" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -197,16 +204,16 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnEliminar" min="-2" pref="48" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnAgregar" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="btnAgregar" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="lblNombre" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtNombre" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -224,12 +231,12 @@
                   <Component id="lblNombre" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnAgregar" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace pref="276" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnEliminar" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnAgregar" min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -245,9 +252,6 @@
         <Component class="javax.swing.JTextField" name="txtNombre">
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar"/>
-          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btnEliminar.setVisible(false);"/>
           </AuxValues>
@@ -284,7 +288,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;close.png&quot;)));&#xa;this.header.addMouseListener(controller);&#xa;this.header.addMouseMotionListener(controller);&#xa;this.btnClose.addActionListener(controller);&#xa;this.btnAgregar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;add.png&quot;)));&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.spinner.addChangeListener(controller);&#xa;this.btnPrimero.addActionListener(controller);&#xa;this.btnAnterior.addActionListener(controller);&#xa;this.btnSiguiente.addActionListener(controller);&#xa;this.btnUltimo.addActionListener(controller);&#xa;this.tbBase.addMouseListener(controller);&#xa;this.tbBase.addKeyListener(controller);&#xa;this.btnAgregar.addActionListener(controller);&#xa;this.txtNombre.addKeyListener(controller);&#xa;this.btnEliminar.addActionListener(controller);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;close.png&quot;)));&#xa;this.header.addMouseListener(controller);&#xa;this.header.addMouseMotionListener(controller);&#xa;this.btnClose.addActionListener(controller);&#xa;this.btnAgregar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.spinner.addChangeListener(controller);&#xa;this.btnPrimero.addActionListener(controller);&#xa;this.btnAnterior.addActionListener(controller);&#xa;this.btnSiguiente.addActionListener(controller);&#xa;this.btnUltimo.addActionListener(controller);&#xa;this.tbBase.addMouseListener(controller);&#xa;this.tbBase.addKeyListener(controller);&#xa;this.btnAgregar.addActionListener(controller);&#xa;this.txtNombre.addKeyListener(controller);&#xa;this.btnEliminar.addActionListener(controller);&#xa;this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xa;buttons.add(this.btnAgregar);&#xa;buttons.add(this.btnEliminar);&#xa;buttons.add(this.btnClose);&#xa;buttons.add(this.btnPrimero);&#xa;buttons.add(this.btnAnterior);&#xa;buttons.add(this.btnSiguiente);&#xa;buttons.add(this.btnUltimo);&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xa;textFields.add(this.txtNombre);&#xa;textFields.add(this.txtBuscador);&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xa;labels.add(this.lblTipo);&#xa;labels.add(this.lblNombre);&#xa;labels.add(this.lblBuscar);&#xa;labels.add(this.lblPaginadorReg);&#xa;labels.add(this.lblPaginador);&#xa;TablasBaseController controller = new TablasBaseController(this,titulo, buttons, textFields, labels, tbBase, header, spinner);"/>
           </AuxValues>
         </Component>
