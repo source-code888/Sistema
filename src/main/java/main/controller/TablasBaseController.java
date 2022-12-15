@@ -65,52 +65,59 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
             JButton btn = (JButton) source;
             if (btn.equals(buttons.get(0))) {
                 //Agregar
-                System.out.println("Agregar");
                 if (!textFields.get(0).getText().isBlank()) {
-                    if (accion.equals("insert")) {
-                        //Conocer la tabla
-                        Object[] data = {
-                            textFields.get(0).getText()
-                        };
-                        try {
-                            if (titulo.equals("Area")) {
-                                new AreaDAO().insert(data);
-                            } else if (titulo.equals("Clasificacion")) {
-                                new ClasificacionDAO().insert(data);
-                            } else if (titulo.equals("Tienda")) {
-                                new TiendaDAO().insert(data);
-                            } else if (titulo.equals("Unidad")) {
-                                new UnidadDAO().insert(data);
+                    boolean existe = !lista.stream().filter(
+                            base -> base.getNombre().equals(textFields.get(0).getText()))
+                            .collect(Collectors.toList()).isEmpty();
+                    if (!existe) {
+                        if (accion.equals("insert")) {
+                            //Conocer la tabla
+                            Object[] data = {
+                                textFields.get(0).getText()
+                            };
+                            try {
+                                if (titulo.equals("Area")) {
+                                    new AreaDAO().insert(data);
+                                } else if (titulo.equals("Clasificacion")) {
+                                    new ClasificacionDAO().insert(data);
+                                } else if (titulo.equals("Tienda")) {
+                                    new TiendaDAO().insert(data);
+                                } else if (titulo.equals("Unidad")) {
+                                    new UnidadDAO().insert(data);
+                                }
+                                reestablecer();
+                            } catch (SQLException ex) {
+                                ex.printStackTrace(System.out);
                             }
-                            reestablecer();
-                        } catch (SQLException ex) {
-                            ex.printStackTrace(System.out);
-                        }
-                    } else if (accion.equals("update")) {
-                        Object[] data = {
-                            textFields.get(0).getText()
-                        };
-                        try {
-                            if (titulo.equals("Area")) {
-                                new AreaDAO().update(idRegistro, data);
-                            } else if (titulo.equals("Clasificacion")) {
-                                new ClasificacionDAO().update(idRegistro, data);
-                            } else if (titulo.equals("Tienda")) {
-                                new TiendaDAO().update(idRegistro, data);
-                            } else if (titulo.equals("Unidad")) {
-                                new UnidadDAO().update(idRegistro, data);
+                        } else if (accion.equals("update")) {
+                            Object[] data = {
+                                textFields.get(0).getText()
+                            };
+                            try {
+                                if (titulo.equals("Area")) {
+                                    new AreaDAO().update(idRegistro, data);
+                                } else if (titulo.equals("Clasificacion")) {
+                                    new ClasificacionDAO().update(idRegistro, data);
+                                } else if (titulo.equals("Tienda")) {
+                                    new TiendaDAO().update(idRegistro, data);
+                                } else if (titulo.equals("Unidad")) {
+                                    new UnidadDAO().update(idRegistro, data);
+                                }
+                                reestablecer();
+                            } catch (SQLException ex) {
+                                ex.printStackTrace(System.out);
                             }
-                            reestablecer();
-                        } catch (SQLException ex) {
-                            ex.printStackTrace(System.out);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La " + titulo + " ya existe.");
+                        reestablecer();
                     }
                 } else {
                     reestablecer();
                 }
             }
             if (btn.equals(buttons.get(1))) {
-                //Eliminar");
+                //Eliminar
                 Object[] data = {
                     textFields.get(0).getText()
                 };
@@ -189,7 +196,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
             filter = lista.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = lista.stream().filter(base
-                    -> base.getNombre().equalsIgnoreCase(data)
+                    -> base.getNombre().startsWith(data)
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
@@ -323,6 +330,12 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
     @Override
     public void keyReleased(KeyEvent e) {
         Object obj = e.getSource();
+        if (obj instanceof JTextField) {
+            JTextField txt = (JTextField) obj;
+            if (txt.equals(textFields.get(1))) {
+                buscar(textFields.get(1).getText());
+            }
+        }
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbBase)) {
