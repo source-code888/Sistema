@@ -18,37 +18,26 @@ import javax.swing.JRootPane;
 import main.view.Estructura;
 import main.view.TablasBase;
 
-/**
- *
- * @author heber
- */
-public class JDialogController extends JDialog implements ActionListener, MouseMotionListener , MouseListener{
+public class JDialogController extends JDialog implements ActionListener, MouseMotionListener, MouseListener {
+
     private Estructura estructura;
     private boolean modal;
     private JButton boton;
     private int xMouse;
     private int yMouse;
-    
+
     public JDialogController(Estructura estructura, boolean modal, String nombre) {
         super(estructura, modal);
         this.setUndecorated(true);
         TablasBase tablaBase = new TablasBase(nombre);
         this.getContentPane().add(tablaBase.getComponent(0));
-        System.out.println(this.getContentPane().getComponent(0));
-        System.out.println((((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1)));
-        System.out.println(((JLayeredPane)(((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0));
-        
-        //System.out.println(((JPanel) (((JPanel) ((JLayeredPane)(((JRootPane) (tablaBase.getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2))).getComponent(0));
-        //System.out.println(((JPanel) (((JPanel) ((JLayeredPane)(((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2))).getComponent(0));
-        //System.out.println(((JPanel) (((JPanel) ((JLayeredPane)(((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2))).getComponent(0));
-        boton = (JButton) ((JPanel) (((JPanel) ((JLayeredPane)(((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2))).getComponent(0);
+        boton = (JButton) ((JPanel) (((JPanel) ((JLayeredPane) (((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2))).getComponent(0);
         boton.addActionListener(this);
         this.pack();
         this.setLocationRelativeTo(estructura);
         this.getContentPane().addMouseMotionListener(this);
         this.setVisible(true);
-        
-        
+
     }
 
     @Override
@@ -69,12 +58,12 @@ public class JDialogController extends JDialog implements ActionListener, MouseM
 
     @Override
     public void mouseMoved(MouseEvent e) {
-    
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    
+
     }
 
     @Override
@@ -94,7 +83,5 @@ public class JDialogController extends JDialog implements ActionListener, MouseM
     @Override
     public void mouseExited(MouseEvent e) {
     }
-    
-    
-    
+
 }

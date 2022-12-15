@@ -69,9 +69,9 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                     boolean existe = !lista.stream().filter(
                             base -> base.getNombre().equals(textFields.get(0).getText()))
                             .collect(Collectors.toList()).isEmpty();
-                    if (!existe) {
-                        if (accion.equals("insert")) {
-                            //Conocer la tabla
+                    if (accion.equals("insert")) {
+                        //Conocer la tabla
+                        if (!existe) {
                             Object[] data = {
                                 textFields.get(0).getText()
                             };
@@ -89,7 +89,12 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                             } catch (SQLException ex) {
                                 ex.printStackTrace(System.out);
                             }
-                        } else if (accion.equals("update")) {
+                        } else {
+                            JOptionPane.showMessageDialog(null, "La " + titulo + " ya existe.");
+                            reestablecer();
+                        }
+                    } else if (accion.equals("update")) {
+                        if (!existe) {
                             Object[] data = {
                                 textFields.get(0).getText()
                             };
@@ -107,10 +112,9 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                             } catch (SQLException ex) {
                                 ex.printStackTrace(System.out);
                             }
+                        } else {
+                            reestablecer();
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "La " + titulo + " ya existe.");
-                        reestablecer();
                     }
                 } else {
                     reestablecer();
@@ -335,15 +339,27 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
             if (txt.equals(textFields.get(1))) {
                 buscar(textFields.get(1).getText());
             }
-        }
-        if (obj instanceof JTable) {
-            JTable tb = (JTable) obj;
-            if (tb.equals(tbBase)) {
-                if (tbBase.getSelectedRows().length > 0) {
-                    obtenerRegistro();
+            if (txt.equals(textFields.get(0))) {
+                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    if (tbBase.getSelectedRows().length > 0) {
+                        int index = tbBase.getSelectedRow() + 1;
+                        if (index < tbBase.getRowCount()) {
+                            tbBase.getSelectionModel().setSelectionInterval(index, index);
+                            obtenerRegistro();
+                        }
+                    }
+                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    if (tbBase.getSelectedRows().length > 0) {
+                        int index = tbBase.getSelectedRow() - 1;
+                        if (index >= 0) {
+                            tbBase.getSelectionModel().setSelectionInterval(index, index);
+                            obtenerRegistro();
+                        }
+                    }
                 }
             }
         }
+
     }
 
     @Override
