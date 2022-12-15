@@ -45,6 +45,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
     private JPanel header;
 
     public TablasBaseController(TablasBase tablaBase, String titulo, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbBase, JPanel header, JSpinner spinner) {
+        super();
         this.tablaBase = tablaBase;
         this.titulo = titulo;
         this.buttons = buttons;
@@ -67,6 +68,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                 //Agregar
                 if (!textFields.get(0).getText().isBlank()) {
                     if (accion.equals("insert")) {
+                        //Conocer la tabla
                         Object[] data = {
                             textFields.get(0).getText()
                         };
@@ -108,7 +110,25 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                 }
             }
             if (btn.equals(buttons.get(1))) {
-                //Eliminar
+                //Eliminar");
+                Object[] data = {
+                    textFields.get(0).getText()
+                };
+                try {
+                    if (titulo.equals("Area")) {
+                        new AreaDAO().remove(idRegistro, data);
+                    } else if (titulo.equals("Clasificacion")) {
+                        new ClasificacionDAO().remove(idRegistro, data);
+                    } else if (titulo.equals("Tienda")) {
+                        new TiendaDAO().remove(idRegistro, data);
+                    } else if (titulo.equals("Unidad")) {
+                        new UnidadDAO().remove(idRegistro, data);
+                    }
+                    reestablecer();
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
+                }
+
             }
             if (btn.equals(buttons.get(2))) {
                 tablaBase.dispose();
@@ -276,6 +296,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         spinner.setModel(numberModel);
         buscar("");
         mostrarRegistrosPorPagina();
+        buttons.get(1).setVisible(false);
     }
 
     @Override
@@ -294,6 +315,9 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         int row = tbBase.getSelectedRow();
         idRegistro = (Integer) defaultTableModel.getValueAt(row, 0);
         textFields.get(0).setText((String) defaultTableModel.getValueAt(row, 1));
+        textFields.get(0).requestFocus();
+        buttons.get(1).setVisible(true);
+
     }
 
     @Override
@@ -333,6 +357,15 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
 
     @Override
     public void keyPressed(KeyEvent e) {
+        Object source = e.getSource();
+        if (source instanceof JTextField) {
+            if (source.equals(textFields.get(0))) {
+                if (e.getKeyChar() == '\n') {
+                    actionPerformed(new ActionEvent(buttons.get(0), 1001, ""));
+                }
+            }
+        }
+
     }
 
 }

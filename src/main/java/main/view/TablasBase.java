@@ -204,6 +204,8 @@ public class TablasBase extends javax.swing.JFrame {
         this.tbBase.addMouseListener(controller);
         this.tbBase.addKeyListener(controller);
         this.btnAgregar.addActionListener(controller);
+        this.txtNombre.addKeyListener(controller);
+        this.btnEliminar.addActionListener(controller);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
