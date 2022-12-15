@@ -11,9 +11,9 @@ public class TablasBase extends javax.swing.JFrame {
     private String titulo;
 
     public TablasBase(String nombre) {
+      
         titulo = nombre;
         initComponents();
-
         /**/
     }
 
@@ -170,6 +170,8 @@ public class TablasBase extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
+        header.setForeground(new java.awt.Color(255, 0, 51));
+
         List<JButton> buttons = new ArrayList<>();
         buttons.add(this.btnAgregar);
         buttons.add(this.btnEliminar);
@@ -210,6 +212,9 @@ public class TablasBase extends javax.swing.JFrame {
         this.txtNombre.addKeyListener(controller);
         this.btnEliminar.addActionListener(controller);
         this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
+        this.setAutoRequestFocus(true);
+
+        this.setAlwaysOnTop(true);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -232,7 +237,7 @@ public class TablasBase extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(header, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
