@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -23,47 +24,22 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="57" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="377" max="-2" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="200" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" max="32767" attributes="0"/>
           </Group>
+          <Component id="header" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Component id="header" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" pref="159" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -71,88 +47,248 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="jTblBase">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="4">
-                <Column editable="false" title="ID" type="java.lang.Integer"/>
-                <Column editable="false" title="Area" type="java.lang.String"/>
-              </Table>
-            </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-              </TableColumnModel>
-            </Property>
-            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTblBase.setSelectionMode(0);"/>
-          </AuxValues>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Component class="javax.swing.JButton" name="btnAceptar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Aceptar"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btnAceptar.addActionListener(tablaController);"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="TablasBaseController tablaController = new TablasBaseController(this);"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnEliminar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btnEliminar.setVisible(false);"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Area:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnAgregar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar"/>
-      </Properties>
-    </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtBuscador" min="-2" pref="250" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblPaginadorReg" max="32767" attributes="0"/>
+                              <Component id="spinner" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnPrimero" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnAnterior" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnSiguiente" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnUltimo" min="-2" pref="32" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lblPaginador" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane1" alignment="0" pref="480" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtBuscador" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="229" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblPaginadorReg" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPaginador" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="spinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPrimero" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnAnterior" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnSiguiente" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnUltimo" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="tbBase">
+              <Properties>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                  <Table columnCount="0" rowCount="4"/>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0"/>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbBase.setSelectionMode(0);"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="lblBuscar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtBuscador">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPaginadorReg">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Registros por paginas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="spinner">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPrimero">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAnterior">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSiguiente">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnUltimo">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPaginador">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Paginas"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblTipo" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnAgregar" min="-2" pref="32" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lblNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNombre" alignment="0" min="-2" pref="211" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblTipo" min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblNombre" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAgregar" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblTipo">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblNombre">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtNombre">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnEliminar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btnEliminar.setVisible(false);"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAgregar">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="header">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="btnClose" min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="btnClose" alignment="0" pref="32" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btnClose">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;close.png&quot;)));&#xd;&#xa;this.header.addMouseListener(controller);&#xd;&#xa;this.header.addMouseMotionListener(controller);&#xd;&#xa;this.btnClose.addActionListener(controller);&#xd;&#xa;this.btnAgregar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;add.png&quot;)));&#xd;&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xd;&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xd;&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xd;&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xd;&#xa;this.spinner.addChangeListener(controller);&#xd;&#xa;this.btnPrimero.addActionListener(controller);&#xd;&#xa;this.btnAnterior.addActionListener(controller);&#xd;&#xa;this.btnSiguiente.addActionListener(controller);&#xd;&#xa;this.btnUltimo.addActionListener(controller);&#xd;&#xa;this.tbBase.addMouseListener(controller);&#xd;&#xa;this.tbBase.addKeyListener(controller);&#xd;&#xa;this.btnAgregar.addActionListener(controller);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xd;&#xa;buttons.add(this.btnAgregar);&#xd;&#xa;buttons.add(this.btnEliminar);&#xd;&#xa;buttons.add(this.btnClose);&#xd;&#xa;buttons.add(this.btnPrimero);&#xd;&#xa;buttons.add(this.btnAnterior);&#xd;&#xa;buttons.add(this.btnSiguiente);&#xd;&#xa;buttons.add(this.btnUltimo);&#xd;&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xd;&#xa;textFields.add(this.txtNombre);&#xd;&#xa;textFields.add(this.txtBuscador);&#xd;&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xd;&#xa;labels.add(this.lblTipo);&#xd;&#xa;labels.add(this.lblNombre);&#xd;&#xa;labels.add(this.lblBuscar);&#xd;&#xa;labels.add(this.lblPaginadorReg);&#xd;&#xa;labels.add(this.lblPaginador);&#xd;&#xa;TablasBaseController controller = new TablasBaseController(this,titulo, buttons, textFields, labels, tbBase, header, spinner);"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
     </Container>
   </SubComponents>
 </Form>

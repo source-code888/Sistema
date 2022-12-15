@@ -1,84 +1,69 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import main.view.Estructura;
 import main.view.TablasBase;
 
-/**
- *
- * @author heber
- */
-public class EstructuraController implements ActionListener, MouseListener {
-    
+public class EstructuraController extends MouseAdapter implements ActionListener {
+
     private Estructura estructura;
     private JMenu ajustes;
     private JMenu cerrar;
 
     public EstructuraController(Estructura estructura) {
-        
+
         super();
         this.estructura = estructura;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       Object source = e.getSource();
-       
+        Object source = e.getSource();
+
         if (source instanceof JMenuItem) {//Si es un JMenuItem entra aqui 
             //System.out.println("MENU ITEM");  VERIFICANDO QUE FUNCIONE
             if (((JMenuItem) source).getText().equals("Area")) {
                 //POR HACER PROCEDIMIENTO PARA HACER EL INGESO, EDICION Y AJUSTES DE LAS AREAS
             }
-            switch (((JMenuItem) source).getText()){
+            switch (((JMenuItem) source).getText()) {
                 case "Areas":
-                    System.out.println("AREA");
+                    //Areas
                     TablasBase tablaArea = new TablasBase("Area");
                     tablaArea.setLocationRelativeTo(estructura);
                     tablaArea.setResizable(false);
                     tablaArea.setVisible(true);
                     break;
                 case "Clasificaciones":
-                    System.out.println("CLASIFICACIONES");
+                    //clasificacioes
                     TablasBase tablaBase = new TablasBase("Clasificacion");
                     tablaBase.setLocationRelativeTo(estructura);
                     tablaBase.setResizable(false);
                     tablaBase.setVisible(true);
                     break;
                 case "Tiendas":
-                    System.out.println("TIENDAS");
+                    //Tiendas
                     TablasBase tablaTienda = new TablasBase("Tienda");
                     tablaTienda.setLocationRelativeTo(estructura);
                     tablaTienda.setResizable(false);
                     tablaTienda.setVisible(true);
                     break;
                 case "Unidades":
-                    System.out.println("UNIDADES");
+                    //Unidad
                     TablasBase tablaUnidad = new TablasBase("Unidad");
                     tablaUnidad.setLocationRelativeTo(estructura);
                     tablaUnidad.setResizable(false);
                     tablaUnidad.setVisible(true);
                     break;
-                default:
-                    System.out.println(((JMenuItem) source).getText());
-                    
             }
-            
+
         }
-       
+
     }
 
     @Override
@@ -94,26 +79,4 @@ public class EstructuraController implements ActionListener, MouseListener {
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-    
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-    }
-    
-    
-    
 }
