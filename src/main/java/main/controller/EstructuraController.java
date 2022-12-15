@@ -28,9 +28,6 @@ public class EstructuraController extends MouseAdapter implements ActionListener
 
         if (source instanceof JMenuItem) {//Si es un JMenuItem entra aqui 
             //System.out.println("MENU ITEM");  VERIFICANDO QUE FUNCIONE
-            if (((JMenuItem) source).getText().equals("Area")) {
-                //POR HACER PROCEDIMIENTO PARA HACER EL INGESO, EDICION Y AJUSTES DE LAS AREAS
-            }
             switch (((JMenuItem) source).getText()) {
                 case "Areas":
                     //Areas
