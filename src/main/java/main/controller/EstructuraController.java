@@ -4,9 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import java.util.List;
+import javax.swing.*;
 import main.view.Estructura;
 import main.view.TablasBase;
 
@@ -45,10 +44,14 @@ public class EstructuraController extends MouseAdapter implements ActionListener
                     break;
                 case "Tiendas":
                     //Tiendas
+<<<<<<< Updated upstream
                     TablasBase tablaTienda = new TablasBase("Tienda");
                     tablaTienda.setLocationRelativeTo(estructura);
                     tablaTienda.setResizable(false);
                     tablaTienda.setVisible(true);
+=======
+                    tablaBase("Tienda");
+>>>>>>> Stashed changes
                     break;
                 case "Unidades":
                     //Unidad
@@ -58,7 +61,7 @@ public class EstructuraController extends MouseAdapter implements ActionListener
                     tablaUnidad.setVisible(true);
                     break;
             }
-
+            
         }
 
     }
