@@ -30,36 +30,34 @@ public class EstructuraController extends MouseAdapter implements ActionListener
             switch (((JMenuItem) source).getText()) {
                 case "Areas":
                     //Areas
-                    TablasBase tablaArea = new TablasBase("Area");
-                    tablaArea.setLocationRelativeTo(estructura);
-                    tablaArea.setResizable(false);
-                    tablaArea.setVisible(true);
+                    tablaBase("Area");
                     break;
                 case "Clasificaciones":
                     //clasificacioes
-                    TablasBase tablaBase = new TablasBase("Clasificacion");
-                    tablaBase.setLocationRelativeTo(estructura);
-                    tablaBase.setResizable(false);
-                    tablaBase.setVisible(true);
+                    tablaBase("Clasificacion");
                     break;
                 case "Tiendas":
                     //Tiendas
-                    TablasBase tablaTienda = new TablasBase("Tienda");
-                    tablaTienda.setLocationRelativeTo(estructura);
-                    tablaTienda.setResizable(false);
-                    tablaTienda.setVisible(true);
-                    break;
+                    tablaBase("Tiendas");
                 case "Unidades":
                     //Unidad
-                    TablasBase tablaUnidad = new TablasBase("Unidad");
-                    tablaUnidad.setLocationRelativeTo(estructura);
-                    tablaUnidad.setResizable(false);
-                    tablaUnidad.setVisible(true);
+                    tablaBase("Unidad");
                     break;
             }
             
         }
 
+    }
+
+    public void tablaBase(String nombre) {
+        /*
+        TablasBase tablaBase = new TablasBase(nombre);
+        tablaBase.setLocationRelativeTo(estructura);
+        tablaBase.setResizable(false);
+        tablaBase.setVisible(true);
+        */
+        
+        JDialogController frame = new JDialogController(estructura, true, nombre);
     }
 
     @Override
