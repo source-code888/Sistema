@@ -55,7 +55,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         this.header = header;
         this.spinner = spinner;
         labels.get(0).setText(titulo);
-        reestablecer(false);
+        reestablecer();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                             } else if (titulo.equals("Unidad")) {
                                 new UnidadDAO().insert(data);
                             }
-                            reestablecer(false);
+                            reestablecer();
                         } catch (SQLException ex) {
                             ex.printStackTrace(System.out);
                         }
@@ -100,13 +100,13 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                             } else if (titulo.equals("Unidad")) {
                                 new UnidadDAO().update(idRegistro, data);
                             }
-                            reestablecer(false);
+                            reestablecer();
                         } catch (SQLException ex) {
                             ex.printStackTrace(System.out);
                         }
                     }
                 } else {
-                    reestablecer(false);
+                    reestablecer();
                 }
             }
             if (btn.equals(buttons.get(1))) {
@@ -124,7 +124,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                     } else if (titulo.equals("Unidad")) {
                         new UnidadDAO().remove(idRegistro, data);
                     }
-                    reestablecer(false);
+                    reestablecer();
                 } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                 }
@@ -210,30 +210,27 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         tbBase.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
-    private void inicializarLista(String buscar) {
+    private void inicializarLista() {
         lista = new ArrayList<>();
         switch (titulo) {
             case "Area" -> {
                 new AreaDAO().areas().forEach(area -> {
-                    if (area.getNombre().startsWith(buscar)) {
-                        System.out.println("Area");
-                        lista.add(area);
-                    }
+                    lista.add(area);
                 });
             }
             case "Clasificacion" -> {
-                new ClasificacionDAO().clasificaciones().forEach(clasificacion -> {
-                    lista.add(clasificacion);
+                new ClasificacionDAO().clasificaciones().forEach(area -> {
+                    lista.add(area);
                 });
             }
             case "Tienda" -> {
-                new TiendaDAO().tiendas().forEach(tiendas -> {
-                    lista.add(tiendas);
+                new TiendaDAO().tiendas().forEach(area -> {
+                    lista.add(area);
                 });
             }
             case "Unidad" -> {
-                new UnidadDAO().unidades().forEach(unidad -> {
-                    lista.add(unidad);
+                new UnidadDAO().unidades().forEach(area -> {
+                    lista.add(area);
                 });
             }
         }
@@ -276,14 +273,10 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         buscar("");
     }
 
-    private void reestablecer(boolean buscador) {
+    private void reestablecer() {
         accion = "insert";
         textFields.get(0).setText("");
-        if (!buscador ){
-            textFields.get(1).setText("");
-            textFields.get(0).requestFocus();
-        } 
-        //textFields.get(1).setText("");
+        textFields.get(1).setText("");
         labels.get(0).setText(titulo);
         labels.get(0).setForeground(Color.black);
         labels.get(1).setText("Nombre:");
@@ -294,7 +287,8 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         labels.get(3).setForeground(Color.black);
         labels.get(4).setText("Paginas");
         labels.get(4).setForeground(Color.black);
-        inicializarLista(textFields.get(1).getText());
+        textFields.get(0).requestFocus();
+        inicializarLista();
         if (!lista.isEmpty()) {
             paginador = new Paginador<>(lista, labels.get(4), rows);
         }
@@ -329,11 +323,6 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
     @Override
     public void keyReleased(KeyEvent e) {
         Object obj = e.getSource();
-        if (obj instanceof JTextField) {
-            if (obj.equals(textFields.get(1))) {
-                reestablecer(true);
-            }
-        }
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbBase)) {
@@ -364,7 +353,6 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
     }
 
     @Override
