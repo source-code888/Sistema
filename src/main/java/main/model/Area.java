@@ -1,7 +1,7 @@
 package main.model;
 
 import java.io.Serializable;
-
+//Area
 public class Area extends TablaBase implements Serializable {
 
     private static final long serialVersionUID = 1L;
