@@ -216,24 +216,29 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
             case "Area" -> {
                 new AreaDAO().areas().forEach(area -> {
                     if (area.getNombre().startsWith(buscar)) {
-                        System.out.println("Area");
                         lista.add(area);
                     }
                 });
             }
             case "Clasificacion" -> {
                 new ClasificacionDAO().clasificaciones().forEach(clasificacion -> {
-                    lista.add(clasificacion);
+                    if (clasificacion.getNombre().startsWith(buscar)) {
+                        lista.add(clasificacion);
+                    }
                 });
             }
             case "Tienda" -> {
                 new TiendaDAO().tiendas().forEach(tiendas -> {
-                    lista.add(tiendas);
+                    if (tiendas.getNombre().startsWith(buscar)) {
+                        lista.add(tiendas);
+                    }
                 });
             }
             case "Unidad" -> {
                 new UnidadDAO().unidades().forEach(unidad -> {
-                    lista.add(unidad);
+                    if (unidad.getNombre().startsWith(buscar)) {
+                        lista.add(unidad);
+                    }
                 });
             }
         }
