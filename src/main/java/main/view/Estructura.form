@@ -91,16 +91,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="815" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnAgregarNuevoMaterial" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jPanel2" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -108,87 +103,306 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="463" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnAgregarNuevoMaterial" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel1" max="32767" attributes="0"/>
+                          <Component id="jPanel2" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
+            <Container class="javax.swing.JPanel" name="jPanel1">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
+              </Properties>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane1" pref="621" max="32767" attributes="0"/>
+                              <Component id="lblTitulo" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="spinner" pref="150" max="32767" attributes="0"/>
+                                      <Component id="jLabel1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="btnPrimero" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="btnAnterior" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="btnSiguiente" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="btnUltimo" min="-2" pref="32" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="lblPaginador" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="lblPaginador" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="spinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPrimero" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnAnterior" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnSiguiente" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="btnUltimo" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTblMateriales">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="4">
-                        <Column editable="false" title="Material" type="java.lang.String"/>
-                        <Column editable="false" title="Cantidad" type="java.lang.Integer"/>
-                        <Column editable="false" title="Unidad" type="java.lang.String"/>
-                        <Column editable="false" title="Limite Minimo" type="java.lang.Integer"/>
-                        <Column editable="false" title="SKU" type="java.lang.String"/>
-                        <Column editable="false" title="Fecha de Ingreso" type="java.lang.String"/>
-                      </Table>
-                    </Property>
-                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                      <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                      </TableColumnModel>
-                    </Property>
-                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
-                    </Property>
-                  </Properties>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTblMateriales.setSelectionMode(0);"/>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="tbMateriales">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="0" rowCount="4"/>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0"/>
+                        </Property>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbMateriales.setSelectionMode(0);"/>
+                      </AuxValues>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="lblTitulo">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Materiales"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="spinner">
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Registros por pagina"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnPrimero">
+                </Component>
+                <Component class="javax.swing.JButton" name="btnAnterior">
+                </Component>
+                <Component class="javax.swing.JButton" name="btnSiguiente">
+                </Component>
+                <Component class="javax.swing.JButton" name="btnUltimo">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblPaginador">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Paginas"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnAgregarNuevoMaterial">
+            <Container class="javax.swing.JPanel" name="jPanel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar Nuevo Material"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);"/>
-              </AuxValues>
-            </Component>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="btnEliminarMaterial" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <EmptySpace pref="99" max="32767" attributes="0"/>
+                                  <Component id="btnAgregarNuevoMaterial" min="-2" pref="48" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="txtNombre" max="32767" attributes="0"/>
+                              <Component id="spCantidad" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbxUnidad" alignment="0" max="32767" attributes="0"/>
+                              <Component id="spLimiteMinimo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtSku" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbxClasificacion" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblNombreMaterial" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCantidadMaterial" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblUnidadMaterial" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblLimiteMinimoMat" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblSkuMat" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblClasificacionMat" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                                      <Component id="lblTiendaMat" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="cbxTiendas" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblNombreMaterial" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblCantidadMaterial" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="spCantidad" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblUnidadMaterial" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbxUnidad" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblLimiteMinimoMat" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="spLimiteMinimo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblSkuMat" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtSku" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblClasificacionMat" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cbxClasificacion" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblTiendaMat" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="cbxTiendas" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnAgregarNuevoMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="btnEliminarMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="btnAgregarNuevoMaterial">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xd;&#xa;List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xd;&#xa;buttons.add(this.btnAgregarNuevoMaterial);&#xd;&#xa;buttons.add(this.btnEliminarMaterial);&#xd;&#xa;buttons.add(this.btnPrimero);&#xd;&#xa;buttons.add(this.btnAnterior);&#xd;&#xa;buttons.add(this.btnSiguiente);&#xd;&#xa;buttons.add(this.btnUltimo);&#xd;&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xd;&#xa;textFields.add(this.txtNombre);&#xd;&#xa;textFields.add(this.txtSku);&#xd;&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xd;&#xa;labels.add(this.lblPaginador);&#xd;&#xa;labels.add(this.lblNombreMaterial);&#xd;&#xa;labels.add(this.lblCantidadMaterial);&#xd;&#xa;labels.add(this.lblUnidadMaterial);&#xd;&#xa;labels.add(this.lblLimiteMinimoMat);&#xd;&#xa;labels.add(this.lblSkuMat);&#xd;&#xa;labels.add(this.lblClasificacionMat);&#xd;&#xa;labels.add(this.lblTiendaMat);&#xd;&#xa;List&lt;JSpinner&gt; spinners = new ArrayList&lt;&gt;();&#xd;&#xa;spinners.add(this.spinner);&#xd;&#xa;spinners.add(this.spCantidad);&#xd;&#xa;spinners.add(this.spLimiteMinimo);&#xd;&#xa;List&lt;JComboBox&gt; combos = new ArrayList&lt;&gt;();&#xd;&#xa;combos.add(this.cbxUnidad);&#xd;&#xa;combos.add(this.cbxClasificacion);&#xd;&#xa;combos.add(this.cbxTiendas);&#xd;&#xa;MaterialController materialCTRL = new MaterialController(buttons, textFields, labels, tbMateriales, spinners, combos);&#xd;&#xa;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnEliminarMaterial">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblNombreMaterial">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Nombre del material:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtNombre">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblUnidadMaterial">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Unidad"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbxUnidad">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblLimiteMinimoMat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Limite minimo"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="spLimiteMinimo">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblCantidadMaterial">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cantidad"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="spCantidad">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblSkuMat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="SKU:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtSku">
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbxClasificacion">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblClasificacionMat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Clasificacion"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbxTiendas">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblTiendaMat">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tiendas"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelSalidas">
@@ -203,12 +417,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="827" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="860" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="510" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="528" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -225,12 +439,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="827" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="860" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="510" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="528" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

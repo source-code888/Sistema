@@ -1,13 +1,13 @@
 package main.view;
 
-import javax.swing.JMenuItem;
-import main.controller.EstructuraController;
-
+import main.controller.*;
+import java.util.*;
+import javax.swing.*;
+import main.library.Objetos;
 public class Estructura extends javax.swing.JFrame {
 
     public Estructura() {
         initComponents();
-     
     }
     
     @SuppressWarnings("unchecked")
@@ -16,9 +16,34 @@ public class Estructura extends javax.swing.JFrame {
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelMateriales = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTblMateriales = new javax.swing.JTable();
+        tbMateriales = new javax.swing.JTable();
+        lblTitulo = new javax.swing.JLabel();
+        spinner = new javax.swing.JSpinner();
+        jLabel1 = new javax.swing.JLabel();
+        btnPrimero = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
+        btnUltimo = new javax.swing.JButton();
+        lblPaginador = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         btnAgregarNuevoMaterial = new javax.swing.JButton();
+        btnEliminarMaterial = new javax.swing.JButton();
+        lblNombreMaterial = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        lblUnidadMaterial = new javax.swing.JLabel();
+        cbxUnidad = new javax.swing.JComboBox<>();
+        lblLimiteMinimoMat = new javax.swing.JLabel();
+        spLimiteMinimo = new javax.swing.JSpinner();
+        lblCantidadMaterial = new javax.swing.JLabel();
+        spCantidad = new javax.swing.JSpinner();
+        lblSkuMat = new javax.swing.JLabel();
+        txtSku = new javax.swing.JTextField();
+        cbxClasificacion = new javax.swing.JComboBox<>();
+        lblClasificacionMat = new javax.swing.JLabel();
+        cbxTiendas = new javax.swing.JComboBox<>();
+        lblTiendaMat = new javax.swing.JLabel();
         panelSalidas = new javax.swing.JPanel();
         panelEmpleados = new javax.swing.JPanel();
         jMenuBar = new javax.swing.JMenuBar();
@@ -31,73 +56,233 @@ public class Estructura extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTblMateriales.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tbMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Material", "Cantidad", "Unidad", "Limite Minimo", "SKU", "Fecha de Ingreso"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
+        ));
+        tbMateriales.getTableHeader().setReorderingAllowed(false);
+        tbMateriales.setSelectionMode(0);
+        jScrollPane1.setViewportView(tbMateriales);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTblMateriales.getTableHeader().setReorderingAllowed(false);
-        jTblMateriales.setSelectionMode(0);
-        jScrollPane1.setViewportView(jTblMateriales);
-        if (jTblMateriales.getColumnModel().getColumnCount() > 0) {
-            jTblMateriales.getColumnModel().getColumn(0).setResizable(false);
-            jTblMateriales.getColumnModel().getColumn(1).setResizable(false);
-            jTblMateriales.getColumnModel().getColumn(2).setResizable(false);
-            jTblMateriales.getColumnModel().getColumn(3).setResizable(false);
-            jTblMateriales.getColumnModel().getColumn(4).setResizable(false);
-            jTblMateriales.getColumnModel().getColumn(5).setResizable(false);
-        }
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Materiales");
+
+        jLabel1.setText("Registros por pagina");
+
+        lblPaginador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPaginador.setText("Paginas");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(spinner, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(130, 130, 130)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPaginador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPaginador)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         EstructuraController controller = new EstructuraController(this);
-        btnAgregarNuevoMaterial.setText("Agregar Nuevo Material");
+        List<JButton> buttons = new ArrayList<>();
+        buttons.add(this.btnAgregarNuevoMaterial);
+        buttons.add(this.btnEliminarMaterial);
+        buttons.add(this.btnPrimero);
+        buttons.add(this.btnAnterior);
+        buttons.add(this.btnSiguiente);
+        buttons.add(this.btnUltimo);
+        List<JTextField> textFields = new ArrayList<>();
+        textFields.add(this.txtNombre);
+        textFields.add(this.txtSku);
+        List<JLabel> labels = new ArrayList<>();
+        labels.add(this.lblPaginador);
+        labels.add(this.lblNombreMaterial);
+        labels.add(this.lblCantidadMaterial);
+        labels.add(this.lblUnidadMaterial);
+        labels.add(this.lblLimiteMinimoMat);
+        labels.add(this.lblSkuMat);
+        labels.add(this.lblClasificacionMat);
+        labels.add(this.lblTiendaMat);
+        List<JSpinner> spinners = new ArrayList<>();
+        spinners.add(this.spinner);
+        spinners.add(this.spCantidad);
+        spinners.add(this.spLimiteMinimo);
+        List<JComboBox> combos = new ArrayList<>();
+        combos.add(this.cbxUnidad);
+        combos.add(this.cbxClasificacion);
+        combos.add(this.cbxTiendas);
+        MaterialController materialCTRL = new MaterialController(buttons, textFields, labels, tbMateriales, spinners, combos);
         this.jMenuAjustes.addMouseListener(controller);
         this.jMenuCerrar.addMouseListener(controller);
         this.menuItemAreas.addActionListener(controller);
         this.menuItemClasificaciones.addActionListener(controller);
         this.menuItemTiendas.addActionListener(controller);
         this.menuItemUnidades.addActionListener(controller);
+        this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);
+        this.spinner.addChangeListener(materialCTRL);
+        this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_doble.png")));
+        this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_icon.png")));
+        this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_icon.png")));
+        this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_doble.png")));
+        this.cbxUnidad.addFocusListener(materialCTRL);
+        this.cbxClasificacion.addFocusListener(materialCTRL);
+        this.cbxTiendas.addFocusListener(materialCTRL);
+        this.tbMateriales.addMouseListener(materialCTRL);
+        this.tbMateriales.addKeyListener(materialCTRL);
+
+        lblNombreMaterial.setText("Nombre del material:");
+
+        lblUnidadMaterial.setText("Unidad");
+
+        lblLimiteMinimoMat.setText("Limite minimo");
+
+        lblCantidadMaterial.setText("Cantidad");
+
+        lblSkuMat.setText("SKU:");
+
+        lblClasificacionMat.setText("Clasificacion");
+
+        cbxTiendas.setToolTipText("");
+
+        lblTiendaMat.setText("Tiendas");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnEliminarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                        .addComponent(btnAgregarNuevoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre)
+                    .addComponent(spCantidad)
+                    .addComponent(cbxUnidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(spLimiteMinimo)
+                    .addComponent(txtSku)
+                    .addComponent(cbxClasificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombreMaterial)
+                            .addComponent(lblCantidadMaterial)
+                            .addComponent(lblUnidadMaterial)
+                            .addComponent(lblLimiteMinimoMat)
+                            .addComponent(lblSkuMat)
+                            .addComponent(lblClasificacionMat, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTiendaMat))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(cbxTiendas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNombreMaterial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCantidadMaterial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblUnidadMaterial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLimiteMinimoMat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spLimiteMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSkuMat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblClasificacionMat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTiendaMat)
+                .addGap(5, 5, 5)
+                .addComponent(cbxTiendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarNuevoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout panelMaterialesLayout = new javax.swing.GroupLayout(panelMateriales);
         panelMateriales.setLayout(panelMaterialesLayout);
         panelMaterialesLayout.setHorizontalGroup(
             panelMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMaterialesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMaterialesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 815, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMaterialesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAgregarNuevoMaterial)))
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelMaterialesLayout.setVerticalGroup(
             panelMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMaterialesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregarNuevoMaterial)
+                .addGroup(panelMaterialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -107,11 +292,11 @@ public class Estructura extends javax.swing.JFrame {
         panelSalidas.setLayout(panelSalidasLayout);
         panelSalidasLayout.setHorizontalGroup(
             panelSalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 827, Short.MAX_VALUE)
+            .addGap(0, 860, Short.MAX_VALUE)
         );
         panelSalidasLayout.setVerticalGroup(
             panelSalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 528, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Salidas", panelSalidas);
@@ -120,11 +305,11 @@ public class Estructura extends javax.swing.JFrame {
         panelEmpleados.setLayout(panelEmpleadosLayout);
         panelEmpleadosLayout.setHorizontalGroup(
             panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 827, Short.MAX_VALUE)
+            .addGap(0, 860, Short.MAX_VALUE)
         );
         panelEmpleadosLayout.setVerticalGroup(
             panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 528, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Empleados", panelEmpleados);
@@ -172,14 +357,33 @@ public class Estructura extends javax.swing.JFrame {
     private void menuItemTiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTiendasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemTiendasActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarNuevoMaterial;
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnEliminarMaterial;
+    private javax.swing.JButton btnPrimero;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnUltimo;
+    private javax.swing.JComboBox<String> cbxClasificacion;
+    private javax.swing.JComboBox<String> cbxTiendas;
+    private javax.swing.JComboBox<String> cbxUnidad;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenuAjustes;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuCerrar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTblMateriales;
+    private javax.swing.JLabel lblCantidadMaterial;
+    private javax.swing.JLabel lblClasificacionMat;
+    private javax.swing.JLabel lblLimiteMinimoMat;
+    private javax.swing.JLabel lblNombreMaterial;
+    private javax.swing.JLabel lblPaginador;
+    private javax.swing.JLabel lblSkuMat;
+    private javax.swing.JLabel lblTiendaMat;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUnidadMaterial;
     private javax.swing.JMenuItem menuItemAreas;
     private javax.swing.JMenuItem menuItemClasificaciones;
     private javax.swing.JMenuItem menuItemTiendas;
@@ -187,6 +391,12 @@ public class Estructura extends javax.swing.JFrame {
     private javax.swing.JPanel panelEmpleados;
     private javax.swing.JPanel panelMateriales;
     private javax.swing.JPanel panelSalidas;
+    private javax.swing.JSpinner spCantidad;
+    private javax.swing.JSpinner spLimiteMinimo;
+    private javax.swing.JSpinner spinner;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTable tbMateriales;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtSku;
     // End of variables declaration//GEN-END:variables
 }

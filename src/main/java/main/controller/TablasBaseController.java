@@ -55,7 +55,6 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         this.header = header;
         this.spinner = spinner;
         labels.get(0).setText(titulo);
-        inicializarLista();
         reestablecer();
     }
 
@@ -66,6 +65,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
             JButton btn = (JButton) source;
             if (btn.equals(buttons.get(0))) {
                 //Agregar
+                System.out.println("Agregar");
                 if (!textFields.get(0).getText().isBlank()) {
                     if (accion.equals("insert")) {
                         //Conocer la tabla
