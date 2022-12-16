@@ -104,8 +104,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel1" max="32767" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
+                          <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -128,25 +128,35 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" pref="621" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="630" max="32767" attributes="0"/>
                               <Component id="lblTitulo" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="spinner" pref="150" max="32767" attributes="0"/>
-                                      <Component id="jLabel1" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="btnPrimero" min="-2" pref="32" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnAnterior" min="-2" pref="32" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnSiguiente" min="-2" pref="32" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnUltimo" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="spinner" pref="150" max="32767" attributes="0"/>
+                                              <Component id="jLabel1" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="btnPrimero" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnAnterior" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnSiguiente" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnUltimo" min="-2" pref="32" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblPaginador" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="lblPaginador" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                          <Component id="lblBuscador" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txtBuscador" min="-2" pref="250" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -158,17 +168,22 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblBuscador" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="txtBuscador" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="373" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="lblPaginador" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -250,6 +265,15 @@
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Paginas"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblBuscador">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtBuscador">
                 </Component>
               </SubComponents>
             </Container>
@@ -334,7 +358,7 @@
                           <Component id="lblTituloFecha" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblFechaIngreso" min="-2" pref="36" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="33" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAgregarNuevoMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                               <Component id="btnEliminarMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -350,8 +374,8 @@
                     <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);&#xa;this.btnEliminarMaterial.addActionListener(materialCTRL);&#xa;this.btnAgregarNuevoMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xd;&#xa;List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xd;&#xa;buttons.add(this.btnAgregarNuevoMaterial);&#xd;&#xa;buttons.add(this.btnEliminarMaterial);&#xd;&#xa;buttons.add(this.btnPrimero);&#xd;&#xa;buttons.add(this.btnAnterior);&#xd;&#xa;buttons.add(this.btnSiguiente);&#xd;&#xa;buttons.add(this.btnUltimo);&#xd;&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xd;&#xa;textFields.add(this.txtNombre);&#xd;&#xa;textFields.add(this.txtSku);&#xd;&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xd;&#xa;labels.add(this.lblPaginador);&#xd;&#xa;labels.add(this.lblNombreMaterial);&#xd;&#xa;labels.add(this.lblCantidadMaterial);&#xd;&#xa;labels.add(this.lblUnidadMaterial);&#xd;&#xa;labels.add(this.lblLimiteMinimoMat);&#xd;&#xa;labels.add(this.lblSkuMat);&#xd;&#xa;labels.add(this.lblClasificacionMat);&#xd;&#xa;labels.add(this.lblTiendaMat);&#xd;&#xa;labels.add(this.lblFechaIngreso);&#xd;&#xa;labels.add(this.lblTituloFecha);&#xd;&#xa;List&lt;JSpinner&gt; spinners = new ArrayList&lt;&gt;();&#xd;&#xa;spinners.add(this.spinner);&#xd;&#xa;spinners.add(this.spCantidad);&#xd;&#xa;spinners.add(this.spLimiteMinimo);&#xd;&#xa;List&lt;JComboBox&gt; combos = new ArrayList&lt;&gt;();&#xd;&#xa;combos.add(this.cbxUnidad);&#xd;&#xa;combos.add(this.cbxClasificacion);&#xd;&#xa;combos.add(this.cbxTiendas);&#xd;&#xa;MaterialController materialCTRL = new MaterialController(object,buttons, textFields, labels, tbMateriales, spinners, combos);&#xd;&#xa;"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);&#xa;this.btnEliminarMaterial.addActionListener(materialCTRL);&#xa;this.btnAgregarNuevoMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscador.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.txtBuscador.addKeyListener(materialCTRL);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xd;&#xa;List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xd;&#xa;buttons.add(this.btnAgregarNuevoMaterial);&#xd;&#xa;buttons.add(this.btnEliminarMaterial);&#xd;&#xa;buttons.add(this.btnPrimero);&#xd;&#xa;buttons.add(this.btnAnterior);&#xd;&#xa;buttons.add(this.btnSiguiente);&#xd;&#xa;buttons.add(this.btnUltimo);&#xd;&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xd;&#xa;textFields.add(this.txtNombre);&#xd;&#xa;textFields.add(this.txtSku);&#xd;&#xa;textFields.add(this.txtBuscador);&#xd;&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xd;&#xa;labels.add(this.lblPaginador);&#xd;&#xa;labels.add(this.lblNombreMaterial);&#xd;&#xa;labels.add(this.lblCantidadMaterial);&#xd;&#xa;labels.add(this.lblUnidadMaterial);&#xd;&#xa;labels.add(this.lblLimiteMinimoMat);&#xd;&#xa;labels.add(this.lblSkuMat);&#xd;&#xa;labels.add(this.lblClasificacionMat);&#xd;&#xa;labels.add(this.lblTiendaMat);&#xd;&#xa;labels.add(this.lblFechaIngreso);&#xd;&#xa;labels.add(this.lblTituloFecha);&#xd;&#xa;List&lt;JSpinner&gt; spinners = new ArrayList&lt;&gt;();&#xd;&#xa;spinners.add(this.spinner);&#xd;&#xa;spinners.add(this.spCantidad);&#xd;&#xa;spinners.add(this.spLimiteMinimo);&#xd;&#xa;List&lt;JComboBox&gt; combos = new ArrayList&lt;&gt;();&#xd;&#xa;combos.add(this.cbxUnidad);&#xd;&#xa;combos.add(this.cbxClasificacion);&#xd;&#xa;combos.add(this.cbxTiendas);&#xd;&#xa;MaterialController materialCTRL = new MaterialController(object,buttons, textFields, labels, tbMateriales, spinners, combos);&#xd;&#xa;"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEliminarMaterial">
@@ -448,7 +472,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="931" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="940" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -470,7 +494,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="931" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="940" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
