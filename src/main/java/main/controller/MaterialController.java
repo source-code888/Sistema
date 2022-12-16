@@ -79,21 +79,33 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                     labels.get(5).setForeground(Color.red);
                     labels.get(6).setForeground(Color.red);
                     labels.get(7).setForeground(Color.red);
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else if (textFields.get(0).getText().isBlank()) {
                     labels.get(1).setText("Ingresa el nombre del material");
                     labels.get(1).setForeground(Color.red);
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else if (combos.get(0).getSelectedItem() == null) {
                     labels.get(3).setText("Selecciona una unidad");
                     labels.get(3).setForeground(Color.red);
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else if (textFields.get(1).getText().isBlank()) {
                     labels.get(5).setText("Ingresa el SKU");
                     labels.get(5).setForeground(Color.red);
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else if (combos.get(1).getSelectedItem() == null) {
                     labels.get(6).setText("Selecciona una clasificacion");
                     labels.get(6).setForeground(Color.red);
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else if (combos.get(2).getSelectedItem() == null) {
                     labels.get(7).setText("Selecciona una tienda");
                     labels.get(7).setForeground(Color.red);
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else {
                     if (accion.equals("insert")) {
                         try {
@@ -199,6 +211,24 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 pager(METHOD_LATEST);
             }
         }
+        if (obj instanceof JComboBox) {
+            JComboBox cbx = (JComboBox) obj;
+            if (cbx.equals(combos.get(0))) {
+                //Unidad
+                labels.get(3).setText("Unidad");
+                labels.get(3).setForeground(new Color(0, 153, 51));
+            }
+            if (cbx.equals(combos.get(1))) {
+                //Clasificacion
+                labels.get(6).setText("Clasificacion");
+                labels.get(6).setForeground(new Color(0, 153, 51));
+            }
+            if (cbx.equals(combos.get(2))) {
+                //Tienda
+                labels.get(7).setText("Tienda");
+                labels.get(7).setForeground(new Color(0, 153, 51));
+            }
+        }
     }
 
     @Override
@@ -225,6 +255,13 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
 
             }
             if (txt.equals(textFields.get(0))) {
+                if (textFields.get(0).getText().isBlank()) {
+                    labels.get(1).setText("Ingresa el nombre del material");
+                    labels.get(1).setForeground(Color.red);
+                } else {
+                    labels.get(1).setText("Nombre del material:");
+                    labels.get(1).setForeground(new Color(0, 153, 51));
+                }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     if (tbMateriales.getSelectedRows().length > 0) {
                         int index = tbMateriales.getSelectedRow() + 1;
@@ -243,13 +280,21 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                     }
                 }
             }
+            if (txt.equals(textFields.get(1))) {
+                if (textFields.get(1).getText().isBlank()) {
+                    labels.get(5).setText("Ingresa el SKU");
+                    labels.get(5).setForeground(Color.red);
+                } else {
+                    labels.get(5).setText("SKU:");
+                    labels.get(5).setForeground(new Color(0, 153, 51));
+                }
+            }
         }
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         Object obj = e.getSource();
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
@@ -298,10 +343,64 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 comboModel("tienda");
             }
         }
+        if (obj instanceof JTextField) {
+            JTextField txt = (JTextField) obj;
+            if (txt.equals(textFields.get(1))) {
+                labels.get(2).setForeground(new Color(0, 153, 51));
+                labels.get(4).setForeground(new Color(0, 153, 51));
+            }
+        }
     }
 
     @Override
     public void focusLost(FocusEvent e) {
+        Object obj = e.getSource();
+        if (obj instanceof JTextField) {
+            JTextField txt = (JTextField) obj;
+            if (txt.equals(textFields.get(0))) {
+                if (!textFields.get(0).getText().isBlank()) {
+                    labels.get(1).setText("Nombre del material:");
+                    labels.get(1).setForeground(new Color(0, 153, 51));
+                } else {
+                    labels.get(1).setText("Ingresa el nombre del material");
+                    labels.get(1).setForeground(Color.red);
+                }
+            }
+            if (txt.equals(textFields.get(1))) {
+                if (!textFields.get(1).getText().isBlank()) {
+                    labels.get(5).setText("SKU:");
+                    labels.get(5).setForeground(new Color(0, 153, 51));
+                } else {
+                    labels.get(5).setText("Ingresa el SKU");
+                    labels.get(5).setForeground(Color.red);
+                }
+            }
+        }
+        if (obj instanceof JComboBox) {
+            JComboBox cbx = (JComboBox) obj;
+            if (cbx.equals(combos.get(0))) {
+                //Unidad
+                if (combos.get(0).getSelectedItem() == null) {
+                    //3 6 7
+                    labels.get(3).setText("Selecciona una unidad");
+                    labels.get(3).setForeground(Color.red);
+                }
+            }
+            if (cbx.equals(combos.get(1))) {
+                //Clasificacion
+                if (combos.get(0).getSelectedItem() == null) {
+                    labels.get(6).setText("Selecciona una clasificacion");
+                    labels.get(6).setForeground(Color.red);
+                }
+            }
+            if (cbx.equals(combos.get(2))) {
+                //Tienda
+                if (combos.get(0).getSelectedItem() == null) {
+                    labels.get(7).setText("Selecciona una tienda");
+                    labels.get(7).setForeground(Color.red);
+                }
+            }
+        }
     }
 
     private void buscar(String data) {
@@ -444,6 +543,18 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         textFields.get(0).setText("");
         textFields.get(1).setText("");
         textFields.get(2).setText("");
+        labels.get(1).setText("Nombre del material:");
+        labels.get(1).setForeground(Color.black);
+        labels.get(2).setForeground(Color.black);
+        labels.get(3).setText("Unidad");
+        labels.get(3).setForeground(Color.black);
+        labels.get(4).setForeground(Color.black);
+        labels.get(5).setText("SKU:");
+        labels.get(5).setForeground(Color.black);
+        labels.get(6).setText("Clasificacion");
+        labels.get(6).setForeground(Color.black);
+        labels.get(7).setText("Tienda");
+        labels.get(7).setForeground(Color.black);
         comboModel("tienda");
         comboModel("unidad");
         comboModel("clasificacion");
@@ -502,6 +613,10 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (!textFields.get(2).getText().equals("")) {
             textFields.get(2).setText("");
         }
+        labels.get(1).setForeground(new Color(0, 153, 51));
+        labels.get(2).setForeground(new Color(0, 153, 51));
+        labels.get(4).setForeground(new Color(0, 153, 51));
+        labels.get(5).setForeground(new Color(0, 153, 51));
     }
 
     private void iniciarListas() {

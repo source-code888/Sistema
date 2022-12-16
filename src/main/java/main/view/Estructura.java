@@ -220,6 +220,12 @@ public class Estructura extends javax.swing.JFrame {
         this.btnAnterior.addActionListener(materialCTRL);
         this.btnSiguiente.addActionListener(materialCTRL);
         this.btnUltimo.addActionListener(materialCTRL);
+        this.cbxClasificacion.addActionListener(materialCTRL);
+        this.cbxTiendas.addActionListener(materialCTRL);
+        this.cbxUnidad.addActionListener(materialCTRL);
+        this.txtNombre.addFocusListener(materialCTRL);
+        this.txtSku.addFocusListener(materialCTRL);
+        this.txtSku.addKeyListener(materialCTRL);
 
         btnEliminarMaterial.setFocusPainted(false);
 
