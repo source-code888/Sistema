@@ -39,6 +39,7 @@ public class EstructuraController extends MouseAdapter implements ActionListener
                 case "Tiendas":
                     //Tiendas
                     tablaBase("Tienda");
+                    break;
                 case "Unidades":
                     //Unidad
                     tablaBase("Unidad");
