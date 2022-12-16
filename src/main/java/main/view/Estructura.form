@@ -226,12 +226,24 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnPrimero">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnAnterior">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnSiguiente">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnUltimo">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblPaginador">
                   <Properties>
@@ -253,12 +265,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="btnEliminarMaterial" min="-2" pref="48" max="-2" attributes="0"/>
-                                  <EmptySpace pref="99" max="32767" attributes="0"/>
+                                  <EmptySpace pref="170" max="32767" attributes="0"/>
                                   <Component id="btnAgregarNuevoMaterial" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
                               <Component id="txtNombre" max="32767" attributes="0"/>
@@ -267,6 +279,7 @@
                               <Component id="spLimiteMinimo" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtSku" alignment="0" max="32767" attributes="0"/>
                               <Component id="cbxClasificacion" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbxTiendas" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lblNombreMaterial" min="-2" max="-2" attributes="0"/>
@@ -276,10 +289,11 @@
                                       <Component id="lblSkuMat" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblClasificacionMat" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                                       <Component id="lblTiendaMat" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblTituloFecha" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="cbxTiendas" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblFechaIngreso" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -316,6 +330,10 @@
                           <Component id="lblTiendaMat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Component id="cbxTiendas" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblTituloFecha" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblFechaIngreso" min="-2" pref="36" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAgregarNuevoMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -328,12 +346,18 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JButton" name="btnAgregarNuevoMaterial">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xd;&#xa;List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xd;&#xa;buttons.add(this.btnAgregarNuevoMaterial);&#xd;&#xa;buttons.add(this.btnEliminarMaterial);&#xd;&#xa;buttons.add(this.btnPrimero);&#xd;&#xa;buttons.add(this.btnAnterior);&#xd;&#xa;buttons.add(this.btnSiguiente);&#xd;&#xa;buttons.add(this.btnUltimo);&#xd;&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xd;&#xa;textFields.add(this.txtNombre);&#xd;&#xa;textFields.add(this.txtSku);&#xd;&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xd;&#xa;labels.add(this.lblPaginador);&#xd;&#xa;labels.add(this.lblNombreMaterial);&#xd;&#xa;labels.add(this.lblCantidadMaterial);&#xd;&#xa;labels.add(this.lblUnidadMaterial);&#xd;&#xa;labels.add(this.lblLimiteMinimoMat);&#xd;&#xa;labels.add(this.lblSkuMat);&#xd;&#xa;labels.add(this.lblClasificacionMat);&#xd;&#xa;labels.add(this.lblTiendaMat);&#xd;&#xa;List&lt;JSpinner&gt; spinners = new ArrayList&lt;&gt;();&#xd;&#xa;spinners.add(this.spinner);&#xd;&#xa;spinners.add(this.spCantidad);&#xd;&#xa;spinners.add(this.spLimiteMinimo);&#xd;&#xa;List&lt;JComboBox&gt; combos = new ArrayList&lt;&gt;();&#xd;&#xa;combos.add(this.cbxUnidad);&#xd;&#xa;combos.add(this.cbxClasificacion);&#xd;&#xa;combos.add(this.cbxTiendas);&#xd;&#xa;MaterialController materialCTRL = new MaterialController(buttons, textFields, labels, tbMateriales, spinners, combos);&#xd;&#xa;"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);&#xa;this.btnEliminarMaterial.addActionListener(materialCTRL);&#xa;this.btnAgregarNuevoMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xd;&#xa;List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xd;&#xa;buttons.add(this.btnAgregarNuevoMaterial);&#xd;&#xa;buttons.add(this.btnEliminarMaterial);&#xd;&#xa;buttons.add(this.btnPrimero);&#xd;&#xa;buttons.add(this.btnAnterior);&#xd;&#xa;buttons.add(this.btnSiguiente);&#xd;&#xa;buttons.add(this.btnUltimo);&#xd;&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xd;&#xa;textFields.add(this.txtNombre);&#xd;&#xa;textFields.add(this.txtSku);&#xd;&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xd;&#xa;labels.add(this.lblPaginador);&#xd;&#xa;labels.add(this.lblNombreMaterial);&#xd;&#xa;labels.add(this.lblCantidadMaterial);&#xd;&#xa;labels.add(this.lblUnidadMaterial);&#xd;&#xa;labels.add(this.lblLimiteMinimoMat);&#xd;&#xa;labels.add(this.lblSkuMat);&#xd;&#xa;labels.add(this.lblClasificacionMat);&#xd;&#xa;labels.add(this.lblTiendaMat);&#xd;&#xa;labels.add(this.lblFechaIngreso);&#xd;&#xa;labels.add(this.lblTituloFecha);&#xd;&#xa;List&lt;JSpinner&gt; spinners = new ArrayList&lt;&gt;();&#xd;&#xa;spinners.add(this.spinner);&#xd;&#xa;spinners.add(this.spCantidad);&#xd;&#xa;spinners.add(this.spLimiteMinimo);&#xd;&#xa;List&lt;JComboBox&gt; combos = new ArrayList&lt;&gt;();&#xd;&#xa;combos.add(this.cbxUnidad);&#xd;&#xa;combos.add(this.cbxClasificacion);&#xd;&#xa;combos.add(this.cbxTiendas);&#xd;&#xa;MaterialController materialCTRL = new MaterialController(object,buttons, textFields, labels, tbMateriales, spinners, combos);&#xd;&#xa;"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEliminarMaterial">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblNombreMaterial">
                   <Properties>
@@ -401,6 +425,13 @@
                     <Property name="text" type="java.lang.String" value="Tiendas"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JLabel" name="lblTituloFecha">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Fecha en que ingreso este material:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblFechaIngreso">
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -417,7 +448,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="860" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="931" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -439,7 +470,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="860" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="931" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

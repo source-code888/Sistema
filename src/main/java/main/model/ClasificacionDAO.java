@@ -3,6 +3,7 @@ package main.model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
@@ -37,7 +38,7 @@ public class ClasificacionDAO extends Conexion {
             ex.printStackTrace(System.out);
         }
     }
-    
+
     public void update(int idRegistro, Object[] data) throws SQLException {
 
         try {
@@ -51,18 +52,16 @@ public class ClasificacionDAO extends Conexion {
             ex.printStackTrace(System.out);
         }
     }
-    
-    public void remove(int idRegistro, Object[] data) throws SQLException {
+
+    public void remove(int idRegistro) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
-            String sqlRemove = "DELETE FROM `sistema_bd`.`clasificacion` WHERE (`id` = '" + idRegistro +"');";
+            String sqlRemove = "DELETE FROM `sistema_bd`.`clasificacion` WHERE (`id` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
-        } catch (SQLException ex) {
-            System.out.println(ex.toString());
+        } finally {
             getConn().rollback();
-            ex.printStackTrace(System.out);
         }
     }
 }

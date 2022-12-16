@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ColumnListHandler;
 
-public class MaterialDAO extends Conexion{
-    
+public class MaterialDAO extends Conexion {
+
     private QueryRunner QR = new QueryRunner();
-    
-    public MaterialDAO(){
+
+    public MaterialDAO() {
         super();
     }
+
     public List<Material> materiales() {
         List<Material> materiales = new ArrayList<>();
         try {
@@ -22,5 +24,32 @@ public class MaterialDAO extends Conexion{
             ex.printStackTrace(System.out);
         }
         return materiales;
+    }
+
+    public void insert(Object[] data) throws SQLException {
+        final QueryRunner qr = new QueryRunner();
+        getConn().setAutoCommit(false);
+        String sqlMaterial = "INSERT INTO "
+                + "material(nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad, idClasificacion, idTienda, idUsuario)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        qr.insert(getConn(), sqlMaterial, new ColumnListHandler(), data);
+        getConn().commit();
+    }
+
+    public void update(int idRegistro, Object[] data) throws SQLException {
+        final QueryRunner qr = new QueryRunner();
+        getConn().setAutoCommit(false);
+        String sqlUpdate = "UPDATE material SET nombreMaterial = ?, cantidad = ?, limiteMinimo = ?, sku = ?, "
+                + "fechaIngreso = ?, idUnidad = ?, idClasificacion = ?, idTienda = ?, idUsuario = ? WHERE idMaterial = " + idRegistro;
+        qr.update(getConn(), sqlUpdate, data);
+        getConn().commit();
+    }
+
+    public void remove(int idRegistro) throws SQLException {
+        final QueryRunner qr = new QueryRunner();
+        getConn().setAutoCommit(false);
+        String sqlRemove = "DELETE FROM `sistema_bd`.`material` WHERE (`idMaterial` = '" + idRegistro + "');";
+        qr.execute(getConn(), sqlRemove);
+        getConn().commit();
     }
 }

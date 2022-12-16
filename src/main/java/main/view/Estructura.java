@@ -4,12 +4,17 @@ import main.controller.*;
 import java.util.*;
 import javax.swing.*;
 import main.library.Objetos;
+import main.model.Usuario;
+
 public class Estructura extends javax.swing.JFrame {
 
-    public Estructura() {
+    private Object object;
+
+    public Estructura(Object object) {
+        this.object = object;
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,6 +49,8 @@ public class Estructura extends javax.swing.JFrame {
         lblClasificacionMat = new javax.swing.JLabel();
         cbxTiendas = new javax.swing.JComboBox<>();
         lblTiendaMat = new javax.swing.JLabel();
+        lblTituloFecha = new javax.swing.JLabel();
+        lblFechaIngreso = new javax.swing.JLabel();
         panelSalidas = new javax.swing.JPanel();
         panelEmpleados = new javax.swing.JPanel();
         jMenuBar = new javax.swing.JMenuBar();
@@ -77,6 +84,14 @@ public class Estructura extends javax.swing.JFrame {
         lblTitulo.setText("Materiales");
 
         jLabel1.setText("Registros por pagina");
+
+        btnPrimero.setFocusPainted(false);
+
+        btnAnterior.setFocusPainted(false);
+
+        btnSiguiente.setFocusPainted(false);
+
+        btnUltimo.setFocusPainted(false);
 
         lblPaginador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPaginador.setText("Paginas");
@@ -155,6 +170,8 @@ public class Estructura extends javax.swing.JFrame {
         labels.add(this.lblSkuMat);
         labels.add(this.lblClasificacionMat);
         labels.add(this.lblTiendaMat);
+        labels.add(this.lblFechaIngreso);
+        labels.add(this.lblTituloFecha);
         List<JSpinner> spinners = new ArrayList<>();
         spinners.add(this.spinner);
         spinners.add(this.spCantidad);
@@ -163,7 +180,8 @@ public class Estructura extends javax.swing.JFrame {
         combos.add(this.cbxUnidad);
         combos.add(this.cbxClasificacion);
         combos.add(this.cbxTiendas);
-        MaterialController materialCTRL = new MaterialController(buttons, textFields, labels, tbMateriales, spinners, combos);
+        MaterialController materialCTRL = new MaterialController(object,buttons, textFields, labels, tbMateriales, spinners, combos);
+        btnAgregarNuevoMaterial.setFocusPainted(false);
         this.jMenuAjustes.addMouseListener(controller);
         this.jMenuCerrar.addMouseListener(controller);
         this.menuItemAreas.addActionListener(controller);
@@ -181,6 +199,11 @@ public class Estructura extends javax.swing.JFrame {
         this.cbxTiendas.addFocusListener(materialCTRL);
         this.tbMateriales.addMouseListener(materialCTRL);
         this.tbMateriales.addKeyListener(materialCTRL);
+        this.btnEliminarMaterial.addActionListener(materialCTRL);
+        this.btnAgregarNuevoMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta("accept.png")));
+        this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
+
+        btnEliminarMaterial.setFocusPainted(false);
 
         lblNombreMaterial.setText("Nombre del material:");
 
@@ -198,6 +221,8 @@ public class Estructura extends javax.swing.JFrame {
 
         lblTiendaMat.setText("Tiendas");
 
+        lblTituloFecha.setText("Fecha en que ingreso este material:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -207,7 +232,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnEliminarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                         .addComponent(btnAgregarNuevoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtNombre)
                     .addComponent(spCantidad)
@@ -215,6 +240,7 @@ public class Estructura extends javax.swing.JFrame {
                     .addComponent(spLimiteMinimo)
                     .addComponent(txtSku)
                     .addComponent(cbxClasificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxTiendas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNombreMaterial)
@@ -223,9 +249,10 @@ public class Estructura extends javax.swing.JFrame {
                             .addComponent(lblLimiteMinimoMat)
                             .addComponent(lblSkuMat)
                             .addComponent(lblClasificacionMat, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTiendaMat))
+                            .addComponent(lblTiendaMat)
+                            .addComponent(lblTituloFecha))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(cbxTiendas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -259,6 +286,10 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(lblTiendaMat)
                 .addGap(5, 5, 5)
                 .addComponent(cbxTiendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTituloFecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarNuevoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,7 +323,7 @@ public class Estructura extends javax.swing.JFrame {
         panelSalidas.setLayout(panelSalidasLayout);
         panelSalidasLayout.setHorizontalGroup(
             panelSalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 860, Short.MAX_VALUE)
+            .addGap(0, 931, Short.MAX_VALUE)
         );
         panelSalidasLayout.setVerticalGroup(
             panelSalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +336,7 @@ public class Estructura extends javax.swing.JFrame {
         panelEmpleados.setLayout(panelEmpleadosLayout);
         panelEmpleadosLayout.setHorizontalGroup(
             panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 860, Short.MAX_VALUE)
+            .addGap(0, 931, Short.MAX_VALUE)
         );
         panelEmpleadosLayout.setVerticalGroup(
             panelEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,7 +388,7 @@ public class Estructura extends javax.swing.JFrame {
     private void menuItemTiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTiendasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemTiendasActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarNuevoMaterial;
     private javax.swing.JButton btnAnterior;
@@ -377,12 +408,14 @@ public class Estructura extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCantidadMaterial;
     private javax.swing.JLabel lblClasificacionMat;
+    private javax.swing.JLabel lblFechaIngreso;
     private javax.swing.JLabel lblLimiteMinimoMat;
     private javax.swing.JLabel lblNombreMaterial;
     private javax.swing.JLabel lblPaginador;
     private javax.swing.JLabel lblSkuMat;
     private javax.swing.JLabel lblTiendaMat;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblTituloFecha;
     private javax.swing.JLabel lblUnidadMaterial;
     private javax.swing.JMenuItem menuItemAreas;
     private javax.swing.JMenuItem menuItemClasificaciones;

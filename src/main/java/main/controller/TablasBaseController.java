@@ -85,13 +85,11 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                                 } else if (titulo.equals("Unidad")) {
                                     new UnidadDAO().insert(data);
                                 }
-                                reestablecer();
                             } catch (SQLException ex) {
                                 ex.printStackTrace(System.out);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "La " + titulo + " ya existe.");
-                            reestablecer();
                         }
                     } else if (accion.equals("update")) {
                         if (!existe) {
@@ -108,36 +106,30 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                                 } else if (titulo.equals("Unidad")) {
                                     new UnidadDAO().update(idRegistro, data);
                                 }
-                                reestablecer();
                             } catch (SQLException ex) {
                                 ex.printStackTrace(System.out);
                             }
-                        } else {
-                            reestablecer();
                         }
                     }
-                } else {
-                    reestablecer();
                 }
+                reestablecer();
             }
             if (btn.equals(buttons.get(1))) {
                 //Eliminar
-                Object[] data = {
-                    textFields.get(0).getText()
-                };
                 try {
                     if (titulo.equals("Area")) {
-                        new AreaDAO().remove(idRegistro, data);
+                        new AreaDAO().remove(idRegistro);
                     } else if (titulo.equals("Clasificacion")) {
-                        new ClasificacionDAO().remove(idRegistro, data);
+                        new ClasificacionDAO().remove(idRegistro);
                     } else if (titulo.equals("Tienda")) {
-                        new TiendaDAO().remove(idRegistro, data);
+                        new TiendaDAO().remove(idRegistro);
                     } else if (titulo.equals("Unidad")) {
-                        new UnidadDAO().remove(idRegistro, data);
+                        new UnidadDAO().remove(idRegistro);
                     }
                     reestablecer();
                 } catch (SQLException ex) {
-                    ex.printStackTrace(System.out);
+                    reestablecer();
+                    JOptionPane.showMessageDialog(null, "No se puede eliminar esta " + titulo + " porque está referenciada.");
                 }
 
             }
@@ -230,18 +222,18 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                 });
             }
             case "Clasificacion" -> {
-                new ClasificacionDAO().clasificaciones().forEach(area -> {
-                    lista.add(area);
+                new ClasificacionDAO().clasificaciones().forEach(clasificacion -> {
+                    lista.add(clasificacion);
                 });
             }
             case "Tienda" -> {
-                new TiendaDAO().tiendas().forEach(area -> {
-                    lista.add(area);
+                new TiendaDAO().tiendas().forEach(tienda -> {
+                    lista.add(tienda);
                 });
             }
             case "Unidad" -> {
-                new UnidadDAO().unidades().forEach(area -> {
-                    lista.add(area);
+                new UnidadDAO().unidades().forEach(unidad -> {
+                    lista.add(unidad);
                 });
             }
         }
@@ -324,6 +316,9 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
     private void obtenerRegistro() {
         accion = "update";
         int row = tbBase.getSelectedRow();
+        if (!textFields.get(1).getText().equals("")) {
+            textFields.get(1).setText("");
+        }
         idRegistro = (Integer) defaultTableModel.getValueAt(row, 0);
         textFields.get(0).setText((String) defaultTableModel.getValueAt(row, 1));
         textFields.get(0).requestFocus();
@@ -337,6 +332,9 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(1))) {
+                if (!textFields.get(0).getText().equals("")) {
+                    textFields.get(0).setText("");
+                }
                 buscar(textFields.get(1).getText());
             }
             if (txt.equals(textFields.get(0))) {

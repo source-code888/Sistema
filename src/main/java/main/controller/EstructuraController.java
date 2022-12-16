@@ -38,25 +38,18 @@ public class EstructuraController extends MouseAdapter implements ActionListener
                     break;
                 case "Tiendas":
                     //Tiendas
-                    tablaBase("Tiendas");
+                    tablaBase("Tienda");
                 case "Unidades":
                     //Unidad
                     tablaBase("Unidad");
                     break;
             }
-            
+
         }
 
     }
 
     public void tablaBase(String nombre) {
-        /*
-        TablasBase tablaBase = new TablasBase(nombre);
-        tablaBase.setLocationRelativeTo(estructura);
-        tablaBase.setResizable(false);
-        tablaBase.setVisible(true);
-        */
-        
         JDialogController frame = new JDialogController(estructura, true, nombre);
     }
 

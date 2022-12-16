@@ -66,6 +66,14 @@ public class TablasBase extends javax.swing.JFrame {
 
         lblPaginadorReg.setText("Registros por paginas");
 
+        btnPrimero.setFocusPainted(false);
+
+        btnAnterior.setFocusPainted(false);
+
+        btnSiguiente.setFocusPainted(false);
+
+        btnUltimo.setFocusPainted(false);
+
         lblPaginador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPaginador.setText("Paginas");
 
@@ -131,7 +139,10 @@ public class TablasBase extends javax.swing.JFrame {
 
         lblNombre.setText("Nombre:");
 
+        btnEliminar.setFocusPainted(false);
         btnEliminar.setVisible(false);
+
+        btnAgregar.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -192,6 +203,7 @@ public class TablasBase extends javax.swing.JFrame {
         TablasBaseController controller = new TablasBaseController(this,titulo, buttons, textFields, labels, tbBase, header, spinner);
         btnClose.setBackground(new java.awt.Color(204, 204, 204));
         btnClose.setBorder(null);
+        btnClose.setFocusPainted(false);
         this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta("close.png")));
         this.header.addMouseListener(controller);
         this.header.addMouseMotionListener(controller);
@@ -213,8 +225,8 @@ public class TablasBase extends javax.swing.JFrame {
         this.btnEliminar.addActionListener(controller);
         this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
         this.setAutoRequestFocus(true);
-
         this.setAlwaysOnTop(true);
+        this.txtBuscador.addKeyListener(controller);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);

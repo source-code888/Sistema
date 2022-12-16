@@ -12,12 +12,13 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
+import main.model.Usuario;
 import main.model.UsuarioDAO;
 import main.view.Estructura;
 import main.view.Login;
 
 public class LoginController extends MouseAdapter implements ActionListener, KeyListener, FocusListener {
-
+    
     private Login login;
     private UsuarioDAO usuario;
 
@@ -31,7 +32,8 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
     private int xMouse;
     private int yMouse;
     private JButton btnMinimizar;
-    public LoginController(Login login, JButton btnAceptar,JButton btnClose,JButton btnMinimizar, JTextField txtUsuario, JPasswordField txtPassword, List<JLabel> labels, JPanel header) {
+    
+    public LoginController(Login login, JButton btnAceptar, JButton btnClose, JButton btnMinimizar, JTextField txtUsuario, JPasswordField txtPassword, List<JLabel> labels, JPanel header) {
         super();
         this.login = login;
         this.btnAceptar = btnAceptar;
@@ -43,7 +45,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
         this.header = header;
         usuario = new UsuarioDAO();
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
@@ -74,20 +76,21 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                     ).collect(Collectors.toList()).size() == 1;
                     if (existeUsuario) {
                         //Quiere decir q el usuario existe
-                        boolean contrasenaCorrecta = usuario.usuarios().stream().filter(
+                        var usuarios = usuario.usuarios().stream().filter(
                                 usuario -> usuario.getUsuario().equals(usuarioTxt)
-                                        && usuario.getPassword().equals(password)
-                        ).collect(Collectors.toList()).size() == 1;
-                        if (contrasenaCorrecta) {
+                                && usuario.getPassword().equals(password)
+                        ).collect(Collectors.toList());
+                        int size = usuarios.size();
+                        if (size == 1) {
                             //La contraseña y el usuario corresponden a una cuenta
                             limpiarLoginText();
                             //System.out.println("Inicio de sesion exitoso");
-                            Estructura estructura = new Estructura();
+                            Estructura estructura = new Estructura(usuarios.get(0));
                             estructura.setResizable(false);
                             estructura.setLocationRelativeTo(estructura);
                             estructura.setVisible(true);
                             login.dispose();
-                        }else{
+                        } else {
                             txtPassword.setText("");
                             labels.get(2).setVisible(true);
                             labels.get(2).setText("Contraseña incorrecta");
@@ -103,20 +106,20 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                     }
                 }
             }
-            if(btn.equals(btnClose)){
+            if (btn.equals(btnClose)) {
                 System.exit(0);
             }
-            if(btn.equals(btnMinimizar)){
+            if (btn.equals(btnMinimizar)) {
                 login.setExtendedState(JFrame.ICONIFIED);
             }
         }
     }
-
+    
     private void limpiarLoginText() {
         txtUsuario.setText("");
         txtPassword.setText("");
     }
-
+    
     @Override
     public void keyTyped(KeyEvent e) {
         Object obj = e.getSource();
@@ -130,11 +133,11 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             
         }
     }
-
+    
     @Override
     public void keyPressed(KeyEvent e) {
     }
-
+    
     @Override
     public void keyReleased(KeyEvent e) {
         Object obj = e.getSource();
@@ -147,15 +150,15 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                         labels.get(2).setVisible(false);
                     }
                     labels.get(0).setText("Usuario");
-                    labels.get(0).setForeground(new Color(102,102,102));
+                    labels.get(0).setForeground(new Color(102, 102, 102));
                 } else {
                     labels.get(0).setText("Ingresa tu nombre de usuario");
                     labels.get(0).setForeground(Color.red);
                 }
                 if (e.getKeyChar() == '\n') {
-                txtPassword.requestFocus();
+                    txtPassword.requestFocus();
                 }
-
+                
             }
         }
         if (obj instanceof JPasswordField) {
@@ -164,23 +167,23 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             if (pwd.equals(txtPassword)) {
                 if (!String.valueOf(txtPassword.getPassword()).isBlank()) {
                     labels.get(1).setText("Contraseña");
-                    labels.get(1).setForeground(new Color(102,102,102));
+                    labels.get(1).setForeground(new Color(102, 102, 102));
                 } else {
                     labels.get(1).setText("Ingresa tu contraseña");
                     labels.get(1).setForeground(Color.red);
                 }
             }
             if (e.getKeyChar() == '\n') {
-                actionPerformed(new ActionEvent(btnAceptar, 1001 , "Aceptar"));
+                actionPerformed(new ActionEvent(btnAceptar, 1001, "Aceptar"));
                 
             }
         }
     }
-
+    
     @Override
     public void focusGained(FocusEvent e) {
     }
-
+    
     @Override
     public void focusLost(FocusEvent e) {
         Object obj = e.getSource();
@@ -203,6 +206,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             }
         }
     }
+    
     @Override
     public void mouseDragged(MouseEvent e) {
         Object obj = e.getSource();
@@ -215,7 +219,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             }
         }
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
         Object obj = e.getSource();

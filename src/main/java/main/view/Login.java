@@ -9,7 +9,9 @@ import main.library.Objetos;
 public class Login extends javax.swing.JFrame {
     
     public Login() {
+        
         initComponents();
+        this.txtUsuario.requestFocus();
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +58,7 @@ public class Login extends javax.swing.JFrame {
         this.btnMinimizar.addActionListener(controller);
         this.btnMinimizar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("min.png")));
         this.lblIcon.setIcon(new ImageIcon(Objetos.imagenPath.ruta("icon.png")));
+        this.txtUsuario.requestFocus();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());

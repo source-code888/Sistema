@@ -57,7 +57,7 @@ public class Usuario implements Serializable{
     public void setIdEmpleado(int idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
-
+    
     @Override
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", password=" + password + ", idEmpleado=" + idEmpleado + '}';

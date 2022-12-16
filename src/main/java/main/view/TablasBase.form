@@ -170,12 +170,24 @@
         <Component class="javax.swing.JSpinner" name="spinner">
         </Component>
         <Component class="javax.swing.JButton" name="btnPrimero">
+          <Properties>
+            <Property name="focusPainted" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnAnterior">
+          <Properties>
+            <Property name="focusPainted" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnSiguiente">
+          <Properties>
+            <Property name="focusPainted" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnUltimo">
+          <Properties>
+            <Property name="focusPainted" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPaginador">
           <Properties>
@@ -252,11 +264,17 @@
         <Component class="javax.swing.JTextField" name="txtNombre">
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminar">
+          <Properties>
+            <Property name="focusPainted" type="boolean" value="false"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btnEliminar.setVisible(false);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="btnAgregar">
+          <Properties>
+            <Property name="focusPainted" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -291,9 +309,10 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;close.png&quot;)));&#xa;this.header.addMouseListener(controller);&#xa;this.header.addMouseMotionListener(controller);&#xa;this.btnClose.addActionListener(controller);&#xa;this.btnAgregar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.spinner.addChangeListener(controller);&#xa;this.btnPrimero.addActionListener(controller);&#xa;this.btnAnterior.addActionListener(controller);&#xa;this.btnSiguiente.addActionListener(controller);&#xa;this.btnUltimo.addActionListener(controller);&#xa;this.tbBase.addMouseListener(controller);&#xa;this.tbBase.addKeyListener(controller);&#xa;this.btnAgregar.addActionListener(controller);&#xa;this.txtNombre.addKeyListener(controller);&#xa;this.btnEliminar.addActionListener(controller);&#xa;this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.setAutoRequestFocus(true);&#xa;&#xa;this.setAlwaysOnTop(true);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;close.png&quot;)));&#xa;this.header.addMouseListener(controller);&#xa;this.header.addMouseMotionListener(controller);&#xa;this.btnClose.addActionListener(controller);&#xa;this.btnAgregar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.spinner.addChangeListener(controller);&#xa;this.btnPrimero.addActionListener(controller);&#xa;this.btnAnterior.addActionListener(controller);&#xa;this.btnSiguiente.addActionListener(controller);&#xa;this.btnUltimo.addActionListener(controller);&#xa;this.tbBase.addMouseListener(controller);&#xa;this.tbBase.addKeyListener(controller);&#xa;this.btnAgregar.addActionListener(controller);&#xa;this.txtNombre.addKeyListener(controller);&#xa;this.btnEliminar.addActionListener(controller);&#xa;this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.setAutoRequestFocus(true);&#xa;this.setAlwaysOnTop(true);&#xa;this.txtBuscador.addKeyListener(controller);&#xa;"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xa;buttons.add(this.btnAgregar);&#xa;buttons.add(this.btnEliminar);&#xa;buttons.add(this.btnClose);&#xa;buttons.add(this.btnPrimero);&#xa;buttons.add(this.btnAnterior);&#xa;buttons.add(this.btnSiguiente);&#xa;buttons.add(this.btnUltimo);&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xa;textFields.add(this.txtNombre);&#xa;textFields.add(this.txtBuscador);&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xa;labels.add(this.lblTipo);&#xa;labels.add(this.lblNombre);&#xa;labels.add(this.lblBuscar);&#xa;labels.add(this.lblPaginadorReg);&#xa;labels.add(this.lblPaginador);&#xa;TablasBaseController controller = new TablasBaseController(this,titulo, buttons, textFields, labels, tbBase, header, spinner);"/>
           </AuxValues>
         </Component>

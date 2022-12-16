@@ -1,4 +1,3 @@
-
 package main.model;
 
 import java.sql.SQLException;
@@ -8,7 +7,8 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 
-public class UnidadDAO extends Conexion{
+public class UnidadDAO extends Conexion {
+
     private QueryRunner QR = new QueryRunner();
 
     public UnidadDAO() {
@@ -24,8 +24,8 @@ public class UnidadDAO extends Conexion{
         }
         return unidades;
     }
-    
-    public void insert(Object[] data) throws SQLException{
+
+    public void insert(Object[] data) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
@@ -37,7 +37,7 @@ public class UnidadDAO extends Conexion{
             ex.printStackTrace(System.out);
         }
     }
-    
+
     public void update(int idRegistro, Object[] data) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();
@@ -50,18 +50,12 @@ public class UnidadDAO extends Conexion{
             ex.printStackTrace(System.out);
         }
     }
-    
-    public void remove(int idRegistro, Object[] data) throws SQLException {
-        try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
-            String sqlRemove = "DELETE FROM `sistema_bd`.`unidad` WHERE (`id` = '" + idRegistro +"');";
-            qr.execute(getConn(), sqlRemove);
-            getConn().commit();
-        } catch (SQLException ex) {
-            System.out.println(ex.toString());
-            getConn().rollback();
-            ex.printStackTrace(System.out);
-        }
+
+    public void remove(int idRegistro) throws SQLException {
+        final QueryRunner qr = new QueryRunner();
+        getConn().setAutoCommit(false);
+        String sqlRemove = "DELETE FROM `sistema_bd`.`unidad` WHERE (`id` = '" + idRegistro + "');";
+        qr.execute(getConn(), sqlRemove);
+        getConn().commit();
     }
 }
