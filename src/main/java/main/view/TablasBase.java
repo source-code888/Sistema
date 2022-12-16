@@ -226,6 +226,7 @@ public class TablasBase extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
         this.txtBuscador.addKeyListener(controller);
         this.lblBuscar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("search.png")));
+        this.header.addKeyListener(controller);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);

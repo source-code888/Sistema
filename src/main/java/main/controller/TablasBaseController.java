@@ -157,27 +157,12 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Object obj = e.getSource();
-        if (obj instanceof JPanel) {
-            JPanel panel = (JPanel) obj;
-            if (panel.equals(header)) {
-                int x = e.getXOnScreen();
-                int y = e.getYOnScreen();
-                tablaBase.setLocation(x - xMouse, y - yMouse);
-            }
-        }
+        
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        Object obj = e.getSource();
-        if (obj instanceof JPanel) {
-            JPanel panel = (JPanel) obj;
-            if (panel.equals(header)) {
-                xMouse = e.getX();
-                yMouse = e.getY();
-            }
-        }
+        
     }
 
     private void buscar(String data) {

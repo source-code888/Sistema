@@ -17,15 +17,15 @@ import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
 import main.library.Paginador;
+import main.library.TableModel;
 import main.model.*;
 
 public class MaterialController extends MouseAdapter implements ActionListener, ChangeListener, KeyListener, FocusListener {
 
     private Material material;
     private List<Material> materiales;
-    private DefaultTableModel defaultTableModel;
+    private TableModel defaultTableModel;
     private String accion = "insert";
     private List<Tienda> tiendas;
     private List<Unidad> unidades;
@@ -244,10 +244,12 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 }
             }
         }
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
         Object obj = e.getSource();
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
@@ -316,7 +318,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             "Tienda",
             "Usuario"
         };
-        defaultTableModel = new DefaultTableModel(null, titulos);
+        defaultTableModel = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
         if (data.equals("")) {
             filter = materiales.stream().skip(start).limit(rows).collect(Collectors.toList());
@@ -362,6 +364,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         tbMateriales.getColumnModel().getColumn(0).setMaxWidth(0);
         tbMateriales.getColumnModel().getColumn(0).setMinWidth(0);
         tbMateriales.getColumnModel().getColumn(0).setPreferredWidth(0);
+
     }
 
     private void comboModel(String data) {

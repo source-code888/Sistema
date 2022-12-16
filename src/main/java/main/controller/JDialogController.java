@@ -1,4 +1,3 @@
-
 package main.controller;
 
 import java.awt.Dialog;
@@ -20,14 +19,19 @@ public class JDialogController extends JDialog implements ActionListener, MouseM
     private Estructura estructura;
     private boolean modal;
     private JButton boton;
+    private TablasBase tablaBase;
+    private JPanel header;
     private int xMouse;
     private int yMouse;
 
     public JDialogController(Estructura estructura, boolean modal, String nombre) {
         super(estructura, modal);
         this.setUndecorated(true);
-        TablasBase tablaBase = new TablasBase(nombre);
+        this.tablaBase = new TablasBase(nombre);
         this.getContentPane().add(tablaBase.getComponent(0));
+        header = (JPanel) (((JPanel) ((JLayeredPane) (((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2));
+        header.addMouseListener(this);
+        header.addMouseMotionListener(this);
         boton = (JButton) ((JPanel) (((JPanel) ((JLayeredPane) (((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2))).getComponent(0);
         boton.addActionListener(this);
         this.pack();
@@ -48,9 +52,16 @@ public class JDialogController extends JDialog implements ActionListener, MouseM
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        int x = e.getXOnScreen();
-        int y = e.getYOnScreen();
-        this.setLocation(x - xMouse, y - yMouse);
+        Object obj = e.getSource();
+        JPanel header = (JPanel) (((JPanel) ((JLayeredPane) (((JRootPane) (this.getContentPane().getComponent(0))).getComponent(1))).getComponent(0)).getComponent(2));
+        if (obj instanceof JPanel) {
+            JPanel panel = (JPanel) obj;
+            if (panel.equals(header)) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                this.setLocation(x - xMouse, y - yMouse);
+            }
+        }
     }
 
     @Override
@@ -65,8 +76,15 @@ public class JDialogController extends JDialog implements ActionListener, MouseM
 
     @Override
     public void mousePressed(MouseEvent e) {
-        xMouse = e.getX();
-        yMouse = e.getY();
+        Object obj = e.getSource();
+        if (obj instanceof JPanel) {
+            JPanel panel = (JPanel) obj;
+            if (panel.equals(header)) {
+                xMouse = e.getX();
+                yMouse = e.getY();
+            }
+        }
+
     }
 
     @Override
