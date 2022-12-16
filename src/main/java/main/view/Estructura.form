@@ -306,10 +306,10 @@
                                       <Component id="lblUnidadMaterial" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblLimiteMinimoMat" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblSkuMat" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblClasificacionMat" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                                       <Component id="lblTiendaMat" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lblTituloFecha" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblClasificacionMat" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                               </Group>

@@ -259,10 +259,10 @@ public class Estructura extends javax.swing.JFrame {
                             .addComponent(lblUnidadMaterial)
                             .addComponent(lblLimiteMinimoMat)
                             .addComponent(lblSkuMat)
-                            .addComponent(lblClasificacionMat, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTiendaMat)
                             .addComponent(txtNombre)
-                            .addComponent(lblTituloFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblTituloFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblClasificacionMat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 34, Short.MAX_VALUE)))
                 .addContainerGap())
         );
