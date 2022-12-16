@@ -20,6 +20,11 @@ public class EmpleadoDAO extends Conexion {
                     new BeanListHandler(Empleado.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
+        } finally {
+            try {
+                getConn().close();
+            } catch (Exception e) {
+            }
         }
         return empleados;
     }

@@ -3,7 +3,6 @@ package main.model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
@@ -22,6 +21,11 @@ public class ClasificacionDAO extends Conexion {
                     new BeanListHandler(Clasificacion.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
+        } finally {
+            try {
+                getConn().close();
+            } catch (Exception e) {
+            }
         }
         return clasificaciones;
     }
@@ -33,23 +37,22 @@ public class ClasificacionDAO extends Conexion {
             String sqlCliente = "INSERT INTO clasificacion(nombre) VALUES(?)";
             qr.insert(getConn(), sqlCliente, new ColumnListHandler(), data);
             getConn().commit();
-        } catch (SQLException ex) {
+        } finally {
             getConn().rollback();
-            ex.printStackTrace(System.out);
+            getConn().close();
         }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
-
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
             String sqlUpdate = "UPDATE clasificacion SET nombre = ? WHERE id = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
-        } catch (SQLException ex) {
+        } finally {
             getConn().rollback();
-            ex.printStackTrace(System.out);
+            getConn().close();
         }
     }
 
@@ -62,6 +65,7 @@ public class ClasificacionDAO extends Conexion {
             getConn().commit();
         } finally {
             getConn().rollback();
+            getConn().close();
         }
     }
 }

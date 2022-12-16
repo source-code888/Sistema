@@ -4,7 +4,6 @@ import main.controller.*;
 import java.util.*;
 import javax.swing.*;
 import main.library.Objetos;
-import main.model.Usuario;
 
 public class Estructura extends javax.swing.JFrame {
 

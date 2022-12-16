@@ -20,7 +20,11 @@ public class UsuarioDAO extends Conexion {
             cuentas = (List<Usuario>) QR.query(getConn(), "SELECT * FROM usuario",
                     new BeanListHandler(Usuario.class));
         } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                getConn().close();
+            } catch (Exception e) {
+            }
         }
         return cuentas;
     }

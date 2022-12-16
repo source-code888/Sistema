@@ -22,34 +22,54 @@ public class MaterialDAO extends Conexion {
                     new BeanListHandler(Material.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
+        } finally {
+            try {
+                getConn().close();
+            } catch (Exception e) {
+            }
         }
         return materiales;
     }
 
     public void insert(Object[] data) throws SQLException {
-        final QueryRunner qr = new QueryRunner();
-        getConn().setAutoCommit(false);
-        String sqlMaterial = "INSERT INTO "
-                + "material(nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad, idClasificacion, idTienda, idUsuario)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        qr.insert(getConn(), sqlMaterial, new ColumnListHandler(), data);
-        getConn().commit();
+        try {
+            final QueryRunner qr = new QueryRunner();
+            getConn().setAutoCommit(false);
+            String sqlMaterial = "INSERT INTO "
+                    + "material(nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad, idClasificacion, idTienda, idUsuario)"
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            qr.insert(getConn(), sqlMaterial, new ColumnListHandler(), data);
+            getConn().commit();
+        } finally {
+            getConn().rollback();
+            getConn().close();
+        }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
-        final QueryRunner qr = new QueryRunner();
-        getConn().setAutoCommit(false);
-        String sqlUpdate = "UPDATE material SET nombreMaterial = ?, cantidad = ?, limiteMinimo = ?, sku = ?, "
-                + "fechaIngreso = ?, idUnidad = ?, idClasificacion = ?, idTienda = ?, idUsuario = ? WHERE idMaterial = " + idRegistro;
-        qr.update(getConn(), sqlUpdate, data);
-        getConn().commit();
+        try {
+            final QueryRunner qr = new QueryRunner();
+            getConn().setAutoCommit(false);
+            String sqlUpdate = "UPDATE material SET nombreMaterial = ?, cantidad = ?, limiteMinimo = ?, sku = ?, "
+                    + "fechaIngreso = ?, idUnidad = ?, idClasificacion = ?, idTienda = ?, idUsuario = ? WHERE idMaterial = " + idRegistro;
+            qr.update(getConn(), sqlUpdate, data);
+            getConn().commit();
+        } finally {
+            getConn().rollback();
+            getConn().close();
+        }
     }
 
     public void remove(int idRegistro) throws SQLException {
-        final QueryRunner qr = new QueryRunner();
-        getConn().setAutoCommit(false);
-        String sqlRemove = "DELETE FROM `sistema_bd`.`material` WHERE (`idMaterial` = '" + idRegistro + "');";
-        qr.execute(getConn(), sqlRemove);
-        getConn().commit();
+        try {
+            final QueryRunner qr = new QueryRunner();
+            getConn().setAutoCommit(false);
+            String sqlRemove = "DELETE FROM `sistema_bd`.`material` WHERE (`idMaterial` = '" + idRegistro + "');";
+            qr.execute(getConn(), sqlRemove);
+            getConn().commit();
+        } finally {
+            getConn().rollback();
+            getConn().close();
+        }
     }
 }

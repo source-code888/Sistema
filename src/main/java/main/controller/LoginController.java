@@ -19,7 +19,7 @@ import main.view.Estructura;
 import main.view.Login;
 
 public class LoginController extends MouseAdapter implements ActionListener, KeyListener, FocusListener {
-    
+
     private Login login;
     private UsuarioDAO usuario;
 
@@ -33,7 +33,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
     private int xMouse;
     private int yMouse;
     private JButton btnMinimizar;
-    
+
     public LoginController(Login login, JButton btnAceptar, JButton btnClose, JButton btnMinimizar, JTextField txtUsuario, JPasswordField txtPassword, List<JLabel> labels, JPanel header) {
         super();
         this.login = login;
@@ -46,7 +46,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
         this.header = header;
         usuario = new UsuarioDAO();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
@@ -71,37 +71,35 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                 } else {
                     String password = String.valueOf(txtPassword.getPassword());
                     String usuarioTxt = txtUsuario.getText();
-                    boolean existeUsuario = usuario.usuarios().stream().filter(
+                    var existeUsuario = usuario.usuarios().stream().filter(
                             usuario -> usuario.getUsuario().equals(usuarioTxt)
-                    //&& usuario.getPassword().equals(password)
-                    ).collect(Collectors.toList()).size() == 1;
-                    if (existeUsuario) {
-                        //Quiere decir q el usuario existe
-                        var usuarios = usuario.usuarios().stream().filter(
+                    ).collect(Collectors.toList());
+                    if (existeUsuario.size() == 1) {
+                        boolean aprobado = existeUsuario.stream().filter(
                                 usuario -> usuario.getUsuario().equals(usuarioTxt)
                                 && usuario.getPassword().equals(password)
-                        ).collect(Collectors.toList());
-                        int size = usuarios.size();
-                        if (size == 1) {
+                        ).collect(Collectors.toList()).size() == 1;
+                        if (aprobado) {
                             //La contraseña y el usuario corresponden a una cuenta
                             limpiarLoginText();
                             //System.out.println("Inicio de sesion exitoso");
-                            Estructura estructura = new Estructura(usuarios.get(0));
+                            Estructura estructura = new Estructura(existeUsuario.get(0));
                             estructura.setLocationRelativeTo(estructura);
                             estructura.setExtendedState(Frame.MAXIMIZED_BOTH);
                             estructura.setVisible(true);
                             login.dispose();
                         } else {
-                            txtPassword.setText("");
-                            labels.get(2).setVisible(true);
+                            limpiarLoginText();
                             labels.get(2).setText("Contraseña incorrecta");
+                            labels.get(2).setVisible(true);
                             labels.get(2).setForeground(Color.red);
+                            txtUsuario.requestFocus();
                         }
                     } else {
                         //El label mensaje
                         limpiarLoginText();
-                        labels.get(2).setVisible(true);
                         labels.get(2).setText("El usuario no existe");
+                        labels.get(2).setVisible(true);
                         labels.get(2).setForeground(Color.red);
                         txtUsuario.requestFocus();
                     }
@@ -115,12 +113,13 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             }
         }
     }
-    
+
     private void limpiarLoginText() {
         txtUsuario.setText("");
         txtPassword.setText("");
+        usuario = new UsuarioDAO();
     }
-    
+
     @Override
     public void keyTyped(KeyEvent e) {
         Object obj = e.getSource();
@@ -131,14 +130,14 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                     e.consume();
                 }
             }
-            
+
         }
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
     }
-    
+
     @Override
     public void keyReleased(KeyEvent e) {
         Object obj = e.getSource();
@@ -159,12 +158,12 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                 if (e.getKeyChar() == '\n') {
                     txtPassword.requestFocus();
                 }
-                
+
             }
         }
         if (obj instanceof JPasswordField) {
             JPasswordField pwd = (JPasswordField) obj;
-            
+
             if (pwd.equals(txtPassword)) {
                 if (!String.valueOf(txtPassword.getPassword()).isBlank()) {
                     labels.get(1).setText("Contraseña");
@@ -176,15 +175,15 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             }
             if (e.getKeyChar() == '\n') {
                 actionPerformed(new ActionEvent(btnAceptar, 1001, "Aceptar"));
-                
+
             }
         }
     }
-    
+
     @Override
     public void focusGained(FocusEvent e) {
     }
-    
+
     @Override
     public void focusLost(FocusEvent e) {
         Object obj = e.getSource();
@@ -207,7 +206,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             }
         }
     }
-    
+
     @Override
     public void mouseDragged(MouseEvent e) {
         Object obj = e.getSource();
@@ -220,7 +219,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
             }
         }
     }
-    
+
     @Override
     public void mousePressed(MouseEvent e) {
         Object obj = e.getSource();
