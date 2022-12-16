@@ -215,6 +215,7 @@ public class Estructura extends javax.swing.JFrame {
         this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
         this.lblBuscador.setIcon(new ImageIcon(Objetos.imagenPath.ruta("search.png")));
         this.txtBuscador.addKeyListener(materialCTRL);
+        this.txtNombre.addKeyListener(materialCTRL);
 
         btnEliminarMaterial.setFocusPainted(false);
 

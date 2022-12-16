@@ -222,6 +222,9 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                     textFields.get(2).requestFocus();
                     buscar(textFields.get(2).getText());
                 }
+
+            }
+            if (txt.equals(textFields.get(0))) {
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     if (tbMateriales.getSelectedRows().length > 0) {
                         int index = tbMateriales.getSelectedRow() + 1;
