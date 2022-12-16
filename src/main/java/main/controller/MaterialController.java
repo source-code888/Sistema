@@ -27,6 +27,9 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<Material> materiales;
     private DefaultTableModel defaultTableModel;
     private String accion = "insert";
+    private List<Tienda> tiendas;
+    private List<Unidad> unidades;
+    private List<Clasificacion> clasificaciones;
     //Elementos visibles
     private List<JButton> buttons;
     private List<JTextField> textFields;
@@ -98,13 +101,13 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                             SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
                             Date fecha = new Date();
                             String fechaCompleta = dateFormat.format(fecha).toString();
-                            int idUnidad = new UnidadDAO().unidades().stream().filter(
+                            int idUnidad = unidades.stream().filter(
                                     unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString())
                             ).collect(Collectors.toList()).get(0).getId();
-                            int idClasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
+                            int idClasificacion = clasificaciones.stream().filter(
                                     clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()
                                     )).collect(Collectors.toList()).get(0).getId();
-                            int idTienda = new TiendaDAO().tiendas().stream().filter(
+                            int idTienda = tiendas.stream().filter(
                                     tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()
                                     )).collect(Collectors.toList()).get(0).getId();
                             int idUsuario = usuario.getIdUsuario();
@@ -125,38 +128,45 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                         }
 
                     } else if (accion.equals("update")) {
+                        int idUnidad = unidades.stream().filter(
+                                unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString())
+                        ).collect(Collectors.toList()).get(0).getId();
+                        int idClasificacion = clasificaciones.stream().filter(
+                                clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()
+                                )).collect(Collectors.toList()).get(0).getId();
+                        int idTienda = tiendas.stream().filter(
+                                tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()
+                                )).collect(Collectors.toList()).get(0).getId();
+                        boolean existente = (idUnidad == material.getIdUnidad() && idClasificacion == material.getIdClasificacion()
+                                && idTienda == material.getIdTienda() && material.getNombreMaterial().equals(textFields.get(0).getText())
+                                && material.getCantidad() == Integer.parseInt(spinners.get(1).getValue().toString())
+                                && material.getLimiteMinimo() == Integer.parseInt(spinners.get(2).getValue().toString())
+                                && material.getSku().equals(textFields.get(1).getText()));
+                        if (!existente) {
+                            try {
 
-                        try {
-                            int idUnidad = new UnidadDAO().unidades().stream().filter(
-                                    unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString())
-                            ).collect(Collectors.toList()).get(0).getId();
-                            int idClasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
-                                    clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()
-                                    )).collect(Collectors.toList()).get(0).getId();
-                            int idTienda = new TiendaDAO().tiendas().stream().filter(
-                                    tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()
-                                    )).collect(Collectors.toList()).get(0).getId();
-                            material.setNombreMaterial(textFields.get(0).getText());
-                            material.setCantidad(Integer.parseInt(spinners.get(1).getValue().toString()));
-                            material.setLimiteMinimo(Integer.parseInt(spinners.get(2).getValue().toString()));
-                            material.setSku(textFields.get(1).getText());
-                            material.setIdUnidad(idUnidad);
-                            material.setIdClasificacion(idClasificacion);
-                            material.setIdTienda(idTienda);
-                            Object[] data = {
-                                material.getNombreMaterial(),
-                                material.getCantidad(),
-                                material.getLimiteMinimo(),
-                                material.getSku(),
-                                material.getFechaIngreso(),
-                                material.getIdUnidad(),
-                                material.getIdClasificacion(),
-                                material.getIdTienda(),
-                                material.getIdUsuario()
-                            };
-                            new MaterialDAO().update(material.getIdMaterial(), data);
-                        } catch (SQLException ex) {
-                            JOptionPane.showMessageDialog(null, "Hubo un error.");
+                                material.setNombreMaterial(textFields.get(0).getText());
+                                material.setCantidad(Integer.parseInt(spinners.get(1).getValue().toString()));
+                                material.setLimiteMinimo(Integer.parseInt(spinners.get(2).getValue().toString()));
+                                material.setSku(textFields.get(1).getText());
+                                material.setIdUnidad(idUnidad);
+                                material.setIdClasificacion(idClasificacion);
+                                material.setIdTienda(idTienda);
+                                Object[] data = {
+                                    material.getNombreMaterial(),
+                                    material.getCantidad(),
+                                    material.getLimiteMinimo(),
+                                    material.getSku(),
+                                    material.getFechaIngreso(),
+                                    material.getIdUnidad(),
+                                    material.getIdClasificacion(),
+                                    material.getIdTienda(),
+                                    material.getIdUsuario()
+                                };
+                                new MaterialDAO().update(material.getIdMaterial(), data);
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(null, "Hubo un error.");
+                            }
                         }
                         reestablecer();
                     }
@@ -315,13 +325,13 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (!filter.isEmpty()) {
             filter.forEach(
                     material -> {
-                        String unidad = new UnidadDAO().unidades().stream().filter(
+                        String unidad = unidades.stream().filter(
                                 obj -> obj.getId() == material.getIdUnidad()
                         ).collect(Collectors.toList()).get(0).getNombre();
-                        String clasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
+                        String clasificacion = clasificaciones.stream().filter(
                                 obj -> obj.getId() == material.getIdClasificacion()
                         ).collect(Collectors.toList()).get(0).getNombre();
-                        String tienda = new TiendaDAO().tiendas().stream().filter(
+                        String tienda = tiendas.stream().filter(
                                 obj -> obj.getId() == material.getIdTienda()
                         ).collect(Collectors.toList()).get(0).getNombre();
                         String usuario = new UsuarioDAO().usuarios().stream().
@@ -344,6 +354,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             );
         }
         tbMateriales.setModel(defaultTableModel);
+        tbMateriales.getColumnModel().getColumn(5).setPreferredWidth(200);
         tbMateriales.setRowHeight(30);
         tbMateriales.getColumnModel().getColumn(0).setMaxWidth(0);
         tbMateriales.getColumnModel().getColumn(0).setMinWidth(0);
@@ -351,8 +362,8 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     }
 
     private void comboModel(String data) {
+        iniciarListas();
         if (data.equals("unidad")) {
-            var unidades = new UnidadDAO().unidades();
             String[] objetosUnidad = new String[unidades.size()];
             for (int i = 0; i < unidades.size(); i++) {
                 objetosUnidad[i] = unidades.get(i).getNombre();
@@ -361,7 +372,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             boxModelU.setSelectedItem(null);
             combos.get(0).setModel(boxModelU);
         } else if (data.equals("clasificacion")) {
-            var clasificaciones = new ClasificacionDAO().clasificaciones();
             String[] objetosClasificacion = new String[clasificaciones.size()];
             for (int i = 0; i < clasificaciones.size(); i++) {
                 objetosClasificacion[i] = clasificaciones.get(i).getNombre();
@@ -370,7 +380,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             boxModelC.setSelectedItem(null);
             combos.get(1).setModel(boxModelC);
         } else if (data.equals("tienda")) {
-            var tiendas = new TiendaDAO().tiendas();
             String[] objetosTienda = new String[tiendas.size()];
             for (int i = 0; i < tiendas.size(); i++) {
                 objetosTienda[i] = tiendas.get(i).getNombre();
@@ -420,6 +429,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
 
     private void reestablecer() {
         accion = "insert";
+        iniciarListas();
         materiales = new MaterialDAO().materiales();
         if (!materiales.isEmpty()) {
             paginador = new Paginador<>(materiales, labels.get(0), rows);
@@ -446,8 +456,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         buttons.get(1).setVisible(false);
         material = null;
         labels.get(8).setText("");
-        labels.get(8).setVisible(false);
-        labels.get(9).setVisible(false);
+        labels.get(9).setText("");
     }
 
     private void obtenerRegistro() {
@@ -467,13 +476,13 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         buttons.get(1).setVisible(true);
 
         //OBTENEMOS LOS IDS
-        int idUnidad = new UnidadDAO().unidades().stream().filter(
+        int idUnidad = unidades.stream().filter(
                 unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString())
         ).collect(Collectors.toList()).get(0).getId();
-        int idClasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
+        int idClasificacion = clasificaciones.stream().filter(
                 clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()
                 )).collect(Collectors.toList()).get(0).getId();
-        int idTienda = new TiendaDAO().tiendas().stream().filter(
+        int idTienda = tiendas.stream().filter(
                 tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()
                 )).collect(Collectors.toList()).get(0).getId();
         //FIN 
@@ -482,14 +491,18 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 Integer.parseInt(spinners.get(2).getValue().toString()),
                 textFields.get(1).getText(), (String) defaultTableModel.getValueAt(row, 5),
                 idUnidad, idClasificacion, idTienda, usuario.getIdUsuario());
-        labels.get(8).setVisible(true);
-        labels.get(9).setVisible(true);
         labels.get(8).setText(material.getFechaIngreso());
+        labels.get(9).setText("Fecha en que ingreso el material:");
         if (!textFields.get(2).getText().equals("")) {
             textFields.get(2).setText("");
         }
     }
 
+    private void iniciarListas() {
+        tiendas = new TiendaDAO().tiendas();
+        clasificaciones = new ClasificacionDAO().clasificaciones();
+        unidades = new UnidadDAO().unidades();
+    }
     public static final String METHOD_FIRST = "first";
     public static final String METHOD_LAST = "last";
     public static final String METHOD_NEXT = "next";

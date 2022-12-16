@@ -93,9 +93,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel2" max="32767" attributes="0"/>
+                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jPanel1" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -105,7 +106,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel2" max="32767" attributes="0"/>
-                          <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
+                          <Component id="jPanel1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -128,14 +129,14 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" pref="630" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="1034" max="32767" attributes="0"/>
                               <Component id="lblTitulo" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="spinner" pref="150" max="32767" attributes="0"/>
-                                              <Component id="jLabel1" max="32767" attributes="0"/>
+                                              <Component id="spinner" max="32767" attributes="0"/>
+                                              <Component id="jLabel1" pref="150" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -176,19 +177,13 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="373" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="364" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="lblPaginador" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPaginador" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="spinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnPrimero" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -196,7 +191,7 @@
                               <Component id="btnSiguiente" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="btnUltimo" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -289,35 +284,35 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lblFechaIngreso" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="btnEliminarMaterial" min="-2" pref="48" max="-2" attributes="0"/>
-                                  <EmptySpace pref="170" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnAgregarNuevoMaterial" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txtNombre" max="32767" attributes="0"/>
-                              <Component id="spCantidad" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cbxUnidad" alignment="0" max="32767" attributes="0"/>
-                              <Component id="spLimiteMinimo" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtSku" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cbxClasificacion" alignment="0" max="32767" attributes="0"/>
-                              <Component id="cbxTiendas" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblNombreMaterial" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="spCantidad" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cbxUnidad" alignment="0" pref="200" max="32767" attributes="0"/>
+                                      <Component id="spLimiteMinimo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtSku" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cbxClasificacion" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cbxTiendas" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblNombreMaterial" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblCantidadMaterial" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblUnidadMaterial" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblLimiteMinimoMat" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblSkuMat" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblClasificacionMat" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                                       <Component id="lblTiendaMat" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblTituloFecha" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblTituloFecha" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="lblFechaIngreso" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -333,32 +328,32 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblCantidadMaterial" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spCantidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="spCantidad" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblUnidadMaterial" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cbxUnidad" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbxUnidad" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblLimiteMinimoMat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spLimiteMinimo" min="-2" max="-2" attributes="0"/>
+                          <Component id="spLimiteMinimo" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblSkuMat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtSku" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSku" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblClasificacionMat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cbxClasificacion" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbxClasificacion" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTiendaMat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                          <Component id="cbxTiendas" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbxTiendas" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblTituloFecha" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTituloFecha" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblFechaIngreso" min="-2" pref="36" max="-2" attributes="0"/>
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <Component id="lblFechaIngreso" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAgregarNuevoMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                               <Component id="btnEliminarMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -450,9 +445,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblTituloFecha">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Fecha en que ingreso este material:"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblFechaIngreso">
                 </Component>
@@ -472,12 +464,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="940" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1324" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="528" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -494,12 +486,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="940" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1324" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="528" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

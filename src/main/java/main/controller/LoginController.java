@@ -1,6 +1,7 @@
 package main.controller;
 
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -86,8 +87,8 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                             limpiarLoginText();
                             //System.out.println("Inicio de sesion exitoso");
                             Estructura estructura = new Estructura(usuarios.get(0));
-                            estructura.setResizable(false);
                             estructura.setLocationRelativeTo(estructura);
+                            estructura.setExtendedState(Frame.MAXIMIZED_BOTH);
                             estructura.setVisible(true);
                             login.dispose();
                         } else {
