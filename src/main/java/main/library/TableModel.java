@@ -3,10 +3,10 @@ package main.library;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-public class TableModel extends DefaultTableModel{
+public class TableModel extends DefaultTableModel {
 
     public TableModel() {
-        
+
     }
 
     public TableModel(int rowCount, int columnCount) {
@@ -33,8 +33,4 @@ public class TableModel extends DefaultTableModel{
     public boolean isCellEditable(int row, int column) {
         return false;
     }
-    
-    
-            
-            
 }
