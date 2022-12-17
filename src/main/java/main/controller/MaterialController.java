@@ -38,7 +38,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<JSpinner> spinners;
     private List<JComboBox> combos;
 
-    //ELEMENTOS DEL PAGIANDOR
+    //ELEMENTOS DEL PAGINADOR
     private Paginador<Material> paginador;
     private int rows = 10;
     private int pagNum = 1;
@@ -342,6 +342,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                         String usuario = new UsuarioDAO().usuarios().stream().
                                 filter(u -> u.getIdUsuario() == material.getIdUsuario()).collect(Collectors.toList()).
                                 get(0).getUsuario();
+                       
                         Object[] objects = {
                             material.getIdMaterial(),
                             material.getNombreMaterial(),
@@ -436,14 +437,14 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private void reestablecer() {
         accion = "insert";
         iniciarListas();
-        materiales = new MaterialDAO().materiales();
+
         if (!materiales.isEmpty()) {
             paginador = new Paginador<>(materiales, labels.get(0), rows);
         }
         //REINICIAR VALORES
-        textFields.get(0).setText("");
-        textFields.get(1).setText("");
-        textFields.get(2).setText("");
+        for (int i = 0; i < textFields.size(); i++) {
+            textFields.get(i).setText("");
+        }
         comboModel("tienda");
         comboModel("unidad");
         comboModel("clasificacion");
@@ -451,6 +452,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
         SpinnerNumberModel numberModel1 = new SpinnerNumberModel(10, 1, 100, 1);
         SpinnerNumberModel numberModel2 = new SpinnerNumberModel(10, 1, 100, 1);
+        
         spinner.setModel(numberModel);
         spinners.get(1).setModel(numberModel1);
         spinners.get(2).setModel(numberModel2);
@@ -508,6 +510,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         tiendas = new TiendaDAO().tiendas();
         clasificaciones = new ClasificacionDAO().clasificaciones();
         unidades = new UnidadDAO().unidades();
+        materiales = new MaterialDAO().materiales();
     }
     public static final String METHOD_FIRST = "first";
     public static final String METHOD_LAST = "last";

@@ -280,6 +280,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         if (!lista.isEmpty()) {
             paginador = new Paginador<>(lista, labels.get(4), rows);
         }
+        
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(numberModel);
         buscar("");
