@@ -108,6 +108,7 @@ public class Estructura extends javax.swing.JFrame {
         ));
         tbMateriales.getTableHeader().setReorderingAllowed(false);
         tbMateriales.setSelectionMode(0);
+        tbMateriales.getTableHeader().setResizingAllowed(false);
         jScrollPane1.setViewportView(tbMateriales);
 
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -346,7 +347,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(lblTituloFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarNuevoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -384,12 +385,13 @@ public class Estructura extends javax.swing.JFrame {
         );
         panelSalidasLayout.setVerticalGroup(
             panelSalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGap(0, 557, Short.MAX_VALUE)
         );
 
         tabbedPane.addTab("Salidas", panelSalidas);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setMinimumSize(new java.awt.Dimension(250, 250));
 
         btnAgregarNuevoEmpleado.setFocusPainted(false);
 
@@ -470,7 +472,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(lblArea)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxAreaEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -491,44 +493,8 @@ public class Estructura extends javax.swing.JFrame {
             }
         ));
         tbEmpleados.getTableHeader().setReorderingAllowed(false);
-        tbMateriales.setSelectionMode(0);
+        tbEmpleados.getTableHeader().setResizingAllowed(false);
         jScrollPane2.setViewportView(tbEmpleados);
-        List<JButton> buttonsEmpleados = new ArrayList<>();
-        buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);
-        buttonsEmpleados.add(this.btnEliminarEmpleado);
-        buttonsEmpleados.add(this.btnPrimeroEmpleados);
-        buttonsEmpleados.add(this.btnAnteriorEmpleados);
-        buttonsEmpleados.add(this.btnSiguienteEmpleados);
-        buttonsEmpleados.add(this.btnUltimoEmpleados);
-
-        List<JTextField> textsEmpleados = new ArrayList<>();
-        textsEmpleados.add(this.txtNombreEmpleado);
-        textsEmpleados.add(this.txtApellidoPaterno);
-        textsEmpleados.add(this.txtApellidoMaterno);
-        textsEmpleados.add(this.txtTelefono);
-        textsEmpleados.add(this.txtEmail);
-        textsEmpleados.add(this.txtBuscadorEmpleados);
-
-        List<JLabel> labelsEmpleados = new ArrayList<>();
-        labelsEmpleados.add(this.lblNombreEmpleado);
-        labelsEmpleados.add(this.lblApellidoPaterno);
-        labelsEmpleados.add(this.lblApellidoMaterno);
-        labelsEmpleados.add(this.lblTelefono);
-        labelsEmpleados.add(this.lblEmail);
-        labelsEmpleados.add(this.lblArea);
-        labelsEmpleados.add(this.lblPaginadorEmpleados);
-
-        EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados);
-
-        this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);
-        this.btnEliminarEmpleado.setVisible(false);
-        this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta("accept.png")));
-        this.btnEliminarEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
-        this.lblBuscadorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("search.png")));
-        this.btnPrimeroEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_doble.png")));
-        this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_icon.png")));
-        this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_icon.png")));
-        this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_doble.png")));
 
         lblTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo1.setText("Empleados");
@@ -608,6 +574,56 @@ public class Estructura extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
+        List<JButton> buttonsEmpleados = new ArrayList<>();
+        buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);
+        buttonsEmpleados.add(this.btnEliminarEmpleado);
+        buttonsEmpleados.add(this.btnPrimeroEmpleados);
+        buttonsEmpleados.add(this.btnAnteriorEmpleados);
+        buttonsEmpleados.add(this.btnSiguienteEmpleados);
+        buttonsEmpleados.add(this.btnUltimoEmpleados);
+
+        List<JTextField> textsEmpleados = new ArrayList<>();
+        textsEmpleados.add(this.txtNombreEmpleado);
+        textsEmpleados.add(this.txtApellidoPaterno);
+        textsEmpleados.add(this.txtApellidoMaterno);
+        textsEmpleados.add(this.txtTelefono);
+        textsEmpleados.add(this.txtEmail);
+        textsEmpleados.add(this.txtBuscadorEmpleados);
+
+        List<JLabel> labelsEmpleados = new ArrayList<>();
+        labelsEmpleados.add(this.lblNombreEmpleado);
+        labelsEmpleados.add(this.lblApellidoPaterno);
+        labelsEmpleados.add(this.lblApellidoMaterno);
+        labelsEmpleados.add(this.lblTelefono);
+        labelsEmpleados.add(this.lblEmail);
+        labelsEmpleados.add(this.lblArea);
+        labelsEmpleados.add(this.lblPaginadorEmpleados);
+
+        EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados);
+
+        this.tbEmpleados.setSelectionMode(0);
+        this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);
+        this.btnEliminarEmpleado.setVisible(false);
+        this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta("accept.png")));
+        this.btnEliminarEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
+        this.lblBuscadorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("search.png")));
+        this.btnPrimeroEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_doble.png")));
+        this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_icon.png")));
+        this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_icon.png")));
+        this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_doble.png")));
+        this.txtNombreEmpleado.addKeyListener(empleadoCTRL);
+        this.txtApellidoPaterno.addKeyListener(empleadoCTRL);
+        this.txtApellidoMaterno.addKeyListener(empleadoCTRL);
+        this.txtTelefono.addKeyListener(empleadoCTRL);
+        this.txtEmail.addKeyListener(empleadoCTRL);
+        this.txtBuscadorEmpleados.addKeyListener(empleadoCTRL);
+        this.btnAgregarNuevoEmpleado.addActionListener(empleadoCTRL);
+        this.btnEliminarEmpleado.addActionListener(empleadoCTRL);
+        this.btnAnteriorEmpleados.addActionListener(empleadoCTRL);
+        this.btnPrimeroEmpleados.addActionListener(empleadoCTRL);
+        this.btnSiguienteEmpleados.addActionListener(empleadoCTRL);
+        this.btnUltimoEmpleados.addActionListener(empleadoCTRL);
+
         javax.swing.GroupLayout panelEmpleadosLayout = new javax.swing.GroupLayout(panelEmpleados);
         panelEmpleados.setLayout(panelEmpleadosLayout);
         panelEmpleadosLayout.setHorizontalGroup(
@@ -663,7 +679,9 @@ public class Estructura extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
