@@ -71,7 +71,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="tabbedPane" pref="588" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -216,7 +219,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbMateriales.setSelectionMode(0);"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbMateriales.setSelectionMode(0);&#xa;tbMateriales.getTableHeader().setResizingAllowed(false);"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
@@ -352,7 +355,7 @@
                           <Component id="lblTituloFecha" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblFechaIngreso" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                          <EmptySpace pref="8" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAgregarNuevoMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                               <Component id="btnEliminarMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -368,7 +371,7 @@
                     <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);&#xa;this.btnEliminarMaterial.addActionListener(materialCTRL);&#xa;this.btnAgregarNuevoMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscador.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.txtBuscador.addKeyListener(materialCTRL);&#xa;this.txtNombre.addKeyListener(materialCTRL);&#xa;this.btnPrimero.addActionListener(materialCTRL);&#xa;this.btnAnterior.addActionListener(materialCTRL);&#xa;this.btnSiguiente.addActionListener(materialCTRL);&#xa;this.btnUltimo.addActionListener(materialCTRL);&#xa;this.cbxClasificacion.addActionListener(materialCTRL);&#xa;this.cbxTiendas.addActionListener(materialCTRL);&#xa;this.cbxUnidad.addActionListener(materialCTRL);&#xa;this.txtNombre.addFocusListener(materialCTRL);&#xa;this.txtSku.addFocusListener(materialCTRL);&#xa;this.txtSku.addKeyListener(materialCTRL);&#xa;"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);&#xa;this.btnEliminarMaterial.addActionListener(materialCTRL);&#xa;this.btnAgregarNuevoMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscador.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.txtBuscador.addKeyListener(materialCTRL);&#xa;this.txtNombre.addKeyListener(materialCTRL);&#xa;this.btnPrimero.addActionListener(materialCTRL);&#xa;this.btnAnterior.addActionListener(materialCTRL);&#xa;this.btnSiguiente.addActionListener(materialCTRL);&#xa;this.btnUltimo.addActionListener(materialCTRL);&#xa;this.cbxClasificacion.addActionListener(materialCTRL);&#xa;this.cbxTiendas.addActionListener(materialCTRL);&#xa;this.cbxUnidad.addActionListener(materialCTRL);&#xa;this.txtNombre.addFocusListener(materialCTRL);&#xa;this.txtSku.addFocusListener(materialCTRL);&#xa;this.txtSku.addKeyListener(materialCTRL);"/>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xa;List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xa;buttons.add(this.btnAgregarNuevoMaterial);&#xa;buttons.add(this.btnEliminarMaterial);&#xa;buttons.add(this.btnPrimero);&#xa;buttons.add(this.btnAnterior);&#xa;buttons.add(this.btnSiguiente);&#xa;buttons.add(this.btnUltimo);&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xa;textFields.add(this.txtNombre);&#xa;textFields.add(this.txtSku);&#xa;textFields.add(this.txtBuscador);&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xa;labels.add(this.lblPaginador);&#xa;labels.add(this.lblNombreMaterial);&#xa;labels.add(this.lblCantidadMaterial);&#xa;labels.add(this.lblUnidadMaterial);&#xa;labels.add(this.lblLimiteMinimoMat);&#xa;labels.add(this.lblSkuMat);&#xa;labels.add(this.lblClasificacionMat);&#xa;labels.add(this.lblTiendaMat);&#xa;labels.add(this.lblFechaIngreso);&#xa;labels.add(this.lblTituloFecha);&#xa;&#xa;List&lt;JSpinner&gt; spinners = new ArrayList&lt;&gt;();&#xa;spinners.add(this.spinner);&#xa;spinners.add(this.spCantidad);&#xa;spinners.add(this.spLimiteMinimo);&#xa;List&lt;JComboBox&gt; combos = new ArrayList&lt;&gt;();&#xa;combos.add(this.cbxUnidad);&#xa;combos.add(this.cbxClasificacion);&#xa;combos.add(this.cbxTiendas);&#xa;MaterialController materialCTRL = new MaterialController(object,buttons, textFields, labels, tbMateriales, spinners, combos);"/>
                   </AuxValues>
                 </Component>
@@ -476,7 +479,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="557" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -522,6 +525,9 @@
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder/>
                   </Border>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[250, 250]"/>
                 </Property>
               </Properties>
 
@@ -585,7 +591,7 @@
                           <Component id="lblArea" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cbxAreaEmpleados" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="115" max="32767" attributes="0"/>
+                          <EmptySpace pref="109" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAgregarNuevoEmpleado" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                               <Component id="btnEliminarEmpleado" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -771,7 +777,7 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="0" rowCount="4"/>
                         </Property>
-                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="List&lt;JButton&gt; buttonsEmpleados = new ArrayList&lt;&gt;();&#xa;buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);&#xa;buttonsEmpleados.add(this.btnEliminarEmpleado);&#xa;buttonsEmpleados.add(this.btnPrimeroEmpleados);&#xa;buttonsEmpleados.add(this.btnAnteriorEmpleados);&#xa;buttonsEmpleados.add(this.btnSiguienteEmpleados);&#xa;buttonsEmpleados.add(this.btnUltimoEmpleados);&#xa;&#xa;List&lt;JTextField&gt; textsEmpleados = new ArrayList&lt;&gt;();&#xa;textsEmpleados.add(this.txtNombreEmpleado);&#xa;textsEmpleados.add(this.txtApellidoPaterno);&#xa;textsEmpleados.add(this.txtApellidoMaterno);&#xa;textsEmpleados.add(this.txtTelefono);&#xa;textsEmpleados.add(this.txtEmail);&#xa;textsEmpleados.add(this.txtBuscadorEmpleados);&#xa;&#xa;List&lt;JLabel&gt; labelsEmpleados = new ArrayList&lt;&gt;();&#xa;labelsEmpleados.add(this.lblNombreEmpleado);&#xa;labelsEmpleados.add(this.lblApellidoPaterno);&#xa;labelsEmpleados.add(this.lblApellidoMaterno);&#xa;labelsEmpleados.add(this.lblTelefono);&#xa;labelsEmpleados.add(this.lblEmail);&#xa;labelsEmpleados.add(this.lblArea);&#xa;labelsEmpleados.add(this.lblPaginadorEmpleados);&#xa;&#xa;EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados);&#xa;&#xa;this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.setVisible(false);&#xa;this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscadorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.btnPrimeroEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));">
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0"/>
                         </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -779,7 +785,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbMateriales.setSelectionMode(0);"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbEmpleados.getTableHeader().setResizingAllowed(false);"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>
@@ -836,6 +842,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtBuscadorEmpleados">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="List&lt;JButton&gt; buttonsEmpleados = new ArrayList&lt;&gt;();&#xa;buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);&#xa;buttonsEmpleados.add(this.btnEliminarEmpleado);&#xa;buttonsEmpleados.add(this.btnPrimeroEmpleados);&#xa;buttonsEmpleados.add(this.btnAnteriorEmpleados);&#xa;buttonsEmpleados.add(this.btnSiguienteEmpleados);&#xa;buttonsEmpleados.add(this.btnUltimoEmpleados);&#xa;&#xa;List&lt;JTextField&gt; textsEmpleados = new ArrayList&lt;&gt;();&#xa;textsEmpleados.add(this.txtNombreEmpleado);&#xa;textsEmpleados.add(this.txtApellidoPaterno);&#xa;textsEmpleados.add(this.txtApellidoMaterno);&#xa;textsEmpleados.add(this.txtTelefono);&#xa;textsEmpleados.add(this.txtEmail);&#xa;textsEmpleados.add(this.txtBuscadorEmpleados);&#xa;&#xa;List&lt;JLabel&gt; labelsEmpleados = new ArrayList&lt;&gt;();&#xa;labelsEmpleados.add(this.lblNombreEmpleado);&#xa;labelsEmpleados.add(this.lblApellidoPaterno);&#xa;labelsEmpleados.add(this.lblApellidoMaterno);&#xa;labelsEmpleados.add(this.lblTelefono);&#xa;labelsEmpleados.add(this.lblEmail);&#xa;labelsEmpleados.add(this.lblArea);&#xa;labelsEmpleados.add(this.lblPaginadorEmpleados);&#xa;&#xa;EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados);&#xa;&#xa;this.tbEmpleados.setSelectionMode(0);&#xa;this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.setVisible(false);&#xa;this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscadorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.btnPrimeroEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.txtNombreEmpleado.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoPaterno.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoMaterno.addKeyListener(empleadoCTRL);&#xa;this.txtTelefono.addKeyListener(empleadoCTRL);&#xa;this.txtEmail.addKeyListener(empleadoCTRL);&#xa;this.txtBuscadorEmpleados.addKeyListener(empleadoCTRL);&#xa;this.btnAgregarNuevoEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnAnteriorEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnPrimeroEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnSiguienteEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnUltimoEmpleados.addActionListener(empleadoCTRL);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

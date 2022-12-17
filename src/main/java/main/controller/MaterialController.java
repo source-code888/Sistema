@@ -536,10 +536,10 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private void reestablecer() {
         accion = "insert";
         iniciarListas();
-
+/*
         if (!materiales.isEmpty()) {
             paginador = new Paginador<>(materiales, labels.get(0), rows);
-        }
+        }*/
         //REINICIAR VALORES
         for (int i = 0; i < textFields.size(); i++) {
             textFields.get(i).setText("");
