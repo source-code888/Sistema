@@ -41,6 +41,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[815, 680]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar"/>
@@ -72,7 +75,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="tabbedPane" pref="588" max="32767" attributes="0"/>
+              <Component id="tabbedPane" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -537,9 +540,9 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnEliminarEmpleado" min="-2" pref="48" max="-2" attributes="0"/>
-                                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnAgregarNuevoEmpleado" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -557,7 +560,7 @@
                                       <Component id="lblApellidoMaterno" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtApellidoMaterno" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -593,7 +596,7 @@
                           <Component id="cbxAreaEmpleados" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace pref="109" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnAgregarNuevoEmpleado" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="btnAgregarNuevoEmpleado" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
                               <Component id="btnEliminarEmpleado" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -843,7 +846,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtBuscadorEmpleados">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="List&lt;JButton&gt; buttonsEmpleados = new ArrayList&lt;&gt;();&#xa;buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);&#xa;buttonsEmpleados.add(this.btnEliminarEmpleado);&#xa;buttonsEmpleados.add(this.btnPrimeroEmpleados);&#xa;buttonsEmpleados.add(this.btnAnteriorEmpleados);&#xa;buttonsEmpleados.add(this.btnSiguienteEmpleados);&#xa;buttonsEmpleados.add(this.btnUltimoEmpleados);&#xa;&#xa;List&lt;JTextField&gt; textsEmpleados = new ArrayList&lt;&gt;();&#xa;textsEmpleados.add(this.txtNombreEmpleado);&#xa;textsEmpleados.add(this.txtApellidoPaterno);&#xa;textsEmpleados.add(this.txtApellidoMaterno);&#xa;textsEmpleados.add(this.txtTelefono);&#xa;textsEmpleados.add(this.txtEmail);&#xa;textsEmpleados.add(this.txtBuscadorEmpleados);&#xa;&#xa;List&lt;JLabel&gt; labelsEmpleados = new ArrayList&lt;&gt;();&#xa;labelsEmpleados.add(this.lblNombreEmpleado);&#xa;labelsEmpleados.add(this.lblApellidoPaterno);&#xa;labelsEmpleados.add(this.lblApellidoMaterno);&#xa;labelsEmpleados.add(this.lblTelefono);&#xa;labelsEmpleados.add(this.lblEmail);&#xa;labelsEmpleados.add(this.lblArea);&#xa;labelsEmpleados.add(this.lblPaginadorEmpleados);&#xa;&#xa;EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados);&#xa;&#xa;this.tbEmpleados.setSelectionMode(0);&#xa;this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.setVisible(false);&#xa;this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscadorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.btnPrimeroEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.txtNombreEmpleado.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoPaterno.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoMaterno.addKeyListener(empleadoCTRL);&#xa;this.txtTelefono.addKeyListener(empleadoCTRL);&#xa;this.txtEmail.addKeyListener(empleadoCTRL);&#xa;this.txtBuscadorEmpleados.addKeyListener(empleadoCTRL);&#xa;this.btnAgregarNuevoEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnAnteriorEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnPrimeroEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnSiguienteEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnUltimoEmpleados.addActionListener(empleadoCTRL);"/>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="List&lt;JButton&gt; buttonsEmpleados = new ArrayList&lt;&gt;();&#xa;buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);&#xa;buttonsEmpleados.add(this.btnEliminarEmpleado);&#xa;buttonsEmpleados.add(this.btnPrimeroEmpleados);&#xa;buttonsEmpleados.add(this.btnAnteriorEmpleados);&#xa;buttonsEmpleados.add(this.btnSiguienteEmpleados);&#xa;buttonsEmpleados.add(this.btnUltimoEmpleados);&#xa;&#xa;List&lt;JTextField&gt; textsEmpleados = new ArrayList&lt;&gt;();&#xa;textsEmpleados.add(this.txtNombreEmpleado);&#xa;textsEmpleados.add(this.txtApellidoPaterno);&#xa;textsEmpleados.add(this.txtApellidoMaterno);&#xa;textsEmpleados.add(this.txtTelefono);&#xa;textsEmpleados.add(this.txtEmail);&#xa;textsEmpleados.add(this.txtBuscadorEmpleados);&#xa;&#xa;List&lt;JLabel&gt; labelsEmpleados = new ArrayList&lt;&gt;();&#xa;labelsEmpleados.add(this.lblNombreEmpleado);&#xa;labelsEmpleados.add(this.lblApellidoPaterno);&#xa;labelsEmpleados.add(this.lblApellidoMaterno);&#xa;labelsEmpleados.add(this.lblTelefono);&#xa;labelsEmpleados.add(this.lblEmail);&#xa;labelsEmpleados.add(this.lblArea);&#xa;labelsEmpleados.add(this.lblPaginadorEmpleados);&#xa;List&lt;JLabel&gt; columnLabels = new ArrayList&lt;&gt;();&#xa;&#xa;EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados, this, columnLabels);&#xa;&#xa;//AGREGA MOUSE LISTENER A LOS HEADER DE CADA COLUMNA DE LA TABLA&#xa;/*&#xa;for(int i = 0; i&lt;7 ; i++){&#xa;    TableColumn column = this.tbEmpleados.getColumnModel().getColumn(i);&#xa;    column.setHeaderRenderer(new DefaultTableCellRenderer(){&#xa;        @Override&#xa;    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {&#xa;        JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);&#xa;        label.addMouseListener(empleadoCTRL);&#xa;        //columnLabels.add(label);&#xa;        return label;&#xa;    }&#xa;    });&#xa;}*/&#xa;&#xa;this.tbEmpleados.setSelectionMode(0);&#xa;this.tbEmpleados.addMouseListener(empleadoCTRL);&#xa;this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.setVisible(false);&#xa;this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscadorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.btnPrimeroEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.txtNombreEmpleado.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoPaterno.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoMaterno.addKeyListener(empleadoCTRL);&#xa;this.txtTelefono.addKeyListener(empleadoCTRL);&#xa;this.txtEmail.addKeyListener(empleadoCTRL);&#xa;this.txtBuscadorEmpleados.addKeyListener(empleadoCTRL);&#xa;this.btnAgregarNuevoEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnAnteriorEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnPrimeroEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnSiguienteEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnUltimoEmpleados.addActionListener(empleadoCTRL);&#xa;this.txtNombreEmpleado.addFocusListener(empleadoCTRL);&#xa;this.txtApellidoPaterno.addFocusListener(empleadoCTRL);&#xa;this.txtApellidoMaterno.addFocusListener(empleadoCTRL);&#xa;this.txtTelefono.addFocusListener(empleadoCTRL);&#xa;this.txtEmail.addFocusListener(empleadoCTRL);&#xa;this.tbEmpleados.getTableHeader().addMouseListener(empleadoCTRL);&#xa;/*&#xa;new MouseAdapter() {&#xa;            @Override&#xa;            public void mouseClicked(MouseEvent e) {&#xa;                // manejar el evento de hacer clic en la columna aqu&#xed;&#xa;            }&#xa;        }&#xa;*/"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

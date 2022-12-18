@@ -1,8 +1,11 @@
 package main.view;
 
+import java.awt.Component;
 import main.controller.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import main.library.Objetos;
 
 public class Estructura extends javax.swing.JFrame {
@@ -13,6 +16,7 @@ public class Estructura extends javax.swing.JFrame {
         this.object = object;
 
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -92,6 +96,7 @@ public class Estructura extends javax.swing.JFrame {
         jMenuCerrar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(815, 680));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -424,9 +429,9 @@ public class Estructura extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(btnEliminarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAgregarNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -442,7 +447,7 @@ public class Estructura extends javax.swing.JFrame {
                             .addComponent(lblArea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblApellidoMaterno, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(34, 34, 34)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -598,10 +603,27 @@ public class Estructura extends javax.swing.JFrame {
         labelsEmpleados.add(this.lblEmail);
         labelsEmpleados.add(this.lblArea);
         labelsEmpleados.add(this.lblPaginadorEmpleados);
+        List<JLabel> columnLabels = new ArrayList<>();
 
-        EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados);
+        EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados, this, columnLabels);
+
+        //AGREGA MOUSE LISTENER A LOS HEADER DE CADA COLUMNA DE LA TABLA
+        /*
+        for(int i = 0; i<7 ; i++){
+            TableColumn column = this.tbEmpleados.getColumnModel().getColumn(i);
+            column.setHeaderRenderer(new DefaultTableCellRenderer(){
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    label.addMouseListener(empleadoCTRL);
+                    //columnLabels.add(label);
+                    return label;
+                }
+            });
+        }*/
 
         this.tbEmpleados.setSelectionMode(0);
+        this.tbEmpleados.addMouseListener(empleadoCTRL);
         this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);
         this.btnEliminarEmpleado.setVisible(false);
         this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta("accept.png")));
@@ -623,6 +645,20 @@ public class Estructura extends javax.swing.JFrame {
         this.btnPrimeroEmpleados.addActionListener(empleadoCTRL);
         this.btnSiguienteEmpleados.addActionListener(empleadoCTRL);
         this.btnUltimoEmpleados.addActionListener(empleadoCTRL);
+        this.txtNombreEmpleado.addFocusListener(empleadoCTRL);
+        this.txtApellidoPaterno.addFocusListener(empleadoCTRL);
+        this.txtApellidoMaterno.addFocusListener(empleadoCTRL);
+        this.txtTelefono.addFocusListener(empleadoCTRL);
+        this.txtEmail.addFocusListener(empleadoCTRL);
+        this.tbEmpleados.getTableHeader().addMouseListener(empleadoCTRL);
+        /*
+        new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // manejar el evento de hacer clic en la columna aquí
+            }
+        }
+        */
 
         javax.swing.GroupLayout panelEmpleadosLayout = new javax.swing.GroupLayout(panelEmpleados);
         panelEmpleados.setLayout(panelEmpleadosLayout);
@@ -680,7 +716,7 @@ public class Estructura extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addComponent(tabbedPane)
                 .addContainerGap())
         );
 

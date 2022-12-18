@@ -233,7 +233,9 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
 
     @Override
     public void keyReleased(KeyEvent e) {
+        
         Object obj = e.getSource();
+        
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbMateriales)) {
@@ -242,6 +244,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 }
             }
         }
+        
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(2))) {

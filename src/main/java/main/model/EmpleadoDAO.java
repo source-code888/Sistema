@@ -44,4 +44,31 @@ public class EmpleadoDAO extends Conexion {
             getConn().close();
         }
     }
+    
+    public void update(int idRegistro, Object[] data) throws SQLException {
+        try {
+            final QueryRunner qr = new QueryRunner();
+            getConn().setAutoCommit(false);
+            String sqlUpdate = "UPDATE empleado SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, telefono = ?, "
+                    + "email = ?, idArea = ? WHERE idEmpleado = " + idRegistro;
+            qr.update(getConn(), sqlUpdate, data);
+            getConn().commit();
+        } finally {
+            getConn().rollback();
+            getConn().close();
+        }
+    }
+    
+    public void remove(int idRegistro) throws SQLException {
+        try {
+            final QueryRunner qr = new QueryRunner();
+            getConn().setAutoCommit(false);
+            String sqlRemove = "DELETE FROM `sistema_bd`.`empleado` WHERE (`idEmpleado` = '" + idRegistro + "');";
+            qr.execute(getConn(), sqlRemove);
+            getConn().commit();
+        } finally {
+            getConn().rollback();
+            getConn().close();
+        }
+    }
 }
