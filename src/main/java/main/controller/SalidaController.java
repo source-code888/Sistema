@@ -440,7 +440,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     }
 
     private void mostrarRegistrosPorPagina() {
-        pagNum = paginador.primero();
+        pagNum = 1;
         Number box = (Number) spinner.getValue();
         rows = box.intValue();
         if (!salidas.isEmpty()) {
