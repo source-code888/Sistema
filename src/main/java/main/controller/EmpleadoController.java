@@ -200,10 +200,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         }
     }
 
-    private void remarcarLabel(JLabel label, String string, Color color) {
-        label.setText(string);
-        label.setForeground(color);
-    }
+    
 
     @Override
     public void focusLost(FocusEvent e) {
@@ -212,27 +209,27 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             JTextField textField = (JTextField) source;
             if (textField.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
-                    remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
                 }
             }
             if (textField.equals(textFields.get(1))) {
                 if (textFields.get(1).getText().isBlank()) {
-                    remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
                 }
             }
             if (textField.equals(textFields.get(2))) {
                 if (textFields.get(2).getText().isEmpty()) {
-                    remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
                 }
             }
             if (textField.equals(textFields.get(3))) {
                 if (textFields.get(3).getText().isBlank()) {
-                    remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.red);
                 }
             }
             if (textField.equals(textFields.get(4))) {
                 if (textFields.get(4).getText().isBlank()) {
-                    remarcarLabel(labels.get(4), "Ingresa un correo electrónico", Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico", Color.red);
                 }
             }
             /*if (cbxAreas.getSelectedItem() == null) {
@@ -248,16 +245,16 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         if (source instanceof JTextField) {
             JTextField textField = (JTextField) source;
             if (textField.equals(textFields.get(0))) {
-                Objetos.validarTextField.textKeyPressed(e);
+                Objetos.eventoComun.textKeyPressed(e);
             }
             if (textField.equals(textFields.get(1))) {
-                Objetos.validarTextField.textKeyPressed(e);
+                Objetos.eventoComun.textKeyPressed(e);
             }
             if (textField.equals(textFields.get(2))) {
-                Objetos.validarTextField.textKeyPressed(e);
+                Objetos.eventoComun.textKeyPressed(e);
             }
             if (textField.equals(textFields.get(3))) {
-                Objetos.validarTextField.numberKeyPressed(e);
+                Objetos.eventoComun.numberKeyPressed(e);
                 if (textFields.get(3).getText().length() == 10) {
                     e.consume();
                 }
@@ -282,37 +279,37 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
             if (textField.equals(textFields.get(0))) {
                 if (!textFields.get(0).getText().isBlank()) {
-                    remarcarLabel(labels.get(0), "Nombre", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre", new Color(0, 153, 51));
                 } else {
-                    remarcarLabel(labels.get(0), "Ingresa un nombre", Color.RED);
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(1))) {
                 if (!textFields.get(1).getText().isBlank()) {
-                    remarcarLabel(labels.get(1), "Apellido paterno", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno", new Color(0, 153, 51));
                 } else {
-                    remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.RED);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(2))) {
                 if (!textFields.get(2).getText().isEmpty()) {
-                    remarcarLabel(labels.get(2), "Apellido materno", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno", new Color(0, 153, 51));
                 } else {
-                    remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.RED);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(3))) {
                 if (!textFields.get(3).getText().isBlank()) {
-                    remarcarLabel(labels.get(3), "Teléfono", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono", new Color(0, 153, 51));
                 } else {
-                    remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.RED);
+                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(4))) {
                 if (!textFields.get(4).getText().isBlank()) {
-                    remarcarLabel(labels.get(4), "Correo electrónico", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico", new Color(0, 153, 51));
                 } else {
-                    remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.RED);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.RED);
                 }
             }
 
@@ -506,37 +503,37 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
     public boolean validarEntradas() {
         if (textFields.get(0).getText().isBlank() && textFields.get(1).getText().isBlank() && textFields.get(2).getText().isEmpty()
-                && textFields.get(3).getText().isBlank() && !Objetos.validarTextField.isEmail(textFields.get(4).getText()) && cbxAreas.getSelectedItem() == null) {
+                && textFields.get(3).getText().isBlank() && !Objetos.eventoComun.isEmail(textFields.get(4).getText()) && cbxAreas.getSelectedItem() == null) {
             reestablecer();
-            remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
-            remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
-            remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
-            remarcarLabel(labels.get(3), "Ingresa un de teléfono", Color.red);
-            remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.red);
-            remarcarLabel(labels.get(5), "Ingresa el area", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(3), "Ingresa un de teléfono", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(5), "Ingresa el area", Color.red);
             return false;
         } else if (textFields.get(0).getText().isBlank()) {
-            remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
             textFields.get(0).requestFocus();
             return false;
         } else if (textFields.get(1).getText().isBlank()) {
-            remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
             textFields.get(1).requestFocus();
             return false;
         } else if (textFields.get(2).getText().isEmpty()) {
-            remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
             textFields.get(2).requestFocus();
             return false;
         } else if (textFields.get(3).getText().isBlank()) {
-            remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.red);
             textFields.get(3).requestFocus();
             return false;
-        } else if (!Objetos.validarTextField.isEmail(textFields.get(4).getText())) {
-            remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.red);
+        } else if (!Objetos.eventoComun.isEmail(textFields.get(4).getText())) {
+            Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.red);
             textFields.get(4).requestFocus();
             return false;
         } else if (cbxAreas.getSelectedItem() == null) {
-            remarcarLabel(labels.get(5), "ISelecciona el área", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(5), "ISelecciona el área", Color.red);
             cbxAreas.requestFocus();
             return false;
         }

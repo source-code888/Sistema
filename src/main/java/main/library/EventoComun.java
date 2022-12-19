@@ -1,10 +1,12 @@
 package main.library;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JLabel;
 
-public class TextFieldEvent {
+public class EventoComun {
 
     public void textKeyPressed(KeyEvent evt) {
         char caracter = evt.getKeyChar();
@@ -34,6 +36,17 @@ public class TextFieldEvent {
         Pattern patt = Pattern.compile("^[\\w\\-\\_\\+]+(\\.[\\w\\-\\_]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
         Matcher matc = patt.matcher(email);
         return matc.find();
+    }
+    
+    /**
+     * Remarcar un label especificado del color seleccionado.
+     * @param label label que se desea remarcar
+     * @param string cadena que se desea mostrar
+     * @param color color del texto
+     */
+    public void remarcarLabel(JLabel label, String string, Color color) {
+        label.setText(string);
+        label.setForeground(color);
     }
 
 }

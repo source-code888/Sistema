@@ -346,17 +346,17 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
              */
             if (txt.equals(textFields.get(0))) {
                 //en caso de que poner numeros u otros caracteres en el nombre de un registro hay que borrar esto
-                Objetos.validarTextField.textKeyPressed(e);
+                Objetos.eventoComun.textKeyPressed(e);
             }
             if(txt.equals(textFields.get(2))){
                 //Remover si es necesario
-                Objetos.validarTextField.textKeyPressed(e);
+                Objetos.eventoComun.textKeyPressed(e);
             }
             if (txt.equals(textFields.get(3))) {
-                Objetos.validarTextField.numberKeyPressed(e);
+                Objetos.eventoComun.numberKeyPressed(e);
             }
             if (txt.equals(textFields.get(4))) {
-                Objetos.validarTextField.numberKeyPressed(e);
+                Objetos.eventoComun.numberKeyPressed(e);
             }
         }
     }
