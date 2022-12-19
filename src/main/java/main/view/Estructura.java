@@ -23,7 +23,7 @@ public class Estructura extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPanePrincipal = new javax.swing.JTabbedPane();
         panelMateriales = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -360,7 +360,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("Materiales", panelMateriales);
+        tabbedPanePrincipal.addTab("Materiales", panelMateriales);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -657,7 +657,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("Salidas", panelSalidas);
+        tabbedPanePrincipal.addTab("Salidas", panelSalidas);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel3.setMinimumSize(new java.awt.Dimension(250, 250));
@@ -866,7 +866,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        tabbedPane.addTab("Empleados", panelEmpleados);
+        tabbedPanePrincipal.addTab("Empleados", panelEmpleados);
 
         jMenuAjustes.setText("Ajustes");
 
@@ -893,11 +893,11 @@ public class Estructura extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
+            .addComponent(tabbedPanePrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
+            .addComponent(tabbedPanePrincipal)
         );
 
         pack();
@@ -936,7 +936,7 @@ public class Estructura extends javax.swing.JFrame {
         combos.add(this.cbxUnidad);
         combos.add(this.cbxClasificacion);
         combos.add(this.cbxTiendas);
-        MaterialController controller = new MaterialController(object, buttons, textFields, labels, tbMateriales, spinner, combos);
+        MaterialController controller = new MaterialController(object, buttons, textFields, labels, tbMateriales, spinner, combos, this.tabbedPanePrincipal);
         //FIN
         //EVENTOS
         //EVENTOS TXT
@@ -968,6 +968,8 @@ public class Estructura extends javax.swing.JFrame {
         //EVENTOS TABLA
         this.tbMateriales.addMouseListener(controller);
         this.tbMateriales.addKeyListener(controller);
+        //EVENTOS Tabbed pane principal
+        tabbedPanePrincipal.addChangeListener(controller);
         //FIN EVENTOS
         //ICONOS
         this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_doble.png")));
@@ -1037,6 +1039,8 @@ public class Estructura extends javax.swing.JFrame {
         this.tbEmpleados.getTableHeader().addMouseListener(empleadoCTRL);
         //EVENTOS SPINNER
         this.spinnerEmpleados.addChangeListener(empleadoCTRL);
+        //EVENTOS COMBOBOX
+        this.cbxAreaEmpleados.addActionListener(empleadoCTRL);
         //AGREGA MOUSE LISTENER A LOS HEADER DE CADA COLUMNA DE LA TABLA
         /*
         for(int i = 0; i<7 ; i++){
@@ -1106,7 +1110,7 @@ new MouseAdapter() {
 
         //EVENTOS
         //Eventos btn
-        this.btnAnteriorSalidas.addActionListener(controller);
+        this.btnAgregarSalida.addActionListener(controller);
         this.btnCancelar.addActionListener(controller);
         this.btnPrimeroSalidas.addActionListener(controller);
         this.btnAnteriorSalidas.addActionListener(controller);
@@ -1117,7 +1121,8 @@ new MouseAdapter() {
         this.txtCantidadSalida.addKeyListener(controller);
         this.txtEmpleadoSolicitante.addFocusListener(controller);
         this.txtEmpleadoSolicitante.addKeyListener(controller);
-        
+        this.txtMaterialSolicitado.addFocusListener(controller);
+        this.txtMaterialSolicitado.addKeyListener(controller);
         //Eventos text area
         this.txtAreaConcepto.addFocusListener(controller);
         this.txtAreaConcepto.addKeyListener(controller);
@@ -1129,6 +1134,9 @@ new MouseAdapter() {
         this.tbEmpleadoSalida.addKeyListener(controller);
         this.tbMaterialesSalida.addMouseListener(controller);
         this.tbMaterialesSalida.addKeyListener(controller);
+        
+        //Eventos TabbedPane
+        tabbedPaneSalidas.addChangeListener(controller);
         //FIN EVENTOS
 
         //OTRO
@@ -1231,7 +1239,7 @@ new MouseAdapter() {
     private javax.swing.JSpinner spinner;
     private javax.swing.JSpinner spinnerEmpleados;
     private javax.swing.JSpinner spinnerSalidas;
-    private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTabbedPane tabbedPanePrincipal;
     private javax.swing.JTabbedPane tabbedPaneSalidas;
     private javax.swing.JTable tbEmpleadoSalida;
     private javax.swing.JTable tbEmpleados;

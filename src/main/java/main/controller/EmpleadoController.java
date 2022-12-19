@@ -394,6 +394,10 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         if (source.equals(buttons.get(5))) {
             pager(METHOD_LATEST);
         }
+        
+        if(source.equals(cbxAreas)){
+            Objetos.eventoComun.remarcarLabel(labels.get(5), "Area", new Color(0, 153, 51));
+        }
     }
 
     @Override
@@ -533,7 +537,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             textFields.get(4).requestFocus();
             return false;
         } else if (cbxAreas.getSelectedItem() == null) {
-            Objetos.eventoComun.remarcarLabel(labels.get(5), "ISelecciona el área", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(5), "Selecciona el área", Color.red);
             cbxAreas.requestFocus();
             return false;
         }

@@ -60,6 +60,19 @@ public class MaterialDAO extends Conexion {
         }
     }
 
+    public void updateCantidad(int idRegistro, Object[] data) throws SQLException {
+        try {
+            final QueryRunner qr = new QueryRunner();
+            getConn().setAutoCommit(false);
+            String sqlUpdate = "UPDATE material SET cantidad = ? WHERE idMaterial = " + idRegistro;
+            qr.update(getConn(), sqlUpdate, data);
+            getConn().commit();
+        } finally {
+            getConn().rollback();
+            getConn().close();
+        }
+    }
+
     public void remove(int idRegistro) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();

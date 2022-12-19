@@ -37,6 +37,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<JLabel> labels;
     private JTable tbMateriales;
     private List<JComboBox> combos;
+    private JTabbedPane tabbedPanePrincipal;
 
     //ELEMENTOS DEL PAGINADOR
     private Paginador<Material> paginador;
@@ -45,7 +46,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private JSpinner spinner;
     private Usuario usuario;
 
-    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbMateriales, JSpinner spinner, List<JComboBox> combos) {
+    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbMateriales, JSpinner spinner, List<JComboBox> combos, JTabbedPane tabbedPanePrincipal) {
         this.buttons = buttons;
         this.textFields = textFields;
         this.labels = labels;
@@ -56,6 +57,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (object instanceof Usuario) {
             usuario = (Usuario) object;
         }
+        this.tabbedPanePrincipal = tabbedPanePrincipal;
         reestablecer();
     }
 
@@ -244,14 +246,11 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(2))) {
-                if (txt.equals(textFields.get(2))) {
-                    if (!textFields.get(0).getText().equals("")) {
-                        reestablecer();
-                    }
-                    textFields.get(2).requestFocus();
-                    buscar(textFields.get(2).getText());
+                if (!textFields.get(0).getText().equals("")) {
+                    reestablecer();
                 }
-
+                textFields.get(2).requestFocus();
+                buscar(textFields.get(2).getText());
             }
             if (txt.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
@@ -334,6 +333,15 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 mostrarRegistrosPorPagina();
             }
         }
+        if (obj instanceof JTabbedPane) {
+            JTabbedPane pane = (JTabbedPane) obj;
+            if (pane.equals(tabbedPanePrincipal)) {
+                if(tabbedPanePrincipal.getSelectedIndex() == 0){
+                    iniciarListas();
+                    buscar("");
+                }
+            }
+        }
     }
 
     @Override
@@ -342,13 +350,14 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             /**
-             * Los 2 if que siguen es para que en esos TXT solo se permita la entrada de texto(No se permite texto alfanumerico
+             * Los 2 if que siguen es para que en esos TXT solo se permita la
+             * entrada de texto(No se permite texto alfanumerico
              */
             if (txt.equals(textFields.get(0))) {
                 //en caso de que poner numeros u otros caracteres en el nombre de un registro hay que borrar esto
                 Objetos.eventoComun.textKeyPressed(e);
             }
-            if(txt.equals(textFields.get(2))){
+            if (txt.equals(textFields.get(2))) {
                 //Remover si es necesario
                 Objetos.eventoComun.textKeyPressed(e);
             }
