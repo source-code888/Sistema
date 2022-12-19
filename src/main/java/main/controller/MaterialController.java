@@ -35,6 +35,8 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<Tienda> tiendas;
     private List<Unidad> unidades;
     private List<Clasificacion> clasificaciones;
+    private int selectedRow;
+
     //Elementos visibles
     private List<JButton> buttons;
     private List<JTextField> textFields;
@@ -321,8 +323,13 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbMateriales)) {
-                if (tbMateriales.getSelectedRows().length > 0) {
-                    obtenerRegistro();
+                if (tbMateriales.getSelectedRow() != selectedRow) {
+                    if (tbMateriales.getSelectedRows().length > 0) {
+                        selectedRow = tbMateriales.getSelectedRow();
+                        obtenerRegistro();
+                    }
+                }else{
+                    reestablecer();
                 }
             }
         }
@@ -340,7 +347,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JTabbedPane) {
             JTabbedPane pane = (JTabbedPane) obj;
             if (pane.equals(tabbedPanePrincipal)) {
-                if(tabbedPanePrincipal.getSelectedIndex() == 0){
+                if (tabbedPanePrincipal.getSelectedIndex() == 0) {
                     iniciarListas();
                     buscar("");
                 }
@@ -598,6 +605,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     }
 
     private void reestablecer() {
+        selectedRow = -1;
         accion = "insert";
         iniciarListas();
         //REINICIAR VALORES
@@ -687,6 +695,5 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         unidades = new UnidadDAO().unidades();
         materiales = new MaterialDAO().materiales();
     }
-    
 
 }
