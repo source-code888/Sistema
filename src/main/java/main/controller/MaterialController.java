@@ -18,6 +18,10 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import main.library.Objetos;
+import static main.library.Objetos.METHOD_FIRST;
+import static main.library.Objetos.METHOD_LAST;
+import static main.library.Objetos.METHOD_LATEST;
+import static main.library.Objetos.METHOD_NEXT;
 import main.library.Paginador;
 import main.library.TableModel;
 import main.model.*;
@@ -107,7 +111,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 } else {
                     if (accion.equals("insert")) {
                         try {
-                            String strFormat = "hh: mm: ss a dd-mm-YYYY";
+                            String strFormat = "hh: mm: ss a dd-MM-YYYY";
                             SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
                             Date fecha = new Date();
                             String fechaCompleta = dateFormat.format(fecha).toString();
@@ -683,9 +687,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         unidades = new UnidadDAO().unidades();
         materiales = new MaterialDAO().materiales();
     }
-    public static final String METHOD_FIRST = "first";
-    public static final String METHOD_LAST = "last";
-    public static final String METHOD_NEXT = "next";
-    public static final String METHOD_LATEST = "latest";
+    
 
 }

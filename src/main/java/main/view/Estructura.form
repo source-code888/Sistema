@@ -561,7 +561,7 @@
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="btnSiguienteSalidas" min="-2" pref="32" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="btnUltimoSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                                                          <Component id="btnUltimoSalida" min="-2" pref="32" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Component id="lblPaginadorSalidas" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                                                   </Group>
@@ -596,7 +596,7 @@
                                       <Component id="btnPrimeroSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                                       <Component id="btnAnteriorSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                                       <Component id="btnSiguienteSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="btnUltimoSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="btnUltimoSalida" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
@@ -657,7 +657,7 @@
                             <Property name="focusPainted" type="boolean" value="false"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JButton" name="btnUltimoSalidas">
+                        <Component class="javax.swing.JButton" name="btnUltimoSalida">
                           <Properties>
                             <Property name="focusPainted" type="boolean" value="false"/>
                           </Properties>

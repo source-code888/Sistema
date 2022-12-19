@@ -70,7 +70,7 @@ public class Estructura extends javax.swing.JFrame {
         btnPrimeroSalidas = new javax.swing.JButton();
         btnAnteriorSalidas = new javax.swing.JButton();
         btnSiguienteSalidas = new javax.swing.JButton();
-        btnUltimoSalidas = new javax.swing.JButton();
+        btnUltimoSalida = new javax.swing.JButton();
         lblPaginadorSalidas = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -387,7 +387,7 @@ public class Estructura extends javax.swing.JFrame {
 
         btnSiguienteSalidas.setFocusPainted(false);
 
-        btnUltimoSalidas.setFocusPainted(false);
+        btnUltimoSalida.setFocusPainted(false);
 
         lblPaginadorSalidas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPaginadorSalidas.setText("Paginas");
@@ -417,7 +417,7 @@ public class Estructura extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnSiguienteSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnUltimoSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnUltimoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblPaginadorSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -442,7 +442,7 @@ public class Estructura extends javax.swing.JFrame {
                     .addComponent(btnPrimeroSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAnteriorSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSiguienteSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUltimoSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUltimoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
 
@@ -1097,7 +1097,7 @@ new MouseAdapter() {
         buttons.add(this.btnPrimeroSalidas);
         buttons.add(this.btnAnteriorSalidas);
         buttons.add(this.btnSiguienteSalidas);
-        buttons.add(this.btnUltimo);
+        buttons.add(this.btnUltimoSalida);
         List<JTextField> textFields = new ArrayList<>();
         textFields.add(this.txtCantidadSalida);
         textFields.add(this.txtEmpleadoSolicitante);
@@ -1115,7 +1115,7 @@ new MouseAdapter() {
         this.btnPrimeroSalidas.addActionListener(controller);
         this.btnAnteriorSalidas.addActionListener(controller);
         this.btnSiguienteSalidas.addActionListener(controller);
-        this.btnUltimoSalidas.addActionListener(controller);
+        this.btnUltimoSalida.addActionListener(controller);
         //Eventos text field
         this.txtCantidadSalida.addFocusListener(controller);
         this.txtCantidadSalida.addKeyListener(controller);
@@ -1137,8 +1137,10 @@ new MouseAdapter() {
         
         //Eventos TabbedPane
         tabbedPaneSalidas.addChangeListener(controller);
+        //Eventos spinner
+        this.spinnerSalidas.addChangeListener(controller);
         //FIN EVENTOS
-
+        
         //OTRO
         this.txtAreaEmpleadoSol.setEnabled(false);
         this.txtUnidadMaterialSolicitado.setEnabled(false);
@@ -1149,7 +1151,7 @@ new MouseAdapter() {
         this.btnPrimeroSalidas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.PRIMERO.getValue())));
         this.btnAnteriorSalidas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.ANTERIOR.getValue())));
         this.btnSiguienteSalidas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.SIGUIENTE.getValue())));
-        this.btnUltimoSalidas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.ULTIMO.getValue())));
+        this.btnUltimoSalida.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.ULTIMO.getValue())));
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1170,7 +1172,7 @@ new MouseAdapter() {
     private javax.swing.JButton btnSiguienteSalidas;
     private javax.swing.JButton btnUltimo;
     private javax.swing.JButton btnUltimoEmpleados;
-    private javax.swing.JButton btnUltimoSalidas;
+    private javax.swing.JButton btnUltimoSalida;
     private javax.swing.JComboBox<String> cbxAreaEmpleados;
     private javax.swing.JComboBox<String> cbxClasificacion;
     private javax.swing.JComboBox<String> cbxTiendas;
