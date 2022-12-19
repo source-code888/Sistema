@@ -342,6 +342,12 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         textFields.get(3).setText("");
         textFields.get(4).setText("");
         txtAreaConcepto.setText("");
+        textFields.get(0).setEditable(true);
+        textFields.get(1).setEditable(true);
+        textFields.get(2).setEditable(true);
+        textFields.get(3).setEditable(true);
+        textFields.get(4).setEditable(true);
+        txtAreaConcepto.setEditable(true);
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad salida:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(1), "Concepto:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(2), "Empleado solicitante:", Color.black);

@@ -26,6 +26,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellRenderer;
+import static main.library.EventoComun.COLOR_BASE;
 import main.library.Objetos;
 import static main.library.Objetos.METHOD_FIRST;
 import static main.library.Objetos.METHOD_LAST;
@@ -98,16 +99,13 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         mostrarRegistrosPorPagina();
         buttons.get(1).setVisible(false);
         empleado = null;
-
-        labels.get(0).setText("Nombre:");
-        labels.get(1).setText("Apellido paterno:");
-        labels.get(2).setText("Apellido materno:");
-        labels.get(3).setText("Teléfono:");
-        labels.get(4).setText("Correo electrónico");
-        labels.get(5).setText("Area:");
-        for (int i = 0; i < 6; i++) {
-            labels.get(i).setForeground(Color.black);
-        }
+        
+        Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(5), "Area:", Color.black);
     }
 
     private void iniciarListas() {
@@ -279,35 +277,35 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
             if (textField.equals(textFields.get(0))) {
                 if (!textFields.get(0).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(1))) {
                 if (!textFields.get(1).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno",COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(2))) {
                 if (!textFields.get(2).getText().isEmpty()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno",COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(3))) {
                 if (!textFields.get(3).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(4))) {
                 if (!textFields.get(4).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico", new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.RED);
                 }

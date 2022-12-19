@@ -88,8 +88,6 @@ public class Estructura extends javax.swing.JFrame {
         lblCantidadSalida = new javax.swing.JLabel();
         txtCantidadSalida = new javax.swing.JTextField();
         lblConceptoSalida = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        txtAreaConcepto = new javax.swing.JTextArea();
         lblEmpleadoSolicitante = new javax.swing.JLabel();
         txtEmpleadoSolicitante = new javax.swing.JTextField();
         lblAreaEmpleadoSolicitante = new javax.swing.JLabel();
@@ -98,6 +96,8 @@ public class Estructura extends javax.swing.JFrame {
         txtMaterialSolicitado = new javax.swing.JTextField();
         lblUnidadMaterialSolicitado = new javax.swing.JLabel();
         txtUnidadMaterialSolicitado = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtAreaConcepto = new javax.swing.JTextArea();
         panelEmpleados = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnAgregarNuevoEmpleado = new javax.swing.JButton();
@@ -537,7 +537,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tabbedPaneSalidas, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE))
+                    .addComponent(tabbedPaneSalidas))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -558,10 +558,6 @@ public class Estructura extends javax.swing.JFrame {
 
         lblConceptoSalida.setText("Concepto:");
 
-        txtAreaConcepto.setColumns(20);
-        txtAreaConcepto.setRows(5);
-        jScrollPane5.setViewportView(txtAreaConcepto);
-
         lblEmpleadoSolicitante.setText("Empleado solicitante:");
 
         lblAreaEmpleadoSolicitante.setText("Area del empleado:");
@@ -569,6 +565,10 @@ public class Estructura extends javax.swing.JFrame {
         lblMaterialSolicitado.setText("Material solicitado:");
 
         lblUnidadMaterialSolicitado.setText("Unidad del Material:");
+
+        txtAreaConcepto.setColumns(20);
+        txtAreaConcepto.setRows(5);
+        jScrollPane5.setViewportView(txtAreaConcepto);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -584,19 +584,19 @@ public class Estructura extends javax.swing.JFrame {
                         .addComponent(btnAgregarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAreaEmpleadoSolicitante)
-                            .addComponent(lblMaterialSolicitado)
-                            .addComponent(lblUnidadMaterialSolicitado)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtUnidadMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(txtMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtAreaEmpleadoSol, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(lblCantidadSalida, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCantidadSalida, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblConceptoSalida, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblEmpleadoSolicitante, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtEmpleadoSolicitante, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblAreaEmpleadoSolicitante)
+                                .addComponent(lblMaterialSolicitado)
+                                .addComponent(lblUnidadMaterialSolicitado)
+                                .addComponent(txtUnidadMaterialSolicitado, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(txtMaterialSolicitado)
+                                .addComponent(txtAreaEmpleadoSol, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(lblCantidadSalida)
+                                .addComponent(txtCantidadSalida)
+                                .addComponent(lblConceptoSalida)
+                                .addComponent(lblEmpleadoSolicitante)
+                                .addComponent(txtEmpleadoSolicitante))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -611,8 +611,8 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(txtCantidadSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblConceptoSalida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblEmpleadoSolicitante)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
