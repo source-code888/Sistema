@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import main.library.Objetos;
 import main.library.Paginador;
 import main.library.TableModel;
 import main.model.*;
@@ -35,7 +36,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<JTextField> textFields;
     private List<JLabel> labels;
     private JTable tbMateriales;
-    private List<JSpinner> spinners;
     private List<JComboBox> combos;
 
     //ELEMENTOS DEL PAGINADOR
@@ -45,13 +45,12 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private JSpinner spinner;
     private Usuario usuario;
 
-    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbMateriales, List<JSpinner> spinners, List<JComboBox> combos) {
+    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbMateriales, JSpinner spinner, List<JComboBox> combos) {
         this.buttons = buttons;
         this.textFields = textFields;
         this.labels = labels;
         this.tbMateriales = tbMateriales;
-        this.spinners = spinners;
-        this.spinner = spinners.get(0);
+        this.spinner = spinner;
         this.combos = combos;
         buttons.get(1).setVisible(false);
         if (object instanceof Usuario) {
@@ -69,6 +68,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 if (textFields.get(0).getText().isBlank()
                         && textFields.get(1).getText().isBlank() && combos.get(0).getSelectedItem() == null
                         && combos.get(1).getSelectedItem() == null && combos.get(2).getSelectedItem() == null) {
+                    reestablecer();
                     labels.get(1).setText("Ingresa el nombre del material");
                     labels.get(3).setText("Selecciona una unidad");
                     labels.get(5).setText("Ingresa el SKU");
@@ -79,33 +79,29 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                     labels.get(5).setForeground(Color.red);
                     labels.get(6).setForeground(Color.red);
                     labels.get(7).setForeground(Color.red);
-                    labels.get(2).setForeground(new Color(0, 153, 51));
-                    labels.get(4).setForeground(new Color(0, 153, 51));
+                    labels.get(2).setForeground(Color.red);
+                    labels.get(4).setForeground(Color.red);
                 } else if (textFields.get(0).getText().isBlank()) {
                     labels.get(1).setText("Ingresa el nombre del material");
                     labels.get(1).setForeground(Color.red);
-                    labels.get(2).setForeground(new Color(0, 153, 51));
-                    labels.get(4).setForeground(new Color(0, 153, 51));
+                } else if (textFields.get(3).getText().isBlank()) {
+                    labels.get(2).setText("Ingresa la cantidad");
+                    labels.get(2).setForeground(Color.red);
                 } else if (combos.get(0).getSelectedItem() == null) {
                     labels.get(3).setText("Selecciona una unidad");
                     labels.get(3).setForeground(Color.red);
-                    labels.get(2).setForeground(new Color(0, 153, 51));
-                    labels.get(4).setForeground(new Color(0, 153, 51));
+                } else if (textFields.get(4).getText().isBlank()) {
+                    labels.get(4).setText("Ingresa el limite minimo");
+                    labels.get(4).setForeground(Color.red);
                 } else if (textFields.get(1).getText().isBlank()) {
                     labels.get(5).setText("Ingresa el SKU");
                     labels.get(5).setForeground(Color.red);
-                    labels.get(2).setForeground(new Color(0, 153, 51));
-                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else if (combos.get(1).getSelectedItem() == null) {
                     labels.get(6).setText("Selecciona una clasificacion");
                     labels.get(6).setForeground(Color.red);
-                    labels.get(2).setForeground(new Color(0, 153, 51));
-                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else if (combos.get(2).getSelectedItem() == null) {
                     labels.get(7).setText("Selecciona una tienda");
                     labels.get(7).setForeground(Color.red);
-                    labels.get(2).setForeground(new Color(0, 153, 51));
-                    labels.get(4).setForeground(new Color(0, 153, 51));
                 } else {
                     if (accion.equals("insert")) {
                         try {
@@ -125,8 +121,8 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                             int idUsuario = usuario.getIdUsuario();
                             Object[] data = {
                                 textFields.get(0).getText(),
-                                Integer.parseInt(spinners.get(1).getValue().toString()),
-                                Integer.parseInt(spinners.get(2).getValue().toString()),
+                                Integer.parseInt(textFields.get(3).getText()),
+                                Integer.parseInt(textFields.get(4).getText()),
                                 textFields.get(1).getText(),
                                 fechaCompleta,
                                 idUnidad,
@@ -151,15 +147,15 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                                 )).collect(Collectors.toList()).get(0).getId();
                         boolean existente = (idUnidad == material.getIdUnidad() && idClasificacion == material.getIdClasificacion()
                                 && idTienda == material.getIdTienda() && material.getNombreMaterial().equals(textFields.get(0).getText())
-                                && material.getCantidad() == Integer.parseInt(spinners.get(1).getValue().toString())
-                                && material.getLimiteMinimo() == Integer.parseInt(spinners.get(2).getValue().toString())
+                                && material.getCantidad() == Integer.parseInt(textFields.get(3).getText())
+                                && material.getLimiteMinimo() == Integer.parseInt(textFields.get(4).getText())
                                 && material.getSku().equals(textFields.get(1).getText()));
                         if (!existente) {
                             try {
 
                                 material.setNombreMaterial(textFields.get(0).getText());
-                                material.setCantidad(Integer.parseInt(spinners.get(1).getValue().toString()));
-                                material.setLimiteMinimo(Integer.parseInt(spinners.get(2).getValue().toString()));
+                                material.setCantidad(Integer.parseInt(textFields.get(3).getText()));
+                                material.setLimiteMinimo(Integer.parseInt(textFields.get(4).getText()));
                                 material.setSku(textFields.get(1).getText());
                                 material.setIdUnidad(idUnidad);
                                 material.setIdClasificacion(idClasificacion);
@@ -233,9 +229,9 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
+
         Object obj = e.getSource();
-        
+
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbMateriales)) {
@@ -244,7 +240,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 }
             }
         }
-        
+
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(2))) {
@@ -292,6 +288,26 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                     labels.get(5).setForeground(new Color(0, 153, 51));
                 }
             }
+            if (txt.equals(textFields.get(3))) {
+                if (textFields.get(3).getText().isBlank()) {
+                    labels.get(2).setText("Ingresa la cantidad");
+                    labels.get(2).setForeground(Color.red);
+                } else {
+                    labels.get(2).setText("Cantidad:");
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                }
+            }
+            if (txt.equals(textFields.get(4))) {
+                if (textFields.get(4).getText().isBlank()) {
+                    labels.get(4).setText("Ingresa el limite minimo");
+                    labels.get(4).setForeground(Color.red);
+                } else {
+                    labels.get(2).setText("Cantidad:");
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    labels.get(4).setText("Limite minimo:");
+                    labels.get(4).setForeground(new Color(0, 153, 51));
+                }
+            }
         }
 
     }
@@ -322,6 +338,27 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
 
     @Override
     public void keyTyped(KeyEvent e) {
+        Object obj = e.getSource();
+        if (obj instanceof JTextField) {
+            JTextField txt = (JTextField) obj;
+            /**
+             * Los 2 if que siguen es para que en esos TXT solo se permita la entrada de texto(No se permite texto alfanumerico
+             */
+            if (txt.equals(textFields.get(0))) {
+                //en caso de que poner numeros u otros caracteres en el nombre de un registro hay que borrar esto
+                Objetos.validarTextField.textKeyPressed(e);
+            }
+            if(txt.equals(textFields.get(2))){
+                //Remover si es necesario
+                Objetos.validarTextField.textKeyPressed(e);
+            }
+            if (txt.equals(textFields.get(3))) {
+                Objetos.validarTextField.numberKeyPressed(e);
+            }
+            if (txt.equals(textFields.get(4))) {
+                Objetos.validarTextField.numberKeyPressed(e);
+            }
+        }
     }
 
     @Override
@@ -344,13 +381,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             if (cbx.equals(combos.get(2))) {
                 //Tienda
                 comboModel("tienda");
-            }
-        }
-        if (obj instanceof JTextField) {
-            JTextField txt = (JTextField) obj;
-            if (txt.equals(textFields.get(1))) {
-                labels.get(2).setForeground(new Color(0, 153, 51));
-                labels.get(4).setForeground(new Color(0, 153, 51));
             }
         }
     }
@@ -376,6 +406,24 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 } else {
                     labels.get(5).setText("Ingresa el SKU");
                     labels.get(5).setForeground(Color.red);
+                }
+            }
+            if (txt.equals(textFields.get(3))) {
+                if (textFields.get(3).getText().isBlank()) {
+                    labels.get(2).setText("Ingresa la cantidad");
+                    labels.get(2).setForeground(Color.red);
+                } else {
+                    labels.get(2).setText("Cantidad:");
+                    labels.get(2).setForeground(new Color(0, 153, 51));
+                }
+            }
+            if (txt.equals(textFields.get(4))) {
+                if (textFields.get(4).getText().isBlank()) {
+                    labels.get(4).setText("Ingresa el limite minimo");
+                    labels.get(4).setForeground(Color.red);
+                } else {
+                    labels.get(4).setText("Limite minimo:");
+                    labels.get(4).setForeground(new Color(0, 153, 51));
                 }
             }
         }
@@ -444,7 +492,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                         String usuario = new UsuarioDAO().usuarios().stream().
                                 filter(u -> u.getIdUsuario() == material.getIdUsuario()).collect(Collectors.toList()).
                                 get(0).getUsuario();
-                       
+
                         Object[] objects = {
                             material.getIdMaterial(),
                             material.getNombreMaterial(),
@@ -539,22 +587,21 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private void reestablecer() {
         accion = "insert";
         iniciarListas();
-/*
-        if (!materiales.isEmpty()) {
-            paginador = new Paginador<>(materiales, labels.get(0), rows);
-        }*/
         //REINICIAR VALORES
-        for (int i = 0; i < textFields.size(); i++) {
-            textFields.get(i).setText("");
-        }
         textFields.get(0).setText("");
         textFields.get(1).setText("");
         textFields.get(2).setText("");
+        textFields.get(3).setText("");
+        textFields.get(4).setText("");
         labels.get(1).setText("Nombre del material:");
         labels.get(1).setForeground(Color.black);
         labels.get(2).setForeground(Color.black);
+        labels.get(2).setText("Cantidad:");
+        labels.get(2).setForeground(Color.black);
         labels.get(3).setText("Unidad");
         labels.get(3).setForeground(Color.black);
+        labels.get(4).setForeground(Color.black);
+        labels.get(4).setText("Limite minimo:");
         labels.get(4).setForeground(Color.black);
         labels.get(5).setText("SKU:");
         labels.get(5).setForeground(Color.black);
@@ -562,18 +609,15 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         labels.get(6).setForeground(Color.black);
         labels.get(7).setText("Tienda");
         labels.get(7).setForeground(Color.black);
-
+        labels.get(8).setText("");
+        labels.get(9).setText("");
         comboModel("tienda");
         comboModel("unidad");
         comboModel("clasificacion");
         //
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
-        SpinnerNumberModel numberModel1 = new SpinnerNumberModel(10, 1, 100, 1);
-        SpinnerNumberModel numberModel2 = new SpinnerNumberModel(10, 1, 100, 1);
-        
+
         spinner.setModel(numberModel);
-        spinners.get(1).setModel(numberModel1);
-        spinners.get(2).setModel(numberModel2);
         comboModel("unidad");
         comboModel("clasificacion");
         comboModel("tienda");
@@ -581,8 +625,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         mostrarRegistrosPorPagina();
         buttons.get(1).setVisible(false);
         material = null;
-        labels.get(8).setText("");
-        labels.get(9).setText("");
     }
 
     private void obtenerRegistro() {
@@ -590,10 +632,8 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         int row = tbMateriales.getSelectedRow();
         int idMaterial = (Integer) defaultTableModel.getValueAt(row, 0);
         textFields.get(0).setText((String) defaultTableModel.getValueAt(row, 1));
-        SpinnerNumberModel numberModel1 = new SpinnerNumberModel(Integer.parseInt(defaultTableModel.getValueAt(row, 2).toString()), 1, 100, 1);
-        SpinnerNumberModel numberModel2 = new SpinnerNumberModel(Integer.parseInt(defaultTableModel.getValueAt(row, 3).toString()), 1, 100, 1);
-        spinners.get(1).setModel(numberModel1);
-        spinners.get(2).setModel(numberModel2);
+        textFields.get(3).setText((String) defaultTableModel.getValueAt(row, 2).toString());
+        textFields.get(4).setText((String) defaultTableModel.getValueAt(row, 3).toString());
         textFields.get(1).setText((String) defaultTableModel.getValueAt(row, 4));
         combos.get(0).setSelectedItem((String) defaultTableModel.getValueAt(row, 6));
         combos.get(1).setSelectedItem((String) defaultTableModel.getValueAt(row, 7));
@@ -613,8 +653,8 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 )).collect(Collectors.toList()).get(0).getId();
         //FIN 
         material = new Material(idMaterial, textFields.get(0).getText(),
-                Integer.parseInt(spinners.get(1).getValue().toString()),
-                Integer.parseInt(spinners.get(2).getValue().toString()),
+                Integer.parseInt(textFields.get(3).getText()),
+                Integer.parseInt(textFields.get(4).getText()),
                 textFields.get(1).getText(), (String) defaultTableModel.getValueAt(row, 5),
                 idUnidad, idClasificacion, idTienda, usuario.getIdUsuario());
         labels.get(8).setText(material.getFechaIngreso());

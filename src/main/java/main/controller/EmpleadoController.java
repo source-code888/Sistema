@@ -11,7 +11,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,9 +23,14 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.table.JTableHeader;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+import static main.controller.MaterialController.METHOD_FIRST;
+import static main.controller.MaterialController.METHOD_LAST;
+import static main.controller.MaterialController.METHOD_LATEST;
+import static main.controller.MaterialController.METHOD_NEXT;
+import main.library.Objetos;
 import main.library.Paginador;
 import main.library.TableModel;
 import main.model.Area;
@@ -35,7 +39,7 @@ import main.model.Empleado;
 import main.model.EmpleadoDAO;
 import main.view.Estructura;
 
-public class EmpleadoController implements FocusListener, KeyListener, ActionListener, MouseListener, TableCellRenderer {
+public class EmpleadoController implements FocusListener, KeyListener, ActionListener, MouseListener, TableCellRenderer, ChangeListener {
 
     private TableModel defaultTableModel;
     private String accion = "insert";
@@ -81,11 +85,11 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         if (!empleados.isEmpty()) {
             paginador = new Paginador<>(empleados, labels.get(6), rows);
         }
-
-        for (int i = 0; i < textFields.size(); i++) {
-            textFields.get(i).setText("");
-        }
-
+        textFields.get(0).setText("");
+        textFields.get(1).setText("");
+        textFields.get(2).setText("");
+        textFields.get(3).setText("");
+        textFields.get(4).setText("");
         comboModel();
 
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 100, 1);
@@ -243,18 +247,21 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         Object source = e.getSource();
         if (source instanceof JTextField) {
             JTextField textField = (JTextField) source;
-            for (int i = 0; i < 3; i++) {
-                if (textField.equals(textFields.get(i))) {
-                    validarLetra(e);
-                }
+            if (textField.equals(textFields.get(0))) {
+                Objetos.validarTextField.textKeyPressed(e);
+            }
+            if (textField.equals(textFields.get(1))) {
+                Objetos.validarTextField.textKeyPressed(e);
+            }
+            if (textField.equals(textFields.get(2))) {
+                Objetos.validarTextField.textKeyPressed(e);
             }
             if (textField.equals(textFields.get(3))) {
-                validarNumero(e);
+                Objetos.validarTextField.numberKeyPressed(e);
                 if (textFields.get(3).getText().length() == 10) {
                     e.consume();
                 }
             }
-
         }
     }
 
@@ -305,32 +312,18 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 if (!textFields.get(4).getText().isBlank()) {
                     remarcarLabel(labels.get(4), "Correo electrónico", new Color(0, 153, 51));
                 } else {
-                    remarcarLabel(labels.get(4), "Ingresa un correo electrónico", Color.RED);
+                    remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.RED);
                 }
             }
 
             if (textField.equals(textFields.get(5))) {
                 if (textField.equals(textFields.get(5))) {
-                    if (!textFields.get(0).getText().equals("")) {
-                        reestablecer();
-                    }
+                    reestablecer();
                     textFields.get(5).requestFocus();
                     buscar(textFields.get(5).getText());
                 }
 
             }
-        }
-    }
-
-    private void validarLetra(KeyEvent e) {
-        if (!(e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z') && !(e.getKeyChar() >= 'a' && e.getKeyChar() <= 'z') && (e.getKeyChar() != ' ')) {
-            e.consume();
-        }
-    }
-
-    private void validarNumero(KeyEvent e) {
-        if (!(e.getKeyChar() >= '0' && e.getKeyChar() <= '9')) {
-            e.consume();
         }
     }
 
@@ -348,40 +341,28 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     }
 
     private void insertarEmpleado() {
-        if (accion.equals("insert")) {
-            try {
+        try {
 
-                int idArea = areas.stream().filter(
-                        area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString()
-                        )).collect(Collectors.toList()).get(0).getId();
+            int idArea = areas.stream().filter(
+                    area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString()
+                    )).collect(Collectors.toList()).get(0).getId();
 
-                Object[] data = {
-                    textFields.get(0).getText(),
-                    textFields.get(1).getText(),
-                    textFields.get(2).getText(),
-                    textFields.get(3).getText(),
-                    textFields.get(4).getText(),
-                    idArea
-                };
-                new EmpleadoDAO().insert(data);
-                reestablecer();
-            } catch (SQLException ex) {
-                System.out.println("ERROR " + ex);
-            }
-
+            Object[] data = {
+                textFields.get(0).getText(),
+                textFields.get(1).getText(),
+                textFields.get(2).getText(),
+                textFields.get(3).getText(),
+                textFields.get(4).getText(),
+                idArea
+            };
+            new EmpleadoDAO().insert(data);
+            reestablecer();
+        } catch (SQLException ex) {
+            System.out.println("ERROR " + ex);
         }
+
     }
 
-    /*
-    List<JButton> buttonsEmpleados = new ArrayList<>();
-    buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);
-    buttonsEmpleados.add(this.btnEliminarEmpleado);
-    buttonsEmpleados.add(this.btnPrimeroEmpleados);
-    buttonsEmpleados.add(this.btnAnteriorEmpleados);
-    buttonsEmpleados.add(this.btnSiguienteEmpleados);
-    buttonsEmpleados.add(this.btnUltimoEmpleados);
-    
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -404,8 +385,17 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 JOptionPane.showMessageDialog(null, "No se puede eliminar este material.");
             }
         }
-        if (true) {
-
+        if (source.equals(buttons.get(2))) {
+            pager(METHOD_FIRST);
+        }
+        if (source.equals(buttons.get(3))) {
+            pager(METHOD_LAST);
+        }
+        if (source.equals(buttons.get(4))) {
+            pager(METHOD_NEXT);
+        }
+        if (source.equals(buttons.get(5))) {
+            pager(METHOD_LATEST);
         }
     }
 
@@ -414,7 +404,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         Object obj = e.getSource();
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
-            
+
             if (tb.equals(tbEmpleados)) {
                 if (rowSelected != tbEmpleados.getSelectedRow()) {
                     rowSelected = tbEmpleados.getSelectedRow();
@@ -429,7 +419,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         if (obj instanceof JLabel) {
             //System.out.println("AJUUUA");
         }
-        
+
     }
 
     @Override
@@ -479,7 +469,6 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         if (!textFields.get(5).getText().equals("")) {
             textFields.get(5).setText("");
         }
-
         for (int i = 0; i < 6; i++) {
             labels.get(i).setForeground(new Color(0, 153, 51));
         }
@@ -516,28 +505,38 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     }
 
     public boolean validarEntradas() {
-        if (textFields.get(0).getText().isBlank()) {
-            JOptionPane.showMessageDialog(estructura, "Ingresa un nombre", "Validacion de entrada", JOptionPane.WARNING_MESSAGE);
+        if (textFields.get(0).getText().isBlank() && textFields.get(1).getText().isBlank() && textFields.get(2).getText().isEmpty()
+                && textFields.get(3).getText().isBlank() && !Objetos.validarTextField.isEmail(textFields.get(4).getText()) && cbxAreas.getSelectedItem() == null) {
+            reestablecer();
+            remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
+            remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
+            remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
+            remarcarLabel(labels.get(3), "Ingresa un de teléfono", Color.red);
+            remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.red);
+            remarcarLabel(labels.get(5), "Ingresa el area", Color.red);
+            return false;
+        } else if (textFields.get(0).getText().isBlank()) {
+            remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
             textFields.get(0).requestFocus();
             return false;
         } else if (textFields.get(1).getText().isBlank()) {
-            JOptionPane.showMessageDialog(estructura, "Ingresa un apellido", "Validacion de entrada", JOptionPane.WARNING_MESSAGE);
+            remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
             textFields.get(1).requestFocus();
             return false;
         } else if (textFields.get(2).getText().isEmpty()) {
-            JOptionPane.showMessageDialog(estructura, "Ingresa un apelldio materno", "Validacion de entrada", JOptionPane.WARNING_MESSAGE);
+            remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.red);
             textFields.get(2).requestFocus();
             return false;
         } else if (textFields.get(3).getText().isBlank()) {
-            JOptionPane.showMessageDialog(estructura, "Ingresa un teléfono", "Validacion de entrada", JOptionPane.WARNING_MESSAGE);
+            remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.red);
             textFields.get(3).requestFocus();
             return false;
-        } else if (textFields.get(4).getText().isBlank()) {
-            JOptionPane.showMessageDialog(estructura, "Ingresa un correo electrónico", "Validacion de entrada", JOptionPane.WARNING_MESSAGE);
+        } else if (!Objetos.validarTextField.isEmail(textFields.get(4).getText())) {
+            remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.red);
             textFields.get(4).requestFocus();
             return false;
         } else if (cbxAreas.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(estructura, "Selecciona una area", "Validacion de entrada", JOptionPane.WARNING_MESSAGE);
+            remarcarLabel(labels.get(5), "ISelecciona el área", Color.red);
             cbxAreas.requestFocus();
             return false;
         }
@@ -555,7 +554,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
                 });
                 break;
-                
+
             case 1:
                 filter.sort(new Comparator<Empleado>() {
                     @Override
@@ -565,15 +564,52 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
                 });
                 break;
-                
+
         }
-        
+
         return filter;
     }
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-     return new JLabel();
+        return new JLabel();
     }
 
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        Object obj = e.getSource();
+        if (obj instanceof JSpinner) {
+            JSpinner spinner = (JSpinner) obj;
+            if (spinner.equals(this.spinner)) {
+                mostrarRegistrosPorPagina();
+            }
+        }
+    }
+
+    private void pager(String method) {
+        switch (method) {
+            case METHOD_FIRST -> {
+                if (!empleados.isEmpty()) {
+                    pagNum = paginador.primero();
+                }
+
+            }
+            case METHOD_LAST -> {
+                if (!empleados.isEmpty()) {
+                    pagNum = paginador.anterior();
+                }
+            }
+            case METHOD_NEXT -> {
+                if (!empleados.isEmpty()) {
+                    pagNum = paginador.siguiente();
+                }
+            }
+            case METHOD_LATEST -> {
+                if (!empleados.isEmpty()) {
+                    pagNum = paginador.ultimo();
+                }
+            }
+        }
+        buscar("");
+    }
 }

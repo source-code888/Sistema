@@ -136,7 +136,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="985" max="32767" attributes="0"/>
                               <Component id="lblTitulo" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -182,15 +182,15 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="464" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblPaginador" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="spinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinner" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="btnPrimero" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="btnAnterior" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="btnSiguiente" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -289,20 +289,18 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblFechaIngreso" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblFechaIngreso" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="btnEliminarMaterial" min="-2" pref="48" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnAgregarNuevoMaterial" min="-2" pref="48" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="spCantidad" alignment="0" max="32767" attributes="0"/>
                                       <Component id="cbxUnidad" alignment="0" pref="200" max="32767" attributes="0"/>
-                                      <Component id="spLimiteMinimo" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txtSku" alignment="0" max="32767" attributes="0"/>
                                       <Component id="cbxClasificacion" alignment="0" max="32767" attributes="0"/>
                                       <Component id="cbxTiendas" alignment="0" max="32767" attributes="0"/>
@@ -315,6 +313,8 @@
                                       <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lblTituloFecha" alignment="0" max="32767" attributes="0"/>
                                       <Component id="lblClasificacionMat" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtCantidad" max="32767" attributes="0"/>
+                                      <Component id="txtLimiteMinimo" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                               </Group>
@@ -332,8 +332,8 @@
                           <Component id="txtNombre" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblCantidadMaterial" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spCantidad" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="txtCantidad" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblUnidadMaterial" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -341,8 +341,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblLimiteMinimoMat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spLimiteMinimo" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtLimiteMinimo" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="lblSkuMat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtSku" min="-2" pref="30" max="-2" attributes="0"/>
@@ -358,7 +358,7 @@
                           <Component id="lblTituloFecha" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblFechaIngreso" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="8" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnAgregarNuevoMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                               <Component id="btnEliminarMaterial" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -374,8 +374,8 @@
                     <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;this.btnAgregarNuevoMaterial.addActionListener(materialCTRL);&#xa;this.spinner.addChangeListener(materialCTRL);&#xa;this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.cbxUnidad.addFocusListener(materialCTRL);&#xa;this.cbxClasificacion.addFocusListener(materialCTRL);&#xa;this.cbxTiendas.addFocusListener(materialCTRL);&#xa;this.tbMateriales.addMouseListener(materialCTRL);&#xa;this.tbMateriales.addKeyListener(materialCTRL);&#xa;this.btnEliminarMaterial.addActionListener(materialCTRL);&#xa;this.btnAgregarNuevoMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarMaterial.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscador.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.txtBuscador.addKeyListener(materialCTRL);&#xa;this.txtNombre.addKeyListener(materialCTRL);&#xa;this.btnPrimero.addActionListener(materialCTRL);&#xa;this.btnAnterior.addActionListener(materialCTRL);&#xa;this.btnSiguiente.addActionListener(materialCTRL);&#xa;this.btnUltimo.addActionListener(materialCTRL);&#xa;this.cbxClasificacion.addActionListener(materialCTRL);&#xa;this.cbxTiendas.addActionListener(materialCTRL);&#xa;this.cbxUnidad.addActionListener(materialCTRL);&#xa;this.txtNombre.addFocusListener(materialCTRL);&#xa;this.txtSku.addFocusListener(materialCTRL);&#xa;this.txtSku.addKeyListener(materialCTRL);"/>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xa;List&lt;JButton&gt; buttons = new ArrayList&lt;&gt;();&#xa;buttons.add(this.btnAgregarNuevoMaterial);&#xa;buttons.add(this.btnEliminarMaterial);&#xa;buttons.add(this.btnPrimero);&#xa;buttons.add(this.btnAnterior);&#xa;buttons.add(this.btnSiguiente);&#xa;buttons.add(this.btnUltimo);&#xa;List&lt;JTextField&gt; textFields = new ArrayList&lt;&gt;();&#xa;textFields.add(this.txtNombre);&#xa;textFields.add(this.txtSku);&#xa;textFields.add(this.txtBuscador);&#xa;List&lt;JLabel&gt; labels = new ArrayList&lt;&gt;();&#xa;labels.add(this.lblPaginador);&#xa;labels.add(this.lblNombreMaterial);&#xa;labels.add(this.lblCantidadMaterial);&#xa;labels.add(this.lblUnidadMaterial);&#xa;labels.add(this.lblLimiteMinimoMat);&#xa;labels.add(this.lblSkuMat);&#xa;labels.add(this.lblClasificacionMat);&#xa;labels.add(this.lblTiendaMat);&#xa;labels.add(this.lblFechaIngreso);&#xa;labels.add(this.lblTituloFecha);&#xa;&#xa;List&lt;JSpinner&gt; spinners = new ArrayList&lt;&gt;();&#xa;spinners.add(this.spinner);&#xa;spinners.add(this.spCantidad);&#xa;spinners.add(this.spLimiteMinimo);&#xa;List&lt;JComboBox&gt; combos = new ArrayList&lt;&gt;();&#xa;combos.add(this.cbxUnidad);&#xa;combos.add(this.cbxClasificacion);&#xa;combos.add(this.cbxTiendas);&#xa;MaterialController materialCTRL = new MaterialController(object,buttons, textFields, labels, tbMateriales, spinners, combos);"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.jMenuAjustes.addMouseListener(controller);&#xa;this.jMenuCerrar.addMouseListener(controller);&#xa;this.menuItemAreas.addActionListener(controller);&#xa;this.menuItemClasificaciones.addActionListener(controller);&#xa;this.menuItemTiendas.addActionListener(controller);&#xa;this.menuItemUnidades.addActionListener(controller);&#xa;//EVENTOS MATERIAL CONTROLLER&#xa;eventosMaterial();"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="EstructuraController controller = new EstructuraController(this);&#xa;"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEliminarMaterial">
@@ -410,17 +410,10 @@
                     <Property name="text" type="java.lang.String" value="Limite minimo"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="spLimiteMinimo">
-                </Component>
                 <Component class="javax.swing.JLabel" name="lblCantidadMaterial">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cantidad"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JSpinner" name="spCantidad">
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.NumberEditor numberEditor = new JSpinner.NumberEditor(spCantidad, &quot;0&quot;);&#xa;spCantidad.setEditor(numberEditor);"/>
-                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblSkuMat">
                   <Properties>
@@ -461,6 +454,10 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblFechaIngreso">
                 </Component>
+                <Component class="javax.swing.JTextField" name="txtCantidad">
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtLimiteMinimo">
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -477,15 +474,208 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1275" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jPanel6" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="557" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel5" max="32767" attributes="0"/>
+                          <Component id="jPanel6" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPanel5">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jScrollPane3" pref="992" max="32767" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="lblBuscadorSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="txtBuscadorSalidas" min="-2" pref="250" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="spinnerSalidas" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="btnPrimeroSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnAnteriorSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnSiguienteSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnUltimoSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblPaginadorSalidas" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lblBuscadorSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="txtBuscadorSalidas" min="-2" pref="32" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane3" min="-2" pref="483" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lbl" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="spinnerSalidas" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="lblPaginadorSalidas" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="btnPrimeroSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="btnAnteriorSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="btnSiguienteSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="btnUltimoSalidas" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblBuscadorSalidas">
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtBuscadorSalidas">
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel4">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Salidas"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lbl">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Registros por pagina"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JSpinner" name="spinnerSalidas">
+                  <AccessibilityProperties>
+                    <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+                  </AccessibilityProperties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnPrimeroSalidas">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnAnteriorSalidas">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnSiguienteSalidas">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnUltimoSalidas">
+                  <Properties>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblPaginadorSalidas">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Paginas"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="tbSalidas">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="0" rowCount="4"/>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0"/>
+                        </Property>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel6">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="251" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelEmpleados">
           <Constraints>
@@ -594,10 +784,10 @@
                           <Component id="lblArea" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cbxAreaEmpleados" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="109" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnAgregarNuevoEmpleado" alignment="1" min="-2" pref="48" max="-2" attributes="0"/>
-                              <Component id="btnEliminarEmpleado" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="btnEliminarEmpleado" min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -609,6 +799,9 @@
                   <Properties>
                     <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Estructura_btnAgregarNuevoEmpleado"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEliminarEmpleado">
                   <Properties>
@@ -748,15 +941,15 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTitulo1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" pref="484" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblPaginadorEmpleados" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="spinnerEmpleados" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="spinnerEmpleados" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="btnPrimeroEmpleados" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="btnAnteriorEmpleados" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="btnSiguienteEmpleados" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -788,6 +981,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()"/>
                         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbEmpleados.getTableHeader().setResizingAllowed(false);"/>
                       </AuxValues>
                     </Component>
@@ -846,7 +1040,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtBuscadorEmpleados">
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="List&lt;JButton&gt; buttonsEmpleados = new ArrayList&lt;&gt;();&#xa;buttonsEmpleados.add(this.btnAgregarNuevoEmpleado);&#xa;buttonsEmpleados.add(this.btnEliminarEmpleado);&#xa;buttonsEmpleados.add(this.btnPrimeroEmpleados);&#xa;buttonsEmpleados.add(this.btnAnteriorEmpleados);&#xa;buttonsEmpleados.add(this.btnSiguienteEmpleados);&#xa;buttonsEmpleados.add(this.btnUltimoEmpleados);&#xa;&#xa;List&lt;JTextField&gt; textsEmpleados = new ArrayList&lt;&gt;();&#xa;textsEmpleados.add(this.txtNombreEmpleado);&#xa;textsEmpleados.add(this.txtApellidoPaterno);&#xa;textsEmpleados.add(this.txtApellidoMaterno);&#xa;textsEmpleados.add(this.txtTelefono);&#xa;textsEmpleados.add(this.txtEmail);&#xa;textsEmpleados.add(this.txtBuscadorEmpleados);&#xa;&#xa;List&lt;JLabel&gt; labelsEmpleados = new ArrayList&lt;&gt;();&#xa;labelsEmpleados.add(this.lblNombreEmpleado);&#xa;labelsEmpleados.add(this.lblApellidoPaterno);&#xa;labelsEmpleados.add(this.lblApellidoMaterno);&#xa;labelsEmpleados.add(this.lblTelefono);&#xa;labelsEmpleados.add(this.lblEmail);&#xa;labelsEmpleados.add(this.lblArea);&#xa;labelsEmpleados.add(this.lblPaginadorEmpleados);&#xa;List&lt;JLabel&gt; columnLabels = new ArrayList&lt;&gt;();&#xa;&#xa;EmpleadoController empleadoCTRL = new EmpleadoController(buttonsEmpleados, textsEmpleados, labelsEmpleados, this.cbxAreaEmpleados, this.spinnerEmpleados, this.tbEmpleados, this, columnLabels);&#xa;&#xa;//AGREGA MOUSE LISTENER A LOS HEADER DE CADA COLUMNA DE LA TABLA&#xa;/*&#xa;for(int i = 0; i&lt;7 ; i++){&#xa;    TableColumn column = this.tbEmpleados.getColumnModel().getColumn(i);&#xa;    column.setHeaderRenderer(new DefaultTableCellRenderer(){&#xa;        @Override&#xa;    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {&#xa;        JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);&#xa;        label.addMouseListener(empleadoCTRL);&#xa;        //columnLabels.add(label);&#xa;        return label;&#xa;    }&#xa;    });&#xa;}*/&#xa;&#xa;this.tbEmpleados.setSelectionMode(0);&#xa;this.tbEmpleados.addMouseListener(empleadoCTRL);&#xa;this.cbxAreaEmpleados.addFocusListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.setVisible(false);&#xa;this.btnAgregarNuevoEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;accept.png&quot;)));&#xa;this.btnEliminarEmpleado.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;remove.png&quot;)));&#xa;this.lblBuscadorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;search.png&quot;)));&#xa;this.btnPrimeroEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_doble.png&quot;)));&#xa;this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;left_icon.png&quot;)));&#xa;this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_icon.png&quot;)));&#xa;this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta(&quot;right_doble.png&quot;)));&#xa;this.txtNombreEmpleado.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoPaterno.addKeyListener(empleadoCTRL);&#xa;this.txtApellidoMaterno.addKeyListener(empleadoCTRL);&#xa;this.txtTelefono.addKeyListener(empleadoCTRL);&#xa;this.txtEmail.addKeyListener(empleadoCTRL);&#xa;this.txtBuscadorEmpleados.addKeyListener(empleadoCTRL);&#xa;this.btnAgregarNuevoEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnEliminarEmpleado.addActionListener(empleadoCTRL);&#xa;this.btnAnteriorEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnPrimeroEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnSiguienteEmpleados.addActionListener(empleadoCTRL);&#xa;this.btnUltimoEmpleados.addActionListener(empleadoCTRL);&#xa;this.txtNombreEmpleado.addFocusListener(empleadoCTRL);&#xa;this.txtApellidoPaterno.addFocusListener(empleadoCTRL);&#xa;this.txtApellidoMaterno.addFocusListener(empleadoCTRL);&#xa;this.txtTelefono.addFocusListener(empleadoCTRL);&#xa;this.txtEmail.addFocusListener(empleadoCTRL);&#xa;this.tbEmpleados.getTableHeader().addMouseListener(empleadoCTRL);&#xa;/*&#xa;new MouseAdapter() {&#xa;            @Override&#xa;            public void mouseClicked(MouseEvent e) {&#xa;                // manejar el evento de hacer clic en la columna aqu&#xed;&#xa;            }&#xa;        }&#xa;*/"/>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="eventosEmpleado();"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
