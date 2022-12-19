@@ -14,7 +14,7 @@ public class SalidaDAO extends Conexion {
     public SalidaDAO() {
     }
 
-    public List<Salida> areas() {
+    public List<Salida> salidas() {
         List<Salida> salidas = new ArrayList<>();
         try {
             salidas = (List<Salida>) QR.query(getConn(), "SELECT * FROM salida",
