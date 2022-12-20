@@ -377,7 +377,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 new EmpleadoDAO().remove(empleado.getIdEmpleado());
                 reestablecer();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "No se puede eliminar este material.");
+                JOptionPane.showMessageDialog(null, "No se puede eliminar este empleado.");
             }
         }
         if (source.equals(buttons.get(2))) {

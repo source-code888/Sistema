@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Conexion {
+public abstract class Conexion {
 
     private static final String dbName = "sistema_bd";
     private static final String URL = "jdbc:mysql://localhost:3306/" + dbName + "?useSSL=false&useTimezone=true";

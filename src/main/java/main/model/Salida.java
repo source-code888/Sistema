@@ -2,7 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
-public class Salida implements Serializable {
+public class Salida implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     private int idSalida;
@@ -116,6 +116,21 @@ public class Salida implements Serializable {
     @Override
     public String toString() {
         return "Salida{" + "idSalida=" + idSalida + ", cantidadSalida=" + cantidadSalida + ", conceptoSalida=" + conceptoSalida + ", fechaHoraSalida=" + fechaHoraSalida + ", idEmpleado=" + idEmpleado + ", idArea=" + idArea + ", idMaterial=" + idMaterial + ", idUnidad=" + idUnidad + ", idUsuario=" + idUsuario + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (!(o instanceof Salida)) {
+            throw new IllegalArgumentException("El objeto debe ser de tipo Salida");
+        }
+        Salida salida = (Salida) o;
+        if (idSalida < salida.idSalida) {
+            return 1;
+        } else if (idSalida > salida.idSalida) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
 }

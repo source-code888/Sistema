@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -415,7 +416,10 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(5), "Unidad del material", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(6), "Paginas", Color.black);
-
+        labels.get(7).setVisible(false);
+        labels.get(8).setVisible(false);
+        Objetos.eventoComun.remarcarLabel(labels.get(8), "", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(7), "", Color.black);
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(numberModel);
 
@@ -459,6 +463,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
+            Collections.sort(filter);
             filter.forEach(
                     salida -> {
                         Object[] objects = {
@@ -590,6 +595,10 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         Objetos.eventoComun.remarcarLabel(labels.get(3), "Area del empleado:", COLOR_BASE);
         Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado", COLOR_BASE);
         Objetos.eventoComun.remarcarLabel(labels.get(5), "Unidad del material", COLOR_BASE);
+        labels.get(7).setVisible(true);
+        Objetos.eventoComun.remarcarLabel(labels.get(7), salida.getFechaHoraSalida(), COLOR_BASE);
+        labels.get(8).setVisible(true);
+        Objetos.eventoComun.remarcarLabel(labels.get(8), "Fecha de salida:", COLOR_BASE);
     }
 
     private void buscarEmpleado(String data) {
