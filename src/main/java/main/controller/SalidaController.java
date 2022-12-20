@@ -234,9 +234,16 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             }
             if (txt.equals(textFields.get(1))) {
                 if (e.getKeyChar() != '\n') {
+                    ocultarTablaMaterial();
+                    seleccionadoMaterial = false;
                     seleccionado = false;
                     labels.get(3).setForeground(Color.BLACK);
                     labels.get(2).setForeground(Color.BLACK);
+                    labels.get(4).setForeground(Color.BLACK);
+                    labels.get(5).setForeground(Color.BLACK);
+                    textFields.get(4).setText("");
+                    textFields.get(3).setText("");
+                    material = null;
                     empleado = null;
                     textFields.get(2).setText("");
 
@@ -259,16 +266,17 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     material = null;
                     labels.get(4).setForeground(Color.BLACK);
                     labels.get(5).setForeground(Color.BLACK);
-                    
+
                     textFields.get(4).setText("");
 
                     buscarMaterial(textFields.get(3).getText());
                 } else {
-                    
+
                     if (tbMateriales.getRowCount() > 0) {
                         tbMateriales.setRowSelectionInterval(0, 0);
                         obtenerMaterial();
                         seleccionadoMaterial = true;
+                        System.out.println(seleccionadoMaterial);
                         ocultarTablaMaterial();
                         textFields.get(0).requestFocus();
                     }
@@ -306,15 +314,12 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
             }
             if (textField.equals(textFields.get(3))) {
-                if (textFields.get(3).getText().isBlank()) {
-                    //if (seleccionado) {
-                    tabbedMaterial = true;
-                    tabbedEmpleado = false;
-                    tabbedPaneSalidas.addTab("Materiales", componentMateriales);
-                    tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
-                    buscarMaterial("");
-                    //}
+                //if (textFields.get(3).getText().isBlank()) {
+                if (seleccionado) {
+                    mostrarTablaMaterial();
+                    buscarMaterial(textFields.get(3).getText());
                 }
+                //}
             }
         }
     }
@@ -379,7 +384,10 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             }
             if (tb.equals(tbMateriales)) {
                 if (tbMateriales.getSelectedRows().length > 0) {
+                    seleccionadoMaterial = true;
                     obtenerMaterial();
+                    
+                    textFields.get(4).requestFocus();
                 }
             }
         }
@@ -754,9 +762,9 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado", new Color(0, 153, 51));
         Objetos.eventoComun.remarcarLabel(labels.get(5), "Unidad del material", new Color(0, 153, 51));
         if (!tabbedEmpleado) {
-            tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
+            ocultarTablaMaterial();
         }
-        seleccionado = false;
+        seleccionado = true;
     }
 
     private boolean validarEntrada() {
@@ -852,7 +860,9 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private void ocultarTablaEmpleado() {
 
         if (seleccionado) {
+            System.out.println("\nEmpleado Seleccionado");
             if (tabbedEmpleado) {
+                System.out.println("Pestana empleado desactivando");
                 tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
             }
             tabbedEmpleado = false;
@@ -860,19 +870,37 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     }
 
     private void ocultarTablaMaterial() {
-
-        if (seleccionadoMaterial) {
-            if (tabbedMaterial) {
-                tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
+        if (seleccionado) {
+            System.out.println("\nEmpleado Seleccionado");
+            if (seleccionadoMaterial) {
+                System.out.println("Material seleccionado");
+                if (tabbedMaterial) {
+                    
+                    System.out.println("Pestana material desactivando");
+                    tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
+                    tabbedMaterial = false;
+                }
             }
-            tabbedMaterial = false;
         }
+
     }
 
     private void mostrarTablaEmpleado() {
-        System.out.println("MOSTRADO");
+        
+        System.out.println("MOSTRAR TABLA EMPLEADO");
+        
         tabbedEmpleado = true;
+
+        ocultarTablaMaterial();
         tabbedPaneSalidas.addTab("Empleados", componentEmpleados);
+        tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
+    }
+
+    private void mostrarTablaMaterial() {
+        System.out.println("MOSTRAR TABLA MATERIAL");
+        ocultarTablaEmpleado();
+        tabbedMaterial = true;
+        tabbedPaneSalidas.addTab("Materiales", componentMateriales);
         tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
     }
 
