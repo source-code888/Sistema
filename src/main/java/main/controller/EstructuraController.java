@@ -4,16 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 import javax.swing.*;
 import main.view.Estructura;
-import main.view.TablasBase;
 
 public class EstructuraController extends MouseAdapter implements ActionListener {
 
     private Estructura estructura;
-    private JMenu ajustes;
-    private JMenu cerrar;
 
     public EstructuraController(Estructura estructura) {
 

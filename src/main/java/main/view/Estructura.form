@@ -76,6 +76,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="tabbedPanePrincipal">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CustomTabbedPane()"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -103,7 +106,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel1" max="32767" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
@@ -175,7 +178,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="471" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="430" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -517,7 +520,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tabbedPaneSalidas" max="32767" attributes="0"/>
+                          <Component id="tabbedPaneSalidas" pref="0" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -525,6 +528,9 @@
               </Layout>
               <SubComponents>
                 <Container class="javax.swing.JTabbedPane" name="tabbedPaneSalidas">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CustomTabbedPane(Color.GRAY, Color.BLACK, Color.&#xd;&#xa;WHITE)"/>
+                  </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
@@ -569,7 +575,7 @@
                                               </Group>
                                               <Component id="jLabel5" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="0" pref="568" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="599" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -585,7 +591,7 @@
                                       <Component id="lblBuscadorSalida" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" pref="435" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" pref="381" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -689,7 +695,7 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane4" pref="1012" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane4" pref="1043" max="32767" attributes="0"/>
                                       <Component id="jLabel6" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -702,7 +708,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane4" pref="523" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" pref="469" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -758,7 +764,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel13" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane6" pref="1012" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane6" pref="1043" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -770,7 +776,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane6" pref="523" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane6" pref="469" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -835,28 +841,30 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" pref="244" max="32767" attributes="0"/>
+                              <Component id="jLabel3" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblConceptoSalida" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane5" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="lblAreaEmpleadoSolicitante" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblMaterialSolicitado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblUnidadMaterialSolicitado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtUnidadMaterialSolicitado" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtMaterialSolicitado" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtAreaEmpleadoSol" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="lblCantidadSalida" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtCantidadSalida" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <Component id="lblEmpleadoSolicitante" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="txtEmpleadoSalida" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="btnCancelar" min="-2" pref="48" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnAgregarSalida" min="-2" pref="48" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblAreaEmpleadoSolicitante" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblMaterialSolicitado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblUnidadMaterialSolicitado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtUnidadMaterialSolicitado" alignment="0" pref="200" max="32767" attributes="0"/>
-                                      <Component id="txtMaterialSolicitado" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtAreaEmpleadoSol" alignment="0" pref="200" max="32767" attributes="0"/>
-                                      <Component id="lblCantidadSalida" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCantidadSalida" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lblConceptoSalida" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblEmpleadoSolicitante" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtEmpleadoSolicitante" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane5" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -868,11 +876,15 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblConceptoSalida" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="jScrollPane5" min="-2" pref="135" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblEmpleadoSolicitante" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtEmpleadoSolicitante" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtEmpleadoSalida" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="lblAreaEmpleadoSolicitante" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtAreaEmpleadoSol" min="-2" pref="30" max="-2" attributes="0"/>
@@ -888,14 +900,10 @@
                           <Component id="lblUnidadMaterialSolicitado" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtUnidadMaterialSolicitado" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblConceptoSalida" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="jScrollPane5" min="-2" pref="135" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnCancelar" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                              <Component id="btnAgregarSalida" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnAgregarSalida" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="btnCancelar" min="-2" pref="48" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -931,8 +939,6 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Empleado solicitante:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txtEmpleadoSolicitante">
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblAreaEmpleadoSolicitante">
                   <Properties>
@@ -971,6 +977,8 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JTextField" name="txtEmpleadoSalida">
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -1239,7 +1247,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblTitulo1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="473" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="419" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>

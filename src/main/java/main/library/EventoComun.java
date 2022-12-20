@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 
 public class EventoComun {
     public static final Color COLOR_BASE = new Color(0, 153, 51);
+    public static final Color COLOR_TEXTO = new Color(0,0,0);
     public void textKeyPressed(KeyEvent evt) {
         char caracter = evt.getKeyChar();
         if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z')
