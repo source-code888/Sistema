@@ -440,6 +440,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     }
 
     private void buscar(String data) {
+        Collections.sort(salidas);
         List<Salida> filter;
         String titulos[] = {
             "ID",
@@ -463,7 +464,6 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
-            Collections.sort(filter);
             filter.forEach(
                     salida -> {
                         Object[] objects = {
