@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -136,6 +138,10 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             if (button.equals(buttons.get(0))) {
                 if (accion.equals("insert")) {
                     if (validarEntrada()) {
+                        System.out.println(e.getID());
+                        System.out.println(e.getActionCommand());
+                        System.out.println(e.getModifiers());
+                        System.out.println(e.getWhen());
                         insertarSalida();
                     }
                 }
@@ -204,7 +210,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     @Override
     public void keyReleased(KeyEvent e) {
         Object obj = e.getSource();
-        if (obj instanceof JTable) {
+        /*if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbSalidas)) {
                 if (tbSalidas.getSelectedRows().length > 0) {
@@ -222,7 +228,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     obtenerMaterial();
                 }
             }
-        }
+        }*/
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(0))) {
@@ -259,9 +265,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 }
             }
             if (txt.equals(textFields.get(3))) {
-                System.out.println("TEXTT333!!");
                 if (e.getKeyChar() != '\n') {
-                    System.out.println("BUSCADOOOR");
                     seleccionadoMaterial = false;
                     material = null;
                     labels.get(4).setForeground(Color.BLACK);
@@ -273,16 +277,23 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 } else {
 
                     if (tbMateriales.getRowCount() > 0) {
+                        System.out.println("Mayor a 0");
                         tbMateriales.setRowSelectionInterval(0, 0);
                         obtenerMaterial();
                         seleccionadoMaterial = true;
-                        System.out.println(seleccionadoMaterial);
+                        //System.out.println(seleccionadoMaterial);
                         ocultarTablaMaterial();
                         textFields.get(0).requestFocus();
                     }
                 }
                 //buscarMaterial(textFields.get(3).getText());
             }
+            if (txt.equals(textFields.get(0))) {
+                if (e.getKeyChar() == '\n') {
+                    txtAreaConcepto.requestFocus();
+                }
+            }
+            
         }
         if (obj instanceof JTextArea) {
             JTextArea area = (JTextArea) obj;
@@ -291,6 +302,12 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el concepto:", Color.red);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Concepto:", COLOR_BASE);
+                }
+                
+                if(e.getKeyChar() == '\n'){
+                    actionPerformed(new ActionEvent(buttons.get(0), 1001, "" , e.getWhen(), 16));
+                    txtAreaConcepto.setFocusable(false);
+                    txtAreaConcepto.setFocusable(true);
                 }
             }
         }
@@ -341,8 +358,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             }
 
             if (textField.equals(textFields.get(3))) {
-                System.out.println("MATERIAAAL");
-                ocultarTablaMaterial();
+                
+                
+                if (textFields.get(1).isFocusOwner()) {
+                    System.out.println("hola");
+                }
             }
         }
         if (obj instanceof JTextArea) {
@@ -383,11 +403,17 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 }
             }
             if (tb.equals(tbMateriales)) {
-                if (tbMateriales.getSelectedRows().length > 0) {
-                    seleccionadoMaterial = true;
+               
+                System.out.println("CACA");
+                if (tbMateriales.getSelectedRow() > 0) {
+                    
+                    System.out.println("KOKOKOK");
                     obtenerMaterial();
+                    seleccionadoMaterial = true;
                     
                     textFields.get(4).requestFocus();
+                    ocultarTablaMaterial();
+                    
                 }
             }
         }
@@ -395,7 +421,13 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
     //FIN DE LOS EVENTOS
     private void reestablecer() {
-        selectedRowEmpleado = selectedRowSalida = selectedRowMaterial = -1;
+        
+        if (tabbedPaneSalidas.getTabCount() > 1) {
+            tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
+        }
+        
+        selectedRowSalida = -1;
+        
         accion = "insert";
         salidas = new SalidaDAO().salidas();
         if (!salidas.isEmpty()) {
@@ -409,9 +441,9 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         txtAreaConcepto.setText("");
         textFields.get(0).setEnabled(true);
         textFields.get(1).setEnabled(true);
-        textFields.get(2).setEnabled(true);
-        textFields.get(3).setEnabled(true);
-        textFields.get(4).setEnabled(true);
+        textFields.get(3).setEditable(true);
+        
+        
         txtAreaConcepto.setEnabled(true);
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad salida:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(1), "Concepto:", Color.black);
@@ -423,13 +455,17 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(numberModel);
-
+        
+        
+        
         buscar("");
         mostrarRegistrosPorPagina();
         buttons.get(1).setVisible(true);
+        
         salida = null;
         empleado = null;
         material = null;
+        
     }
 
     private void buscar(String data) {
@@ -872,7 +908,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private void ocultarTablaMaterial() {
         if (seleccionado) {
             System.out.println("\nEmpleado Seleccionado");
-            if (seleccionadoMaterial) {
+            //if (seleccionadoMaterial) {
                 System.out.println("Material seleccionado");
                 if (tabbedMaterial) {
                     
@@ -880,7 +916,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
                     tabbedMaterial = false;
                 }
-            }
+            //}
         }
 
     }
