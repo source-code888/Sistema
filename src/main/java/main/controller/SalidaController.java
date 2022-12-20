@@ -53,6 +53,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private List<JTextField> textFields;
     private JSpinner spinner;
     private JTextArea txtAreaConcepto;
+
     //ELEMENTOS DE LA CLASE
     private List<Salida> salidas;
     private List<Empleado> empleados;
@@ -71,8 +72,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private Paginador<Salida> paginador;
     private int rows = 10;
     private int pagNum = 1;
+    private int selectedRowSalida, selectedRowEmpleado, selectedRowMaterial;
     private boolean tabbedEmpleado = false;
     private boolean seleccionado = false;
+    private boolean tabbedMaterial = false;
+    private boolean seleccionadoMaterial = false;
 
     public SalidaController(Object object, JTabbedPane tabbedPaneSalidas, JTable tbSalidas, JTable tbEmpleados, JTable tbMateriales, List<JLabel> labels, List<JButton> buttons, List<JTextField> textFields, JSpinner spinner, JTextArea txtAreaConcepto) {
         if (object instanceof Usuario) {
@@ -111,6 +115,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         if (titulo.equals("Empleados")) {
             componentEmpleados = tabbedPaneSalidas.getComponent(tabbedPaneSalidas.getTabCount() - 2);
             tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 2);
+            System.out.println("SEOCULTA");
         } else if (titulo.equals("Materiales")) {
             componentMateriales = tabbedPaneSalidas.getComponent(tabbedPaneSalidas.getTabCount() - 1);
             tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
@@ -228,10 +233,47 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 }
             }
             if (txt.equals(textFields.get(1))) {
-                buscarEmpleado(textFields.get(1).getText());
+                if (e.getKeyChar() != '\n') {
+                    seleccionado = false;
+                    labels.get(3).setForeground(Color.BLACK);
+                    labels.get(2).setForeground(Color.BLACK);
+                    empleado = null;
+                    textFields.get(2).setText("");
+
+                    buscarEmpleado(textFields.get(1).getText());
+                } else {
+                    if (tbEmpleados.getRowCount() > 0) {
+                        tbEmpleados.setRowSelectionInterval(0, 0);
+                        obtenerEmpleado();
+                        seleccionado = true;
+                        ocultarTablaEmpleado();
+                        textFields.get(3).requestFocus();
+                    }
+                }
             }
             if (txt.equals(textFields.get(3))) {
-                buscarMaterial(textFields.get(3).getText());
+                System.out.println("TEXTT333!!");
+                if (e.getKeyChar() != '\n') {
+                    System.out.println("BUSCADOOOR");
+                    seleccionadoMaterial = false;
+                    material = null;
+                    labels.get(4).setForeground(Color.BLACK);
+                    labels.get(5).setForeground(Color.BLACK);
+                    
+                    textFields.get(4).setText("");
+
+                    buscarMaterial(textFields.get(3).getText());
+                } else {
+                    
+                    if (tbMateriales.getRowCount() > 0) {
+                        tbMateriales.setRowSelectionInterval(0, 0);
+                        obtenerMaterial();
+                        seleccionadoMaterial = true;
+                        ocultarTablaMaterial();
+                        textFields.get(0).requestFocus();
+                    }
+                }
+                //buscarMaterial(textFields.get(3).getText());
             }
         }
         if (obj instanceof JTextArea) {
@@ -252,21 +294,26 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         if (obj instanceof JTextField) {
             JTextField textField = (JTextField) obj;
             if (textField.equals(textFields.get(1))) {
-                if (textFields.get(1).getText().isBlank()) {
-                    tabbedEmpleado = true;
-                    tabbedPaneSalidas.addTab("Empleados", componentEmpleados);
-                    tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
-                    buscarEmpleado("");
-                }
+
+                //seleccionado = false;
+                //if (textFields.get(1).getText().isBlank()) {
+                //  mostrarTablaEmpleado();
+                //  buscarEmpleado("");
+                //} else {
+                mostrarTablaEmpleado();
+                buscarEmpleado(textFields.get(1).getText());
+                //}
+
             }
             if (textField.equals(textFields.get(3))) {
                 if (textFields.get(3).getText().isBlank()) {
-                    if (seleccionado) {
-                        tabbedEmpleado = false;
-                        tabbedPaneSalidas.addTab("Materiales", componentMateriales);
-                        tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
-                        buscarMaterial("");
-                    }
+                    //if (seleccionado) {
+                    tabbedMaterial = true;
+                    tabbedEmpleado = false;
+                    tabbedPaneSalidas.addTab("Materiales", componentMateriales);
+                    tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
+                    buscarMaterial("");
+                    //}
                 }
             }
         }
@@ -278,12 +325,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         if (obj instanceof JTextField) {
             JTextField textField = (JTextField) obj;
             if (textField.equals(textFields.get(1))) {
-                if (seleccionado) {
-                    if (tabbedEmpleado) {
-                        tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
-                    }
-                    tabbedEmpleado = false;
-                }
+                ocultarTablaEmpleado();
             }
             if (textField.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
@@ -291,6 +333,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad:", COLOR_BASE);
                 }
+            }
+
+            if (textField.equals(textFields.get(3))) {
+                System.out.println("MATERIAAAL");
+                ocultarTablaMaterial();
             }
         }
         if (obj instanceof JTextArea) {
@@ -306,19 +353,28 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseReleased(MouseEvent e) {
+
         Object obj = e.getSource();
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbSalidas)) {
                 if (tbSalidas.getSelectedRows().length > 0) {
-                    obtenerRegistro();
+                    if (tbSalidas.getSelectedRow() != selectedRowSalida) {
+                        selectedRowSalida = tbSalidas.getSelectedRow();
+                        obtenerRegistro();
+                    } else {
+                        reestablecer();
+                    }
+
                 }
             }
             if (tb.equals(tbEmpleados)) {
                 if (tbEmpleados.getSelectedRows().length > 0) {
                     obtenerEmpleado();
+                    tabbedEmpleado = true;
                     seleccionado = true;
+                    textFields.get(3).requestFocus();
                 }
             }
             if (tb.equals(tbMateriales)) {
@@ -331,6 +387,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
     //FIN DE LOS EVENTOS
     private void reestablecer() {
+        selectedRowEmpleado = selectedRowSalida = selectedRowMaterial = -1;
         accion = "insert";
         salidas = new SalidaDAO().salidas();
         if (!salidas.isEmpty()) {
@@ -791,4 +848,32 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         }
         buscar("");
     }
+
+    private void ocultarTablaEmpleado() {
+
+        if (seleccionado) {
+            if (tabbedEmpleado) {
+                tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
+            }
+            tabbedEmpleado = false;
+        }
+    }
+
+    private void ocultarTablaMaterial() {
+
+        if (seleccionadoMaterial) {
+            if (tabbedMaterial) {
+                tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
+            }
+            tabbedMaterial = false;
+        }
+    }
+
+    private void mostrarTablaEmpleado() {
+        System.out.println("MOSTRADO");
+        tabbedEmpleado = true;
+        tabbedPaneSalidas.addTab("Empleados", componentEmpleados);
+        tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
+    }
+
 }

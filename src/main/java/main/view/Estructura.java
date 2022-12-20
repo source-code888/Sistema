@@ -375,6 +375,7 @@ public class Estructura extends javax.swing.JFrame {
 
             }
         ));
+        tbSalidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(tbSalidas);
 
         jLabel5.setText("Registros por pagina");
@@ -459,6 +460,7 @@ public class Estructura extends javax.swing.JFrame {
 
             }
         ));
+        tbEmpleadoSalida.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(tbEmpleadoSalida);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -501,6 +503,7 @@ public class Estructura extends javax.swing.JFrame {
 
             }
         ));
+        tbMaterialesSalida.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane6.setViewportView(tbMaterialesSalida);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1124,6 +1127,7 @@ new MouseAdapter() {
         this.txtEmpleadoSolicitante.addKeyListener(controller);
         this.txtMaterialSolicitado.addFocusListener(controller);
         this.txtMaterialSolicitado.addKeyListener(controller);
+        
         //Eventos text area
         this.txtAreaConcepto.addFocusListener(controller);
         this.txtAreaConcepto.addKeyListener(controller);
