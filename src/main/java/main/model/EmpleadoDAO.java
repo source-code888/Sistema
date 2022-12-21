@@ -29,14 +29,14 @@ public class EmpleadoDAO extends Conexion {
         }
         return empleados;
     }
-    
+
     public void insert(Object[] data) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
             String sqlEmpleado = "INSERT INTO "
-                    + "empleado(nombre, apellidoPaterno, apellidoMaterno, telefono, email, idArea)"
-                    + "VALUES(?, ?, ?, ?, ?, ?)";
+                    + "empleado(nombre, apellidoPaterno, apellidoMaterno, telefono, email, contratado, idArea)"
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?)";
             qr.insert(getConn(), sqlEmpleado, new ColumnListHandler(), data);
             getConn().commit();
         } finally {
@@ -44,13 +44,13 @@ public class EmpleadoDAO extends Conexion {
             getConn().close();
         }
     }
-    
+
     public void update(int idRegistro, Object[] data) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
             String sqlUpdate = "UPDATE empleado SET nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, telefono = ?, "
-                    + "email = ?, idArea = ? WHERE idEmpleado = " + idRegistro;
+                    + "email = ?, contratado = ?,  idArea = ? WHERE idEmpleado = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
         } finally {
@@ -58,7 +58,7 @@ public class EmpleadoDAO extends Conexion {
             getConn().close();
         }
     }
-    
+
     public void remove(int idRegistro) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();

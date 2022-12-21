@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,6 +34,7 @@ import static main.library.Objetos.METHOD_LAST;
 import static main.library.Objetos.METHOD_LATEST;
 import static main.library.Objetos.METHOD_NEXT;
 import main.library.Paginador;
+import main.library.RenderCheckBox;
 import main.library.TableModel;
 import main.model.Area;
 import main.model.AreaDAO;
@@ -57,7 +59,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     private List<JLabel> labelsColumn;
     private JComboBox cbxAreas;
     private JTable tbEmpleados;
-    private Estructura estructura;
+    private JCheckBox jcbContratado;
 
     //ELEMENTOS DEL PAGIANDOR
     private Paginador<Empleado> paginador;
@@ -65,15 +67,15 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     private int pagNum = 1;
     private JSpinner spinner;
 
-    public EmpleadoController(List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JComboBox cbxAreas, JSpinner spinner, JTable tbEmpleados, Estructura estructura, List<JLabel> labelsColumn) {
+    public EmpleadoController(List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JComboBox cbxAreas, JSpinner spinner, JTable tbEmpleados, List<JLabel> labelsColumn, JCheckBox jcbContratado) {
         this.buttons = buttons;
         this.textFields = textFields;
         this.labels = labels;
         this.cbxAreas = cbxAreas;
         this.spinner = spinner;
         this.tbEmpleados = tbEmpleados;
-        this.estructura = estructura;
         this.labelsColumn = labelsColumn;
+        this.jcbContratado = jcbContratado;
         reestablecer();
     }
 
@@ -92,14 +94,14 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         textFields.get(3).setText("");
         textFields.get(4).setText("");
         comboModel();
-
+        jcbContratado.setSelected(false);
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(spinnerModel);
         buscar("");
         mostrarRegistrosPorPagina();
         buttons.get(1).setVisible(false);
         empleado = null;
-        
+
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno", Color.black);
@@ -133,7 +135,9 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             "Apellido materno",
             "Teléfono",
             "Correo electrónico",
-            "Area",};
+            "Area",
+            "Contratado"
+        };
         defaultTableModel = new TableModel(null, titulos);
 
         int start = (pagNum - 1) * rows;
@@ -162,7 +166,9 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                             empleado.getApellidoMaterno(),
                             empleado.getTelefono(),
                             empleado.getEmail(),
-                            area,};
+                            area,
+                            empleado.isContratado()
+                        };
 
                         defaultTableModel.addRow(objects);
                     }
@@ -175,7 +181,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         tbEmpleados.getColumnModel().getColumn(0).setMaxWidth(0);
         tbEmpleados.getColumnModel().getColumn(0).setMinWidth(0);
         tbEmpleados.getColumnModel().getColumn(0).setPreferredWidth(0);
-
+        tbEmpleados.getColumnModel().getColumn(7).setCellRenderer(new RenderCheckBox());
     }
 
     private void mostrarRegistrosPorPagina() {
@@ -197,8 +203,6 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             }
         }
     }
-
-    
 
     @Override
     public void focusLost(FocusEvent e) {
@@ -284,14 +288,14 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             }
             if (textField.equals(textFields.get(1))) {
                 if (!textFields.get(1).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno",COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(2))) {
                 if (!textFields.get(2).getText().isEmpty()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno",COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.RED);
                 }
@@ -348,12 +352,13 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 textFields.get(2).getText(),
                 textFields.get(3).getText(),
                 textFields.get(4).getText(),
+                jcbContratado.isSelected(),
                 idArea
             };
             new EmpleadoDAO().insert(data);
             reestablecer();
         } catch (SQLException ex) {
-            System.out.println("ERROR " + ex);
+            ex.printStackTrace(System.out);
         }
 
     }
@@ -392,8 +397,8 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         if (source.equals(buttons.get(5))) {
             pager(METHOD_LATEST);
         }
-        
-        if(source.equals(cbxAreas)){
+
+        if (source.equals(cbxAreas)) {
             Objetos.eventoComun.remarcarLabel(labels.get(5), "Area", new Color(0, 153, 51));
         }
     }
@@ -416,7 +421,6 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             }
         }
         if (obj instanceof JLabel) {
-            //System.out.println("AJUUUA");
         }
 
     }
@@ -447,6 +451,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         textFields.get(3).setText((String) defaultTableModel.getValueAt(row, 4));
         textFields.get(4).setText((String) defaultTableModel.getValueAt(row, 5));
         this.cbxAreas.setSelectedItem((String) defaultTableModel.getValueAt(row, 6));
+        jcbContratado.setSelected((Boolean) defaultTableModel.getValueAt(row, 7));
         textFields.get(0).requestFocus();
         buttons.get(1).setVisible(true);
 
@@ -462,6 +467,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 textFields.get(2).getText(),
                 textFields.get(3).getText(),
                 textFields.get(4).getText(),
+                jcbContratado.isSelected(),
                 idArea
         );
 
@@ -493,6 +499,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 empleado.getApellidoMaterno(),
                 empleado.getTelefono(),
                 empleado.getEmail(),
+                jcbContratado.isSelected(),
                 empleado.getIdArea()
             };
             new EmpleadoDAO().update(empleado.getIdEmpleado(), data);

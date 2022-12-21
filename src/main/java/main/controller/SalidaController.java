@@ -16,7 +16,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.print.PrintException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -41,11 +44,15 @@ import static main.library.Objetos.METHOD_LAST;
 import static main.library.Objetos.METHOD_LATEST;
 import static main.library.Objetos.METHOD_NEXT;
 import static main.library.EventoComun.COLOR_TEXTO;
+import main.library.GenerarDocumento;
+import main.library.RenderCheckBox;
 
 public class SalidaController extends MouseAdapter implements ActionListener, ChangeListener, KeyListener, FocusListener {
 
     //ELEMENTOS VISUALES
     private JTabbedPane tabbedPaneSalidas;
+    private JTabbedPane tabbedPaneAccionSalida;
+    private JList lstSalidas;
     private JTable tbSalidas;
     private JTable tbEmpleados;
     private JTable tbMateriales;
@@ -57,6 +64,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private JTextArea txtAreaConcepto;
 
     //ELEMENTOS DE LA CLASE
+    private DefaultListModel<Salida> listModel;
     private List<Salida> salidas;
     private List<Empleado> empleados;
     private List<Material> materiales;
@@ -76,12 +84,13 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private boolean tablaEmpleadosSeleccionada = false;
     private boolean seccionEmpleadosActiva = false;
     private boolean seccionMaterialesActiva = false;
+    private boolean seccionAgregarSalida = true;
     //ELEMENTOS DEL PAGINADOR
     private Paginador<Salida> paginador;
     private int rows = 10;
     private int pagNum = 1;
 
-    public SalidaController(Object object, JTabbedPane tabbedPaneSalidas, JTable tbSalidas, JTable tbEmpleados, JTable tbMateriales, List<JLabel> labels, List<JButton> buttons, List<JTextField> textFields, JSpinner spinner, JTextArea txtAreaConcepto) {
+    public SalidaController(Object object, JTabbedPane tabbedPaneSalidas, JTable tbSalidas, JTable tbEmpleados, JTable tbMateriales, List<JLabel> labels, List<JButton> buttons, List<JTextField> textFields, JSpinner spinner, JTextArea txtAreaConcepto, JTabbedPane tabbedPaneAccionSalida, JList lstSalidas) {
         if (object instanceof Usuario) {
             usuario = (Usuario) object;
         }
@@ -94,6 +103,8 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         this.textFields = textFields;
         this.spinner = spinner;
         this.txtAreaConcepto = txtAreaConcepto;
+        this.tabbedPaneAccionSalida = tabbedPaneAccionSalida;
+        this.lstSalidas = lstSalidas;
         componentMateriales = tabbedPaneSalidas.getComponent(tabbedPaneSalidas.getTabCount() - 1);
         componentEmpleados = tabbedPaneSalidas.getComponent(tabbedPaneSalidas.getTabCount() - 2);
         tabbedPaneSalidas.removeTabAt(tabbedPaneSalidas.getTabCount() - 1);
@@ -159,6 +170,58 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             if (button.equals(buttons.get(5))) {
                 pager(METHOD_LATEST);
             }
+            if (button.equals(buttons.get(6))) {
+                if (listModel != null) {
+                    if (!listModel.isEmpty()) {
+                        GenerarDocumento ticket = new GenerarDocumento();
+                        ticket.addTextCenter("Sistema de almacén");
+                        ticket.addTextLeft("Dirección: ");
+                        ticket.addTextLeft("Dirección tal");
+                        ticket.addTextLeft("Teléfono: 8341329745");
+                        ticket.separarSeccion();
+                        ticket.addTextCenter("Reporte de salidas");
+                        ticket.addTextLeft("Empleado que reporta: " + getNombreEmpleado(usuario.getIdEmpleado()));
+                        ticket.addTextLeft("Fecha de reporte: " + labels.get(12).getText());
+                        ticket.separarSeccion();
+                        ticket.addTextCenter("Salidas reportadas");
+                        ticket.separadorAs();
+                        int materialesSalida = 0;
+                        for (int i = 0; i < listModel.size(); i++) {
+                            var sal = listModel.getElementAt(i);
+                            ticket.addItem(getNombreMaterial(sal.getIdMaterial()), "Cantidad: " + sal.getCantidadSalida(), "");
+                            ticket.addTextLeft("Lo solicitó: " + getNombreEmpleado(sal.getIdEmpleado()) + " " + getApellidoEmpleado(sal.getIdEmpleado()));
+                            ticket.addTextLeft("Contacto: " + getContactoEmpleado(sal.getIdEmpleado()));
+                            ticket.addTextLeft("Fecha de solicitud: " + sal.getFechaHoraSalida());
+                            ticket.separadorAs();
+                            materialesSalida += sal.getCantidadSalida();
+                        }
+                        ticket.separadorE();
+                        ticket.addTextLeft("Total de materiales que salieron: " + materialesSalida);
+                        ticket.separadorE();
+                        ticket.addTextCenter("Fin");
+                        try {
+                            ticket.print();
+                            for (int i = 0; i < listModel.size(); i++) {
+                                var sal = listModel.getElementAt(i);
+                                try {
+                                    new SalidaDAO().remove(sal.getIdSalida());
+                                } catch (SQLException ex) {
+                                    JOptionPane.showMessageDialog(null, "La salida no ha podido ser eliminada.");
+                                }
+                            }
+                            reestablecer();
+                            reestablecerReporte();
+                        } catch (PrintException ex) {
+                            ex.printStackTrace(System.out);
+                            JOptionPane.showMessageDialog(null, "Reporte cancelado");
+                        }
+                    }
+                }
+            }
+
+            if (button.equals(buttons.get(7))) {
+                reestablecerReporte();
+            }
         }
     }
 
@@ -170,6 +233,15 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             if (pane.equals(tabbedPaneSalidas)) {
                 if (tabbedPaneSalidas.getTabCount() > 1) {
                     tabbedPaneSalidas.setSelectedIndex(1);
+                }
+            }
+            if (pane.equals(tabbedPaneAccionSalida)) {
+                if (tabbedPaneAccionSalida.getSelectedIndex() == 0) {
+                    seccionAgregarSalida = true;
+                    reestablecer();
+                } else if (tabbedPaneAccionSalida.getSelectedIndex() == 1) {
+                    seccionAgregarSalida = false;
+                    reestablecerReporte();
                 }
             }
         }
@@ -211,7 +283,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             JTable tb = (JTable) obj;
             if (tb.equals(tbSalidas)) {
                 if (tbSalidas.getSelectedRows().length > 0) {
-                    obtenerRegistro();
+                    if (seccionAgregarSalida) {
+                        obtenerRegistro();
+                    } else {
+                        obtenerSalida();
+                    }
                 }
             }
 
@@ -377,7 +453,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             JTable tb = (JTable) obj;
             if (tb.equals(tbSalidas)) {
                 if (tbSalidas.getSelectedRows().length > 0) {
-                    obtenerRegistro();
+                    if (seccionAgregarSalida) {
+                        obtenerRegistro();
+                    } else {
+                        obtenerSalida();
+                    }
                 }
             }
             if (tb.equals(tbEmpleados)) {
@@ -615,7 +695,9 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             "Apellido materno",
             "Teléfono",
             "Correo electrónico",
-            "Area",};
+            "Area",
+            "Contratado"
+        };
         tableModelEmpleados = new TableModel(null, titulos);
         if (data.equals("")) {
             filter = empleados.stream().collect(Collectors.toList());
@@ -628,18 +710,22 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             filter = ordenamiento(filter, 0);
             filter.forEach(
                     empleado -> {
-                        String area = new AreaDAO().areas().stream().filter(
-                                obj -> obj.getId() == empleado.getIdArea()
-                        ).collect(Collectors.toList()).get(0).getNombre();
-                        Object[] objects = {
-                            empleado.getIdEmpleado(),
-                            empleado.getNombre(),
-                            empleado.getApellidoPaterno(),
-                            empleado.getApellidoMaterno(),
-                            empleado.getTelefono(),
-                            empleado.getEmail(),
-                            area,};
-                        tableModelEmpleados.addRow(objects);
+                        boolean contratado = empleado.isContratado();
+                        if (contratado) {
+                            String area = new AreaDAO().areas().stream().filter(
+                                    obj -> obj.getId() == empleado.getIdArea()
+                            ).collect(Collectors.toList()).get(0).getNombre();
+                            Object[] objects = {
+                                empleado.getIdEmpleado(),
+                                empleado.getNombre(),
+                                empleado.getApellidoPaterno(),
+                                empleado.getApellidoMaterno(),
+                                empleado.getTelefono(),
+                                empleado.getEmail(),
+                                area,
+                                contratado};
+                            tableModelEmpleados.addRow(objects);
+                        }
                     }
             );
 
@@ -650,6 +736,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         tbEmpleados.getColumnModel().getColumn(0).setMaxWidth(0);
         tbEmpleados.getColumnModel().getColumn(0).setMinWidth(0);
         tbEmpleados.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tbEmpleados.getColumnModel().getColumn(7).setCellRenderer(new RenderCheckBox());
     }
 
     private List<Empleado> ordenamiento(List<Empleado> filter, int modoOrdenamiento) {
@@ -694,6 +781,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 (String) tableModelEmpleados.getValueAt(rowS, 3),
                 (String) tableModelEmpleados.getValueAt(rowS, 3),
                 (String) tableModelEmpleados.getValueAt(rowS, 5),
+                (Boolean) tableModelEmpleados.getValueAt(rowS, 7),
                 idArea
         );
         textFields.get(1).setText(empleado.getNombre());
@@ -823,14 +911,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private void insertarSalida() {
         try {
             if (Integer.parseInt(textFields.get(0).getText()) <= material.getCantidad()) {
-                String strFormat = "hh: mm: ss a dd-MM-YYYY";
-                SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
-                Date fecha = new Date();
-                String fechaCompleta = dateFormat.format(fecha).toString();
+
                 Object[] data = {
                     textFields.get(0).getText(),
                     txtAreaConcepto.getText(),
-                    fechaCompleta,
+                    getFecha(),
                     empleado.getIdEmpleado(),
                     empleado.getIdArea(),
                     material.getIdMaterial(),
@@ -892,5 +977,84 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
             buscarMaterial("");
         }
+    }
+
+    public void reestablecerReporte() {
+        listModel = new DefaultListModel();
+        lstSalidas.setModel(listModel);
+        Objetos.eventoComun.remarcarLabel(labels.get(9), "Empleado que reporta:", COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(10), getNombreEmpleado(usuario.getIdEmpleado()), COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(11), "Fecha:", COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(12), getFecha(), COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(13), "Salidas a reportar:", COLOR_BASE);
+        textFields.get(5).requestFocus();
+    }
+
+    public void obtenerSalida() {
+        salida = new Salida();
+        int row = tbSalidas.getSelectedRow();
+        String nombreMaterial = (String) tableModelSalidas.getValueAt(row, 1);
+        String nombreUnidad = (String) tableModelSalidas.getValueAt(row, 3);
+        String concepto = (String) tableModelSalidas.getValueAt(row, 4);
+        int cantidadSalida = (Integer) tableModelSalidas.getValueAt(row, 2);
+        String fechaSalida = (String) tableModelSalidas.getValueAt(row, 5);
+        String nombreEmpleado = (String) tableModelSalidas.getValueAt(row, 6);
+        String nombreArea = (String) tableModelSalidas.getValueAt(row, 7);
+        String nombreUsuario = (String) tableModelSalidas.getValueAt(row, 8);
+        int idMaterial = new MaterialDAO().materiales().stream().filter(
+                material -> material.getNombreMaterial().equals(nombreMaterial))
+                .collect(Collectors.toList()).get(0).getIdMaterial();
+        int idUnidad = new UnidadDAO().unidades().stream().filter(
+                unidad -> unidad.getNombre().equals(nombreUnidad)
+        ).collect(Collectors.toList()).get(0).getId();
+        int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
+                empleado -> empleado.getNombre().equals(nombreEmpleado)
+        ).collect(Collectors.toList()).get(0).getIdEmpleado();
+        int idArea = new AreaDAO().areas().stream().filter(
+                area -> area.getNombre().equals(nombreArea)
+        ).collect(Collectors.toList()).get(0).getId();
+        int idUsuario = new UsuarioDAO().usuarios().stream().filter(
+                usuario -> usuario.getUsuario().equals(nombreUsuario)
+        ).collect(Collectors.toList()).get(0).getIdUsuario();
+        salida.setIdSalida((Integer) tableModelSalidas.getValueAt(row, 0));
+        salida.setIdMaterial(idMaterial);
+        salida.setCantidadSalida(cantidadSalida);
+        salida.setIdUnidad(idUnidad);
+        salida.setConceptoSalida(concepto);
+        salida.setFechaHoraSalida(fechaSalida);
+        salida.setIdEmpleado(idEmpleado);
+        salida.setIdArea(idArea);
+        salida.setIdUsuario(idUsuario);
+        boolean dentro = false;
+        if (listModel.isEmpty()) {
+            listModel.addElement(salida);
+        } else {
+            for (int i = 0; i < listModel.size(); i++) {
+                if (salida.getIdSalida() == listModel.getElementAt(i).getIdSalida()) {
+                    dentro = true;
+                    listModel.removeElementAt(i);
+                }
+            }
+            if (!dentro) {
+                listModel.addElement(salida);
+            }
+        }
+    }
+
+    public String getFecha() {
+        String strFormat = "hh: mm: ss a dd-MM-YYYY";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
+        Date fecha = new Date();
+        return dateFormat.format(fecha).toString();
+    }
+
+    public String getApellidoEmpleado(int id) {
+        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id).
+                collect(Collectors.toList()).get(0).getApellidoPaterno();
+    }
+
+    public String getContactoEmpleado(int id) {
+        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id).
+                collect(Collectors.toList()).get(0).getEmail();
     }
 }

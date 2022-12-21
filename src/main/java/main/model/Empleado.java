@@ -11,27 +11,30 @@ public class Empleado implements Serializable {
     private String apellidoMaterno;
     private String telefono;
     private String email;
+    private boolean contratado;
     private int idArea;
 
     public Empleado() {
     }
 
-    public Empleado(int idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, int idArea) {
+    public Empleado(int idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, boolean contratado, int idArea) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.email = email;
+        this.contratado = contratado;
         this.idArea = idArea;
     }
 
-    public Empleado(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, int idArea) {
+    public Empleado(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, boolean contratado, int idArea) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.email = email;
+        this.contratado = contratado;
         this.idArea = idArea;
     }
 
@@ -81,6 +84,14 @@ public class Empleado implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isContratado() {
+        return contratado;
+    }
+
+    public void setContratado(boolean contratado) {
+        this.contratado = contratado;
     }
 
     public int getIdArea() {

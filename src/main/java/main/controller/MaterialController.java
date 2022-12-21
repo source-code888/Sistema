@@ -75,9 +75,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JButton) {
             JButton btn = (JButton) obj;
             if (btn.equals(buttons.get(0))) {
-                System.out.println(e.getID());
-                System.out.println(e.getActionCommand());
-                System.out.println(e.getModifiers());
                 if (textFields.get(0).getText().isBlank()
                         && textFields.get(1).getText().isBlank() && combos.get(0).getSelectedItem() == null
                         && combos.get(1).getSelectedItem() == null && combos.get(2).getSelectedItem() == null) {
