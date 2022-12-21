@@ -70,6 +70,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private Salida salida;
     private Empleado empleado;
     private Material material;
+    private boolean enter = false;
     private boolean empleadoSeleccionado = false;
     private boolean materialSeleccionado = false;
     private boolean tablaEmpleadosSeleccionada = false;
@@ -234,8 +235,13 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa la cantidad de salida:", Color.red);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad:", COLOR_BASE);
+                    if (e.getKeyChar() == '\n') {
+                        enter = true;
+                        buttons.get(0).doClick();
+                    }
                 }
             }
+
             if (txt.equals(textFields.get(1))) {
                 if (e.getKeyChar() != '\n') {
                     labels.get(3).setForeground(Color.BLACK);
@@ -275,11 +281,6 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     }
                 }
             }
-            if (txt.equals(textFields.get(0))) {
-                if (e.getKeyChar() == '\n') {
-                    txtAreaConcepto.requestFocus();
-                }
-            }
             if (txt.equals(textFields.get(5))) {
                 if (e.getKeyChar() != '\n') {
                     buscar(textFields.get(5).getText());
@@ -298,12 +299,9 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el concepto:", Color.red);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Concepto:", COLOR_BASE);
-                }
-
-                if (e.getKeyChar() == '\n') {
-                    actionPerformed(new ActionEvent(buttons.get(0), 1001, "", e.getWhen(), 16));
-                    txtAreaConcepto.setFocusable(false);
-                    txtAreaConcepto.setFocusable(true);
+                    if (e.getKeyChar() == '\n') {
+                        textFields.get(1).requestFocus();
+                    }
                 }
             }
         }
@@ -348,7 +346,13 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             JTextField textField = (JTextField) obj;
             if (textField.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa la cantidad de salida:", Color.red);
+
+                    if (enter == false) {
+                        Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa la cantidad de salida:", Color.red);
+                    } else {
+                        enter = false;
+                    }
+
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad:", COLOR_BASE);
                 }
