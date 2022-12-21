@@ -984,6 +984,9 @@ public class Estructura extends javax.swing.JFrame {
         this.cbxClasificacion.addActionListener(controller);
         this.cbxTiendas.addActionListener(controller);
         this.cbxUnidad.addActionListener(controller);
+        this.cbxClasificacion.addKeyListener(controller);
+        this.cbxTiendas.addKeyListener(controller);
+        this.cbxUnidad.addKeyListener(controller);
         //EVENTOS SPINNER
         this.spinner.addChangeListener(controller);
         //EVENTOS TABLA
@@ -1150,7 +1153,7 @@ new MouseAdapter() {
         //Eventos text area
         this.txtAreaConcepto.addFocusListener(controller);
         this.txtAreaConcepto.addKeyListener(controller);
-        
+
         //Eventos tabla
         this.tbSalidas.addMouseListener(controller);
         this.tbSalidas.addKeyListener(controller);
@@ -1164,11 +1167,11 @@ new MouseAdapter() {
         //Eventos spinner
         this.spinnerSalidas.addChangeListener(controller);
         //FIN EVENTOS
-        
+
         //OTRO
         this.txtAreaEmpleadoSol.setEditable(false);
         this.txtUnidadMaterialSolicitado.setEditable(false);
-        
+
         //ICONOS
         this.btnAgregarSalida.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.ADD.getValue())));
         this.btnCancelar.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.CANCEL.getValue())));

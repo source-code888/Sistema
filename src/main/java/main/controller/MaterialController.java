@@ -1,6 +1,8 @@
 package main.controller;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -36,6 +38,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<Unidad> unidades;
     private List<Clasificacion> clasificaciones;
     private int selectedRow;
+    private Objetos objetos = new Objetos();
 
     //Elementos visibles
     private List<JButton> buttons;
@@ -73,6 +76,9 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JButton) {
             JButton btn = (JButton) obj;
             if (btn.equals(buttons.get(0))) {
+                System.out.println(e.getID());
+                System.out.println(e.getActionCommand());
+                System.out.println(e.getModifiers());
                 if (textFields.get(0).getText().isBlank()
                         && textFields.get(1).getText().isBlank() && combos.get(0).getSelectedItem() == null
                         && combos.get(1).getSelectedItem() == null && combos.get(2).getSelectedItem() == null) {
@@ -90,26 +96,19 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                     labels.get(2).setForeground(Color.red);
                     labels.get(4).setForeground(Color.red);
                 } else if (textFields.get(0).getText().isBlank()) {
-                    labels.get(1).setText("Ingresa el nombre del material");
-                    labels.get(1).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.red);
                 } else if (textFields.get(3).getText().isBlank()) {
-                    labels.get(2).setText("Ingresa la cantidad");
-                    labels.get(2).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa la cantidad", Color.RED);
                 } else if (combos.get(0).getSelectedItem() == null) {
-                    labels.get(3).setText("Selecciona una unidad");
-                    labels.get(3).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Selecciona una unidad", Color.RED);
                 } else if (textFields.get(4).getText().isBlank()) {
-                    labels.get(4).setText("Ingresa el limite minimo");
-                    labels.get(4).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa el limite minimo", Color.RED);
                 } else if (textFields.get(1).getText().isBlank()) {
-                    labels.get(5).setText("Ingresa el SKU");
-                    labels.get(5).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(5), "Ingresa el SKU", Color.RED);
                 } else if (combos.get(1).getSelectedItem() == null) {
-                    labels.get(6).setText("Selecciona una clasificacion");
-                    labels.get(6).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(6), "Selecciona una clasificacion", Color.RED);
                 } else if (combos.get(2).getSelectedItem() == null) {
-                    labels.get(7).setText("Selecciona una tienda");
-                    labels.get(7).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(7), "Selecciona una tienda", Color.RED);
                 } else {
                     if (accion.equals("insert")) {
                         try {
@@ -219,18 +218,16 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             JComboBox cbx = (JComboBox) obj;
             if (cbx.equals(combos.get(0))) {
                 //Unidad
-                labels.get(3).setText("Unidad");
-                labels.get(3).setForeground(new Color(0, 153, 51));
+                Objetos.eventoComun.remarcarLabel(labels.get(3), "Unidad", Objetos.eventoComun.COLOR_BASE);
+                
             }
             if (cbx.equals(combos.get(1))) {
                 //Clasificacion
-                labels.get(6).setText("Clasificacion");
-                labels.get(6).setForeground(new Color(0, 153, 51));
+                Objetos.eventoComun.remarcarLabel(labels.get(6), "Clasificacion", Objetos.eventoComun.COLOR_BASE);
             }
             if (cbx.equals(combos.get(2))) {
                 //Tienda
-                labels.get(7).setText("Tienda");
-                labels.get(7).setForeground(new Color(0, 153, 51));
+                Objetos.eventoComun.remarcarLabel(labels.get(7), "Tienda", Objetos.eventoComun.COLOR_BASE);
             }
         }
     }
@@ -260,11 +257,11 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             }
             if (txt.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
-                    labels.get(1).setText("Ingresa el nombre del material");
-                    labels.get(1).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.RED);
+                    
                 } else {
-                    labels.get(1).setText("Nombre del material:");
-                    labels.get(1).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material", Objetos.eventoComun.COLOR_BASE);
+                    nextFocus(e.getKeyCode(), textFields.get(3));
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     if (tbMateriales.getSelectedRows().length > 0) {
@@ -286,31 +283,41 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             }
             if (txt.equals(textFields.get(1))) {
                 if (textFields.get(1).getText().isBlank()) {
-                    labels.get(5).setText("Ingresa el SKU");
-                    labels.get(5).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", Color.RED);
                 } else {
-                    labels.get(5).setText("SKU:");
-                    labels.get(5).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", Objetos.eventoComun.COLOR_BASE);
+                    nextFocus(e.getKeyCode(), combos.get(1));
                 }
             }
             if (txt.equals(textFields.get(3))) {
                 if (textFields.get(3).getText().isBlank()) {
-                    labels.get(2).setText("Ingresa la cantidad");
-                    labels.get(2).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa la cantidad", Color.RED);
                 } else {
-                    labels.get(2).setText("Cantidad:");
-                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad", Objetos.eventoComun.COLOR_BASE);
+                    nextFocus(e.getKeyCode(), combos.get(0));
                 }
             }
             if (txt.equals(textFields.get(4))) {
                 if (textFields.get(4).getText().isBlank()) {
-                    labels.get(4).setText("Ingresa el limite minimo");
-                    labels.get(4).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa el limite minimo", Color.RED);
                 } else {
-                    labels.get(2).setText("Cantidad:");
-                    labels.get(2).setForeground(new Color(0, 153, 51));
-                    labels.get(4).setText("Limite minimo:");
-                    labels.get(4).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo", Objetos.eventoComun.COLOR_BASE);
+                    nextFocus(e.getKeyCode(), textFields.get(1));
+                }
+            }
+        }
+        
+        if (obj instanceof JComboBox) {
+            JComboBox comboBox = (JComboBox) obj;
+            if (comboBox.equals(combos.get(0))) {
+                nextFocus(e.getKeyCode(), textFields.get(4));
+            }
+            if (comboBox.equals(combos.get(1))) {
+                nextFocus(e.getKeyCode(), combos.get(2));
+            }
+            if (comboBox.equals(combos.get(2))) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    actionPerformed(new ActionEvent(buttons.get(0),1001 , "" , e.getWhen() ,16 ));
                 }
             }
         }
@@ -412,38 +419,30 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(0))) {
                 if (!textFields.get(0).getText().isBlank()) {
-                    labels.get(1).setText("Nombre del material:");
-                    labels.get(1).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material", Objetos.eventoComun.COLOR_BASE);
                 } else {
-                    labels.get(1).setText("Ingresa el nombre del material");
-                    labels.get(1).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.RED);
                 }
             }
             if (txt.equals(textFields.get(1))) {
                 if (!textFields.get(1).getText().isBlank()) {
-                    labels.get(5).setText("SKU:");
-                    labels.get(5).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", Objetos.eventoComun.COLOR_BASE);
                 } else {
-                    labels.get(5).setText("Ingresa el SKU");
-                    labels.get(5).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(5), "Ingresa el SKU", Color.RED);
                 }
             }
             if (txt.equals(textFields.get(3))) {
                 if (textFields.get(3).getText().isBlank()) {
-                    labels.get(2).setText("Ingresa la cantidad");
-                    labels.get(2).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa la cantidad", Color.RED);
                 } else {
-                    labels.get(2).setText("Cantidad:");
-                    labels.get(2).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad", Objetos.eventoComun.COLOR_BASE);
                 }
             }
             if (txt.equals(textFields.get(4))) {
                 if (textFields.get(4).getText().isBlank()) {
-                    labels.get(4).setText("Ingresa el limite minimo");
-                    labels.get(4).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa el limite minimo", Color.RED);
                 } else {
-                    labels.get(4).setText("Limite minimo:");
-                    labels.get(4).setForeground(new Color(0, 153, 51));
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo", Objetos.eventoComun.COLOR_BASE);
                 }
             }
         }
@@ -453,22 +452,19 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 //Unidad
                 if (combos.get(0).getSelectedItem() == null) {
                     //3 6 7
-                    labels.get(3).setText("Selecciona una unidad");
-                    labels.get(3).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Selecciona una unidad", Color.RED);
                 }
             }
             if (cbx.equals(combos.get(1))) {
                 //Clasificacion
                 if (combos.get(0).getSelectedItem() == null) {
-                    labels.get(6).setText("Selecciona una clasificacion");
-                    labels.get(6).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(6), "Selecciona una clasificacion", Color.RED);
                 }
             }
             if (cbx.equals(combos.get(2))) {
                 //Tienda
                 if (combos.get(0).getSelectedItem() == null) {
-                    labels.get(7).setText("Selecciona una tienda");
-                    labels.get(7).setForeground(Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(7), "Selecciona una tienda", Color.RED);
                 }
             }
         }
@@ -614,22 +610,15 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         textFields.get(2).setText("");
         textFields.get(3).setText("");
         textFields.get(4).setText("");
-        labels.get(1).setText("Nombre del material:");
-        labels.get(1).setForeground(Color.black);
-        labels.get(2).setForeground(Color.black);
-        labels.get(2).setText("Cantidad:");
-        labels.get(2).setForeground(Color.black);
-        labels.get(3).setText("Unidad");
-        labels.get(3).setForeground(Color.black);
-        labels.get(4).setForeground(Color.black);
-        labels.get(4).setText("Limite minimo:");
-        labels.get(4).setForeground(Color.black);
-        labels.get(5).setText("SKU:");
-        labels.get(5).setForeground(Color.black);
-        labels.get(6).setText("Clasificacion");
-        labels.get(6).setForeground(Color.black);
-        labels.get(7).setText("Tienda");
-        labels.get(7).setForeground(Color.black);
+        
+        Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(3), "Unidad:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(6), "Clasificacion:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(7), "Tienda:", Color.black);
+        
         labels.get(8).setText("");
         labels.get(9).setText("");
         comboModel("tienda");
@@ -694,6 +683,12 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         clasificaciones = new ClasificacionDAO().clasificaciones();
         unidades = new UnidadDAO().unidades();
         materiales = new MaterialDAO().materiales();
+    }
+    
+    private void nextFocus(int keyCode, Component source){
+        if (KeyEvent.VK_ENTER == keyCode) {
+            source.requestFocus();
+        }
     }
 
 }

@@ -142,25 +142,23 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="txtBuscador" min="-2" pref="250" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="spinner" min="-2" pref="150" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="btnPrimero" min="-2" pref="32" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="btnAnterior" min="-2" pref="32" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="btnSiguiente" min="-2" pref="32" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="btnUltimo" min="-2" pref="32" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="lblPaginador" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="spinner" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="btnPrimero" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnAnterior" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnSiguiente" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="btnUltimo" min="-2" pref="32" max="-2" attributes="0"/>
                                               </Group>
+                                              <Component id="lblPaginador" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel1" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jLabel1" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -516,7 +514,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" max="32767" attributes="0"/>
-                              <Component id="tabbedPaneSalidas" pref="1135" max="32767" attributes="0"/>
+                              <Component id="tabbedPaneSalidas" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
