@@ -53,7 +53,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private int pagNum = 1;
     private JSpinner spinner;
     private Usuario usuario;
-
     public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbMateriales, JSpinner spinner, List<JComboBox> combos, JTabbedPane tabbedPanePrincipal) {
         this.buttons = buttons;
         this.textFields = textFields;

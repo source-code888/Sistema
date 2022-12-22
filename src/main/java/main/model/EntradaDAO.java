@@ -7,18 +7,18 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
 
-public class EmpleadoDAO extends Conexion {
+public class EntradaDAO extends Conexion {
 
     private QueryRunner QR = new QueryRunner();
 
-    public EmpleadoDAO() {
+    public EntradaDAO() {
     }
 
-    public List<Empleado> empleados() {
-        List<Empleado> empleados = new ArrayList<>();
+    public List<Entrada> entradas() {
+        List<Entrada> entradas = new ArrayList<>();
         try {
-            empleados = (List<Empleado>) QR.query(getConn(), "SELECT * FROM empleado",
-                    new BeanListHandler(Empleado.class));
+            entradas = (List<Entrada>) QR.query(getConn(), "SELECT * FROM area",
+                    new BeanListHandler(Entrada.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
@@ -27,17 +27,15 @@ public class EmpleadoDAO extends Conexion {
             } catch (Exception e) {
             }
         }
-        return empleados;
+        return entradas;
     }
 
     public void insert(Object[] data) throws SQLException {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
-            String sqlEmpleado = "INSERT INTO "
-                    + "empleado(nid, nombre, apellidoPaterno, apellidoMaterno, telefono, email, contratado, idArea)"
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-            qr.insert(getConn(), sqlEmpleado, new ColumnListHandler(), data);
+            String sqlEntrada = "INSERT INTO entrada(cantidadEntrada, fechaEntrada, idMaterial, idEmpleado) VALUES(?, ?, ?, ?)";
+            qr.insert(getConn(), sqlEntrada, new ColumnListHandler(), data);
             getConn().commit();
         } finally {
             getConn().rollback();
@@ -49,8 +47,7 @@ public class EmpleadoDAO extends Conexion {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
-            String sqlUpdate = "UPDATE empleado SET nid = ?, nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, telefono = ?, "
-                    + "email = ?, contratado = ?,  idArea = ? WHERE idEmpleado = " + idRegistro;
+            String sqlUpdate = "UPDATE entrada SET cantidadEntrada = ?, fechaEntrada = ?, idMaterial = ?, idEmpleado = ? WHERE idEntrada = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
         } finally {
@@ -63,7 +60,7 @@ public class EmpleadoDAO extends Conexion {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
-            String sqlRemove = "DELETE FROM `sistema_bd`.`empleado` WHERE (`idEmpleado` = '" + idRegistro + "');";
+            String sqlRemove = "DELETE FROM `sistema_bd`.`entrada` WHERE (`idEntrada` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
         } finally {

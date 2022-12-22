@@ -115,7 +115,7 @@ public class Salida implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        return "Fecha: " + fechaHoraSalida;
+        return "Salida{" + "idSalida=" + idSalida + ", cantidadSalida=" + cantidadSalida + ", conceptoSalida=" + conceptoSalida + ", fechaHoraSalida=" + fechaHoraSalida + ", idEmpleado=" + idEmpleado + ", idArea=" + idArea + ", idMaterial=" + idMaterial + ", idUnidad=" + idUnidad + ", idUsuario=" + idUsuario + '}';
     }
 
     @Override

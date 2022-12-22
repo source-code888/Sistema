@@ -41,6 +41,14 @@ public class Material implements Serializable {
         this.idUsuario = idUsuario;
     }
 
+    public Material(int idMaterial, String nombreMaterial, int cantidad, int idUnidad, int idUsuario) {
+        this.idMaterial = idMaterial;
+        this.nombreMaterial = nombreMaterial;
+        this.cantidad = cantidad;
+        this.idUnidad = idUnidad;
+        this.idUsuario = idUsuario;
+    }
+
     public Material() {
     }
 

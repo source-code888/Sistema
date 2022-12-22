@@ -2,28 +2,39 @@ package main.model;
 
 import java.io.Serializable;
 
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private int idUsuario;
     private String usuario;
     private String password;
+    private boolean administrador;
     private int idEmpleado;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String usuario, String password, int idEmpleado) {
+    public Usuario(int idUsuario, String usuario, String password, boolean administrador, int idEmpleado) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.password = password;
+        this.administrador = administrador;
         this.idEmpleado = idEmpleado;
     }
 
-    public Usuario(String usuario, String password, int idEmpleado) {
+    public Usuario(String usuario, String password, boolean administrador, int idEmpleado) {
         this.usuario = usuario;
         this.password = password;
+        this.administrador = administrador;
         this.idEmpleado = idEmpleado;
+    }
+
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
     }
 
     public int getIdUsuario() {
@@ -57,10 +68,10 @@ public class Usuario implements Serializable{
     public void setIdEmpleado(int idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
-    
+
     @Override
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", password=" + password + ", idEmpleado=" + idEmpleado + '}';
     }
-    
+
 }

@@ -93,6 +93,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         textFields.get(2).setText("");
         textFields.get(3).setText("");
         textFields.get(4).setText("");
+        textFields.get(6).setText("");
         comboModel();
         jcbContratado.setSelected(true);
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 100, 1);
@@ -102,12 +103,15 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         buttons.get(1).setVisible(false);
         empleado = null;
 
-        Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre", Color.black);
-        Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno", Color.black);
-        Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno", Color.black);
-        Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono", Color.black);
-        Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(5), "Area:", Color.black);
+        Objetos.eventoComun.remarcarLabel(labels.get(7), "NID:", Color.black);
+        
+        textFields.get(6).requestFocus();
     }
 
     private void iniciarListas() {
@@ -127,9 +131,11 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     }
 
     private void buscar(String data) {
+        empleados = ordenamiento(empleados);
         List<Empleado> filter;
         String titulos[] = {
             "ID",
+            "NID",
             "Nombre",
             "Apellido paterno",
             "Apellido materno",
@@ -151,8 +157,6 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
         if (!filter.isEmpty()) {
 
-            filter = ordenamiento(filter);
-
             filter.forEach(
                     empleado -> {
                         String area = areas.stream().filter(
@@ -161,6 +165,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
                         Object[] objects = {
                             empleado.getIdEmpleado(),
+                            empleado.getNid(),
                             empleado.getNombre(),
                             empleado.getApellidoPaterno(),
                             empleado.getApellidoMaterno(),
@@ -181,7 +186,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         tbEmpleados.getColumnModel().getColumn(0).setMaxWidth(0);
         tbEmpleados.getColumnModel().getColumn(0).setMinWidth(0);
         tbEmpleados.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tbEmpleados.getColumnModel().getColumn(7).setCellRenderer(new RenderCheckBox());
+        tbEmpleados.getColumnModel().getColumn(8).setCellRenderer(new RenderCheckBox());
     }
 
     private void mostrarRegistrosPorPagina() {
@@ -214,6 +219,11 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
                 }
             }
+            if (textField.equals(textFields.get(6))) {
+                if (textFields.get(6).getText().isBlank()) {
+                    Objetos.eventoComun.remarcarLabel(labels.get(7), "Ingresa el nid", Color.red);
+                }
+            }
             if (textField.equals(textFields.get(1))) {
                 if (textFields.get(1).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
@@ -234,6 +244,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                     Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico", Color.red);
                 }
             }
+            
             /*if (cbxAreas.getSelectedItem() == null) {
                 remarcarLabel(labels.get(5), "Selecciona una area", Color.red);
             }*/
@@ -281,35 +292,43 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
             if (textField.equals(textFields.get(0))) {
                 if (!textFields.get(0).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre", COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre:", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.RED);
                 }
             }
+            if (textField.equals(textFields.get(6))) {
+                
+                if (!textFields.get(6).getText().isBlank()) {
+                    Objetos.eventoComun.remarcarLabel(labels.get(7), "NID:", COLOR_BASE);
+                }else {
+                    Objetos.eventoComun.remarcarLabel(labels.get(7), "Ingresa el nid", Color.RED);
+                }
+            }
             if (textField.equals(textFields.get(1))) {
                 if (!textFields.get(1).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno", COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Apellido paterno:", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(2))) {
                 if (!textFields.get(2).getText().isEmpty()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno", COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Apellido materno:", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa un apellido materno", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(3))) {
                 if (!textFields.get(3).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono", COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Teléfono:", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(3), "Ingresa un teléfono", Color.RED);
                 }
             }
             if (textField.equals(textFields.get(4))) {
                 if (!textFields.get(4).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico", COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico:", COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.RED);
                 }
@@ -347,6 +366,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                     )).collect(Collectors.toList()).get(0).getId();
 
             Object[] data = {
+                textFields.get(6).getText(),
                 textFields.get(0).getText(),
                 textFields.get(1).getText(),
                 textFields.get(2).getText(),
@@ -399,7 +419,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         }
 
         if (source.equals(cbxAreas)) {
-            Objetos.eventoComun.remarcarLabel(labels.get(5), "Area", new Color(0, 153, 51));
+            Objetos.eventoComun.remarcarLabel(labels.get(5), "Area", COLOR_BASE);
         }
     }
 
@@ -445,16 +465,16 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         accion = "update";
         int row = tbEmpleados.getSelectedRow();
         int idEmpleado = (Integer) defaultTableModel.getValueAt(row, 0);
-        textFields.get(0).setText((String) defaultTableModel.getValueAt(row, 1));
-        textFields.get(1).setText((String) defaultTableModel.getValueAt(row, 2));
-        textFields.get(2).setText((String) defaultTableModel.getValueAt(row, 3));
-        textFields.get(3).setText((String) defaultTableModel.getValueAt(row, 4));
-        textFields.get(4).setText((String) defaultTableModel.getValueAt(row, 5));
-        this.cbxAreas.setSelectedItem((String) defaultTableModel.getValueAt(row, 6));
-        jcbContratado.setSelected((Boolean) defaultTableModel.getValueAt(row, 7));
-        textFields.get(0).requestFocus();
+        textFields.get(0).setText((String) defaultTableModel.getValueAt(row, 2));
+        textFields.get(6).setText((String) defaultTableModel.getValueAt(row, 1));
+        textFields.get(1).setText((String) defaultTableModel.getValueAt(row, 3));
+        textFields.get(2).setText((String) defaultTableModel.getValueAt(row, 4));
+        textFields.get(3).setText((String) defaultTableModel.getValueAt(row, 5));
+        textFields.get(4).setText((String) defaultTableModel.getValueAt(row, 6));
+        this.cbxAreas.setSelectedItem((String) defaultTableModel.getValueAt(row, 7));
+        jcbContratado.setSelected((Boolean) defaultTableModel.getValueAt(row, 8));
+        textFields.get(6).requestFocus();
         buttons.get(1).setVisible(true);
-
         //OBTENER EL ID
         int idArea = areas.stream().filter(
                 area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString()
@@ -462,6 +482,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
         empleado = new Empleado(
                 idEmpleado,
+                textFields.get(6).getText(),
                 textFields.get(0).getText(),
                 textFields.get(1).getText(),
                 textFields.get(2).getText(),
@@ -475,8 +496,9 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             textFields.get(5).setText("");
         }
         for (int i = 0; i < 6; i++) {
-            labels.get(i).setForeground(new Color(0, 153, 51));
+            labels.get(i).setForeground(COLOR_BASE);
         }
+        Objetos.eventoComun.remarcarLabel(labels.get(7), "NID:", COLOR_BASE);
 
     }
 
@@ -486,7 +508,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         ).collect(Collectors.toList()).get(0).getId();
 
         try {
-
+            empleado.setNid(textFields.get(6).getText());
             empleado.setNombre(textFields.get(0).getText());
             empleado.setApellidoPaterno(textFields.get(1).getText());
             empleado.setApellidoMaterno(textFields.get(2).getText());
@@ -494,6 +516,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             empleado.setEmail(textFields.get(4).getText());
             empleado.setIdArea(idArea);
             Object[] data = {
+                empleado.getNid(),
                 empleado.getNombre(),
                 empleado.getApellidoPaterno(),
                 empleado.getApellidoMaterno(),
@@ -512,7 +535,8 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
     public boolean validarEntradas() {
         if (textFields.get(0).getText().isBlank() && textFields.get(1).getText().isBlank() && textFields.get(2).getText().isEmpty()
-                && textFields.get(3).getText().isBlank() && !Objetos.eventoComun.isEmail(textFields.get(4).getText()) && cbxAreas.getSelectedItem() == null) {
+                && textFields.get(3).getText().isBlank() && !Objetos.eventoComun.isEmail(textFields.get(4).getText()) && cbxAreas.getSelectedItem() == null
+                && textFields.get(6).getText().isBlank()) {
             reestablecer();
             Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
             Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);
@@ -520,10 +544,15 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             Objetos.eventoComun.remarcarLabel(labels.get(3), "Ingresa un de teléfono", Color.red);
             Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico válido", Color.red);
             Objetos.eventoComun.remarcarLabel(labels.get(5), "Ingresa el area", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(7), "Ingresa el nid", Color.red);
             return false;
         } else if (textFields.get(0).getText().isBlank()) {
             Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
             textFields.get(0).requestFocus();
+            return false;
+        } else if (textFields.get(6).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(7), "Ingresa el nid", Color.red);
+            textFields.get(6).requestFocus();
             return false;
         } else if (textFields.get(1).getText().isBlank()) {
             Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa un apellido paterno", Color.red);

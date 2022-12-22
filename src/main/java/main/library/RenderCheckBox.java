@@ -15,7 +15,7 @@ public class RenderCheckBox extends JCheckBox implements TableCellRenderer {
     
     private final JComponent component = new JCheckBox();
     private Color colorSel = new Color(0, 200, 0);
-    private Color colorUnSel = new Color(204, 204, 204);
+    private Color colorUnSel = Color.RED;
 
     public RenderCheckBox() {
         setOpaque(true);
