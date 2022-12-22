@@ -211,8 +211,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                             }
                             reestablecer();
                             reestablecerReporte();
-                        } catch (PrintException ex) {
-                            ex.printStackTrace(System.out);
+                        } catch (Exception ex ) {
                             JOptionPane.showMessageDialog(null, "Reporte cancelado");
                         }
                     }
