@@ -10,7 +10,6 @@ import javax.print.ServiceUI;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-import javax.swing.JOptionPane;
 
 public class GenerarDocumento {
 
