@@ -61,6 +61,12 @@ public class Estructura extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(260, 0), new java.awt.Dimension(260, 0), new java.awt.Dimension(260, 32767));
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(260, 0), new java.awt.Dimension(260, 0), new java.awt.Dimension(260, 32767));
+        lblMaterialEntrada = new javax.swing.JLabel();
+        txtMaterialEntrada = new javax.swing.JTextField();
+        lblCantidadEntrada = new javax.swing.JLabel();
+        txtCantidadEntrada = new javax.swing.JTextField();
+        btnCancelarEntrada = new javax.swing.JButton();
+        btnAgregarEntrada = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         tabbedPaneEntradas = new CustomTabbedPane(Color.GRAY, Color.BLACK, Color.
             WHITE);
@@ -394,6 +400,20 @@ public class Estructura extends javax.swing.JFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lblMaterialEntrada.setText("Nombre del material");
+
+        txtMaterialEntrada.setMinimumSize(new java.awt.Dimension(206, 22));
+        txtMaterialEntrada.setPreferredSize(new java.awt.Dimension(64, 30));
+
+        lblCantidadEntrada.setText("Cantidad");
+
+        btnCancelarEntrada.setFocusPainted(false);
+
+        btnAgregarEntrada.setFocusPainted(false);
+
+        //EVENTOS MATERIAL CONTROLLER
+        eventosMaterial();
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -403,6 +423,21 @@ public class Estructura extends javax.swing.JFrame {
                     .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCancelarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAgregarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblMaterialEntrada)
+                        .addComponent(lblCantidadEntrada)
+                        .addComponent(txtMaterialEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCantidadEntrada))
+                    .addContainerGap(48, Short.MAX_VALUE)))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +445,22 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCancelarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGap(9, 9, 9)
+                    .addComponent(lblMaterialEntrada)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtMaterialEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblCantidadEntrada)
+                    .addGap(8, 8, 8)
+                    .addComponent(txtCantidadEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(501, Short.MAX_VALUE)))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1443,6 +1493,7 @@ new MouseAdapter() {
         this.lblBuscadorSalida.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.SEARCH.getValue())));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarEntrada;
     private javax.swing.JButton btnAgregarNuevoEmpleado;
     private javax.swing.JButton btnAgregarNuevoMaterial;
     private javax.swing.JButton btnAgregarSalida;
@@ -1451,6 +1502,7 @@ new MouseAdapter() {
     private javax.swing.JButton btnAnteriorEntradas;
     private javax.swing.JButton btnAnteriorSalidas;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCancelarEntrada;
     private javax.swing.JButton btnEliminarEmpleado;
     private javax.swing.JButton btnEliminarMaterial;
     private javax.swing.JButton btnPrimero;
@@ -1518,6 +1570,7 @@ new MouseAdapter() {
     private javax.swing.JLabel lblBuscadorEmpleados;
     private javax.swing.JLabel lblBuscadorEntrada;
     private javax.swing.JLabel lblBuscadorSalida;
+    private javax.swing.JLabel lblCantidadEntrada;
     private javax.swing.JLabel lblCantidadMaterial;
     private javax.swing.JLabel lblCantidadSalida;
     private javax.swing.JLabel lblClasificacionMat;
@@ -1527,6 +1580,7 @@ new MouseAdapter() {
     private javax.swing.JLabel lblFechaIngreso;
     private javax.swing.JLabel lblFechaSalida;
     private javax.swing.JLabel lblLimiteMinimoMat;
+    private javax.swing.JLabel lblMaterialEntrada;
     private javax.swing.JLabel lblMaterialSolicitado;
     private javax.swing.JLabel lblNid;
     private javax.swing.JLabel lblNombreEmpleado;
@@ -1574,10 +1628,12 @@ new MouseAdapter() {
     private javax.swing.JTextField txtBuscadorEntrada;
     private javax.swing.JTextField txtBuscadorSalida;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCantidadEntrada;
     private javax.swing.JTextField txtCantidadSalida;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmpleadoSalida;
     private javax.swing.JTextField txtLimiteMinimo;
+    private javax.swing.JTextField txtMaterialEntrada;
     private javax.swing.JTextField txtMaterialSolicitado;
     private javax.swing.JTextField txtNid;
     private javax.swing.JTextField txtNombre;
