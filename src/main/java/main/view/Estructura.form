@@ -647,7 +647,7 @@
                     <Property name="focusPainted" type="boolean" value="false"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="&#xa;//EVENTOS MATERIAL CONTROLLER&#xa;eventosMaterial();"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//EVENTOS ENTRADAS CONTROLLER&#xa;eventosEntrada();"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -713,7 +713,7 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="lblBuscadorEntrada" min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <Component id="lblBuscadorEntradas" min="-2" pref="32" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="txtBuscadorEntrada" min="-2" pref="250" max="-2" attributes="0"/>
                                               </Group>
@@ -748,7 +748,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtBuscadorEntrada" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <Component id="lblBuscadorEntrada" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="lblBuscadorEntradas" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jScrollPane7" pref="435" max="32767" attributes="0"/>
@@ -771,7 +771,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lblBuscadorEntrada">
+                        <Component class="javax.swing.JLabel" name="lblBuscadorEntradas">
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtBuscadorEntrada">
                         </Component>

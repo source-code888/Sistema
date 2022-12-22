@@ -84,6 +84,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private boolean seccionAgregarSalida = true;
 
     private final boolean administrador;
+    
     //ELEMENTOS DEL PAGINADOR
     private Paginador<Salida> paginador;
     private int rows = 10;

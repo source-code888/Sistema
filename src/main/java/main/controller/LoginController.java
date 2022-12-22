@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
-import main.model.Usuario;
 import main.model.UsuarioDAO;
 import main.view.Estructura;
 import main.view.Login;

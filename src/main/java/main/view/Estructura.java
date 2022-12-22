@@ -71,7 +71,7 @@ public class Estructura extends javax.swing.JFrame {
         tabbedPaneEntradas = new CustomTabbedPane(Color.GRAY, Color.BLACK, Color.
             WHITE);
         jPanel14 = new javax.swing.JPanel();
-        lblBuscadorEntrada = new javax.swing.JLabel();
+        lblBuscadorEntradas = new javax.swing.JLabel();
         txtBuscadorEntrada = new javax.swing.JTextField();
         jScrollPane7 = new javax.swing.JScrollPane();
         tbEntradas = new javax.swing.JTable();
@@ -410,9 +410,8 @@ public class Estructura extends javax.swing.JFrame {
         btnCancelarEntrada.setFocusPainted(false);
 
         btnAgregarEntrada.setFocusPainted(false);
-
-        //EVENTOS MATERIAL CONTROLLER
-        eventosMaterial();
+        //EVENTOS ENTRADAS CONTROLLER
+        eventosEntrada();
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -505,7 +504,7 @@ public class Estructura extends javax.swing.JFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel14Layout.createSequentialGroup()
-                                .addComponent(lblBuscadorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblBuscadorEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBuscadorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel14Layout.createSequentialGroup()
@@ -531,7 +530,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtBuscadorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBuscadorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblBuscadorEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1315,6 +1314,66 @@ public class Estructura extends javax.swing.JFrame {
     }
 
     /**
+     *
+     */
+    private void eventosEntrada() {
+        List<JTextField> textFields = new ArrayList<>();
+        textFields.add(this.txtMaterialEntrada);
+        textFields.add(this.txtCantidadEntrada);
+
+        List<JLabel> labels = new ArrayList<>();
+        labels.add(this.lblMaterialEntrada);
+        labels.add(this.lblCantidadEntrada);
+
+        List<JButton> buttons = new ArrayList<>();
+        buttons.add(this.btnCancelarEntrada);
+        buttons.add(this.btnAgregarEntrada);
+        buttons.add(this.btnPrimeroEntradas);
+        buttons.add(this.btnAnteriorEntradas);
+        buttons.add(this.btnSiguienteEntradas);
+        buttons.add(this.btnUltimoEntradas);
+
+        EntradaController controller = new EntradaController(this.tabbedPaneEntradas, this.tbMaterialesEntrada, this.tbEntradas, this.spinnerEntradas, labels, buttons, textFields, this.object);
+
+        //EVENTOS LISTENER
+        //TXT
+        this.txtMaterialEntrada.addKeyListener(controller);
+        this.txtMaterialEntrada.addFocusListener(controller);
+        this.txtCantidadEntrada.addKeyListener(controller);
+        this.txtCantidadEntrada.addFocusListener(controller);
+
+        //BOTONES
+        this.btnCancelarEntrada.addActionListener(controller);
+        this.btnAgregarEntrada.addActionListener(controller);
+        this.btnPrimeroEntradas.addActionListener(controller);
+        this.btnAnteriorEntradas.addActionListener(controller);
+        this.btnSiguienteEntradas.addActionListener(controller);
+        this.btnUltimoEntradas.addActionListener(controller);
+
+        //TABLAS
+        this.tbMaterialesEntrada.addMouseListener(controller);
+        this.tbMaterialesEntrada.addKeyListener(controller);
+        this.tbEntradas.addMouseListener(controller);
+        this.tbEntradas.addKeyListener(controller);
+
+        //TABBED PANE
+        this.tabbedPaneEntradas.addChangeListener(controller);
+
+        //SPINNER
+        this.spinnerEntradas.addChangeListener(controller);
+
+        //ICONOS
+        this.btnAgregarEntrada.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.ADD.getValue())));
+        this.btnCancelarEntrada.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.CANCEL.getValue())));
+        this.btnPrimeroEntradas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.PRIMERO.getValue())));
+        this.btnAnteriorEntradas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.ANTERIOR.getValue())));
+        this.btnSiguienteEntradas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.SIGUIENTE.getValue())));
+        this.btnUltimoEntradas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.ULTIMO.getValue())));
+        this.lblBuscadorEntradas.setIcon(new ImageIcon(Objetos.imagenPath.ruta(ImagenPath.Imagenes.SEARCH.getValue())));
+
+    }
+
+    /**
      * EVENTOS Empleado
      */
     private void eventosEmpleado() {
@@ -1568,7 +1627,7 @@ new MouseAdapter() {
     private javax.swing.JLabel lblAreaEmpleadoSolicitante;
     private javax.swing.JLabel lblBuscador;
     private javax.swing.JLabel lblBuscadorEmpleados;
-    private javax.swing.JLabel lblBuscadorEntrada;
+    private javax.swing.JLabel lblBuscadorEntradas;
     private javax.swing.JLabel lblBuscadorSalida;
     private javax.swing.JLabel lblCantidadEntrada;
     private javax.swing.JLabel lblCantidadMaterial;
