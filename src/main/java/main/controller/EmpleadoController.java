@@ -94,7 +94,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         textFields.get(3).setText("");
         textFields.get(4).setText("");
         comboModel();
-        jcbContratado.setSelected(false);
+        jcbContratado.setSelected(true);
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(spinnerModel);
         buscar("");
