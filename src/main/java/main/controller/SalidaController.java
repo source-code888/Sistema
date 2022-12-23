@@ -147,6 +147,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         if (obj instanceof JButton) {
+            System.out.println(e.getID());
             JButton button = (JButton) obj;
             if (button.equals(buttons.get(0))) {
                 if (accion.equals("insert")) {
@@ -257,7 +258,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad:", COLOR_BASE);
                     if (e.getKeyChar() == '\n') {
                         enter = true;
-                        buttons.get(0).doClick();
+                        actionPerformed(new ActionEvent(buttons.get(0), 1001, "" ,e.getWhen(), 16));
                     }
                 }
             }
@@ -306,10 +307,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 } else {
                     if (tbMateriales.getRowCount() > 0) {
                         tbMateriales.setRowSelectionInterval(0, 0);
+                        
                         if (administrador) {
-                            obtenerEmpleado();
+                            obtenerMaterial();
                         } else {
-                            obtenerEmpleadoPorOperador();
+                            obtenerMaterialPorOperador();
                         }
                         textFields.get(0).requestFocus();
                         materialSeleccionado = true;
@@ -345,11 +347,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     @Override
     public void focusGained(FocusEvent e) {
         Object obj = e.getSource();
-        if (obj instanceof JTable) {
-            JTable table = (JTable) obj;
-            if (table.equals(tbEmpleados)) {
-            }
-        }
+        
         if (seccionMaterialesActiva) {
             if (!obj.equals(textFields.get(3)) && !seccionEmpleadosActiva && !obj.equals(tbMateriales)) {
                 ocultarComponenteTabbedPane("Materiales");

@@ -17,7 +17,7 @@ public class EntradaDAO extends Conexion {
     public List<Entrada> entradas() {
         List<Entrada> entradas = new ArrayList<>();
         try {
-            entradas = (List<Entrada>) QR.query(getConn(), "SELECT * FROM area",
+            entradas = (List<Entrada>) QR.query(getConn(), "SELECT * FROM entrada",
                     new BeanListHandler(Entrada.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

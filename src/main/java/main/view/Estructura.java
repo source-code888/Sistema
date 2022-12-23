@@ -16,6 +16,7 @@ public class Estructura extends javax.swing.JFrame {
         this.object = object;
         initComponents();
         eventosEstructura();
+        eventosEntrada();
     }
 
     @SuppressWarnings("unchecked")
@@ -67,6 +68,7 @@ public class Estructura extends javax.swing.JFrame {
         txtCantidadEntrada = new javax.swing.JTextField();
         btnCancelarEntrada = new javax.swing.JButton();
         btnAgregarEntrada = new javax.swing.JButton();
+        lblFechaEntradaMaterial = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         tabbedPaneEntradas = new CustomTabbedPane(Color.GRAY, Color.BLACK, Color.
             WHITE);
@@ -410,8 +412,8 @@ public class Estructura extends javax.swing.JFrame {
         btnCancelarEntrada.setFocusPainted(false);
 
         btnAgregarEntrada.setFocusPainted(false);
-        //EVENTOS ENTRADAS CONTROLLER
-        eventosEntrada();
+
+        lblFechaEntradaMaterial.setText("Fecha: ");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -424,9 +426,14 @@ public class Estructura extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCancelarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(btnCancelarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(lblFechaEntradaMaterial)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel12Layout.createSequentialGroup()
@@ -442,6 +449,8 @@ public class Estructura extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(136, 136, 136)
+                .addComponent(lblFechaEntradaMaterial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
@@ -1320,10 +1329,13 @@ public class Estructura extends javax.swing.JFrame {
         List<JTextField> textFields = new ArrayList<>();
         textFields.add(this.txtMaterialEntrada);
         textFields.add(this.txtCantidadEntrada);
+        textFields.add(this.txtBuscadorEntrada);
 
         List<JLabel> labels = new ArrayList<>();
         labels.add(this.lblMaterialEntrada);
         labels.add(this.lblCantidadEntrada);
+        labels.add(this.lblFechaEntradaMaterial);
+        labels.add(this.lblPaginadorEntradas);
 
         List<JButton> buttons = new ArrayList<>();
         buttons.add(this.btnCancelarEntrada);
@@ -1636,6 +1648,7 @@ new MouseAdapter() {
     private javax.swing.JLabel lblConceptoSalida;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmpleadoSolicitante;
+    private javax.swing.JLabel lblFechaEntradaMaterial;
     private javax.swing.JLabel lblFechaIngreso;
     private javax.swing.JLabel lblFechaSalida;
     private javax.swing.JLabel lblLimiteMinimoMat;

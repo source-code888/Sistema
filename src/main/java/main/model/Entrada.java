@@ -2,7 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
-public class Entrada implements Serializable{
+public class Entrada implements Serializable, Comparable{
 
     private static final long serialVersionUID = 1L;
     private int idEntrada;
@@ -25,7 +25,10 @@ public class Entrada implements Serializable{
         this.idMaterial = idMaterial;
         this.idEmpleado = idEmpleado;
     }
-
+    
+    public Entrada(){
+        
+    }
     public int getIdEntrada() {
         return idEntrada;
     }
@@ -69,6 +72,23 @@ public class Entrada implements Serializable{
     @Override
     public String toString() {
         return "Entrada{" + "idEntrada=" + idEntrada + ", cantidadEntrada=" + cantidadEntrada + ", fechaEntrada=" + fechaEntrada + ", idMaterial=" + idMaterial + ", idEmpleado=" + idEmpleado + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (!(o instanceof Entrada)) {
+            throw new IllegalArgumentException("El objeto debe ser de tipo Entrada");
+        }else {
+            Entrada entrada = (Entrada) o;
+            if (idEntrada < entrada.idEntrada) {
+                return 1;
+            } else if (idEntrada > entrada.idEntrada) {
+                return -1;
+            } else {
+              return 0;  
+            }
+            
+        }
     }
 
 }
