@@ -13,6 +13,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -30,15 +31,18 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import static main.library.EventoComun.COLOR_BASE;
+import static main.library.EventoComun.COLOR_TEXTO;
 import main.library.Objetos;
 import main.library.Paginador;
 import main.library.TableModel;
+import main.model.AreaDAO;
 import main.model.ClasificacionDAO;
 import main.model.EmpleadoDAO;
 import main.model.Entrada;
 import main.model.EntradaDAO;
 import main.model.Material;
 import main.model.MaterialDAO;
+import main.model.Salida;
 import main.model.SalidaDAO;
 import main.model.TiendaDAO;
 import main.model.UnidadDAO;
@@ -69,7 +73,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     private TableModel tableModelEntradas;
     private TableModel tableModelMateriales;
     private Component componentMateriales;
-    
+    private int selectedRow = -1;
+
     private List<Entrada> entradas;
     private List<Material> materiales;
     private Usuario usuario;
@@ -104,7 +109,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        
+
         if (source instanceof JButton) {
             JButton button = (JButton) source;
             if (button.equals(buttons.get(1))) {
@@ -115,6 +120,15 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     @Override
     public void stateChanged(ChangeEvent e) {
+        Object obj = e.getSource();
+        if (obj instanceof JTabbedPane) {
+            JTabbedPane pane = (JTabbedPane) obj;
+            if (pane.equals(tabbedPaneEntradas)) {
+                if (tabbedPaneEntradas.getTabCount() > 1) {
+                    tabbedPaneEntradas.setSelectedIndex(1);
+                }
+            }
+        }
     }
 
     @Override
@@ -130,29 +144,44 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         Object source = e.getSource();
         if (source instanceof JTextField) {
             JTextField textField = (JTextField) source;
-            
+
             if (textField.equals(textFields.get(0))) {
                 if (e.getKeyChar() != '\n') {
                     material = null;
                     labels.get(0).setForeground(Color.BLACK);
-                    
+
                     //if (administrador) {
-                        buscarMaterial(textFields.get(0).getText());
+                    buscarMaterial(textFields.get(0).getText());
                     /*} else {
                         buscarMaterialPorOperador(textFields.get(0).getText());
                     }*/
                 } else {
                     if (tbMateriales.getRowCount() > 0) {
                         tbMateriales.setRowSelectionInterval(0, 0);
-                        
+
                         //if (administrador) {
-                            obtenerMaterial();
+                        obtenerMaterial();
                         /*} else {
                             obtenerMaterialPorOperador();
                         }*/
-                        textFields.get(1).requestFocus();
                         materialSeleccionado = true;
                     }
+                }
+            }
+        }
+        
+        if (source instanceof JTable) {
+            JTable table =  (JTable) source;
+            
+            if (table.equals(tbEntradas)) {
+                if (selectedRow != tbEntradas.getSelectedRow()) {
+                    if (tbEntradas.getSelectedRows().length > 0) {
+                        obtenerRegistro();
+                        selectedRow = tbEntradas.getSelectedRow();
+                    }
+                }else {
+                    selectedRow = -1;
+                    reestablecer();
                 }
             }
         }
@@ -161,25 +190,58 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     @Override
     public void focusGained(FocusEvent e) {
         Object source = e.getSource();
-        
+
         if (seccionMaterialesActiva) {
             if (!source.equals(textFields.get(0)) && !source.equals(tbMateriales)) {
                 ocultarComponenteTabbedPane("Materiales");
             }
         }
-        
+
         if (source instanceof JTextField) {
             JTextField textField = (JTextField) source;
             if (textField.equals(textFields.get(0))) {
                 seccionMaterialesActiva = true;
                 mostrarTablaMaterial();
             }
+
+            if (textField.equals(textFields.get(1))) {
+                System.out.println("CANTIDAAAD");
+            }
         }
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-        
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        Object obj = e.getSource();
+        if (obj instanceof JTable) {
+            JTable tb = (JTable) obj;
+            if (tb.equals(tbEntradas)) {
+                if (selectedRow != tbEntradas.getSelectedRow()) {
+                    if (tbEntradas.getSelectedRows().length > 0) {
+                        obtenerRegistro();
+                        selectedRow = tbEntradas.getSelectedRow();
+                    }
+                }else {
+                    selectedRow = -1;
+                    reestablecer();
+                }
+            }
+            if (tb.equals(tbMateriales)) {
+                if (tbMateriales.getSelectedRows().length > 0) {
+                    //if(administrador){
+                    obtenerMaterial();
+                    //}else{
+                    //    obtenerMaterialPorOperador();
+                    //}
+                    materialSeleccionado = true;
+                }
+            }
+        }
     }
 
     private void reestablecer() {
@@ -198,6 +260,9 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre del material", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad", Color.BLACK);
         labels.get(2).setVisible(false);
+        labels.get(4).setVisible(false);
+        labels.get(5).setVisible(false);
+        labels.get(6).setVisible(false);
 
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(numberModel);
@@ -214,7 +279,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         }
 
         materialSeleccionado = false;
-        textFields.get(2);
+        textFields.get(2).requestFocus();
+        System.out.println("SE REESTABLECE");
     }
 
     private void buscar(String data) {
@@ -292,9 +358,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             }
         }
     }
-    
-    
-    
+
     public String getFecha() {
         String strFormat = "hh: mm: ss a dd-MM-YYYY";
         SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
@@ -304,36 +368,36 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     private void insertarEntrada() {
         try {
-            if (Integer.parseInt(textFields.get(0).getText()) <= material.getCantidad()) {
+            if (Integer.parseInt(textFields.get(1).getText()) <= material.getCantidad()) {
 
                 Object[] data = {
                     textFields.get(1).getText(),
                     getFecha(),
-                    //FALTA HACER
-                    
+                    material.getIdMaterial(),
+                    usuario.getIdEmpleado()
                 };
-                
+
                 new EntradaDAO().insert(data);
-                material.setCantidad(material.getCantidad() - Integer.parseInt(textFields.get(0).getText()));
+                material.setCantidad(material.getCantidad() + Integer.parseInt(textFields.get(1).getText()));
                 Object[] materialData = {material.getCantidad()};
                 new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData);
                 reestablecer();
             } else {
                 JOptionPane.showMessageDialog(null, "La cantidad de stock del material es insuficiente");
-                Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad de salida invalida:", Color.red);
-                textFields.get(0).requestFocus();
+                Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad de salida invalida:", Color.red);
+                textFields.get(1).requestFocus();
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
     }
-    
+
     private void mostrarTablaMaterial() {
         if (tabbedPaneEntradas.getTabCount() < 2) {
             tabbedPaneEntradas.addTab("Materiales", componentMateriales);
             tabbedPaneEntradas.setSelectedIndex(tabbedPaneEntradas.getTabCount() - 1);
             //if(administrador){
-                buscarMaterial("");
+            buscarMaterial("");
             /*}else{
                 buscarMaterialPorOperador("");
             }*/
@@ -395,19 +459,19 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         tbMateriales.getColumnModel().getColumn(0).setMinWidth(0);
         tbMateriales.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
-    
+
     private String getNombreUnidad(int id) {
         return new UnidadDAO().unidades().stream().filter(unidad
                 -> unidad.getId() == id
         ).collect(Collectors.toList()).get(0).getNombre();
     }
-    
+
     private String getNombreUsuarioConfirmante(int id) {
         return new UsuarioDAO().usuarios().stream().filter(material
                 -> material.getIdUsuario() == id
         ).collect(Collectors.toList()).get(0).getUsuario();
     }
-    
+
     private void obtenerMaterial() {
         int row = tbMateriales.getSelectedRow();
         int idMaterial = (Integer) tableModelMateriales.getValueAt(row, 0);
@@ -432,9 +496,51 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         //textFields.get(4).setText(getNombreUnidad(material.getIdUnidad()));
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Material solicitado", COLOR_BASE);
         //Objetos.eventoComun.remarcarLabel(labels.get(0), "Unidad del material", COLOR_BASE);
+
         ocultarComponenteTabbedPane("Materiales");
         seccionMaterialesActiva = false;
+
+        textFields.get(1).requestFocus();
+
     }
-    
-    
+
+    private void obtenerRegistro() {
+
+        accion = "update";
+        entrada = new Entrada();
+        int row = tbEntradas.getSelectedRow();
+        String nombreMaterial = (String) tableModelEntradas.getValueAt(row, 1);
+        int cantidad = (Integer) tableModelEntradas.getValueAt(row, 2);
+        String fechaEntrada = (String) tableModelEntradas.getValueAt(row, 3);
+        String recibio = (String) tableModelEntradas.getValueAt(row, 4);
+
+        int idMaterial = new MaterialDAO().materiales().stream().filter(
+                material -> material.getNombreMaterial().equals(nombreMaterial))
+                .collect(Collectors.toList()).get(0).getIdMaterial();
+        int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
+                empleado -> empleado.getNombre().equals(recibio)
+        ).collect(Collectors.toList()).get(0).getIdEmpleado();
+
+        entrada.setCantidadEntrada(cantidad);
+        entrada.setFechaEntrada(fechaEntrada);
+        entrada.setIdEmpleado(idEmpleado);
+        entrada.setIdMaterial(idMaterial);
+
+        textFields.get(0).setText(nombreMaterial);
+        textFields.get(0).setForeground(COLOR_TEXTO);
+        textFields.get(1).setText(String.valueOf(entrada.getCantidadEntrada()));
+        textFields.get(1).setForeground(COLOR_TEXTO);
+        textFields.get(0).setEditable(false);
+        textFields.get(1).setEditable(false);
+
+        Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre del material:", COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad:", COLOR_BASE);
+        labels.get(2).setVisible(true);
+        labels.get(4).setVisible(true);
+        labels.get(5).setVisible(true);
+        labels.get(6).setVisible(true);
+        Objetos.eventoComun.remarcarLabel(labels.get(6), fechaEntrada, COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(5), recibio, COLOR_BASE);
+    }
+
 }

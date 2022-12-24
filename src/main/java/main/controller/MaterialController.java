@@ -12,6 +12,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +40,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<Clasificacion> clasificaciones;
     private int selectedRow;
     private Objetos objetos = new Objetos();
+    private int modoOrdenamiento = 0;
 
     //Elementos visibles
     private List<JButton> buttons;
@@ -53,6 +56,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private int pagNum = 1;
     private JSpinner spinner;
     private Usuario usuario;
+
     public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbMateriales, JSpinner spinner, List<JComboBox> combos, JTabbedPane tabbedPanePrincipal) {
         this.buttons = buttons;
         this.textFields = textFields;
@@ -214,7 +218,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             if (cbx.equals(combos.get(0))) {
                 //Unidad
                 Objetos.eventoComun.remarcarLabel(labels.get(3), "Unidad", Objetos.eventoComun.COLOR_BASE);
-                
+
             }
             if (cbx.equals(combos.get(1))) {
                 //Clasificacion
@@ -253,7 +257,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             if (txt.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.RED);
-                    
+
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material", Objetos.eventoComun.COLOR_BASE);
                     nextFocus(e.getKeyCode(), textFields.get(3));
@@ -301,7 +305,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 }
             }
         }
-        
+
         if (obj instanceof JComboBox) {
             JComboBox comboBox = (JComboBox) obj;
             if (comboBox.equals(combos.get(0))) {
@@ -312,7 +316,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             }
             if (comboBox.equals(combos.get(2))) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    actionPerformed(new ActionEvent(buttons.get(0),1001 , "" , e.getWhen() ,16 ));
+                    actionPerformed(new ActionEvent(buttons.get(0), 1001, "", e.getWhen(), 16));
                 }
             }
         }
@@ -330,7 +334,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                         selectedRow = tbMateriales.getSelectedRow();
                         obtenerRegistro();
                     }
-                }else{
+                } else {
                     reestablecer();
                 }
             }
@@ -466,6 +470,10 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     }
 
     private void buscar(String data) {
+        materiales = ordenamiento(materiales);
+        
+        
+        
         List<Material> filter;
         String titulos[] = {
             "ID",
@@ -517,6 +525,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                             usuario
                         };
                         defaultTableModel.addRow(objects);
+                        
                     }
             );
         }
@@ -605,7 +614,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         textFields.get(2).setText("");
         textFields.get(3).setText("");
         textFields.get(4).setText("");
-        
+
         Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(3), "Unidad:", Color.black);
@@ -613,7 +622,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(6), "Clasificacion:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(7), "Tienda:", Color.black);
-        
+
         labels.get(8).setText("");
         labels.get(9).setText("");
         comboModel("tienda");
@@ -679,11 +688,37 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         unidades = new UnidadDAO().unidades();
         materiales = new MaterialDAO().materiales();
     }
-    
-    private void nextFocus(int keyCode, Component source){
+
+    private void nextFocus(int keyCode, Component source) {
         if (KeyEvent.VK_ENTER == keyCode) {
             source.requestFocus();
         }
+    }
+
+    private List<Material> ordenamiento(List<Material> filter) {
+        
+        filter.sort(new Comparator<Material>() {
+            @Override
+            public int compare(Material o1, Material o2) {
+                return o1.getNombreMaterial().compareToIgnoreCase(o2.getNombreMaterial());
+            }
+
+        });
+        
+        List<Material> ordenado = new ArrayList<>();
+        
+        for (int i = 0; i < filter.size(); i++) {
+            if (filter.get(i).getCantidad()< filter.get(i).getLimiteMinimo()) {
+                ordenado.add(filter.get(i));
+            }
+        }
+        for (int i = 0; i < filter.size(); i++) {
+            if(!ordenado.contains(filter.get(i))){
+                ordenado.add(filter.get(i));
+            }
+        }
+            
+        return ordenado;
     }
 
 }

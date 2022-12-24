@@ -69,6 +69,9 @@ public class Estructura extends javax.swing.JFrame {
         btnCancelarEntrada = new javax.swing.JButton();
         btnAgregarEntrada = new javax.swing.JButton();
         lblFechaEntradaMaterial = new javax.swing.JLabel();
+        lblRecibioEntrada = new javax.swing.JLabel();
+        lblFechaFecha = new javax.swing.JLabel();
+        lblRecibioRecibio = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         tabbedPaneEntradas = new CustomTabbedPane(Color.GRAY, Color.BLACK, Color.
             WHITE);
@@ -413,7 +416,13 @@ public class Estructura extends javax.swing.JFrame {
 
         btnAgregarEntrada.setFocusPainted(false);
 
-        lblFechaEntradaMaterial.setText("Fecha: ");
+        lblFechaEntradaMaterial.setText("Fecha de ingreso: ");
+
+        lblRecibioEntrada.setText("Recibió:");
+
+        lblFechaFecha.setText("Fecha");
+
+        lblRecibioRecibio.setText("Nombre");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -432,7 +441,11 @@ public class Estructura extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAgregarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(lblFechaEntradaMaterial)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaEntradaMaterial)
+                            .addComponent(lblRecibioEntrada)
+                            .addComponent(lblFechaFecha)
+                            .addComponent(lblRecibioRecibio))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,6 +464,12 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(136, 136, 136)
                 .addComponent(lblFechaEntradaMaterial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFechaFecha)
+                .addGap(23, 23, 23)
+                .addComponent(lblRecibioEntrada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRecibioRecibio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(filler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
@@ -1336,6 +1355,9 @@ public class Estructura extends javax.swing.JFrame {
         labels.add(this.lblCantidadEntrada);
         labels.add(this.lblFechaEntradaMaterial);
         labels.add(this.lblPaginadorEntradas);
+        labels.add(this.lblRecibioEntrada);
+        labels.add(this.lblRecibioRecibio);
+        labels.add(this.lblFechaFecha);
 
         List<JButton> buttons = new ArrayList<>();
         buttons.add(this.btnCancelarEntrada);
@@ -1370,7 +1392,7 @@ public class Estructura extends javax.swing.JFrame {
 
         //TABBED PANE
         this.tabbedPaneEntradas.addChangeListener(controller);
-
+       
         //SPINNER
         this.spinnerEntradas.addChangeListener(controller);
 
@@ -1649,6 +1671,7 @@ new MouseAdapter() {
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmpleadoSolicitante;
     private javax.swing.JLabel lblFechaEntradaMaterial;
+    private javax.swing.JLabel lblFechaFecha;
     private javax.swing.JLabel lblFechaIngreso;
     private javax.swing.JLabel lblFechaSalida;
     private javax.swing.JLabel lblLimiteMinimoMat;
@@ -1661,6 +1684,8 @@ new MouseAdapter() {
     private javax.swing.JLabel lblPaginadorEmpleados;
     private javax.swing.JLabel lblPaginadorEntradas;
     private javax.swing.JLabel lblPaginadorSalidas;
+    private javax.swing.JLabel lblRecibioEntrada;
+    private javax.swing.JLabel lblRecibioRecibio;
     private javax.swing.JLabel lblSkuMat;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTiendaMat;
