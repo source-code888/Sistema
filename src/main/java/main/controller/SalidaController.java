@@ -506,7 +506,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         } else {
 
             filter = salidas.stream().filter(salida
-                    -> getNombreEmpleado(salida.getIdEmpleado()).startsWith(data) || getNombreMaterial(salida.getIdMaterial()).startsWith(data)
+                    -> getNombreEmpleado(salida.getIdEmpleado()).startsWith(data) || getNombreMaterial(salida.getIdMaterial()).startsWith(data) || salida.getFechaHoraSalida().startsWith(data) 
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
@@ -1021,7 +1021,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 new SalidaDAO().insert(data);
                 material.setCantidad(material.getCantidad() - Integer.parseInt(textFields.get(0).getText()));
                 Object[] materialData = {material.getCantidad()};
-                new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData);
+                new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData, false);
                 reestablecer();
             } else {
                 JOptionPane.showMessageDialog(null, "La cantidad de stock del material es insuficiente");
@@ -1084,7 +1084,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     }
 
     public String getFecha() {
-        String strFormat = "hh: mm: ss a dd-MM-YYYY";
+        String strFormat = "YYYY-MM-dd hh: mm: ss a";
         SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
         Date fecha = new Date();
         return dateFormat.format(fecha).toString();

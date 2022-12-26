@@ -380,7 +380,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     public String getFecha() {
-        String strFormat = "hh: mm: ss a dd-MM-YYYY";
+        String strFormat = "YYYY-MM-dd hh: mm: ss a";
         SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
         Date fecha = new Date();
         return dateFormat.format(fecha).toString();
@@ -396,8 +396,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             };
             new EntradaDAO().insert(data);
             material.setCantidad(material.getCantidad() + Integer.parseInt(textFields.get(1).getText()));
-            Object[] materialData = {material.getCantidad()};
-            new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData);
+            Object[] materialData = {material.getCantidad(), getFecha(), material.getIdUsuario()};
+            new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData, true);
             reestablecer();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
