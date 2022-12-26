@@ -37,6 +37,7 @@ import main.library.Paginador;
 import main.library.TableModel;
 import main.model.AreaDAO;
 import main.model.ClasificacionDAO;
+import main.model.Empleado;
 import main.model.EmpleadoDAO;
 import main.model.Entrada;
 import main.model.EntradaDAO;
@@ -350,7 +351,10 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private String getNombreEmpleado(int id) {
-        return new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0).getNombre();
+        Empleado empleadoTemp = new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
+        //String nombre = new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0).getNombre();
+        String nombre = empleadoTemp.getNombre() + " " + empleadoTemp.getApellidoPaterno() + " " + empleadoTemp.getApellidoMaterno();
+        return nombre;
     }
 
     private String getNombreMaterial(int id) {

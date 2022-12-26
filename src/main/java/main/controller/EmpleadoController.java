@@ -151,7 +151,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             filter = empleados.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = empleados.stream().filter(empleado
-                    -> empleado.getNombre().startsWith(data) || empleado.getApellidoPaterno().startsWith(data)
+                    -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).toLowerCase().startsWith(data) || empleado.getApellidoPaterno().startsWith(data)
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
 
@@ -337,7 +337,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 if (textField.equals(textFields.get(5))) {
                     reestablecer();
                     textFields.get(5).requestFocus();
-                    buscar(textFields.get(5).getText());
+                    buscar(textFields.get(5).getText().toLowerCase());
                 }
 
             }
