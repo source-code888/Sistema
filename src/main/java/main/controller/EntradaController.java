@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main.controller;
 
 import java.awt.Color;
@@ -33,6 +29,10 @@ import javax.swing.event.ChangeListener;
 import static main.library.EventoComun.COLOR_BASE;
 import static main.library.EventoComun.COLOR_TEXTO;
 import main.library.Objetos;
+import static main.library.Objetos.METHOD_FIRST;
+import static main.library.Objetos.METHOD_LAST;
+import static main.library.Objetos.METHOD_LATEST;
+import static main.library.Objetos.METHOD_NEXT;
 import main.library.Paginador;
 import main.library.TableModel;
 import main.model.AreaDAO;
@@ -112,8 +112,25 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
         if (source instanceof JButton) {
             JButton button = (JButton) source;
+            if (button.equals(buttons.get(0))) {
+                reestablecer();
+            }
             if (button.equals(buttons.get(1))) {
-                insertarEntrada();
+                if(accion.equals("insert")){
+                    insertarEntrada();
+                }
+            }
+            if (button.equals(buttons.get(2))) {
+                pager(METHOD_FIRST);
+            }
+            if (button.equals(buttons.get(3))) {
+                pager(METHOD_LAST);
+            }
+            if (button.equals(buttons.get(4))) {
+                pager(METHOD_NEXT);
+            }
+            if (button.equals(buttons.get(5))) {
+                pager(METHOD_LATEST);
             }
         }
     }
@@ -133,6 +150,10 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     @Override
     public void keyTyped(KeyEvent e) {
+        Object obj = e.getSource();
+        if (obj.equals(textFields.get(1))) {
+            Objetos.eventoComun.numberKeyPressed(e);
+        }
     }
 
     @Override
@@ -169,17 +190,17 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 }
             }
         }
-        
+
         if (source instanceof JTable) {
-            JTable table =  (JTable) source;
-            
+            JTable table = (JTable) source;
+
             if (table.equals(tbEntradas)) {
                 if (selectedRow != tbEntradas.getSelectedRow()) {
                     if (tbEntradas.getSelectedRows().length > 0) {
                         obtenerRegistro();
                         selectedRow = tbEntradas.getSelectedRow();
                     }
-                }else {
+                } else {
                     selectedRow = -1;
                     reestablecer();
                 }
@@ -226,7 +247,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                         obtenerRegistro();
                         selectedRow = tbEntradas.getSelectedRow();
                     }
-                }else {
+                } else {
                     selectedRow = -1;
                     reestablecer();
                 }
@@ -280,7 +301,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
         materialSeleccionado = false;
         textFields.get(2).requestFocus();
-        System.out.println("SE REESTABLECE");
     }
 
     private void buscar(String data) {
@@ -368,25 +388,17 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     private void insertarEntrada() {
         try {
-            if (Integer.parseInt(textFields.get(1).getText()) <= material.getCantidad()) {
-
-                Object[] data = {
-                    textFields.get(1).getText(),
-                    getFecha(),
-                    material.getIdMaterial(),
-                    usuario.getIdEmpleado()
-                };
-
-                new EntradaDAO().insert(data);
-                material.setCantidad(material.getCantidad() + Integer.parseInt(textFields.get(1).getText()));
-                Object[] materialData = {material.getCantidad()};
-                new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData);
-                reestablecer();
-            } else {
-                JOptionPane.showMessageDialog(null, "La cantidad de stock del material es insuficiente");
-                Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad de salida invalida:", Color.red);
-                textFields.get(1).requestFocus();
-            }
+            Object[] data = {
+                textFields.get(1).getText(),
+                getFecha(),
+                material.getIdMaterial(),
+                usuario.getIdEmpleado()
+            };
+            new EntradaDAO().insert(data);
+            material.setCantidad(material.getCantidad() + Integer.parseInt(textFields.get(1).getText()));
+            Object[] materialData = {material.getCantidad()};
+            new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData);
+            reestablecer();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
@@ -398,9 +410,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             tabbedPaneEntradas.setSelectedIndex(tabbedPaneEntradas.getTabCount() - 1);
             //if(administrador){
             buscarMaterial("");
-            /*}else{
-                buscarMaterialPorOperador("");
-            }*/
         }
     }
 
@@ -543,4 +552,29 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         Objetos.eventoComun.remarcarLabel(labels.get(5), recibio, COLOR_BASE);
     }
 
+    private void pager(String method) {
+        switch (method) {
+            case METHOD_FIRST -> {
+                if (!entradas.isEmpty()) {
+                    pagNum = paginador.primero();
+                }
+            }
+            case METHOD_LAST -> {
+                if (!entradas.isEmpty()) {
+                    pagNum = paginador.anterior();
+                }
+            }
+            case METHOD_NEXT -> {
+                if (!entradas.isEmpty()) {
+                    pagNum = paginador.siguiente();
+                }
+            }
+            case METHOD_LATEST -> {
+                if (!entradas.isEmpty()) {
+                    pagNum = paginador.ultimo();
+                }
+            }
+        }
+        buscar("");
+    }
 }

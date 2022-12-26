@@ -10,7 +10,7 @@ import main.library.Objetos;
 
 public class Estructura extends javax.swing.JFrame {
 
-    private Object object;
+    private final Object object;
 
     public Estructura(Object object) {
         this.object = object;
@@ -1375,7 +1375,7 @@ public class Estructura extends javax.swing.JFrame {
         this.txtMaterialEntrada.addFocusListener(controller);
         this.txtCantidadEntrada.addKeyListener(controller);
         this.txtCantidadEntrada.addFocusListener(controller);
-
+        
         //BOTONES
         this.btnCancelarEntrada.addActionListener(controller);
         this.btnAgregarEntrada.addActionListener(controller);
@@ -1470,19 +1470,7 @@ public class Estructura extends javax.swing.JFrame {
         //EVENTOS COMBOBOX
         this.cbxAreaEmpleados.addActionListener(empleadoCTRL);
         //AGREGA MOUSE LISTENER A LOS HEADER DE CADA COLUMNA DE LA TABLA
-        /*
-        for(int i = 0; i<7 ; i++){
-            TableColumn column = this.tbEmpleados.getColumnModel().getColumn(i);
-            column.setHeaderRenderer(new DefaultTableCellRenderer(){
-                @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.addMouseListener(empleadoCTRL);
-                //columnLabels.add(label);
-                return label;
-            }
-            });
-        }*/
+        
         //FIN EVENTOS
         //OTRO
         this.tbEmpleados.setSelectionMode(0);
@@ -1498,14 +1486,6 @@ public class Estructura extends javax.swing.JFrame {
         this.btnAnteriorEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_icon.png")));
         this.btnSiguienteEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_icon.png")));
         this.btnUltimoEmpleados.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_doble.png")));
-        /*
-new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // manejar el evento de hacer clic en la columna aquí
-            }
-        }
-         */
     }
 
     //EVENTOS DE LA SALIDA

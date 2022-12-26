@@ -110,7 +110,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         Objetos.eventoComun.remarcarLabel(labels.get(4), "Correo electrónico:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(5), "Area:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(7), "NID:", Color.black);
-        
+
         textFields.get(6).requestFocus();
     }
 
@@ -244,11 +244,10 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                     Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico", Color.red);
                 }
             }
-            
+
             /*if (cbxAreas.getSelectedItem() == null) {
                 remarcarLabel(labels.get(5), "Selecciona una area", Color.red);
             }*/
-
         }
     }
 
@@ -298,10 +297,10 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 }
             }
             if (textField.equals(textFields.get(6))) {
-                
+
                 if (!textFields.get(6).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(7), "NID:", COLOR_BASE);
-                }else {
+                } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(7), "Ingresa el nid", Color.RED);
                 }
             }
@@ -360,27 +359,32 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
     private void insertarEmpleado() {
         try {
-
-            int idArea = areas.stream().filter(
-                    area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString()
-                    )).collect(Collectors.toList()).get(0).getId();
-
-            Object[] data = {
-                textFields.get(6).getText(),
-                textFields.get(0).getText(),
-                textFields.get(1).getText(),
-                textFields.get(2).getText(),
-                textFields.get(3).getText(),
-                textFields.get(4).getText(),
-                jcbContratado.isSelected(),
-                idArea
-            };
-            new EmpleadoDAO().insert(data);
-            reestablecer();
+            if (noExiste(new Empleado(textFields.get(6).getText(),
+                    textFields.get(3).getText(), textFields.get(4).getText()), false)) {
+                
+                Object[] data = {
+                    textFields.get(6).getText(),
+                    textFields.get(0).getText(),
+                    textFields.get(1).getText(),
+                    textFields.get(2).getText(),
+                    textFields.get(3).getText(),
+                    textFields.get(4).getText(),
+                    jcbContratado.isSelected(),
+                    getIdArea(cbxAreas.getSelectedItem().toString())
+                };
+                new EmpleadoDAO().insert(data);
+                reestablecer();
+            }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
 
+    }
+
+    private int getIdArea(String nombre) {
+        return areas.stream().filter(
+                area -> area.getNombre().equals(nombre
+                )).collect(Collectors.toList()).get(0).getId();
     }
 
     @Override
@@ -393,7 +397,16 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 }
             } else if (accion.equals("update")) {
                 if (validarEntradas()) {
-                    updateEmpleado();
+                    if (!empleado.getEmail().equals(textFields.get(4).getText())
+                            || !empleado.getNid().equals(textFields.get(6).getText())
+                            || !empleado.getTelefono().equals(textFields.get(3).getText()) || empleado.isContratado() != jcbContratado.isSelected()
+                            || !empleado.getNombre().equals(textFields.get(0).getText())
+                            || !empleado.getApellidoPaterno().equals(textFields.get(1).getText())
+                            || !empleado.getApellidoMaterno().equals(textFields.get(2).getText()) || empleado.getIdArea() != getIdArea(cbxAreas.getSelectedItem().toString())) {
+                        updateEmpleado();
+                    } else {
+                        reestablecer();
+                    }
                 }
             }
         }
@@ -499,7 +512,6 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             labels.get(i).setForeground(COLOR_BASE);
         }
         Objetos.eventoComun.remarcarLabel(labels.get(7), "NID:", COLOR_BASE);
-
     }
 
     private void updateEmpleado() {
@@ -508,29 +520,32 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         ).collect(Collectors.toList()).get(0).getId();
 
         try {
-            empleado.setNid(textFields.get(6).getText());
-            empleado.setNombre(textFields.get(0).getText());
-            empleado.setApellidoPaterno(textFields.get(1).getText());
-            empleado.setApellidoMaterno(textFields.get(2).getText());
-            empleado.setTelefono(textFields.get(3).getText());
-            empleado.setEmail(textFields.get(4).getText());
-            empleado.setIdArea(idArea);
-            Object[] data = {
-                empleado.getNid(),
-                empleado.getNombre(),
-                empleado.getApellidoPaterno(),
-                empleado.getApellidoMaterno(),
-                empleado.getTelefono(),
-                empleado.getEmail(),
-                jcbContratado.isSelected(),
-                empleado.getIdArea()
-            };
-            new EmpleadoDAO().update(empleado.getIdEmpleado(), data);
+            if (noExiste(new Empleado(empleado.getIdEmpleado(), textFields.get(6).getText(),
+                    textFields.get(3).getText(), textFields.get(4).getText()), true)) {
+                empleado.setNid(textFields.get(6).getText());
+                empleado.setNombre(textFields.get(0).getText());
+                empleado.setApellidoPaterno(textFields.get(1).getText());
+                empleado.setApellidoMaterno(textFields.get(2).getText());
+                empleado.setTelefono(textFields.get(3).getText());
+                empleado.setEmail(textFields.get(4).getText());
+                empleado.setIdArea(idArea);
+                Object[] data = {
+                    empleado.getNid(),
+                    empleado.getNombre(),
+                    empleado.getApellidoPaterno(),
+                    empleado.getApellidoMaterno(),
+                    empleado.getTelefono(),
+                    empleado.getEmail(),
+                    jcbContratado.isSelected(),
+                    empleado.getIdArea()
+                };
+                new EmpleadoDAO().update(empleado.getIdEmpleado(), data);
+                reestablecer();
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Hubo un error.");
         }
 
-        reestablecer();
     }
 
     public boolean validarEntradas() {
@@ -646,5 +661,50 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             }
         }
         buscar("");
+    }
+
+    private boolean noExiste(Empleado emp, boolean idActivo) {
+        boolean nidE, emailE, telE;
+        if (idActivo) {
+            emailE = (empleados.stream().filter(
+                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado()
+            ).collect(Collectors.toList()).size() == 1);
+            telE = (empleados.stream().filter(
+                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado()
+            ).collect(Collectors.toList()).size() == 1);
+            nidE = (empleados.stream().filter(
+                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado()
+            ).collect(Collectors.toList()).size() == 1);
+        } else {
+            emailE = (empleados.stream().filter(
+                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado()
+            ).collect(Collectors.toList()).size() == 1);
+            telE = (empleados.stream().filter(
+                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado()
+            ).collect(Collectors.toList()).size() == 1);
+            nidE = (empleados.stream().filter(
+                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado()
+            ).collect(Collectors.toList()).size() == 1);
+        }
+        if (emailE && telE && nidE) {
+            Objetos.eventoComun.remarcarLabel(labels.get(3), "El teléfono ya existe", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(4), "El correo ya existe", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(7), "El NID ya existe", Color.red);
+            textFields.get(3).requestFocus();
+            return false;
+        } else if (telE) {
+            Objetos.eventoComun.remarcarLabel(labels.get(3), "El teléfono ya existe", Color.red);
+            textFields.get(3).requestFocus();
+            return false;
+        } else if (emailE) {
+            Objetos.eventoComun.remarcarLabel(labels.get(4), "El correo ya existe", Color.red);
+            textFields.get(4).requestFocus();
+            return false;
+        } else if (nidE) {
+            Objetos.eventoComun.remarcarLabel(labels.get(7), "El NID ya existe", Color.red);
+            textFields.get(6).requestFocus();
+            return false;
+        }
+        return true;
     }
 }

@@ -50,7 +50,20 @@ public class Empleado implements Serializable {
         this.email = email;
         this.idArea = idArea;
     }
-    
+
+    public Empleado(int idEmpleado, String nid, String telefono, String email) {
+        this.idEmpleado = idEmpleado;
+        this.nid = nid;
+        this.telefono = telefono;
+        this.email = email;
+    }
+
+    public Empleado(String nid, String telefono, String email) {
+        this.nid = nid;
+        this.telefono = telefono;
+        this.email = email;
+    }
+
     public int getIdEmpleado() {
         return idEmpleado;
     }
@@ -125,7 +138,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", email=" + email + ", idArea=" + idArea + '}';
+        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nid=" + nid + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", email=" + email + ", contratado=" + contratado + ", idArea=" + idArea + '}';
     }
 
 }
