@@ -1289,7 +1289,7 @@ public class Estructura extends javax.swing.JFrame {
         labels.add(this.lblTiendaMat);
         labels.add(this.lblFechaIngreso);
         labels.add(this.lblTituloFecha);
-        List<JComboBox<String>> combos = new ArrayList<>();
+        List<JComboBox> combos = new ArrayList<>();
         combos.add(this.cbxUnidad);
         combos.add(this.cbxClasificacion);
         combos.add(this.cbxTiendas);

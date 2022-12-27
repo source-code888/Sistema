@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -25,17 +26,24 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import static main.library.EventoComun.*;
+import static main.library.EventoComun.COLOR_BASE;
+import static main.library.EventoComun.COLOR_TEXTO;
 import main.library.Objetos;
-import static main.library.Objetos.*;
+import static main.library.Objetos.METHOD_FIRST;
+import static main.library.Objetos.METHOD_LAST;
+import static main.library.Objetos.METHOD_LATEST;
+import static main.library.Objetos.METHOD_NEXT;
 import main.library.Paginador;
 import main.library.TableModel;
+import main.model.AreaDAO;
 import main.model.ClasificacionDAO;
 import main.model.EmpleadoDAO;
 import main.model.Entrada;
 import main.model.EntradaDAO;
 import main.model.Material;
 import main.model.MaterialDAO;
+import main.model.Salida;
+import main.model.SalidaDAO;
 import main.model.TiendaDAO;
 import main.model.UnidadDAO;
 import main.model.Usuario;
@@ -371,6 +379,12 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         }
     }
 
+    public String getFecha() {
+        String strFormat = "hh: mm: ss a dd-MM-YYYY";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
+        Date fecha = new Date();
+        return dateFormat.format(fecha).toString();
+    }
 
     private void insertarEntrada() {
         try {
