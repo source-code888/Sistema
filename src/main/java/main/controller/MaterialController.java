@@ -11,25 +11,23 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import main.library.EventoComun;
 import main.library.Objetos;
-import static main.library.Objetos.METHOD_FIRST;
-import static main.library.Objetos.METHOD_LAST;
-import static main.library.Objetos.METHOD_LATEST;
-import static main.library.Objetos.METHOD_NEXT;
+import static main.library.Objetos.*;
+import static main.library.EventoComun.*;
 import main.library.Paginador;
 import main.library.TableModel;
 import main.model.*;
 
-public class MaterialController extends MouseAdapter implements ActionListener, ChangeListener, KeyListener, FocusListener {
+public class MaterialController extends MouseAdapter
+        implements ActionListener, ChangeListener, KeyListener, FocusListener {
 
     private Material material;
     private List<Material> materiales;
@@ -39,25 +37,24 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     private List<Unidad> unidades;
     private List<Clasificacion> clasificaciones;
     private int selectedRow;
-    private Objetos objetos = new Objetos();
-    private int modoOrdenamiento = 0;
 
-    //Elementos visibles
-    private List<JButton> buttons;
-    private List<JTextField> textFields;
-    private List<JLabel> labels;
-    private JTable tbMateriales;
-    private List<JComboBox> combos;
-    private JTabbedPane tabbedPanePrincipal;
+    // Elementos visibles
+    private final List<JButton> buttons;
+    private final List<JTextField> textFields;
+    private final List<JLabel> labels;
+    private final JTable tbMateriales;
+    private final List<JComboBox<String>> combos;
+    private final JTabbedPane tabbedPanePrincipal;
 
-    //ELEMENTOS DEL PAGINADOR
+    // ELEMENTOS DEL PAGINADOR
     private Paginador<Material> paginador;
     private int rows = 10;
     private int pagNum = 1;
-    private JSpinner spinner;
+    private final JSpinner spinner;
     private Usuario usuario;
 
-    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbMateriales, JSpinner spinner, List<JComboBox> combos, JTabbedPane tabbedPanePrincipal) {
+    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels,
+            JTable tbMateriales, JSpinner spinner, List<JComboBox<String>> combos, JTabbedPane tabbedPanePrincipal) {
         this.buttons = buttons;
         this.textFields = textFields;
         this.labels = labels;
@@ -78,104 +75,61 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JButton) {
             JButton btn = (JButton) obj;
             if (btn.equals(buttons.get(0))) {
-                if (textFields.get(0).getText().isBlank()
-                        && textFields.get(1).getText().isBlank() && combos.get(0).getSelectedItem() == null
-                        && combos.get(1).getSelectedItem() == null && combos.get(2).getSelectedItem() == null) {
-                    reestablecer();
-                    labels.get(1).setText("Ingresa el nombre del material");
-                    labels.get(3).setText("Selecciona una unidad");
-                    labels.get(5).setText("Ingresa el SKU");
-                    labels.get(6).setText("Selecciona una clasificacion");
-                    labels.get(7).setText("Selecciona una tienda");
-                    labels.get(1).setForeground(Color.red);
-                    labels.get(3).setForeground(Color.red);
-                    labels.get(5).setForeground(Color.red);
-                    labels.get(6).setForeground(Color.red);
-                    labels.get(7).setForeground(Color.red);
-                    labels.get(2).setForeground(Color.red);
-                    labels.get(4).setForeground(Color.red);
-                } else if (textFields.get(0).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.red);
-                } else if (textFields.get(3).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa la cantidad", Color.RED);
-                } else if (combos.get(0).getSelectedItem() == null) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(3), "Selecciona una unidad", Color.RED);
-                } else if (textFields.get(4).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa el limite minimo", Color.RED);
-                } else if (textFields.get(1).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(5), "Ingresa el SKU", Color.RED);
-                } else if (combos.get(1).getSelectedItem() == null) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(6), "Selecciona una clasificacion", Color.RED);
-                } else if (combos.get(2).getSelectedItem() == null) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(7), "Selecciona una tienda", Color.RED);
-                } else {
+                if (validarEntrada()) {
+                    int idUnidad = unidades.stream().filter(
+                            unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString()))
+                            .collect(Collectors.toList()).get(0).getId();
+                    int idClasificacion = clasificaciones.stream().filter(
+                            clasificacion -> clasificacion.getNombre()
+                                    .equals(combos.get(1).getSelectedItem().toString()))
+                            .collect(Collectors.toList()).get(0).getId();
+                    int idTienda = tiendas.stream().filter(
+                            tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()))
+                            .collect(Collectors.toList()).get(0).getId();
+                    String nombreMaterial = textFields.get(0).getText();
+                    String sku = textFields.get(1).getText();
+                    int cantidadMat = Integer.parseInt(textFields.get(3).getText());
+                    int limiteMinMat = Integer.parseInt(textFields.get(4).getText());
+                    //
                     if (accion.equals("insert")) {
-                        try {//hh: mm: ss a dd-MM-YYYY
-                            String strFormat = "YYYY-MM-dd hh: mm:ss a";
-                            SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
-                            Date fecha = new Date();
-                            String fechaCompleta = dateFormat.format(fecha).toString();
-                            int idUnidad = unidades.stream().filter(
-                                    unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString())
-                            ).collect(Collectors.toList()).get(0).getId();
-                            int idClasificacion = clasificaciones.stream().filter(
-                                    clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()
-                                    )).collect(Collectors.toList()).get(0).getId();
-                            int idTienda = tiendas.stream().filter(
-                                    tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()
-                                    )).collect(Collectors.toList()).get(0).getId();
-                            int idUsuario = usuario.getIdUsuario();
-                            Object[] data = {
-                                textFields.get(0).getText(),
-                                Integer.parseInt(textFields.get(3).getText()),
-                                Integer.parseInt(textFields.get(4).getText()),
-                                textFields.get(1).getText(),
-                                fechaCompleta,
-                                idUnidad,
-                                idClasificacion,
-                                idTienda,
-                                idUsuario
-                            };
-                            new MaterialDAO().insert(data);
-                            reestablecer();
-                        } catch (SQLException ex) {
+                        if (!existente(false, materiales.toArray(),
+                                new Material(sku), textFields.get(0))) {
+                            try {
+                                int idUsuario = usuario.getIdUsuario();
+                                Object[] data = {
+                                        nombreMaterial,
+                                        cantidadMat,
+                                        limiteMinMat,
+                                        sku,
+                                        getFecha(),
+                                        idUnidad,
+                                        idClasificacion,
+                                        idTienda,
+                                        idUsuario
+                                };
+                                new MaterialDAO().insert(data);
+                                reestablecer();
+                            } catch (SQLException ex) {
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Material existente.");
                         }
 
                     } else if (accion.equals("update")) {
-                        int idUnidad = unidades.stream().filter(
-                                unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString())
-                        ).collect(Collectors.toList()).get(0).getId();
-                        int idClasificacion = clasificaciones.stream().filter(
-                                clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()
-                                )).collect(Collectors.toList()).get(0).getId();
-                        int idTienda = tiendas.stream().filter(
-                                tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()
-                                )).collect(Collectors.toList()).get(0).getId();
-                        boolean existente = (idUnidad == material.getIdUnidad() && idClasificacion == material.getIdClasificacion()
-                                && idTienda == material.getIdTienda() && material.getNombreMaterial().equals(textFields.get(0).getText())
-                                && material.getCantidad() == Integer.parseInt(textFields.get(3).getText())
-                                && material.getLimiteMinimo() == Integer.parseInt(textFields.get(4).getText())
-                                && material.getSku().equals(textFields.get(1).getText()));
-                        if (!existente) {
+                        if (!existente(true, materiales.toArray(),
+                                new Material(material.getIdMaterial(), sku),
+                                textFields.get(0))) {
                             try {
-
-                                material.setNombreMaterial(textFields.get(0).getText());
-                                material.setCantidad(Integer.parseInt(textFields.get(3).getText()));
-                                material.setLimiteMinimo(Integer.parseInt(textFields.get(4).getText()));
-                                material.setSku(textFields.get(1).getText());
-                                material.setIdUnidad(idUnidad);
-                                material.setIdClasificacion(idClasificacion);
-                                material.setIdTienda(idTienda);
                                 Object[] data = {
-                                    material.getNombreMaterial(),
-                                    material.getCantidad(),
-                                    material.getLimiteMinimo(),
-                                    material.getSku(),
-                                    material.getFechaIngreso(),
-                                    material.getIdUnidad(),
-                                    material.getIdClasificacion(),
-                                    material.getIdTienda(),
-                                    material.getIdUsuario()
+                                        nombreMaterial,
+                                        cantidadMat,
+                                        limiteMinMat,
+                                        sku,
+                                        getFecha(),
+                                        idUnidad,
+                                        idClasificacion,
+                                        idTienda,
+                                        material.getIdUsuario()
                                 };
                                 new MaterialDAO().update(material.getIdMaterial(), data);
                             } catch (SQLException ex) {
@@ -189,7 +143,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             }
             if (btn.equals(buttons.get(1))) {
                 try {
-                    //BOton eliminar
+                    // BOton eliminar
                     new MaterialDAO().remove(material.getIdMaterial());
                     reestablecer();
                 } catch (SQLException ex) {
@@ -197,35 +151,34 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 }
             }
             if (btn.equals(buttons.get(2))) {
-                //BOTON btnPrimero
+                // BOTON btnPrimero
                 pager(METHOD_FIRST);
             }
             if (btn.equals(buttons.get(3))) {
-                //BOTON btnAnterior
+                // BOTON btnAnterior
                 pager(METHOD_LAST);
             }
             if (btn.equals(buttons.get(4))) {
-                //BOTON btnSiguiente
+                // BOTON btnSiguiente
                 pager(METHOD_NEXT);
             }
             if (btn.equals(buttons.get(5))) {
-                //BOTON btnUltimo
+                // BOTON btnUltimo
                 pager(METHOD_LATEST);
             }
         }
         if (obj instanceof JComboBox) {
             JComboBox cbx = (JComboBox) obj;
             if (cbx.equals(combos.get(0))) {
-                //Unidad
+                // Unidad
                 Objetos.eventoComun.remarcarLabel(labels.get(3), "Unidad", Objetos.eventoComun.COLOR_BASE);
-
             }
             if (cbx.equals(combos.get(1))) {
-                //Clasificacion
+                // Clasificacion
                 Objetos.eventoComun.remarcarLabel(labels.get(6), "Clasificacion", Objetos.eventoComun.COLOR_BASE);
             }
             if (cbx.equals(combos.get(2))) {
-                //Tienda
+                // Tienda
                 Objetos.eventoComun.remarcarLabel(labels.get(7), "Tienda", Objetos.eventoComun.COLOR_BASE);
             }
         }
@@ -233,9 +186,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
 
     @Override
     public void keyReleased(KeyEvent e) {
-
         Object obj = e.getSource();
-
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
             if (tb.equals(tbMateriales)) {
@@ -244,7 +195,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 }
             }
         }
-
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(2))) {
@@ -257,9 +207,9 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             if (txt.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.RED);
-
                 } else {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material",
+                            EventoComun.COLOR_BASE);
                     nextFocus(e.getKeyCode(), textFields.get(3));
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -284,7 +234,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 if (textFields.get(1).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", Color.RED);
                 } else {
-                    Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", EventoComun.COLOR_BASE);
                     nextFocus(e.getKeyCode(), combos.get(1));
                 }
             }
@@ -292,7 +242,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 if (textFields.get(3).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa la cantidad", Color.RED);
                 } else {
-                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad", EventoComun.COLOR_BASE);
                     nextFocus(e.getKeyCode(), combos.get(0));
                 }
             }
@@ -300,12 +250,11 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 if (textFields.get(4).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa el limite minimo", Color.RED);
                 } else {
-                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo", EventoComun.COLOR_BASE);
                     nextFocus(e.getKeyCode(), textFields.get(1));
                 }
             }
         }
-
         if (obj instanceof JComboBox) {
             JComboBox comboBox = (JComboBox) obj;
             if (comboBox.equals(combos.get(0))) {
@@ -320,7 +269,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 }
             }
         }
-
     }
 
     @Override
@@ -371,12 +319,13 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
              * entrada de texto(No se permite texto alfanumerico
              */
             if (txt.equals(textFields.get(0))) {
-                //en caso de que poner numeros u otros caracteres en el nombre de un registro hay que borrar esto
-                //Objetos.eventoComun.textKeyPressed(e);
+                // en caso de que poner numeros u otros caracteres en el nombre de un registro
+                // hay que borrar esto
+                // Objetos.eventoComun.textKeyPressed(e);
             }
             if (txt.equals(textFields.get(2))) {
-                //Remover si es necesario
-                //Objetos.eventoComun.textKeyPressed(e);
+                // Remover si es necesario
+                // Objetos.eventoComun.textKeyPressed(e);
             }
             if (txt.equals(textFields.get(3))) {
                 Objetos.eventoComun.numberKeyPressed(e);
@@ -397,15 +346,15 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (obj instanceof JComboBox) {
             JComboBox cbx = (JComboBox) obj;
             if (cbx.equals(combos.get(0))) {
-                //Unidad
+                // Unidad
                 comboModel("unidad");
             }
             if (cbx.equals(combos.get(1))) {
-                //Clasificacion
+                // Clasificacion
                 comboModel("clasificacion");
             }
             if (cbx.equals(combos.get(2))) {
-                //Tienda
+                // Tienda
                 comboModel("tienda");
             }
         }
@@ -418,14 +367,15 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(0))) {
                 if (!textFields.get(0).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material",
+                            EventoComun.COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.RED);
                 }
             }
             if (txt.equals(textFields.get(1))) {
                 if (!textFields.get(1).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU", EventoComun.COLOR_BASE);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(5), "Ingresa el SKU", Color.RED);
                 }
@@ -434,34 +384,34 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 if (textFields.get(3).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa la cantidad", Color.RED);
                 } else {
-                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad", EventoComun.COLOR_BASE);
                 }
             }
             if (txt.equals(textFields.get(4))) {
                 if (textFields.get(4).getText().isBlank()) {
                     Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa el limite minimo", Color.RED);
                 } else {
-                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo", Objetos.eventoComun.COLOR_BASE);
+                    Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo", EventoComun.COLOR_BASE);
                 }
             }
         }
         if (obj instanceof JComboBox) {
             JComboBox cbx = (JComboBox) obj;
             if (cbx.equals(combos.get(0))) {
-                //Unidad
+                // Unidad
                 if (combos.get(0).getSelectedItem() == null) {
-                    //3 6 7
+                    // 3 6 7
                     Objetos.eventoComun.remarcarLabel(labels.get(3), "Selecciona una unidad", Color.RED);
                 }
             }
             if (cbx.equals(combos.get(1))) {
-                //Clasificacion
+                // Clasificacion
                 if (combos.get(0).getSelectedItem() == null) {
                     Objetos.eventoComun.remarcarLabel(labels.get(6), "Selecciona una clasificacion", Color.RED);
                 }
             }
             if (cbx.equals(combos.get(2))) {
-                //Tienda
+                // Tienda
                 if (combos.get(0).getSelectedItem() == null) {
                     Objetos.eventoComun.remarcarLabel(labels.get(7), "Selecciona una tienda", Color.RED);
                 }
@@ -470,64 +420,61 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
     }
 
     private void buscar(String data) {
-        materiales = ordenamiento(materiales);
-        
-        
-        
+        Collections.sort(materiales);
         List<Material> filter;
         String titulos[] = {
-            "ID",
-            "Nombre",
-            "Cantidad",
-            "Limite minimo",
-            "SKU",
-            "Fecha ingreso",
-            "Unidad",
-            "Clasificacion",
-            "Tienda",
-            "Usuario"
+                "ID",
+                "Nombre",
+                "Cantidad",
+                "Limite minimo",
+                "SKU",
+                "Fecha ingreso",
+                "Unidad",
+                "Clasificacion",
+                "Tienda",
+                "Usuario"
         };
         defaultTableModel = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
         if (data.equals("")) {
             filter = materiales.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
-            filter = materiales.stream().filter(material
-                    -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data) || material.getFechaIngreso().startsWith(data)
-            ).skip(start).limit(rows).collect(Collectors.toList());
+            filter = materiales.stream()
+                    .filter(mat -> mat.getNombreMaterial().startsWith(data)
+                            || mat.getSku().startsWith(data) || mat.getFechaIngreso().startsWith(data))
+                    .skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
             filter.forEach(
-                    material -> {
+                    (Material mat) -> {
                         String unidad = unidades.stream().filter(
-                                obj -> obj.getId() == material.getIdUnidad()
-                        ).collect(Collectors.toList()).get(0).getNombre();
+                                obj -> obj.getId() == mat.getIdUnidad()).collect(Collectors.toList()).get(0)
+                                .getNombre();
                         String clasificacion = clasificaciones.stream().filter(
-                                obj -> obj.getId() == material.getIdClasificacion()
-                        ).collect(Collectors.toList()).get(0).getNombre();
+                                obj -> obj.getId() == mat.getIdClasificacion()).collect(Collectors.toList()).get(0)
+                                .getNombre();
                         String tienda = tiendas.stream().filter(
-                                obj -> obj.getId() == material.getIdTienda()
-                        ).collect(Collectors.toList()).get(0).getNombre();
-                        String usuario = new UsuarioDAO().usuarios().stream().
-                                filter(u -> u.getIdUsuario() == material.getIdUsuario()).collect(Collectors.toList()).
-                                get(0).getUsuario();
+                                obj -> obj.getId() == mat.getIdTienda()).collect(Collectors.toList()).get(0)
+                                .getNombre();
+                        String us = new UsuarioDAO().usuarios().stream()
+                                .filter(u -> u.getIdUsuario() == mat.getIdUsuario()).collect(Collectors.toList())
+                                .get(0).getUsuario();
 
                         Object[] objects = {
-                            material.getIdMaterial(),
-                            material.getNombreMaterial(),
-                            material.getCantidad(),
-                            material.getLimiteMinimo(),
-                            material.getSku(),
-                            material.getFechaIngreso(),
-                            unidad,
-                            clasificacion,
-                            tienda,
-                            usuario
+                                mat.getIdMaterial(),
+                                mat.getNombreMaterial(),
+                                mat.getCantidad(),
+                                mat.getLimiteMinimo(),
+                                mat.getSku(),
+                                mat.getFechaIngreso(),
+                                unidad,
+                                clasificacion,
+                                tienda,
+                                us
                         };
                         defaultTableModel.addRow(objects);
-                        
-                    }
-            );
+
+                    });
         }
         tbMateriales.setModel(defaultTableModel);
         tbMateriales.getColumnModel().getColumn(5).setPreferredWidth(200);
@@ -535,35 +482,36 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         tbMateriales.getColumnModel().getColumn(0).setMaxWidth(0);
         tbMateriales.getColumnModel().getColumn(0).setMinWidth(0);
         tbMateriales.getColumnModel().getColumn(0).setPreferredWidth(0);
-
     }
 
     private void comboModel(String data) {
         iniciarListas();
-        if (data.equals("unidad")) {
-            String[] objetosUnidad = new String[unidades.size()];
-            for (int i = 0; i < unidades.size(); i++) {
-                objetosUnidad[i] = unidades.get(i).getNombre();
+        DefaultComboBoxModel<String> boxModel = new DefaultComboBoxModel<>();
+        List<String> items = new ArrayList<>();
+        switch (data) {
+            case "unidad" -> {
+                for (int i = 0; i < unidades.size(); i++) {
+                    items.add(unidades.get(i).getNombre());
+                }
+                boxModel.addAll(items);
+                combos.get(0).setModel(boxModel);
             }
-            DefaultComboBoxModel boxModelU = new DefaultComboBoxModel(objetosUnidad);
-            boxModelU.setSelectedItem(null);
-            combos.get(0).setModel(boxModelU);
-        } else if (data.equals("clasificacion")) {
-            String[] objetosClasificacion = new String[clasificaciones.size()];
-            for (int i = 0; i < clasificaciones.size(); i++) {
-                objetosClasificacion[i] = clasificaciones.get(i).getNombre();
+            case "clasificacion" -> {
+                for (int i = 0; i < clasificaciones.size(); i++) {
+                    items.add(clasificaciones.get(i).getNombre());
+                }
+                boxModel.addAll(items);
+                combos.get(1).setModel(boxModel);
             }
-            DefaultComboBoxModel boxModelC = new DefaultComboBoxModel(objetosClasificacion);
-            boxModelC.setSelectedItem(null);
-            combos.get(1).setModel(boxModelC);
-        } else if (data.equals("tienda")) {
-            String[] objetosTienda = new String[tiendas.size()];
-            for (int i = 0; i < tiendas.size(); i++) {
-                objetosTienda[i] = tiendas.get(i).getNombre();
+            case "tienda" -> {
+                for (int i = 0; i < tiendas.size(); i++) {
+                    items.add(tiendas.get(i).getNombre());
+                }
+                boxModel.addAll(items);
+                combos.get(2).setModel(boxModel);
             }
-            DefaultComboBoxModel boxModelT = new DefaultComboBoxModel(objetosTienda);
-            boxModelT.setSelectedItem(null);
-            combos.get(2).setModel(boxModelT);
+            default -> {
+            }
         }
     }
 
@@ -573,7 +521,6 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                 if (!materiales.isEmpty()) {
                     pagNum = paginador.primero();
                 }
-
             }
             case METHOD_LAST -> {
                 if (!materiales.isEmpty()) {
@@ -608,7 +555,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         selectedRow = -1;
         accion = "insert";
         iniciarListas();
-        //REINICIAR VALORES
+        // REINICIAR VALORES
         textFields.get(0).setText("");
         textFields.get(1).setText("");
         textFields.get(2).setText("");
@@ -655,17 +602,17 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         textFields.get(0).requestFocus();
         buttons.get(1).setVisible(true);
 
-        //OBTENEMOS LOS IDS
+        // OBTENEMOS LOS IDS
         int idUnidad = unidades.stream().filter(
-                unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString())
-        ).collect(Collectors.toList()).get(0).getId();
+                unidad -> unidad.getNombre().equals(combos.get(0).getSelectedItem().toString()))
+                .collect(Collectors.toList()).get(0).getId();
         int idClasificacion = clasificaciones.stream().filter(
-                clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()
-                )).collect(Collectors.toList()).get(0).getId();
+                clasificacion -> clasificacion.getNombre().equals(combos.get(1).getSelectedItem().toString()))
+                .collect(Collectors.toList()).get(0).getId();
         int idTienda = tiendas.stream().filter(
-                tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()
-                )).collect(Collectors.toList()).get(0).getId();
-        //FIN 
+                tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()))
+                .collect(Collectors.toList()).get(0).getId();
+        // FIN
         material = new Material(idMaterial, textFields.get(0).getText(),
                 Integer.parseInt(textFields.get(3).getText()),
                 Integer.parseInt(textFields.get(4).getText()),
@@ -676,10 +623,10 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         if (!textFields.get(2).getText().equals("")) {
             textFields.get(2).setText("");
         }
-        labels.get(1).setForeground(new Color(0, 153, 51));
-        labels.get(2).setForeground(new Color(0, 153, 51));
-        labels.get(4).setForeground(new Color(0, 153, 51));
-        labels.get(5).setForeground(new Color(0, 153, 51));
+        labels.get(1).setForeground(EventoComun.COLOR_BASE);
+        labels.get(2).setForeground(EventoComun.COLOR_BASE);
+        labels.get(4).setForeground(EventoComun.COLOR_BASE);
+        labels.get(5).setForeground(EventoComun.COLOR_BASE);
     }
 
     private void iniciarListas() {
@@ -695,30 +642,51 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
         }
     }
 
-    private List<Material> ordenamiento(List<Material> filter) {
-        
-        filter.sort(new Comparator<Material>() {
-            @Override
-            public int compare(Material o1, Material o2) {
-                return o1.getNombreMaterial().compareToIgnoreCase(o2.getNombreMaterial());
-            }
-
-        });
-        
-        List<Material> ordenado = new ArrayList<>();
-        
-        for (int i = 0; i < filter.size(); i++) {
-            if (filter.get(i).getCantidad()< filter.get(i).getLimiteMinimo()) {
-                ordenado.add(filter.get(i));
-            }
+    private boolean validarEntrada() {
+        if (textFields.get(0).getText().isBlank()
+                && textFields.get(1).getText().isBlank() && combos.get(0).getSelectedItem() == null
+                && combos.get(1).getSelectedItem() == null && combos.get(2).getSelectedItem() == null) {
+            reestablecer();
+            labels.get(1).setText("Ingresa el nombre del material");
+            labels.get(3).setText("Selecciona una unidad");
+            labels.get(5).setText("Ingresa el SKU");
+            labels.get(6).setText("Selecciona una clasificacion");
+            labels.get(7).setText("Selecciona una tienda");
+            labels.get(1).setForeground(Color.red);
+            labels.get(3).setForeground(Color.red);
+            labels.get(5).setForeground(Color.red);
+            labels.get(6).setForeground(Color.red);
+            labels.get(7).setForeground(Color.red);
+            labels.get(2).setForeground(Color.red);
+            labels.get(4).setForeground(Color.red);
+            textFields.get(0).requestFocus();
+            return false;
+        } else if (textFields.get(0).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa el nombre del material", Color.red);
+            textFields.get(0).requestFocus();
+            return false;
+        } else if (textFields.get(3).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(2), "Ingresa la cantidad", Color.RED);
+            textFields.get(3).requestFocus();
+            return false;
+        } else if (combos.get(0).getSelectedItem() == null) {
+            Objetos.eventoComun.remarcarLabel(labels.get(3), "Selecciona una unidad", Color.RED);
+            return false;
+        } else if (textFields.get(4).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa el limite minimo", Color.RED);
+            textFields.get(4).requestFocus();
+            return false;
+        } else if (textFields.get(1).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(5), "Ingresa el SKU", Color.RED);
+            textFields.get(1).requestFocus();
+            return false;
+        } else if (combos.get(1).getSelectedItem() == null) {
+            Objetos.eventoComun.remarcarLabel(labels.get(6), "Selecciona una clasificacion", Color.RED);
+            return false;
+        } else if (combos.get(2).getSelectedItem() == null) {
+            Objetos.eventoComun.remarcarLabel(labels.get(7), "Selecciona una tienda", Color.RED);
+            return false;
         }
-        for (int i = 0; i < filter.size(); i++) {
-            if(!ordenado.contains(filter.get(i))){
-                ordenado.add(filter.get(i));
-            }
-        }
-            
-        return ordenado;
+        return true;
     }
-
 }

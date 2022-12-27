@@ -11,15 +11,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javax.print.PrintException;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -39,17 +34,14 @@ import main.model.TiendaDAO;
 import main.model.UnidadDAO;
 import main.model.Usuario;
 import main.model.UsuarioDAO;
-import static main.library.Objetos.METHOD_FIRST;
-import static main.library.Objetos.METHOD_LAST;
-import static main.library.Objetos.METHOD_LATEST;
-import static main.library.Objetos.METHOD_NEXT;
-import static main.library.EventoComun.COLOR_TEXTO;
-import main.library.GenerarDocumento;
+import static main.library.Objetos.*;
+import static main.library.EventoComun.*;
 import main.library.RenderCheckBox;
 
-public class SalidaController extends MouseAdapter implements ActionListener, ChangeListener, KeyListener, FocusListener {
+public class SalidaController extends MouseAdapter
+        implements ActionListener, ChangeListener, KeyListener, FocusListener {
 
-    //ELEMENTOS VISUALES
+    // ELEMENTOS VISUALES
     private JTabbedPane tabbedPaneSalidas;
     private JTable tbSalidas;
     private JTable tbEmpleados;
@@ -61,7 +53,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private JSpinner spinner;
     private JTextArea txtAreaConcepto;
 
-    //ELEMENTOS DE LA CLASE
+    // ELEMENTOS DE LA CLASE
     private List<Salida> salidas;
     private List<Empleado> empleados;
     private List<Material> materiales;
@@ -76,21 +68,19 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private Empleado empleado;
     private Material material;
     private boolean enter = false;
-    private boolean empleadoSeleccionado = false;
-    private boolean materialSeleccionado = false;
-    private boolean tablaEmpleadosSeleccionada = false;
     private boolean seccionEmpleadosActiva = false;
     private boolean seccionMaterialesActiva = false;
-    private boolean seccionAgregarSalida = true;
 
     private final boolean administrador;
-    
-    //ELEMENTOS DEL PAGINADOR
+
+    // ELEMENTOS DEL PAGINADOR
     private Paginador<Salida> paginador;
     private int rows = 10;
     private int pagNum = 1;
 
-    public SalidaController(Object object, JTabbedPane tabbedPaneSalidas, JTable tbSalidas, JTable tbEmpleados, JTable tbMateriales, List<JLabel> labels, List<JButton> buttons, List<JTextField> textFields, JSpinner spinner, JTextArea txtAreaConcepto) {
+    public SalidaController(Object object, JTabbedPane tabbedPaneSalidas, JTable tbSalidas, JTable tbEmpleados,
+            JTable tbMateriales, List<JLabel> labels, List<JButton> buttons, List<JTextField> textFields,
+            JSpinner spinner, JTextArea txtAreaConcepto) {
         if (object instanceof Usuario) {
             usuario = (Usuario) object;
             administrador = usuario.isAdministrador();
@@ -117,16 +107,26 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
      * Ocultar componente de un TabbedPane
      *
      * @param titulo del componente que se desea ocultar
-     * <p>
-     * Titulos</p>
-     * <ul>
-     * <li><p>
-     * Empleados: Oculta el panel empleados</p></li>
-     * <li><p>
-     * Materiales: Oculta el panel materiales</p></li>
-     * <li><p>
-     * Todos: Oculta todos los paneles</p></li>
-     * </ul>
+     *               <p>
+     *               Titulos
+     *               </p>
+     *               <ul>
+     *               <li>
+     *               <p>
+     *               Empleados: Oculta el panel empleados
+     *               </p>
+     *               </li>
+     *               <li>
+     *               <p>
+     *               Materiales: Oculta el panel materiales
+     *               </p>
+     *               </li>
+     *               <li>
+     *               <p>
+     *               Todos: Oculta todos los paneles
+     *               </p>
+     *               </li>
+     *               </ul>
      */
     private void ocultarComponenteTabbedPane(String titulo) {
         if (tabbedPaneSalidas.getTabCount() > 1) {
@@ -142,12 +142,11 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         }
     }
 
-    //EVENTOS
+    // EVENTOS
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         if (obj instanceof JButton) {
-            System.out.println(e.getID());
             JButton button = (JButton) obj;
             if (button.equals(buttons.get(0))) {
                 if (accion.equals("insert")) {
@@ -235,7 +234,6 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     } else {
                         obtenerEmpleadoPorOperador();
                     }
-                    empleadoSeleccionado = true;
                 }
             }
             if (tb.equals(tbMateriales)) {
@@ -245,7 +243,6 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     } else {
                         obtenerMaterialPorOperador();
                     }
-                    materialSeleccionado = true;
                 }
             }
         }
@@ -258,7 +255,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad:", COLOR_BASE);
                     if (e.getKeyChar() == '\n') {
                         enter = true;
-                        actionPerformed(new ActionEvent(buttons.get(0), 1001, "" ,e.getWhen(), 16));
+                        actionPerformed(new ActionEvent(buttons.get(0), 1001, "", e.getWhen(), 16));
                     }
                 }
             }
@@ -288,7 +285,6 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                             obtenerEmpleadoPorOperador();
                         }
                         textFields.get(3).requestFocus();
-                        empleadoSeleccionado = true;
                     }
                 }
             }
@@ -307,14 +303,13 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 } else {
                     if (tbMateriales.getRowCount() > 0) {
                         tbMateriales.setRowSelectionInterval(0, 0);
-                        
+
                         if (administrador) {
                             obtenerMaterial();
                         } else {
                             obtenerMaterialPorOperador();
                         }
                         textFields.get(0).requestFocus();
-                        materialSeleccionado = true;
                     }
                 }
             }
@@ -347,7 +342,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     @Override
     public void focusGained(FocusEvent e) {
         Object obj = e.getSource();
-        
+
         if (seccionMaterialesActiva) {
             if (!obj.equals(textFields.get(3)) && !seccionEmpleadosActiva && !obj.equals(tbMateriales)) {
                 ocultarComponenteTabbedPane("Materiales");
@@ -361,7 +356,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         if (obj instanceof JTextField) {
             JTextField textField = (JTextField) obj;
             if (textField.equals(textFields.get(1))) {
-                //FOCUS EN EL TXT DE EMPLEADO
+                // FOCUS EN EL TXT DE EMPLEADO
                 seccionEmpleadosActiva = true;
                 mostrarTablaEmpleado();
             }
@@ -421,23 +416,21 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                     } else {
                         obtenerEmpleadoPorOperador();
                     }
-                    empleadoSeleccionado = true;
                 }
             }
             if (tb.equals(tbMateriales)) {
                 if (tbMateriales.getSelectedRows().length > 0) {
-                    if(administrador){
+                    if (administrador) {
                         obtenerMaterial();
-                    }else{
+                    } else {
                         obtenerMaterialPorOperador();
                     }
-                    materialSeleccionado = true;
                 }
             }
         }
     }
 
-    //FIN DE LOS EVENTOS
+    // FIN DE LOS EVENTOS
     private void reestablecer() {
         accion = "insert";
         salidas = new SalidaDAO().salidas();
@@ -481,7 +474,6 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         } else if (seccionMaterialesActiva) {
             ocultarComponenteTabbedPane("Materiales");
         }
-        materialSeleccionado = empleadoSeleccionado = false;
         textFields.get(5).requestFocus();
     }
 
@@ -489,43 +481,43 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         Collections.sort(salidas);
         List<Salida> filter;
         String titulos[] = {
-            "ID",
-            "Material",
-            "Cantidad de salida",
-            "Unidad",
-            "Concepto",
-            "Fecha salida",
-            "Empleado",
-            "Area",
-            "Usuario"
+                "ID",
+                "Material",
+                "Cantidad de salida",
+                "Unidad",
+                "Concepto",
+                "Fecha salida",
+                "Empleado",
+                "Area",
+                "Usuario"
         };
         tableModelSalidas = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
         if (data.equals("")) {
             filter = salidas.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
-
-            filter = salidas.stream().filter(salida
-                    -> getNombreEmpleado(salida.getIdEmpleado()).toLowerCase().startsWith(data) || getNombreMaterial(salida.getIdMaterial()).toLowerCase().startsWith(data) || salida.getFechaHoraSalida().toLowerCase().startsWith(data) 
-            ).skip(start).limit(rows).collect(Collectors.toList());
+            filter = salidas.stream()
+                    .filter(salida -> getNombreEmpleado(salida.getIdEmpleado()).toLowerCase().startsWith(data)
+                            || getNombreMaterial(salida.getIdMaterial()).toLowerCase().startsWith(data)
+                            || salida.getFechaHoraSalida().toLowerCase().startsWith(data))
+                    .skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
             filter.forEach(
                     salida -> {
                         Object[] objects = {
-                            salida.getIdSalida(),
-                            getNombreMaterial(salida.getIdMaterial()),
-                            salida.getCantidadSalida(),
-                            getNombreUnidad(salida.getIdUnidad()),
-                            salida.getConceptoSalida(),
-                            salida.getFechaHoraSalida(),
-                            getNombreEmpleado(salida.getIdEmpleado()),
-                            getNombreArea(salida.getIdArea()),
-                            getNombreUsuarioConfirmante(salida.getIdUsuario())
+                                salida.getIdSalida(),
+                                getNombreMaterial(salida.getIdMaterial()),
+                                salida.getCantidadSalida(),
+                                getNombreUnidad(salida.getIdUnidad()),
+                                salida.getConceptoSalida(),
+                                salida.getFechaHoraSalida(),
+                                getNombreEmpleado(salida.getIdEmpleado()),
+                                getNombreArea(salida.getIdArea()),
+                                getNombreUsuarioConfirmante(salida.getIdUsuario())
                         };
                         tableModelSalidas.addRow(objects);
-                    }
-            );
+                    });
         }
         tbSalidas.setModel(tableModelSalidas);
         tbSalidas.getColumnModel().getColumn(5).setPreferredWidth(200);
@@ -537,34 +529,34 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     }
 
     private String getNombreEmpleado(int id) {
-        Empleado empleadoTemp = new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
-        //String nombre = new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0).getNombre();
-        String nombre = empleadoTemp.getNombre() + " " + empleadoTemp.getApellidoPaterno() + " " + empleadoTemp.getApellidoMaterno();
+        Empleado empleadoTemp = new EmpleadoDAO().empleados().stream()
+                .filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
+        // String nombre = new EmpleadoDAO().empleados().stream().filter(empleado ->
+        // empleado.getIdEmpleado() ==
+        // id).collect(Collectors.toList()).get(0).getNombre();
+        String nombre = empleadoTemp.getNombre() + " " + empleadoTemp.getApellidoPaterno() + " "
+                + empleadoTemp.getApellidoMaterno();
         return nombre;
     }
 
     private String getNombreMaterial(int id) {
-        return new MaterialDAO().materiales().stream().filter(material
-                -> material.getIdMaterial() == id
-        ).collect(Collectors.toList()).get(0).getNombreMaterial();
+        return new MaterialDAO().materiales().stream().filter(material -> material.getIdMaterial() == id)
+                .collect(Collectors.toList()).get(0).getNombreMaterial();
     }
 
     private String getNombreArea(int id) {
-        return new AreaDAO().areas().stream().filter(area
-                -> area.getId() == id
-        ).collect(Collectors.toList()).get(0).getNombre();
+        return new AreaDAO().areas().stream().filter(area -> area.getId() == id).collect(Collectors.toList()).get(0)
+                .getNombre();
     }
 
     private String getNombreUnidad(int id) {
-        return new UnidadDAO().unidades().stream().filter(unidad
-                -> unidad.getId() == id
-        ).collect(Collectors.toList()).get(0).getNombre();
+        return new UnidadDAO().unidades().stream().filter(unidad -> unidad.getId() == id).collect(Collectors.toList())
+                .get(0).getNombre();
     }
 
     private String getNombreUsuarioConfirmante(int id) {
-        return new UsuarioDAO().usuarios().stream().filter(material
-                -> material.getIdUsuario() == id
-        ).collect(Collectors.toList()).get(0).getUsuario();
+        return new UsuarioDAO().usuarios().stream().filter(material -> material.getIdUsuario() == id)
+                .collect(Collectors.toList()).get(0).getUsuario();
     }
 
     private void mostrarRegistrosPorPagina() {
@@ -595,17 +587,16 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 material -> material.getNombreMaterial().equals(nombreMaterial))
                 .collect(Collectors.toList()).get(0).getIdMaterial();
         int idUnidad = new UnidadDAO().unidades().stream().filter(
-                unidad -> unidad.getNombre().equals(nombreUnidad)
-        ).collect(Collectors.toList()).get(0).getId();
+                unidad -> unidad.getNombre().equals(nombreUnidad)).collect(Collectors.toList()).get(0).getId();
         int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
-                empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).equals(nombreEmpleado)
-        ).collect(Collectors.toList()).get(0).getIdEmpleado();
+                empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " "
+                        + empleado.getApellidoMaterno()).equals(nombreEmpleado))
+                .collect(Collectors.toList()).get(0).getIdEmpleado();
         int idArea = new AreaDAO().areas().stream().filter(
-                area -> area.getNombre().equals(nombreArea)
-        ).collect(Collectors.toList()).get(0).getId();
+                area -> area.getNombre().equals(nombreArea)).collect(Collectors.toList()).get(0).getId();
         int idUsuario = new UsuarioDAO().usuarios().stream().filter(
-                usuario -> usuario.getUsuario().equals(nombreUsuario)
-        ).collect(Collectors.toList()).get(0).getIdUsuario();
+                usuario -> usuario.getUsuario().equals(nombreUsuario)).collect(Collectors.toList()).get(0)
+                .getIdUsuario();
 
         salida.setIdSalida((Integer) tableModelSalidas.getValueAt(row, 0));
         salida.setIdMaterial(idMaterial);
@@ -652,49 +643,51 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
     private void buscarEmpleado(String data) {
         empleados = new EmpleadoDAO().empleados();
+        Collections.sort(empleados);
         List<Empleado> filter;
         String titulos[] = {
-            "ID",
-            "NID",
-            "Nombre",
-            "Apellido paterno",
-            "Apellido materno",
-            "Teléfono",
-            "Correo electrónico",
-            "Area",
-            "Contratado"
+                "ID",
+                "NID",
+                "Nombre",
+                "Apellido paterno",
+                "Apellido materno",
+                "Teléfono",
+                "Correo electrónico",
+                "Area",
+                "Contratado"
         };
         tableModelEmpleados = new TableModel(null, titulos);
         if (data.equals("")) {
             filter = empleados.stream().collect(Collectors.toList());
         } else {
-            filter = empleados.stream().filter(empleado
-                    -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).toLowerCase().startsWith(data) || empleado.getApellidoPaterno().toLowerCase().startsWith(data) || empleado.getNid().startsWith(data)
-            ).collect(Collectors.toList());
+            filter = empleados.stream()
+                    .filter(empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " "
+                            + empleado.getApellidoMaterno()).toLowerCase().startsWith(data)
+                            || empleado.getApellidoPaterno().toLowerCase().startsWith(data)
+                            || empleado.getNid().startsWith(data))
+                    .collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
-            filter = ordenamiento(filter, 0);
             filter.forEach(
                     empleado -> {
                         boolean contratado = empleado.isContratado();
                         if (contratado) {
                             String area = new AreaDAO().areas().stream().filter(
-                                    obj -> obj.getId() == empleado.getIdArea()
-                            ).collect(Collectors.toList()).get(0).getNombre();
+                                    obj -> obj.getId() == empleado.getIdArea()).collect(Collectors.toList()).get(0)
+                                    .getNombre();
                             Object[] objects = {
-                                empleado.getIdEmpleado(),
-                                empleado.getNid(),
-                                empleado.getNombre(),
-                                empleado.getApellidoPaterno(),
-                                empleado.getApellidoMaterno(),
-                                empleado.getTelefono(),
-                                empleado.getEmail(),
-                                area,
-                                contratado};
+                                    empleado.getIdEmpleado(),
+                                    empleado.getNid(),
+                                    empleado.getNombre(),
+                                    empleado.getApellidoPaterno(),
+                                    empleado.getApellidoMaterno(),
+                                    empleado.getTelefono(),
+                                    empleado.getEmail(),
+                                    area,
+                                    contratado };
                             tableModelEmpleados.addRow(objects);
                         }
-                    }
-            );
+                    });
 
         }
 
@@ -708,46 +701,48 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
     private void buscarEmpleadoPorOperador(String data) {
         empleados = new EmpleadoDAO().empleados();
+        Collections.sort(empleados);
         List<Empleado> filter;
         String titulos[] = {
-            "ID",
-            "Nombre",
-            "Apellido paterno",
-            "Apellido materno",
-            "Teléfono",
-            "Correo electrónico",
-            "Area"
+                "ID",
+                "Nombre",
+                "Apellido paterno",
+                "Apellido materno",
+                "Teléfono",
+                "Correo electrónico",
+                "Area"
         };
         tableModelEmpleados = new TableModel(null, titulos);
         if (data.equals("")) {
             filter = empleados.stream().collect(Collectors.toList());
         } else {
-            filter = empleados.stream().filter(empleado
-                    -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).toLowerCase().startsWith(data) || empleado.getApellidoPaterno().toLowerCase().startsWith(data) || empleado.getNid().startsWith(data)
-            ).collect(Collectors.toList());
+            filter = empleados.stream()
+                    .filter(empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " "
+                            + empleado.getApellidoMaterno()).toLowerCase().startsWith(data)
+                            || empleado.getApellidoPaterno().toLowerCase().startsWith(data)
+                            || empleado.getNid().startsWith(data))
+                    .collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
-            filter = ordenamiento(filter, 0);
             filter.forEach(
                     empleado -> {
                         boolean contratado = empleado.isContratado();
                         if (contratado) {
                             String area = new AreaDAO().areas().stream().filter(
-                                    obj -> obj.getId() == empleado.getIdArea()
-                            ).collect(Collectors.toList()).get(0).getNombre();
+                                    obj -> obj.getId() == empleado.getIdArea()).collect(Collectors.toList()).get(0)
+                                    .getNombre();
                             Object[] objects = {
-                                empleado.getIdEmpleado(),
-                                empleado.getNombre(),
-                                empleado.getApellidoPaterno(),
-                                empleado.getApellidoMaterno(),
-                                empleado.getTelefono(),
-                                empleado.getEmail(),
-                                area
+                                    empleado.getIdEmpleado(),
+                                    empleado.getNombre(),
+                                    empleado.getApellidoPaterno(),
+                                    empleado.getApellidoMaterno(),
+                                    empleado.getTelefono(),
+                                    empleado.getEmail(),
+                                    area
                             };
                             tableModelEmpleados.addRow(objects);
                         }
-                    }
-            );
+                    });
 
         }
 
@@ -758,40 +753,13 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         tbEmpleados.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
-    private List<Empleado> ordenamiento(List<Empleado> filter, int modoOrdenamiento) {
-        switch (modoOrdenamiento) {
-            case 0:
-                filter.sort(new Comparator<Empleado>() {
-                    @Override
-                    public int compare(Empleado o1, Empleado o2) {
-                        return o1.getNombre().compareToIgnoreCase(o2.getNombre());
-                    }
-
-                });
-                break;
-
-            case 1:
-                filter.sort(new Comparator<Empleado>() {
-                    @Override
-                    public int compare(Empleado o1, Empleado o2) {
-                        return o1.getApellidoPaterno().compareToIgnoreCase(o2.getApellidoPaterno());
-                    }
-
-                });
-                break;
-
-        }
-
-        return filter;
-    }
-
     private void obtenerEmpleado() {
         int rowS = tbEmpleados.getSelectedRow();
         int idEmpleado = (Integer) tableModelEmpleados.getValueAt(rowS, 0);
-        //OBTENER EL ID
+        // OBTENER EL ID
         int idArea = new AreaDAO().areas().stream().filter(
-                area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 7)
-                )).collect(Collectors.toList()).get(0).getId();
+                area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 7)))
+                .collect(Collectors.toList()).get(0).getId();
         empleado = new Empleado(
                 idEmpleado,
                 (String) tableModelEmpleados.getValueAt(rowS, 1),
@@ -801,8 +769,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 (String) tableModelEmpleados.getValueAt(rowS, 5),
                 (String) tableModelEmpleados.getValueAt(rowS, 6),
                 (Boolean) tableModelEmpleados.getValueAt(rowS, 8),
-                idArea
-        );
+                idArea);
         textFields.get(1).setText(getNombreEmpleado(idEmpleado));
         textFields.get(2).setText(getNombreArea(empleado.getIdArea()));
         Objetos.eventoComun.remarcarLabel(labels.get(2), "Empleado solicitante:", COLOR_BASE);
@@ -814,19 +781,18 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private void obtenerEmpleadoPorOperador() {
         int rowS = tbEmpleados.getSelectedRow();
         int idEmpleado = (Integer) tableModelEmpleados.getValueAt(rowS, 0);
-        //OBTENER EL ID
+        // OBTENER EL ID
         int idArea = new AreaDAO().areas().stream().filter(
-                area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 6)
-                )).collect(Collectors.toList()).get(0).getId();
+                area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 6)))
+                .collect(Collectors.toList()).get(0).getId();
 
         empleado = new Empleado(
-                idEmpleado, (String) tableModelEmpleados.getValueAt(rowS, 1), 
+                idEmpleado, (String) tableModelEmpleados.getValueAt(rowS, 1),
                 (String) tableModelEmpleados.getValueAt(rowS, 2),
-                (String) tableModelEmpleados.getValueAt(rowS, 3), 
+                (String) tableModelEmpleados.getValueAt(rowS, 3),
                 (String) tableModelEmpleados.getValueAt(rowS, 4),
-                (String) tableModelEmpleados.getValueAt(rowS, 5), 
-                idArea
-        );
+                (String) tableModelEmpleados.getValueAt(rowS, 5),
+                idArea);
         textFields.get(1).setText(getNombreEmpleado(idEmpleado));
         textFields.get(2).setText(getNombreArea(empleado.getIdArea()));
         Objetos.eventoComun.remarcarLabel(labels.get(2), "Empleado solicitante:", COLOR_BASE);
@@ -837,51 +803,51 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
     private void buscarMaterial(String data) {
         materiales = new MaterialDAO().materiales();
+        Collections.sort(materiales);
         List<Material> filter = materiales;
         String titulos[] = {
-            "ID",
-            "Nombre",
-            "Cantidad",
-            "Limite minimo",
-            "SKU",
-            "Fecha ingreso",
-            "Unidad",
-            "Clasificacion",
-            "Tienda",
-            "Usuario"
+                "ID",
+                "Nombre",
+                "Cantidad",
+                "Limite minimo",
+                "SKU",
+                "Fecha ingreso",
+                "Unidad",
+                "Clasificacion",
+                "Tienda",
+                "Usuario"
         };
         tableModelMateriales = new TableModel(null, titulos);
         if (data.equals("")) {
             filter = materiales.stream().collect(Collectors.toList());
         } else {
-            filter = materiales.stream().filter(material
-                    -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data)
-            ).collect(Collectors.toList());
+            filter = materiales.stream().filter(
+                    material -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data))
+                    .collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
             filter.forEach(
                     material -> {
                         String clasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
-                                obj -> obj.getId() == material.getIdClasificacion()
-                        ).collect(Collectors.toList()).get(0).getNombre();
+                                obj -> obj.getId() == material.getIdClasificacion()).collect(Collectors.toList()).get(0)
+                                .getNombre();
                         String tienda = new TiendaDAO().tiendas().stream().filter(
-                                obj -> obj.getId() == material.getIdTienda()
-                        ).collect(Collectors.toList()).get(0).getNombre();
+                                obj -> obj.getId() == material.getIdTienda()).collect(Collectors.toList()).get(0)
+                                .getNombre();
                         Object[] objects = {
-                            material.getIdMaterial(),
-                            material.getNombreMaterial(),
-                            material.getCantidad(),
-                            material.getLimiteMinimo(),
-                            material.getSku(),
-                            material.getFechaIngreso(),
-                            getNombreUnidad(material.getIdUnidad()),
-                            clasificacion,
-                            tienda,
-                            getNombreUsuarioConfirmante(material.getIdUsuario())
+                                material.getIdMaterial(),
+                                material.getNombreMaterial(),
+                                material.getCantidad(),
+                                material.getLimiteMinimo(),
+                                material.getSku(),
+                                material.getFechaIngreso(),
+                                getNombreUnidad(material.getIdUnidad()),
+                                clasificacion,
+                                tienda,
+                                getNombreUsuarioConfirmante(material.getIdUsuario())
                         };
                         tableModelMateriales.addRow(objects);
-                    }
-            );
+                    });
         }
         tbMateriales.setModel(tableModelMateriales);
         tbMateriales.getColumnModel().getColumn(5).setPreferredWidth(200);
@@ -893,35 +859,35 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
 
     private void buscarMaterialPorOperador(String data) {
         materiales = new MaterialDAO().materiales();
+        Collections.sort(materiales);
         List<Material> filter = materiales;
         String titulos[] = {
-            "ID",
-            "Nombre",
-            "Cantidad",
-            "Unidad",
-            "Usuario"
+                "ID",
+                "Nombre",
+                "Cantidad",
+                "Unidad",
+                "Usuario"
         };
         tableModelMateriales = new TableModel(null, titulos);
         if (data.equals("")) {
             filter = materiales.stream().collect(Collectors.toList());
         } else {
-            filter = materiales.stream().filter(material
-                    -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data)
-            ).collect(Collectors.toList());
+            filter = materiales.stream().filter(
+                    material -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data))
+                    .collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
             filter.forEach(
                     material -> {
                         Object[] objects = {
-                            material.getIdMaterial(),
-                            material.getNombreMaterial(),
-                            material.getCantidad(),
-                            getNombreUnidad(material.getIdUnidad()),
-                            getNombreUsuarioConfirmante(material.getIdUsuario())
+                                material.getIdMaterial(),
+                                material.getNombreMaterial(),
+                                material.getCantidad(),
+                                getNombreUnidad(material.getIdUnidad()),
+                                getNombreUsuarioConfirmante(material.getIdUsuario())
                         };
                         tableModelMateriales.addRow(objects);
-                    }
-            );
+                    });
         }
         tbMateriales.setModel(tableModelMateriales);
         tbMateriales.setRowHeight(30);
@@ -933,23 +899,24 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
     private void obtenerMaterial() {
         int row = tbMateriales.getSelectedRow();
         int idMaterial = (Integer) tableModelMateriales.getValueAt(row, 0);
-        //OBTENEMOS LOS IDS
+        // OBTENEMOS LOS IDS
         int idUnidad = new UnidadDAO().unidades().stream().filter(
-                unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 6))
-        ).collect(Collectors.toList()).get(0).getId();
+                unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 6)))
+                .collect(Collectors.toList()).get(0).getId();
         int idClasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
-                clasificacion -> clasificacion.getNombre().equals((String) tableModelMateriales.getValueAt(row, 7)
-                )).collect(Collectors.toList()).get(0).getId();
+                clasificacion -> clasificacion.getNombre().equals((String) tableModelMateriales.getValueAt(row, 7)))
+                .collect(Collectors.toList()).get(0).getId();
         int idTienda = new TiendaDAO().tiendas().stream().filter(
-                tienda -> tienda.getNombre().equals((String) tableModelMateriales.getValueAt(row, 8)
-                )).collect(Collectors.toList()).get(0).getId();
-        //FIN 
+                tienda -> tienda.getNombre().equals((String) tableModelMateriales.getValueAt(row, 8)))
+                .collect(Collectors.toList()).get(0).getId();
+        // FIN
         String nombreMaterial = (String) tableModelMateriales.getValueAt(row, 1);
         int cantidad = (Integer) tableModelMateriales.getValueAt(row, 2);
         int limiteMinimo = (Integer) tableModelMateriales.getValueAt(row, 3);
         String sku = (String) tableModelMateriales.getValueAt(row, 4);
         String fechaIngreso = (String) tableModelMateriales.getValueAt(row, 5);
-        material = new Material(idMaterial, nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad, idClasificacion, idTienda, usuario.getIdUsuario());
+        material = new Material(idMaterial, nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad,
+                idClasificacion, idTienda, usuario.getIdUsuario());
         textFields.get(3).setText(material.getNombreMaterial());
         textFields.get(4).setText(getNombreUnidad(material.getIdUnidad()));
         Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado", COLOR_BASE);
@@ -957,29 +924,32 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         ocultarComponenteTabbedPane("Materiales");
         seccionMaterialesActiva = false;
     }
+
     private void obtenerMaterialPorOperador() {
         /**
          * "ID", "Nombre", "Cantidad", "Unidad", "Usuario"
          */
         int row = tbMateriales.getSelectedRow();
         int idMaterial = (Integer) tableModelMateriales.getValueAt(row, 0);
-        //OBTENEMOS LOS IDS
+        // OBTENEMOS LOS IDS
         int idUnidad = new UnidadDAO().unidades().stream().filter(
-                unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 3))
-        ).collect(Collectors.toList()).get(0).getId();
-        //FIN 
+                unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 3)))
+                .collect(Collectors.toList()).get(0).getId();
+        // FIN
         String nombreMaterial = (String) tableModelMateriales.getValueAt(row, 1);
         int cantidad = (Integer) tableModelMateriales.getValueAt(row, 2);
         material = new Material(idMaterial, nombreMaterial, cantidad, idUnidad, usuario.getIdUsuario());
         textFields.get(3).setText(material.getNombreMaterial());
         textFields.get(4).setText(getNombreUnidad(material.getIdUnidad()));
-        Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado",COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado", COLOR_BASE);
         Objetos.eventoComun.remarcarLabel(labels.get(5), "Unidad del material", COLOR_BASE);
         ocultarComponenteTabbedPane("Materiales");
         seccionMaterialesActiva = false;
     }
+
     private boolean validarEntrada() {
-        if (textFields.get(0).getText().isBlank() && txtAreaConcepto.getText().isBlank() && textFields.get(1).getText().isBlank()
+        if (textFields.get(0).getText().isBlank() && txtAreaConcepto.getText().isBlank()
+                && textFields.get(1).getText().isBlank()
                 && textFields.get(3).getText().isBlank()) {
             reestablecer();
             Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa la cantidad de salida:", Color.red);
@@ -1015,18 +985,18 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
             if (Integer.parseInt(textFields.get(0).getText()) <= material.getCantidad()) {
 
                 Object[] data = {
-                    textFields.get(0).getText(),
-                    txtAreaConcepto.getText(),
-                    getFecha(),
-                    empleado.getIdEmpleado(),
-                    empleado.getIdArea(),
-                    material.getIdMaterial(),
-                    material.getIdUnidad(),
-                    usuario.getIdUsuario()
+                        textFields.get(0).getText(),
+                        txtAreaConcepto.getText(),
+                        getFecha(),
+                        empleado.getIdEmpleado(),
+                        empleado.getIdArea(),
+                        material.getIdMaterial(),
+                        material.getIdUnidad(),
+                        usuario.getIdUsuario()
                 };
                 new SalidaDAO().insert(data);
                 material.setCantidad(material.getCantidad() - Integer.parseInt(textFields.get(0).getText()));
-                Object[] materialData = {material.getCantidad()};
+                Object[] materialData = { material.getCantidad() };
                 new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData, false);
                 reestablecer();
             } else {
@@ -1081,28 +1051,21 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
         if (tabbedPaneSalidas.getTabCount() < 2) {
             tabbedPaneSalidas.addTab("Materiales", componentMateriales);
             tabbedPaneSalidas.setSelectedIndex(tabbedPaneSalidas.getTabCount() - 1);
-            if(administrador){
+            if (administrador) {
                 buscarMaterial("");
-            }else{
+            } else {
                 buscarMaterialPorOperador("");
             }
         }
     }
 
-    public String getFecha() {
-        String strFormat = "YYYY-MM-dd hh: mm: ss a";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
-        Date fecha = new Date();
-        return dateFormat.format(fecha).toString();
-    }
-
     public String getApellidoEmpleado(int id) {
-        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id).
-                collect(Collectors.toList()).get(0).getApellidoPaterno();
+        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id)
+                .collect(Collectors.toList()).get(0).getApellidoPaterno();
     }
 
     public String getContactoEmpleado(int id) {
-        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id).
-                collect(Collectors.toList()).get(0).getEmail();
+        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id)
+                .collect(Collectors.toList()).get(0).getEmail();
     }
 }

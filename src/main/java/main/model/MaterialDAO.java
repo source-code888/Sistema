@@ -51,7 +51,8 @@ public class MaterialDAO extends Conexion {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
             String sqlUpdate = "UPDATE material SET nombreMaterial = ?, cantidad = ?, limiteMinimo = ?, sku = ?, "
-                    + "fechaIngreso = ?, idUnidad = ?, idClasificacion = ?, idTienda = ?, idUsuario = ? WHERE idMaterial = " + idRegistro;
+                    + "fechaIngreso = ?, idUnidad = ?, idClasificacion = ?, idTienda = ?, idUsuario = ? WHERE idMaterial = "
+                    + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
         } finally {
@@ -65,24 +66,25 @@ public class MaterialDAO extends Conexion {
             try {
                 final QueryRunner qr = new QueryRunner();
                 getConn().setAutoCommit(false);
-                String sqlUpdate = "UPDATE material SET cantidad = ?, fechaIngreso = ?, idUsuario = ? WHERE idMaterial = " + idRegistro;
+                String sqlUpdate = "UPDATE material SET cantidad = ?, fechaIngreso = ?, idUsuario = ? WHERE idMaterial = "
+                        + idRegistro;
                 qr.update(getConn(), sqlUpdate, data);
                 getConn().commit();
             } finally {
                 getConn().rollback();
                 getConn().close();
             }
-        }else{
+        } else {
             try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
-            String sqlUpdate = "UPDATE material SET cantidad = ? WHERE idMaterial = " + idRegistro;
-            qr.update(getConn(), sqlUpdate, data);
-            getConn().commit();
-        } finally {
-            getConn().rollback();
-            getConn().close();
-        }
+                final QueryRunner qr = new QueryRunner();
+                getConn().setAutoCommit(false);
+                String sqlUpdate = "UPDATE material SET cantidad = ? WHERE idMaterial = " + idRegistro;
+                qr.update(getConn(), sqlUpdate, data);
+                getConn().commit();
+            } finally {
+                getConn().rollback();
+                getConn().close();
+            }
         }
     }
 

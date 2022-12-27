@@ -1,17 +1,16 @@
 package main.controller;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 import java.sql.SQLException;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultComboBoxModel;
@@ -26,7 +25,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.TableCellRenderer;
 import static main.library.EventoComun.COLOR_BASE;
 import main.library.Objetos;
 import static main.library.Objetos.METHOD_FIRST;
@@ -40,9 +38,9 @@ import main.model.Area;
 import main.model.AreaDAO;
 import main.model.Empleado;
 import main.model.EmpleadoDAO;
-import main.view.Estructura;
 
-public class EmpleadoController implements FocusListener, KeyListener, ActionListener, MouseListener, TableCellRenderer, ChangeListener {
+public class EmpleadoController extends MouseAdapter
+        implements FocusListener, KeyListener, ActionListener, ChangeListener {
 
     private TableModel defaultTableModel;
     private String accion = "insert";
@@ -50,24 +48,25 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     private List<Empleado> empleados;
     private List<Area> areas;
     private int rowSelected;
-    private int modoOrdenamiento = 0;
 
-    //ELEMENTOS DE LA VISTA
+    // ELEMENTOS DE LA VISTA
     private List<JButton> buttons;
     private List<JTextField> textFields;
     private List<JLabel> labels;
     private List<JLabel> labelsColumn;
-    private JComboBox cbxAreas;
+    private JComboBox<String> cbxAreas;
     private JTable tbEmpleados;
     private JCheckBox jcbContratado;
 
-    //ELEMENTOS DEL PAGIANDOR
+    // ELEMENTOS DEL PAGIANDOR
     private Paginador<Empleado> paginador;
     private int rows = 10;
     private int pagNum = 1;
     private JSpinner spinner;
 
-    public EmpleadoController(List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JComboBox cbxAreas, JSpinner spinner, JTable tbEmpleados, List<JLabel> labelsColumn, JCheckBox jcbContratado) {
+    public EmpleadoController(List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels,
+            JComboBox<String> cbxAreas, JSpinner spinner, JTable tbEmpleados, List<JLabel> labelsColumn,
+            JCheckBox jcbContratado) {
         this.buttons = buttons;
         this.textFields = textFields;
         this.labels = labels;
@@ -121,28 +120,28 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
     private void comboModel() {
         iniciarListas();
-        String[] objetosUnidad = new String[areas.size()];
+        DefaultComboBoxModel<String> boxModel = new DefaultComboBoxModel<>();
+        List<String> items = new ArrayList<>();
         for (int i = 0; i < areas.size(); i++) {
-            objetosUnidad[i] = areas.get(i).getNombre();
+            items.add(areas.get(i).getNombre());
         }
-        DefaultComboBoxModel boxModelU = new DefaultComboBoxModel(objetosUnidad);
-        boxModelU.setSelectedItem(null);
-        cbxAreas.setModel(boxModelU);
+        boxModel.addAll(items);
+        cbxAreas.setModel(boxModel);
     }
 
     private void buscar(String data) {
-        empleados = ordenamiento(empleados);
+        Collections.sort(empleados);
         List<Empleado> filter;
         String titulos[] = {
-            "ID",
-            "NID",
-            "Nombre",
-            "Apellido paterno",
-            "Apellido materno",
-            "Teléfono",
-            "Correo electrónico",
-            "Area",
-            "Contratado"
+                "ID",
+                "NID",
+                "Nombre",
+                "Apellido paterno",
+                "Apellido materno",
+                "Teléfono",
+                "Correo electrónico",
+                "Area",
+                "Contratado"
         };
         defaultTableModel = new TableModel(null, titulos);
 
@@ -150,9 +149,11 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         if (data.equals("")) {
             filter = empleados.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
-            filter = empleados.stream().filter(empleado
-                    -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).toLowerCase().startsWith(data) || empleado.getApellidoPaterno().startsWith(data)
-            ).skip(start).limit(rows).collect(Collectors.toList());
+            filter = empleados.stream()
+                    .filter(empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " "
+                            + empleado.getApellidoMaterno()).toLowerCase().startsWith(data)
+                            || empleado.getApellidoPaterno().startsWith(data))
+                    .skip(start).limit(rows).collect(Collectors.toList());
         }
 
         if (!filter.isEmpty()) {
@@ -160,27 +161,25 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
             filter.forEach(
                     empleado -> {
                         String area = areas.stream().filter(
-                                obj -> obj.getId() == empleado.getIdArea()
-                        ).collect(Collectors.toList()).get(0).getNombre();
+                                obj -> obj.getId() == empleado.getIdArea()).collect(Collectors.toList()).get(0)
+                                .getNombre();
 
                         Object[] objects = {
-                            empleado.getIdEmpleado(),
-                            empleado.getNid(),
-                            empleado.getNombre(),
-                            empleado.getApellidoPaterno(),
-                            empleado.getApellidoMaterno(),
-                            empleado.getTelefono(),
-                            empleado.getEmail(),
-                            area,
-                            empleado.isContratado()
+                                empleado.getIdEmpleado(),
+                                empleado.getNid(),
+                                empleado.getNombre(),
+                                empleado.getApellidoPaterno(),
+                                empleado.getApellidoMaterno(),
+                                empleado.getTelefono(),
+                                empleado.getEmail(),
+                                area,
+                                empleado.isContratado()
                         };
 
                         defaultTableModel.addRow(objects);
-                    }
-            );
+                    });
 
         }
-
         tbEmpleados.setModel(defaultTableModel);
         tbEmpleados.setRowHeight(30);
         tbEmpleados.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -245,9 +244,11 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 }
             }
 
-            /*if (cbxAreas.getSelectedItem() == null) {
-                remarcarLabel(labels.get(5), "Selecciona una area", Color.red);
-            }*/
+            /*
+             * if (cbxAreas.getSelectedItem() == null) {
+             * remarcarLabel(labels.get(5), "Selecciona una area", Color.red);
+             * }
+             */
         }
     }
 
@@ -361,16 +362,16 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         try {
             if (noExiste(new Empleado(textFields.get(6).getText(),
                     textFields.get(3).getText(), textFields.get(4).getText()), false)) {
-                
+
                 Object[] data = {
-                    textFields.get(6).getText(),
-                    textFields.get(0).getText(),
-                    textFields.get(1).getText(),
-                    textFields.get(2).getText(),
-                    textFields.get(3).getText(),
-                    textFields.get(4).getText(),
-                    jcbContratado.isSelected(),
-                    getIdArea(cbxAreas.getSelectedItem().toString())
+                        textFields.get(6).getText(),
+                        textFields.get(0).getText(),
+                        textFields.get(1).getText(),
+                        textFields.get(2).getText(),
+                        textFields.get(3).getText(),
+                        textFields.get(4).getText(),
+                        jcbContratado.isSelected(),
+                        getIdArea(cbxAreas.getSelectedItem().toString())
                 };
                 new EmpleadoDAO().insert(data);
                 reestablecer();
@@ -383,8 +384,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
     private int getIdArea(String nombre) {
         return areas.stream().filter(
-                area -> area.getNombre().equals(nombre
-                )).collect(Collectors.toList()).get(0).getId();
+                area -> area.getNombre().equals(nombre)).collect(Collectors.toList()).get(0).getId();
     }
 
     @Override
@@ -399,10 +399,12 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 if (validarEntradas()) {
                     if (!empleado.getEmail().equals(textFields.get(4).getText())
                             || !empleado.getNid().equals(textFields.get(6).getText())
-                            || !empleado.getTelefono().equals(textFields.get(3).getText()) || empleado.isContratado() != jcbContratado.isSelected()
+                            || !empleado.getTelefono().equals(textFields.get(3).getText())
+                            || empleado.isContratado() != jcbContratado.isSelected()
                             || !empleado.getNombre().equals(textFields.get(0).getText())
                             || !empleado.getApellidoPaterno().equals(textFields.get(1).getText())
-                            || !empleado.getApellidoMaterno().equals(textFields.get(2).getText()) || empleado.getIdArea() != getIdArea(cbxAreas.getSelectedItem().toString())) {
+                            || !empleado.getApellidoMaterno().equals(textFields.get(2).getText())
+                            || empleado.getIdArea() != getIdArea(cbxAreas.getSelectedItem().toString())) {
                         updateEmpleado();
                     } else {
                         reestablecer();
@@ -437,7 +439,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(java.awt.event.MouseEvent e) {
         Object obj = e.getSource();
         if (obj instanceof JTable) {
             JTable tb = (JTable) obj;
@@ -453,25 +455,6 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 }
             }
         }
-        if (obj instanceof JLabel) {
-        }
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
     }
 
     private void obtenerRegistro() {
@@ -488,10 +471,10 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         jcbContratado.setSelected((Boolean) defaultTableModel.getValueAt(row, 8));
         textFields.get(6).requestFocus();
         buttons.get(1).setVisible(true);
-        //OBTENER EL ID
+        // OBTENER EL ID
         int idArea = areas.stream().filter(
-                area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString()
-                )).collect(Collectors.toList()).get(0).getId();
+                area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString())).collect(Collectors.toList())
+                .get(0).getId();
 
         empleado = new Empleado(
                 idEmpleado,
@@ -502,8 +485,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 textFields.get(3).getText(),
                 textFields.get(4).getText(),
                 jcbContratado.isSelected(),
-                idArea
-        );
+                idArea);
 
         if (!textFields.get(5).getText().equals("")) {
             textFields.get(5).setText("");
@@ -516,8 +498,8 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
 
     private void updateEmpleado() {
         int idArea = areas.stream().filter(
-                area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString())
-        ).collect(Collectors.toList()).get(0).getId();
+                area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString())).collect(Collectors.toList())
+                .get(0).getId();
 
         try {
             if (noExiste(new Empleado(empleado.getIdEmpleado(), textFields.get(6).getText(),
@@ -530,14 +512,14 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
                 empleado.setEmail(textFields.get(4).getText());
                 empleado.setIdArea(idArea);
                 Object[] data = {
-                    empleado.getNid(),
-                    empleado.getNombre(),
-                    empleado.getApellidoPaterno(),
-                    empleado.getApellidoMaterno(),
-                    empleado.getTelefono(),
-                    empleado.getEmail(),
-                    jcbContratado.isSelected(),
-                    empleado.getIdArea()
+                        empleado.getNid(),
+                        empleado.getNombre(),
+                        empleado.getApellidoPaterno(),
+                        empleado.getApellidoMaterno(),
+                        empleado.getTelefono(),
+                        empleado.getEmail(),
+                        jcbContratado.isSelected(),
+                        empleado.getIdArea()
                 };
                 new EmpleadoDAO().update(empleado.getIdEmpleado(), data);
                 reestablecer();
@@ -549,8 +531,10 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
     }
 
     public boolean validarEntradas() {
-        if (textFields.get(0).getText().isBlank() && textFields.get(1).getText().isBlank() && textFields.get(2).getText().isEmpty()
-                && textFields.get(3).getText().isBlank() && !Objetos.eventoComun.isEmail(textFields.get(4).getText()) && cbxAreas.getSelectedItem() == null
+        if (textFields.get(0).getText().isBlank() && textFields.get(1).getText().isBlank()
+                && textFields.get(2).getText().isEmpty()
+                && textFields.get(3).getText().isBlank() && !Objetos.eventoComun.isEmail(textFields.get(4).getText())
+                && cbxAreas.getSelectedItem() == null
                 && textFields.get(6).getText().isBlank()) {
             reestablecer();
             Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa un nombre", Color.red);
@@ -593,37 +577,7 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         return true;
     }
 
-    private List<Empleado> ordenamiento(List<Empleado> filter) {
-        switch (modoOrdenamiento) {
-            case 0:
-                filter.sort(new Comparator<Empleado>() {
-                    @Override
-                    public int compare(Empleado o1, Empleado o2) {
-                        return o1.getNombre().compareToIgnoreCase(o2.getNombre());
-                    }
-
-                });
-                break;
-
-            case 1:
-                filter.sort(new Comparator<Empleado>() {
-                    @Override
-                    public int compare(Empleado o1, Empleado o2) {
-                        return o1.getApellidoPaterno().compareToIgnoreCase(o2.getApellidoPaterno());
-                    }
-
-                });
-                break;
-
-        }
-
-        return filter;
-    }
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        return new JLabel();
-    }
+   
 
     @Override
     public void stateChanged(ChangeEvent e) {
@@ -667,24 +621,24 @@ public class EmpleadoController implements FocusListener, KeyListener, ActionLis
         boolean nidE, emailE, telE;
         if (idActivo) {
             emailE = (empleados.stream().filter(
-                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado()
-            ).collect(Collectors.toList()).size() == 1);
+                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                    .collect(Collectors.toList()).size() == 1);
             telE = (empleados.stream().filter(
-                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado()
-            ).collect(Collectors.toList()).size() == 1);
+                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                    .collect(Collectors.toList()).size() == 1);
             nidE = (empleados.stream().filter(
-                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado()
-            ).collect(Collectors.toList()).size() == 1);
+                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                    .collect(Collectors.toList()).size() == 1);
         } else {
             emailE = (empleados.stream().filter(
-                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado()
-            ).collect(Collectors.toList()).size() == 1);
+                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                    .collect(Collectors.toList()).size() == 1);
             telE = (empleados.stream().filter(
-                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado()
-            ).collect(Collectors.toList()).size() == 1);
+                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                    .collect(Collectors.toList()).size() == 1);
             nidE = (empleados.stream().filter(
-                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado()
-            ).collect(Collectors.toList()).size() == 1);
+                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                    .collect(Collectors.toList()).size() == 1);
         }
         if (emailE && telE && nidE) {
             Objetos.eventoComun.remarcarLabel(labels.get(3), "El teléfono ya existe", Color.red);

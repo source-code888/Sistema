@@ -2,7 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
-public class Empleado implements Serializable {
+public class Empleado implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     private int idEmpleado;
@@ -18,7 +18,8 @@ public class Empleado implements Serializable {
     public Empleado() {
     }
 
-    public Empleado(int idEmpleado, String nid, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, boolean contratado, int idArea) {
+    public Empleado(int idEmpleado, String nid, String nombre, String apellidoPaterno, String apellidoMaterno,
+            String telefono, String email, boolean contratado, int idArea) {
         this.idEmpleado = idEmpleado;
         this.nid = nid;
         this.nombre = nombre;
@@ -30,7 +31,8 @@ public class Empleado implements Serializable {
         this.idArea = idArea;
     }
 
-    public Empleado(String nid, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, boolean contratado, int idArea) {
+    public Empleado(String nid, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
+            String email, boolean contratado, int idArea) {
         this.nid = nid;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -41,7 +43,8 @@ public class Empleado implements Serializable {
         this.idArea = idArea;
     }
 
-    public Empleado(int idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String email, int idArea) {
+    public Empleado(int idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
+            String email, int idArea) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -138,7 +141,16 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nid=" + nid + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", email=" + email + ", contratado=" + contratado + ", idArea=" + idArea + '}';
+        return "Empleado{" + "idEmpleado=" + idEmpleado + ", nid=" + nid + ", nombre=" + nombre + ", apellidoPaterno="
+                + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", email="
+                + email + ", contratado=" + contratado + ", idArea=" + idArea + '}';
     }
 
+    @Override
+    public int compareTo(Object o) {
+        if (!(o instanceof Empleado)) {
+            throw new IllegalArgumentException("Argumento inválido");
+        }
+        return nombre.compareToIgnoreCase(((Empleado) o).nombre);
+    }
 }

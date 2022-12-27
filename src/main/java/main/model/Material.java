@@ -2,7 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
-public class Material implements Serializable {
+public class Material implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     private int idMaterial;
@@ -16,7 +16,8 @@ public class Material implements Serializable {
     private int idTienda;
     private int idUsuario;
 
-    public Material(int idMaterial, String nombreMaterial, int cantidad, int limiteMinimo, String sku, String fechaIngreso, int idUnidad, int idClasificacion, int idTienda, int idUsuario) {
+    public Material(int idMaterial, String nombreMaterial, int cantidad, int limiteMinimo, String sku,
+            String fechaIngreso, int idUnidad, int idClasificacion, int idTienda, int idUsuario) {
         this.idMaterial = idMaterial;
         this.nombreMaterial = nombreMaterial;
         this.cantidad = cantidad;
@@ -29,7 +30,8 @@ public class Material implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Material(String nombreMaterial, int cantidad, int limiteMinimo, String sku, String fechaIngreso, int idUnidad, int idClasificacion, int idTienda, int idUsuario) {
+    public Material(String nombreMaterial, int cantidad, int limiteMinimo, String sku, String fechaIngreso,
+            int idUnidad, int idClasificacion, int idTienda, int idUsuario) {
         this.nombreMaterial = nombreMaterial;
         this.cantidad = cantidad;
         this.limiteMinimo = limiteMinimo;
@@ -47,6 +49,15 @@ public class Material implements Serializable {
         this.cantidad = cantidad;
         this.idUnidad = idUnidad;
         this.idUsuario = idUsuario;
+    }
+
+    public Material(int idMaterial, String sku) {
+        this.idMaterial = idMaterial;
+        this.sku = sku;
+    }
+
+    public Material(String sku) {
+        this.sku = sku;
     }
 
     public Material() {
@@ -134,7 +145,19 @@ public class Material implements Serializable {
 
     @Override
     public String toString() {
-        return "Material{" + "idMaterial=" + idMaterial + ", nombreMaterial=" + nombreMaterial + ", cantidad=" + cantidad + ", limiteMinimo=" + limiteMinimo + ", sku=" + sku + ", fechaIngreso=" + fechaIngreso + ", idUnidad=" + idUnidad + ", idClasificacion=" + idClasificacion + ", idTienda=" + idTienda + ", idUsuario=" + idUsuario + '}';
+        return "Material{" + "idMaterial=" + idMaterial + ", nombreMaterial=" + nombreMaterial + ", cantidad="
+                + cantidad + ", limiteMinimo=" + limiteMinimo + ", sku=" + sku + ", fechaIngreso=" + fechaIngreso
+                + ", idUnidad=" + idUnidad + ", idClasificacion=" + idClasificacion + ", idTienda=" + idTienda
+                + ", idUsuario=" + idUsuario + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (!(o instanceof Material)) {
+            throw new IllegalArgumentException("El objeto debe ser de tipo Salida");
+        }
+        Material mat = (Material) o;
+        return nombreMaterial.compareToIgnoreCase(mat.nombreMaterial);
     }
 
 }

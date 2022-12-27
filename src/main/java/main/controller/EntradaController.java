@@ -11,14 +11,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -26,16 +23,11 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import static main.library.EventoComun.COLOR_BASE;
-import static main.library.EventoComun.COLOR_TEXTO;
+import static main.library.EventoComun.*;
 import main.library.Objetos;
-import static main.library.Objetos.METHOD_FIRST;
-import static main.library.Objetos.METHOD_LAST;
-import static main.library.Objetos.METHOD_LATEST;
-import static main.library.Objetos.METHOD_NEXT;
+import static main.library.Objetos.*;
 import main.library.Paginador;
 import main.library.TableModel;
-import main.model.AreaDAO;
 import main.model.ClasificacionDAO;
 import main.model.Empleado;
 import main.model.EmpleadoDAO;
@@ -43,8 +35,6 @@ import main.model.Entrada;
 import main.model.EntradaDAO;
 import main.model.Material;
 import main.model.MaterialDAO;
-import main.model.Salida;
-import main.model.SalidaDAO;
 import main.model.TiendaDAO;
 import main.model.UnidadDAO;
 import main.model.Usuario;
@@ -84,7 +74,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     private final boolean administrador;
     private boolean seccionMaterialesActiva;
     private String accion;
-    private boolean materialSeleccionado;
 
     public EntradaController(JTabbedPane tabbedEntradas, JTable tbMateriales, JTable tbEntradas, JSpinner spinner, List<JLabel> labels, List<JButton> buttons, List<JTextField> textFields, Object object) {
         this.tabbedPaneEntradas = tabbedEntradas;
@@ -186,7 +175,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                         /*} else {
                             obtenerMaterialPorOperador();
                         }*/
-                        materialSeleccionado = true;
                     }
                 }
             }
@@ -225,10 +213,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 seccionMaterialesActiva = true;
                 mostrarTablaMaterial();
             }
-
-            if (textField.equals(textFields.get(1))) {
-                System.out.println("CANTIDAAAD");
-            }
         }
     }
 
@@ -260,7 +244,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                     //}else{
                     //    obtenerMaterialPorOperador();
                     //}
-                    materialSeleccionado = true;
                 }
             }
         }
@@ -299,16 +282,12 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         if (seccionMaterialesActiva) {
             ocultarComponenteTabbedPane("Materiales");
         }
-
-        materialSeleccionado = false;
         textFields.get(2).requestFocus();
     }
 
     private void buscar(String data) {
         Collections.sort(entradas);
-
         List<Entrada> filter;
-
         String titulos[] = {
             "ID",
             "Material",
@@ -316,13 +295,11 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             "Fecha",
             "Recibio"
         };
-
         tableModelEntradas = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
         if (data.equals("")) {
             filter = entradas.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
-
             filter = entradas.stream().filter(entrada
                     -> getNombreEmpleado(entrada.getIdEmpleado()).startsWith(data) || getNombreMaterial(entrada.getIdMaterial()).startsWith(data)
             ).skip(start).limit(rows).collect(Collectors.toList());
@@ -340,14 +317,12 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                     }
             );
         }
-
         tbEntradas.setModel(tableModelEntradas);
         tbEntradas.getColumnModel().getColumn(3).setPreferredWidth(200);
         tbEntradas.setRowHeight(30);
         tbEntradas.getColumnModel().getColumn(0).setMaxWidth(0);
         tbEntradas.getColumnModel().getColumn(0).setMinWidth(0);
         tbEntradas.getColumnModel().getColumn(0).setPreferredWidth(0);
-
     }
 
     private String getNombreEmpleado(int id) {
@@ -383,13 +358,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         }
     }
 
-    public String getFecha() {
-        String strFormat = "YYYY-MM-dd hh: mm: ss a";
-        SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
-        Date fecha = new Date();
-        return dateFormat.format(fecha).toString();
-    }
-
     private void insertarEntrada() {
         try {
             Object[] data = {
@@ -419,6 +387,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     private void buscarMaterial(String data) {
         materiales = new MaterialDAO().materiales();
+        Collections.sort(materiales);
         List<Material> filter = materiales;
         String titulos[] = {
             "ID",
@@ -518,7 +487,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private void obtenerRegistro() {
-
         accion = "update";
         entrada = new Entrada();
         int row = tbEntradas.getSelectedRow();
