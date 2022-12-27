@@ -598,7 +598,7 @@ public class SalidaController extends MouseAdapter implements ActionListener, Ch
                 unidad -> unidad.getNombre().equals(nombreUnidad)
         ).collect(Collectors.toList()).get(0).getId();
         int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
-                empleado -> empleado.getNombre().equals(nombreEmpleado)
+                empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).equals(nombreEmpleado)
         ).collect(Collectors.toList()).get(0).getIdEmpleado();
         int idArea = new AreaDAO().areas().stream().filter(
                 area -> area.getNombre().equals(nombreArea)

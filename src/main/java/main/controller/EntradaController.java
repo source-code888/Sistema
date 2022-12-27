@@ -531,7 +531,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 material -> material.getNombreMaterial().equals(nombreMaterial))
                 .collect(Collectors.toList()).get(0).getIdMaterial();
         int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
-                empleado -> empleado.getNombre().equals(recibio)
+                empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).equals(recibio)
         ).collect(Collectors.toList()).get(0).getIdEmpleado();
 
         entrada.setCantidadEntrada(cantidad);
