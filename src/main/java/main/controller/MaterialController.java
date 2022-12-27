@@ -110,8 +110,8 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
                     Objetos.eventoComun.remarcarLabel(labels.get(7), "Selecciona una tienda", Color.RED);
                 } else {
                     if (accion.equals("insert")) {
-                        try {
-                            String strFormat = "hh: mm: ss a dd-MM-YYYY";
+                        try {//hh: mm: ss a dd-MM-YYYY
+                            String strFormat = "YYYY-MM-dd hh: mm:ss a";
                             SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
                             Date fecha = new Date();
                             String fechaCompleta = dateFormat.format(fecha).toString();
@@ -372,11 +372,11 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
              */
             if (txt.equals(textFields.get(0))) {
                 //en caso de que poner numeros u otros caracteres en el nombre de un registro hay que borrar esto
-                Objetos.eventoComun.textKeyPressed(e);
+                //Objetos.eventoComun.textKeyPressed(e);
             }
             if (txt.equals(textFields.get(2))) {
                 //Remover si es necesario
-                Objetos.eventoComun.textKeyPressed(e);
+                //Objetos.eventoComun.textKeyPressed(e);
             }
             if (txt.equals(textFields.get(3))) {
                 Objetos.eventoComun.numberKeyPressed(e);
@@ -493,7 +493,7 @@ public class MaterialController extends MouseAdapter implements ActionListener, 
             filter = materiales.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = materiales.stream().filter(material
-                    -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data)
+                    -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data) || material.getFechaIngreso().startsWith(data)
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
