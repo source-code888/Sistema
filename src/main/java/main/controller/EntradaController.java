@@ -57,7 +57,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     //ELEMENTOS DEL PAGINADOR
     private Paginador<Entrada> paginador;
-    private int rows = 10;
+    private int rows = 20;
     private int pagNum = 1;
 
     //ELEMENTOS DE LA CLASE
@@ -269,7 +269,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         labels.get(5).setVisible(false);
         labels.get(6).setVisible(false);
 
-        SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
+        SpinnerNumberModel numberModel = new SpinnerNumberModel(20, 1, 100, 1);
         spinner.setModel(numberModel);
 
         buscar("");

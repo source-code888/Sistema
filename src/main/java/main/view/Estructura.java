@@ -1,12 +1,14 @@
 package main.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import main.controller.*;
 import java.util.*;
 import javax.swing.*;
 import main.library.CustomTabbedPane;
 import main.library.ImagenPath;
 import main.library.Objetos;
+import main.library.RowColorRenderer;
 
 public class Estructura extends javax.swing.JFrame {
 
@@ -17,6 +19,7 @@ public class Estructura extends javax.swing.JFrame {
         initComponents();
         eventosEstructura();
         eventosEntrada();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -179,10 +182,13 @@ public class Estructura extends javax.swing.JFrame {
         jMenuCerrar = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(815, 680));
+        setMinimumSize(new java.awt.Dimension(815, 810));
+
+        tabbedPanePrincipal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tbMateriales.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         tbMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -199,9 +205,13 @@ public class Estructura extends javax.swing.JFrame {
         tbMateriales.getTableHeader().setResizingAllowed(false);
         jScrollPane1.setViewportView(tbMateriales);
 
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Materiales");
 
+        spinner.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Registros por pagina");
 
         btnPrimero.setFocusPainted(false);
@@ -212,10 +222,13 @@ public class Estructura extends javax.swing.JFrame {
 
         btnUltimo.setFocusPainted(false);
 
+        lblPaginador.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPaginador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPaginador.setText("Paginas");
 
         lblBuscador.setBackground(new java.awt.Color(204, 204, 204));
+
+        txtBuscador.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -283,23 +296,46 @@ public class Estructura extends javax.swing.JFrame {
 
         btnEliminarMaterial.setFocusPainted(false);
 
+        lblNombreMaterial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNombreMaterial.setText("Nombre del material");
 
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtNombre.setPreferredSize(new java.awt.Dimension(64, 30));
 
+        lblUnidadMaterial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblUnidadMaterial.setText("Unidad");
 
+        cbxUnidad.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        lblLimiteMinimoMat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLimiteMinimoMat.setText("Limite minimo");
 
+        lblCantidadMaterial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCantidadMaterial.setText("Cantidad");
 
+        lblSkuMat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSkuMat.setText("SKU:");
 
+        txtSku.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        cbxClasificacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        lblClasificacionMat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblClasificacionMat.setText("Clasificacion");
 
+        cbxTiendas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         cbxTiendas.setToolTipText("");
 
+        lblTiendaMat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTiendaMat.setText("Tiendas");
+
+        lblTituloFecha.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        lblFechaIngreso.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        txtCantidad.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        txtLimiteMinimo.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -371,7 +407,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(lblTituloFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgregarNuevoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -405,23 +441,32 @@ public class Estructura extends javax.swing.JFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lblMaterialEntrada.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblMaterialEntrada.setText("Nombre del material");
 
+        txtMaterialEntrada.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtMaterialEntrada.setMinimumSize(new java.awt.Dimension(206, 22));
         txtMaterialEntrada.setPreferredSize(new java.awt.Dimension(64, 30));
 
+        lblCantidadEntrada.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCantidadEntrada.setText("Cantidad");
+
+        txtCantidadEntrada.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
 
         btnCancelarEntrada.setFocusPainted(false);
 
         btnAgregarEntrada.setFocusPainted(false);
 
+        lblFechaEntradaMaterial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblFechaEntradaMaterial.setText("Fecha de ingreso: ");
 
+        lblRecibioEntrada.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblRecibioEntrada.setText("Recibió:");
 
+        lblFechaFecha.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         lblFechaFecha.setText("Fecha");
 
+        lblRecibioRecibio.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         lblRecibioRecibio.setText("Nombre");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -492,6 +537,11 @@ public class Estructura extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tabbedPaneEntradas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        txtBuscadorEntrada.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        tbEntradas.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         tbEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -506,8 +556,10 @@ public class Estructura extends javax.swing.JFrame {
         tbEntradas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane7.setViewportView(tbEntradas);
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Registros por pagina");
 
+        spinnerEntradas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         spinnerEntradas.setValue(10);
 
         btnPrimeroEntradas.setFocusPainted(false);
@@ -518,6 +570,7 @@ public class Estructura extends javax.swing.JFrame {
 
         btnUltimoEntradas.setFocusPainted(false);
 
+        lblPaginadorEntradas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPaginadorEntradas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPaginadorEntradas.setText("Paginas");
 
@@ -560,7 +613,7 @@ public class Estructura extends javax.swing.JFrame {
                     .addComponent(txtBuscadorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBuscadorEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -580,6 +633,7 @@ public class Estructura extends javax.swing.JFrame {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Registro de materiales");
 
+        tbMaterialesEntrada.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         tbMaterialesEntrada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -611,14 +665,15 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tabbedPaneEntradas.addTab("Materiales", jPanel16);
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Salidas");
+        jLabel10.setText("Entradas");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -666,6 +721,11 @@ public class Estructura extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tabbedPaneSalidas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        txtBuscadorSalida.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        tbSalidas.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         tbSalidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -680,8 +740,10 @@ public class Estructura extends javax.swing.JFrame {
         tbSalidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(tbSalidas);
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Registros por pagina");
 
+        spinnerSalidas.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         spinnerSalidas.setValue(10);
 
         btnPrimeroSalidas.setFocusPainted(false);
@@ -692,6 +754,7 @@ public class Estructura extends javax.swing.JFrame {
 
         btnUltimoSalida.setFocusPainted(false);
 
+        lblPaginadorSalidas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPaginadorSalidas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPaginadorSalidas.setText("Paginas");
 
@@ -722,7 +785,7 @@ public class Estructura extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnUltimoSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblPaginadorSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
                         .addGap(0, 502, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -734,7 +797,7 @@ public class Estructura extends javax.swing.JFrame {
                     .addComponent(txtBuscadorSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBuscadorSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -751,6 +814,7 @@ public class Estructura extends javax.swing.JFrame {
 
         tabbedPaneSalidas.addTab("Lista de salidas", jPanel7);
 
+        tbEmpleadoSalida.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         tbEmpleadoSalida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -765,6 +829,7 @@ public class Estructura extends javax.swing.JFrame {
         tbEmpleadoSalida.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(tbEmpleadoSalida);
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Registro de empleados");
 
@@ -785,15 +850,17 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tabbedPaneSalidas.addTab("Empleados", jPanel8);
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Registro de materiales");
 
+        tbMaterialesSalida.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         tbMaterialesSalida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -825,12 +892,13 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tabbedPaneSalidas.addTab("Materiales", jPanel9);
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Salidas");
 
@@ -851,28 +919,50 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneSalidas)
+                .addComponent(tabbedPaneSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel10.setPreferredSize(new java.awt.Dimension(264, 644));
 
+        lblConceptoSalida.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblConceptoSalida.setText("Concepto:");
 
         txtAreaConcepto.setColumns(20);
+        txtAreaConcepto.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtAreaConcepto.setLineWrap(true);
         txtAreaConcepto.setRows(5);
         jScrollPane5.setViewportView(txtAreaConcepto);
 
+        lblEmpleadoSolicitante.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmpleadoSolicitante.setText("Empleado solicitante:");
 
+        txtEmpleadoSalida.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        lblAreaEmpleadoSolicitante.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblAreaEmpleadoSolicitante.setText("Area del empleado:");
 
+        txtAreaEmpleadoSol.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        lblMaterialSolicitado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblMaterialSolicitado.setText("Material solicitado:");
 
+        txtMaterialSolicitado.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        lblCantidadSalida.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCantidadSalida.setText("Cantidad salida:");
 
+        txtCantidadSalida.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        lblUnidadMaterialSolicitado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblUnidadMaterialSolicitado.setText("Unidad del Material:");
+
+        txtUnidadMaterialSolicitado.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        lblTituloFechaSalida.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        lblFechaSalida.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
 
         btnCancelar.setFocusPainted(false);
 
@@ -885,27 +975,27 @@ public class Estructura extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblConceptoSalida)
-                            .addComponent(lblAreaEmpleadoSolicitante)
-                            .addComponent(lblMaterialSolicitado)
-                            .addComponent(lblUnidadMaterialSolicitado)
-                            .addComponent(lblCantidadSalida)
-                            .addComponent(lblEmpleadoSolicitante)
-                            .addComponent(txtUnidadMaterialSolicitado)
-                            .addComponent(txtCantidadSalida)
-                            .addComponent(txtMaterialSolicitado)
-                            .addComponent(txtAreaEmpleadoSol)
-                            .addComponent(txtEmpleadoSalida, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(lblTituloFechaSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblFechaSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAgregarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(lblConceptoSalida, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAreaEmpleadoSolicitante, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUnidadMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCantidadSalida, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEmpleadoSolicitante, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUnidadMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCantidadSalida, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAreaEmpleadoSol, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmpleadoSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(lblTituloFechaSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFechaSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -974,7 +1064,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelSalidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -987,29 +1077,47 @@ public class Estructura extends javax.swing.JFrame {
 
         btnEliminarEmpleado.setFocusPainted(false);
 
+        lblNombreEmpleado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNombreEmpleado.setText("Nombre");
 
+        txtNombreEmpleado.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtNombreEmpleado.setPreferredSize(new java.awt.Dimension(64, 30));
 
+        lblTelefono.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTelefono.setText("Teléfono:");
 
+        lblApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblApellidoPaterno.setText("Apellido Paterno");
 
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEmail.setText("Correo electrónico:");
 
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
+        cbxAreaEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        lblArea.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblArea.setText("Area:");
 
+        txtApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtApellidoPaterno.setPreferredSize(new java.awt.Dimension(64, 30));
 
+        lblApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblApellidoMaterno.setText("Apellido Materno");
 
+        txtApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtApellidoMaterno.setPreferredSize(new java.awt.Dimension(64, 30));
 
+        txtTelefono.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         txtTelefono.setPreferredSize(new java.awt.Dimension(64, 30));
 
+        jcbContratado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jcbContratado.setText("Contratado");
 
+        lblNid.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNid.setText("NID");
+
+        txtNid.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1097,6 +1205,7 @@ public class Estructura extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tbEmpleados.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         tbEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -1112,11 +1221,14 @@ public class Estructura extends javax.swing.JFrame {
         tbEmpleados.getTableHeader().setResizingAllowed(false);
         jScrollPane2.setViewportView(tbEmpleados);
 
+        lblTitulo1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo1.setText("Empleados");
 
+        spinnerEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         spinnerEmpleados.setValue(10);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Registros por pagina");
 
         btnPrimeroEmpleados.setFocusPainted(false);
@@ -1127,21 +1239,24 @@ public class Estructura extends javax.swing.JFrame {
 
         btnUltimoEmpleados.setFocusPainted(false);
 
+        lblPaginadorEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblPaginadorEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPaginadorEmpleados.setText("Paginas");
 
         lblBuscadorEmpleados.setBackground(new java.awt.Color(204, 204, 204));
 
+        txtBuscadorEmpleados.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
-                    .addComponent(lblTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(lblTitulo1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(spinnerEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1161,8 +1276,8 @@ public class Estructura extends javax.swing.JFrame {
                                 .addComponent(lblBuscadorEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBuscadorEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 514, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -1175,7 +1290,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTitulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -1216,22 +1331,28 @@ public class Estructura extends javax.swing.JFrame {
         tabbedPanePrincipal.addTab("Empleados", panelEmpleados);
 
         jMenuAjustes.setText("Ajustes");
+        jMenuAjustes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        menuItemAreas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuItemAreas.setText("Areas");
         jMenuAjustes.add(menuItemAreas);
 
+        menuItemClasificaciones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuItemClasificaciones.setText("Clasificaciones");
         jMenuAjustes.add(menuItemClasificaciones);
 
+        menuItemTiendas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuItemTiendas.setText("Tiendas");
         jMenuAjustes.add(menuItemTiendas);
 
+        menuItemUnidades.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuItemUnidades.setText("Unidades");
         jMenuAjustes.add(menuItemUnidades);
 
         jMenuBar.add(jMenuAjustes);
 
         jMenuCerrar.setText("Cerrar");
+        jMenuCerrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenuBar.add(jMenuCerrar);
 
         setJMenuBar(jMenuBar);
@@ -1328,10 +1449,13 @@ public class Estructura extends javax.swing.JFrame {
         //EVENTOS TABLA
         this.tbMateriales.addMouseListener(controller);
         this.tbMateriales.addKeyListener(controller);
+        this.tbMateriales.getTableHeader().setFont(new Font("Segoe UI" ,1 , 18));
+        
         //EVENTOS Tabbed pane principal
         tabbedPanePrincipal.addChangeListener(controller);
         //FIN EVENTOS
         //ICONOS
+        this.tbMateriales.setDefaultRenderer(tbMateriales.getColumnClass(1), new RowColorRenderer());
         this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_doble.png")));
         this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_icon.png")));
         this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_icon.png")));
@@ -1389,6 +1513,9 @@ public class Estructura extends javax.swing.JFrame {
         this.tbMaterialesEntrada.addKeyListener(controller);
         this.tbEntradas.addMouseListener(controller);
         this.tbEntradas.addKeyListener(controller);
+        this.tbMaterialesEntrada.setDefaultRenderer(tbMateriales.getColumnClass(1), new RowColorRenderer());
+        this.tbEntradas.getTableHeader().setFont(new Font("Segoe UI" ,1 , 18));
+        this.tbMaterialesEntrada.getTableHeader().setFont(new Font("Segoe UI" ,1 , 18));
 
         //TABBED PANE
         this.tabbedPaneEntradas.addChangeListener(controller);
@@ -1465,6 +1592,7 @@ public class Estructura extends javax.swing.JFrame {
         this.btnUltimoEmpleados.addActionListener(empleadoCTRL);
         //EVENTOS TABLA
         this.tbEmpleados.getTableHeader().addMouseListener(empleadoCTRL);
+        this.tbEmpleados.getTableHeader().setFont(new Font("Segoe UI" ,1 , 18));
         //EVENTOS SPINNER
         this.spinnerEmpleados.addChangeListener(empleadoCTRL);
         //EVENTOS COMBOBOX
@@ -1541,11 +1669,15 @@ public class Estructura extends javax.swing.JFrame {
         //Eventos tabla
         this.tbSalidas.addMouseListener(controller);
         this.tbSalidas.addKeyListener(controller);
+        this.tbSalidas.getTableHeader().setFont(new Font("Segoe UI" ,1 , 18));
         this.tbEmpleadoSalida.addMouseListener(controller);
         this.tbEmpleadoSalida.addKeyListener(controller);
         this.tbMaterialesSalida.addMouseListener(controller);
         this.tbMaterialesSalida.addKeyListener(controller);
         this.tbEmpleadoSalida.addFocusListener(controller);
+        this.tbEmpleadoSalida.getTableHeader().setFont(new Font("Segoe UI" ,1 , 18));
+        this.tbMaterialesSalida.setDefaultRenderer(tbMateriales.getColumnClass(1), new RowColorRenderer());
+        this.tbMaterialesSalida.getTableHeader().setFont(new Font("Segoe UI" ,1 , 18));
         //Eventos TabbedPane
         tabbedPaneSalidas.addChangeListener(controller);
         //Eventos spinner

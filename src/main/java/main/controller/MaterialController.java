@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
@@ -48,7 +49,7 @@ public class MaterialController extends MouseAdapter
 
     // ELEMENTOS DEL PAGINADOR
     private Paginador<Material> paginador;
-    private int rows = 10;
+    private int rows = 20;
     private int pagNum = 1;
     private final JSpinner spinner;
     private Usuario usuario;
@@ -97,15 +98,15 @@ public class MaterialController extends MouseAdapter
                             try {
                                 int idUsuario = usuario.getIdUsuario();
                                 Object[] data = {
-                                        nombreMaterial,
-                                        cantidadMat,
-                                        limiteMinMat,
-                                        sku,
-                                        getFecha(),
-                                        idUnidad,
-                                        idClasificacion,
-                                        idTienda,
-                                        idUsuario
+                                    nombreMaterial,
+                                    cantidadMat,
+                                    limiteMinMat,
+                                    sku,
+                                    getFecha(),
+                                    idUnidad,
+                                    idClasificacion,
+                                    idTienda,
+                                    idUsuario
                                 };
                                 new MaterialDAO().insert(data);
                                 reestablecer();
@@ -121,15 +122,15 @@ public class MaterialController extends MouseAdapter
                                 textFields.get(0))) {
                             try {
                                 Object[] data = {
-                                        nombreMaterial,
-                                        cantidadMat,
-                                        limiteMinMat,
-                                        sku,
-                                        getFecha(),
-                                        idUnidad,
-                                        idClasificacion,
-                                        idTienda,
-                                        material.getIdUsuario()
+                                    nombreMaterial,
+                                    cantidadMat,
+                                    limiteMinMat,
+                                    sku,
+                                    getFecha(),
+                                    idUnidad,
+                                    idClasificacion,
+                                    idTienda,
+                                    material.getIdUsuario()
                                 };
                                 new MaterialDAO().update(material.getIdMaterial(), data);
                             } catch (SQLException ex) {
@@ -420,19 +421,19 @@ public class MaterialController extends MouseAdapter
     }
 
     private void buscar(String data) {
-        Collections.sort(materiales);
+        materiales = new Material().ordenamiento(materiales);
         List<Material> filter;
         String titulos[] = {
-                "ID",
-                "Nombre",
-                "Cantidad",
-                "Limite minimo",
-                "SKU",
-                "Fecha ingreso",
-                "Unidad",
-                "Clasificacion",
-                "Tienda",
-                "Usuario"
+            "ID",
+            "Nombre",
+            "Cantidad",
+            "Limite minimo",
+            "SKU",
+            "Fecha ingreso",
+            "Unidad",
+            "Clasificacion",
+            "Tienda",
+            "Usuario"
         };
         defaultTableModel = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
@@ -441,7 +442,7 @@ public class MaterialController extends MouseAdapter
         } else {
             filter = materiales.stream()
                     .filter(mat -> mat.getNombreMaterial().startsWith(data)
-                            || mat.getSku().startsWith(data) || mat.getFechaIngreso().startsWith(data))
+                    || mat.getSku().startsWith(data) || mat.getFechaIngreso().startsWith(data))
                     .skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
@@ -461,16 +462,16 @@ public class MaterialController extends MouseAdapter
                                 .get(0).getUsuario();
 
                         Object[] objects = {
-                                mat.getIdMaterial(),
-                                mat.getNombreMaterial(),
-                                mat.getCantidad(),
-                                mat.getLimiteMinimo(),
-                                mat.getSku(),
-                                mat.getFechaIngreso(),
-                                unidad,
-                                clasificacion,
-                                tienda,
-                                us
+                            mat.getIdMaterial(),
+                            mat.getNombreMaterial(),
+                            mat.getCantidad(),
+                            mat.getLimiteMinimo(),
+                            mat.getSku(),
+                            mat.getFechaIngreso(),
+                            unidad,
+                            clasificacion,
+                            tienda,
+                            us
                         };
                         defaultTableModel.addRow(objects);
 
@@ -576,7 +577,7 @@ public class MaterialController extends MouseAdapter
         comboModel("unidad");
         comboModel("clasificacion");
         //
-        SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
+        SpinnerNumberModel numberModel = new SpinnerNumberModel(20, 1, 100, 1);
 
         spinner.setModel(numberModel);
         comboModel("unidad");
@@ -623,10 +624,13 @@ public class MaterialController extends MouseAdapter
         if (!textFields.get(2).getText().equals("")) {
             textFields.get(2).setText("");
         }
-        labels.get(1).setForeground(EventoComun.COLOR_BASE);
-        labels.get(2).setForeground(EventoComun.COLOR_BASE);
-        labels.get(4).setForeground(EventoComun.COLOR_BASE);
-        labels.get(5).setForeground(EventoComun.COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(1), "Nombre del material:", EventoComun.COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(2), "Cantidad:", EventoComun.COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(3), "Unidad:", EventoComun.COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(4), "Limite minimo:", EventoComun.COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU:", EventoComun.COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(6), "Clasificacion:", EventoComun.COLOR_BASE);
+        Objetos.eventoComun.remarcarLabel(labels.get(7), "Tienda:", EventoComun.COLOR_BASE);
     }
 
     private void iniciarListas() {
@@ -689,4 +693,5 @@ public class MaterialController extends MouseAdapter
         }
         return true;
     }
+
 }

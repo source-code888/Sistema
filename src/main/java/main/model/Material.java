@@ -1,6 +1,9 @@
 package main.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class Material implements Serializable, Comparable {
 
@@ -149,6 +152,32 @@ public class Material implements Serializable, Comparable {
                 + cantidad + ", limiteMinimo=" + limiteMinimo + ", sku=" + sku + ", fechaIngreso=" + fechaIngreso
                 + ", idUnidad=" + idUnidad + ", idClasificacion=" + idClasificacion + ", idTienda=" + idTienda
                 + ", idUsuario=" + idUsuario + '}';
+    }
+
+    public List<Material> ordenamiento(List<Material> filter) {
+
+        filter.sort(new Comparator<Material>() {
+            @Override
+            public int compare(Material o1, Material o2) {
+                return o1.getNombreMaterial().compareToIgnoreCase(o2.getNombreMaterial());
+            }
+
+        });
+
+        List<Material> ordenado = new ArrayList<>();
+
+        for (int i = 0; i < filter.size(); i++) {
+            if (filter.get(i).getCantidad() <= filter.get(i).getLimiteMinimo()) {
+                ordenado.add(filter.get(i));
+            }
+        }
+        for (int i = 0; i < filter.size(); i++) {
+            if (!ordenado.contains(filter.get(i))) {
+                ordenado.add(filter.get(i));
+            }
+
+        }
+        return ordenado;
     }
 
     @Override

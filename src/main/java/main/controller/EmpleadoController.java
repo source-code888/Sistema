@@ -60,7 +60,7 @@ public class EmpleadoController extends MouseAdapter
 
     // ELEMENTOS DEL PAGIANDOR
     private Paginador<Empleado> paginador;
-    private int rows = 10;
+    private int rows = 20;
     private int pagNum = 1;
     private JSpinner spinner;
 
@@ -95,7 +95,7 @@ public class EmpleadoController extends MouseAdapter
         textFields.get(6).setText("");
         comboModel();
         jcbContratado.setSelected(true);
-        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(10, 1, 100, 1);
+        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(20, 1, 100, 1);
         spinner.setModel(spinnerModel);
         buscar("");
         mostrarRegistrosPorPagina();

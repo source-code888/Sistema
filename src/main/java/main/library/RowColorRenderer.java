@@ -8,44 +8,37 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author heber
  */
-public class RowColorRenderer extends JLabel implements TableCellRenderer {
-
-    private int index;
-
-    public RowColorRenderer(int index) {
-        setOpaque(true);
-        this.index = index;
-    }
+public class RowColorRenderer extends DefaultTableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table,
             Object value, boolean isSelected, boolean hasFocus,
             int row, int column) {
 
+        if (table == null) {
+            return this;
+        }
+        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        int actual = Integer.parseInt((table.getValueAt(row, 2).toString()));
+        int limiteMinimo = Integer.parseInt(table.getValueAt(row, 3).toString());
+
+        if (!isSelected) {
+            if (actual <= limiteMinimo) {
+                this.setBackground(Color.red);
+
+            } else {
+                this.setBackground(Color.WHITE);
+            }
+        } 
+
         // Establece el color de fondo de la fila en función del valor de la celda
-        int actual;
-        int limiteMinimo;
-        
-        try {
-            actual = (int) value;
-            limiteMinimo = (int) table.getValueAt(index, 3);
-        } catch (Exception e) {
-            actual = 1;
-            limiteMinimo = 0;
-        }
-
-        if (actual <= limiteMinimo) {
-            setBackground(Color.RED);
-        } else {
-            setBackground(Color.WHITE);
-        }
-
         return this;
     }
 
