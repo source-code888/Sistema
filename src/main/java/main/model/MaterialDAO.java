@@ -24,7 +24,7 @@ public class MaterialDAO extends Conexion {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                getConn().close();
+                close(getConn());
             } catch (Exception e) {
             }
         }
@@ -40,9 +40,11 @@ public class MaterialDAO extends Conexion {
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             qr.insert(getConn(), sqlMaterial, new ColumnListHandler(), data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -55,9 +57,11 @@ public class MaterialDAO extends Conexion {
                     + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -70,9 +74,11 @@ public class MaterialDAO extends Conexion {
                         + idRegistro;
                 qr.update(getConn(), sqlUpdate, data);
                 getConn().commit();
-            } finally {
+            } catch (SQLException ex) {
                 getConn().rollback();
-                getConn().close();
+                throw ex;
+            } finally {
+                close(getConn());
             }
         } else {
             try {
@@ -81,9 +87,11 @@ public class MaterialDAO extends Conexion {
                 String sqlUpdate = "UPDATE material SET cantidad = ? WHERE idMaterial = " + idRegistro;
                 qr.update(getConn(), sqlUpdate, data);
                 getConn().commit();
-            } finally {
+            } catch (SQLException ex) {
                 getConn().rollback();
-                getConn().close();
+                throw ex;
+            } finally {
+                close(getConn());
             }
         }
     }
@@ -95,9 +103,11 @@ public class MaterialDAO extends Conexion {
             String sqlRemove = "DELETE FROM `sistema_bd`.`material` WHERE (`idMaterial` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 }

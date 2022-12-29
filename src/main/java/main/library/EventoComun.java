@@ -2,9 +2,12 @@ package main.library;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +16,7 @@ import javax.swing.JTextField;
 import main.model.*;
 
 public class EventoComun {
+
     public static final Color COLOR_BASE = new Color(0, 153, 51);
     public static final Color COLOR_TEXTO = new Color(0, 0, 0);
 
@@ -48,10 +52,10 @@ public class EventoComun {
 
     /**
      * Remarcar un label especificado del color seleccionado.
-     * 
-     * @param label  label que se desea remarcar
+     *
+     * @param label label que se desea remarcar
      * @param string cadena que se desea mostrar
-     * @param color  color del texto
+     * @param color color del texto
      */
     public void remarcarLabel(JLabel label, String string, Color color) {
         label.setText(string);
@@ -88,9 +92,33 @@ public class EventoComun {
     }
 
     public static String getFecha() {
-        String strFormat = "YYYY-MM-dd hh: mm: ss a";
+        String strFormat = "dd/MM/yy - hh: mm: ss a";
         SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
         Date fecha = new Date();
         return dateFormat.format(fecha).toString();
+    }
+
+    public static Calendar establecerFecha(String fechCompleta) {
+        String subCad = fechCompleta.substring(0, 8);
+        /*int dia = Integer.parseInt(subCad.substring(0, 2));
+        int mes = Integer.parseInt(subCad.substring(3, 5));
+        int anio = Integer.parseInt(subCad.substring(6, 8));*/
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+        Calendar calendar = Calendar.getInstance();
+        try {
+            var date = format.parse(subCad);
+            calendar.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace(System.out);
+        }
+        return calendar;
+    }
+
+    public static Calendar establecerFecha() {
+        return new GregorianCalendar();
+    }
+    
+    public static String establecerHora(String fechaCompleta){
+        return fechaCompleta.substring(11, fechaCompleta.length());
     }
 }

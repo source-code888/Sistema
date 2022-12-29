@@ -23,7 +23,7 @@ public class TiendaDAO extends Conexion {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                getConn().close();
+                close(getConn());
             } catch (Exception e) {
             }
         }
@@ -37,9 +37,11 @@ public class TiendaDAO extends Conexion {
             String sqlCliente = "INSERT INTO tienda(nombre) VALUES(?)";
             qr.insert(getConn(), sqlCliente, new ColumnListHandler(), data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -50,9 +52,11 @@ public class TiendaDAO extends Conexion {
             String sqlUpdate = "UPDATE tienda SET nombre = ? WHERE id = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -63,9 +67,11 @@ public class TiendaDAO extends Conexion {
             String sqlRemove = "DELETE FROM `sistema_bd`.`tienda` WHERE (`id` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 }

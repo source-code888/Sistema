@@ -21,9 +21,9 @@ public class AreaDAO extends Conexion {
                     new BeanListHandler(Area.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-        }finally{
+        } finally {
             try {
-                getConn().close();
+                close(getConn());
             } catch (Exception e) {
             }
         }
@@ -37,9 +37,11 @@ public class AreaDAO extends Conexion {
             String sqlCliente = "INSERT INTO area(nombre) VALUES(?)";
             qr.insert(getConn(), sqlCliente, new ColumnListHandler(), data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -50,9 +52,11 @@ public class AreaDAO extends Conexion {
             String sqlUpdate = "UPDATE area SET nombre = ? WHERE id = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -63,9 +67,11 @@ public class AreaDAO extends Conexion {
             String sqlRemove = "DELETE FROM `sistema_bd`.`area` WHERE (`id` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 }

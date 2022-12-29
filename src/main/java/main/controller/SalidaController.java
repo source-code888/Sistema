@@ -77,7 +77,7 @@ public class SalidaController extends MouseAdapter
 
     // ELEMENTOS DEL PAGINADOR
     private Paginador<Salida> paginador;
-    private int rows = 20;
+    private int rows = MAX_REGISTROS_SECCIONES;
     private int pagNum = 1;
     private Estructura estructura;
 

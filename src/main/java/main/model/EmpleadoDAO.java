@@ -23,7 +23,7 @@ public class EmpleadoDAO extends Conexion {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                getConn().close();
+                close(getConn());
             } catch (Exception e) {
             }
         }
@@ -39,9 +39,11 @@ public class EmpleadoDAO extends Conexion {
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             qr.insert(getConn(), sqlEmpleado, new ColumnListHandler(), data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -53,9 +55,11 @@ public class EmpleadoDAO extends Conexion {
                     + "email = ?, contratado = ?,  idArea = ? WHERE idEmpleado = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -66,9 +70,11 @@ public class EmpleadoDAO extends Conexion {
             String sqlRemove = "DELETE FROM `sistema_bd`.`empleado` WHERE (`idEmpleado` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        }finally {
+            close(getConn());
         }
     }
 }

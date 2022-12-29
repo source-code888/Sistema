@@ -1,5 +1,8 @@
 package main.controller;
 
+import datechooser.beans.DateChooserCombo;
+import datechooser.events.CommitEvent;
+import datechooser.events.CommitListener;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -12,8 +15,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
@@ -28,7 +29,7 @@ import main.library.TableModel;
 import main.model.*;
 
 public class MaterialController extends MouseAdapter
-        implements ActionListener, ChangeListener, KeyListener, FocusListener {
+        implements ActionListener, ChangeListener, KeyListener, FocusListener, CommitListener {
 
     private Material material;
     private List<Material> materiales;
@@ -46,16 +47,17 @@ public class MaterialController extends MouseAdapter
     private final JTable tbMateriales;
     private final List<JComboBox<String>> combos;
     private final JTabbedPane tabbedPanePrincipal;
-
+    private final DateChooserCombo DCCFechaBusqueda;
     // ELEMENTOS DEL PAGINADOR
     private Paginador<Material> paginador;
-    private int rows = 20;
+    private int rows = MAX_REGISTROS_SECCIONES;
     private int pagNum = 1;
     private final JSpinner spinner;
     private Usuario usuario;
 
-    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels,
+    public MaterialController(Object object, DateChooserCombo DCCFechaBusqueda, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels,
             JTable tbMateriales, JSpinner spinner, List<JComboBox<String>> combos, JTabbedPane tabbedPanePrincipal) {
+        this.DCCFechaBusqueda = DCCFechaBusqueda;
         this.buttons = buttons;
         this.textFields = textFields;
         this.labels = labels;
@@ -120,13 +122,22 @@ public class MaterialController extends MouseAdapter
                         if (!existente(true, materiales.toArray(),
                                 new Material(material.getIdMaterial(), sku),
                                 textFields.get(0))) {
+                            String fechaIngreso = getFecha();
+                            material.setNombreMaterial(nombreMaterial);
+                            material.setCantidad(cantidadMat);
+                            material.setLimiteMinimo(limiteMinMat);
+                            material.setSku(sku);
+                            material.setFechaIngreso(fechaIngreso);
+                            material.setIdUnidad(idUnidad);
+                            material.setIdClasificacion(idClasificacion);
+                            material.setIdTienda(idTienda);
                             try {
                                 Object[] data = {
                                     nombreMaterial,
                                     cantidadMat,
                                     limiteMinMat,
                                     sku,
-                                    getFecha(),
+                                    fechaIngreso,
                                     idUnidad,
                                     idClasificacion,
                                     idTienda,
@@ -199,7 +210,8 @@ public class MaterialController extends MouseAdapter
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(2))) {
-                if (!textFields.get(0).getText().equals("")) {
+                if (!textFields.get(0).getText().equals("")
+                        || !getFecha().substring(0, 8).equals(DCCFechaBusqueda.getSelectedPeriodSet().toString())) {
                     reestablecer();
                 }
                 textFields.get(2).requestFocus();
@@ -554,6 +566,11 @@ public class MaterialController extends MouseAdapter
 
     private void reestablecer() {
         selectedRow = -1;
+        if (accion.equals("update")) {
+            actualizarLista();
+        } else {
+            materiales = new MaterialDAO().materiales();
+        }
         accion = "insert";
         iniciarListas();
         // REINICIAR VALORES
@@ -570,15 +587,15 @@ public class MaterialController extends MouseAdapter
         Objetos.eventoComun.remarcarLabel(labels.get(5), "SKU:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(6), "Clasificacion:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(7), "Tienda:", Color.black);
-
-        labels.get(8).setText("");
-        labels.get(9).setText("");
+        Objetos.eventoComun.remarcarLabel(labels.get(8), "Fecha:", Color.black);
+        labels.get(9).setVisible(false);
+        Objetos.eventoComun.remarcarLabel(labels.get(9), "", Color.black);
         comboModel("tienda");
         comboModel("unidad");
         comboModel("clasificacion");
         //
         SpinnerNumberModel numberModel = new SpinnerNumberModel(20, 1, 100, 1);
-
+        DCCFechaBusqueda.setSelectedDate(establecerFecha());
         spinner.setModel(numberModel);
         comboModel("unidad");
         comboModel("clasificacion");
@@ -619,8 +636,9 @@ public class MaterialController extends MouseAdapter
                 Integer.parseInt(textFields.get(4).getText()),
                 textFields.get(1).getText(), (String) defaultTableModel.getValueAt(row, 5),
                 idUnidad, idClasificacion, idTienda, usuario.getIdUsuario());
-        labels.get(8).setText(material.getFechaIngreso());
-        labels.get(9).setText("Fecha en que ingreso el material:");
+        labels.get(8).setText("Fecha:");
+        labels.get(9).setVisible(true);
+        labels.get(9).setText(material.getFechaIngreso());
         if (!textFields.get(2).getText().equals("")) {
             textFields.get(2).setText("");
         }
@@ -637,7 +655,6 @@ public class MaterialController extends MouseAdapter
         tiendas = new TiendaDAO().tiendas();
         clasificaciones = new ClasificacionDAO().clasificaciones();
         unidades = new UnidadDAO().unidades();
-        materiales = new MaterialDAO().materiales();
     }
 
     private void nextFocus(int keyCode, Component source) {
@@ -694,4 +711,19 @@ public class MaterialController extends MouseAdapter
         return true;
     }
 
+    @Override
+    public void onCommit(CommitEvent ce) {
+        buscar(this.DCCFechaBusqueda.getSelectedPeriodSet().toString());
+    }
+
+    private void actualizarLista() {
+        int index = -1;
+        for (int i = 0; i < materiales.size(); i++) {
+            if (materiales.get(i).getIdMaterial() == material.getIdMaterial()) {
+                index = i;
+                break;
+            }
+        }
+        materiales.set(index, material);
+    }
 }

@@ -25,12 +25,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import static main.library.EventoComun.COLOR_BASE;
+import static main.library.EventoComun.*;
 import main.library.Objetos;
-import static main.library.Objetos.METHOD_FIRST;
-import static main.library.Objetos.METHOD_LAST;
-import static main.library.Objetos.METHOD_LATEST;
-import static main.library.Objetos.METHOD_NEXT;
+import static main.library.Objetos.*;
 import main.library.Paginador;
 import main.library.RenderCheckBox;
 import main.library.TableModel;
@@ -60,7 +57,7 @@ public class EmpleadoController extends MouseAdapter
 
     // ELEMENTOS DEL PAGIANDOR
     private Paginador<Empleado> paginador;
-    private int rows = 20;
+    private int rows = MAX_REGISTROS_SECCIONES;
     private int pagNum = 1;
     private JSpinner spinner;
 

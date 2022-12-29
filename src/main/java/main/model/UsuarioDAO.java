@@ -22,7 +22,7 @@ public class UsuarioDAO extends Conexion {
         } catch (SQLException ex) {
         } finally {
             try {
-                getConn().close();
+                close(getConn());
             } catch (Exception e) {
             }
         }

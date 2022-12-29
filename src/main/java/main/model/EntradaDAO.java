@@ -23,7 +23,7 @@ public class EntradaDAO extends Conexion {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                getConn().close();
+                close(getConn());
             } catch (Exception e) {
             }
         }
@@ -37,9 +37,11 @@ public class EntradaDAO extends Conexion {
             String sqlEntrada = "INSERT INTO entrada(cantidadEntrada, fechaEntrada, idMaterial, idEmpleado) VALUES(?, ?, ?, ?)";
             qr.insert(getConn(), sqlEntrada, new ColumnListHandler(), data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -50,9 +52,11 @@ public class EntradaDAO extends Conexion {
             String sqlUpdate = "UPDATE entrada SET cantidadEntrada = ?, fechaEntrada = ?, idMaterial = ?, idEmpleado = ? WHERE idEntrada = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -63,9 +67,11 @@ public class EntradaDAO extends Conexion {
             String sqlRemove = "DELETE FROM `sistema_bd`.`entrada` WHERE (`idEntrada` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 }

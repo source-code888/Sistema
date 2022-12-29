@@ -57,7 +57,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     //ELEMENTOS DEL PAGINADOR
     private Paginador<Entrada> paginador;
-    private int rows = 20;
+    private int rows = MAX_REGISTROS_SECCIONES;
     private int pagNum = 1;
 
     //ELEMENTOS DE LA CLASE
@@ -481,8 +481,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
         ocultarComponenteTabbedPane("Materiales");
         seccionMaterialesActiva = false;
-
-        textFields.get(1).requestFocus();
 
     }
 

@@ -23,7 +23,7 @@ public class SalidaDAO extends Conexion {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                getConn().close();
+                close(getConn());
             } catch (Exception e) {
             }
         }
@@ -38,9 +38,11 @@ public class SalidaDAO extends Conexion {
                     + " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             qr.insert(getConn(), sqlSalida, new ColumnListHandler(), data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -51,9 +53,11 @@ public class SalidaDAO extends Conexion {
             String sqlUpdate = "UPDATE salida SET cantidadSalida = ?, conceptoSalida = ?, fechaHoraSalida = ?, idEmpleado = ?, idArea = ?, idMaterial = ?, idUnidad = ?, idUsuario = ? WHERE idSalida = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 
@@ -64,9 +68,11 @@ public class SalidaDAO extends Conexion {
             String sqlRemove = "DELETE FROM `sistema_bd`.`salida` WHERE (`idSalida` = '" + idRegistro + "');";
             qr.execute(getConn(), sqlRemove);
             getConn().commit();
-        } finally {
+        } catch (SQLException ex) {
             getConn().rollback();
-            getConn().close();
+            throw ex;
+        } finally {
+            close(getConn());
         }
     }
 }

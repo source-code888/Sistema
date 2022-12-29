@@ -11,7 +11,7 @@ public class TablasBase extends javax.swing.JFrame {
     private String titulo;
 
     public TablasBase(String nombre) {
-      
+
         titulo = nombre;
         initComponents();
         /**/
@@ -39,6 +39,7 @@ public class TablasBase extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(21, 0), new java.awt.Dimension(21, 0), new java.awt.Dimension(21, 32767));
         header = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
 
@@ -47,6 +48,7 @@ public class TablasBase extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tbBase.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         tbBase.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -82,28 +84,29 @@ public class TablasBase extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblPaginadorReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(64, 64, 64)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblPaginador, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblPaginadorReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(64, 64, 64)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblPaginador, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 93, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -134,6 +137,9 @@ public class TablasBase extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lblTipo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNombre.setText("Nombre:");
 
         btnEliminar.setFocusPainted(false);
@@ -150,25 +156,32 @@ public class TablasBase extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNombre)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblNombre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,52 +191,10 @@ public class TablasBase extends javax.swing.JFrame {
 
         header.setForeground(new java.awt.Color(255, 0, 51));
 
-        List<JButton> buttons = new ArrayList<>();
-        buttons.add(this.btnAgregar);
-        buttons.add(this.btnEliminar);
-        buttons.add(this.btnClose);
-        buttons.add(this.btnPrimero);
-        buttons.add(this.btnAnterior);
-        buttons.add(this.btnSiguiente);
-        buttons.add(this.btnUltimo);
-        List<JTextField> textFields = new ArrayList<>();
-        textFields.add(this.txtNombre);
-        textFields.add(this.txtBuscador);
-        List<JLabel> labels = new ArrayList<>();
-        labels.add(this.lblTipo);
-        labels.add(this.lblNombre);
-        labels.add(this.lblBuscar);
-        labels.add(this.lblPaginadorReg);
-        labels.add(this.lblPaginador);
-        TablasBaseController controller = new TablasBaseController(this,titulo, buttons, textFields, labels, tbBase, header, spinner);
+        eventosTablasBase();
         btnClose.setBackground(new java.awt.Color(204, 204, 204));
         btnClose.setBorder(null);
         btnClose.setFocusPainted(false);
-        this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta("close.png")));
-        this.header.addMouseListener(controller);
-        this.header.addMouseMotionListener(controller);
-        this.btnClose.addActionListener(controller);
-        this.btnAgregar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("accept.png")));
-        this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_doble.png")));
-        this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_icon.png")));
-        this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_icon.png")));
-        this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_doble.png")));
-        this.spinner.addChangeListener(controller);
-        this.btnPrimero.addActionListener(controller);
-        this.btnAnterior.addActionListener(controller);
-        this.btnSiguiente.addActionListener(controller);
-        this.btnUltimo.addActionListener(controller);
-        this.tbBase.addMouseListener(controller);
-        this.tbBase.addKeyListener(controller);
-        this.btnAgregar.addActionListener(controller);
-        this.txtNombre.addKeyListener(controller);
-        this.btnEliminar.addActionListener(controller);
-        this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
-        this.setAutoRequestFocus(true);
-        this.setAlwaysOnTop(true);
-        this.txtBuscador.addKeyListener(controller);
-        this.lblBuscar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("search.png")));
-        this.header.addKeyListener(controller);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -263,6 +234,52 @@ public class TablasBase extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void eventosTablasBase() {
+        List<JButton> buttons = new ArrayList<>();
+        buttons.add(this.btnAgregar);
+        buttons.add(this.btnEliminar);
+        buttons.add(this.btnClose);
+        buttons.add(this.btnPrimero);
+        buttons.add(this.btnAnterior);
+        buttons.add(this.btnSiguiente);
+        buttons.add(this.btnUltimo);
+        List<JTextField> textFields = new ArrayList<>();
+        textFields.add(this.txtNombre);
+        textFields.add(this.txtBuscador);
+        List<JLabel> labels = new ArrayList<>();
+        labels.add(this.lblTipo);
+        labels.add(this.lblNombre);
+        labels.add(this.lblBuscar);
+        labels.add(this.lblPaginadorReg);
+        labels.add(this.lblPaginador);
+        TablasBaseController controller = new TablasBaseController(this, titulo, buttons, textFields, labels, tbBase, header, spinner);
+        this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta("close.png")));
+        this.header.addMouseListener(controller);
+        this.header.addMouseMotionListener(controller);
+        this.btnClose.addActionListener(controller);
+        this.btnAgregar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("accept.png")));
+        this.btnPrimero.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_doble.png")));
+        this.btnAnterior.setIcon(new ImageIcon(Objetos.imagenPath.ruta("left_icon.png")));
+        this.btnSiguiente.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_icon.png")));
+        this.btnUltimo.setIcon(new ImageIcon(Objetos.imagenPath.ruta("right_doble.png")));
+        this.spinner.addChangeListener(controller);
+        this.btnPrimero.addActionListener(controller);
+        this.btnAnterior.addActionListener(controller);
+        this.btnSiguiente.addActionListener(controller);
+        this.btnUltimo.addActionListener(controller);
+        this.tbBase.addMouseListener(controller);
+        this.tbBase.addKeyListener(controller);
+        this.btnAgregar.addActionListener(controller);
+        this.txtNombre.addKeyListener(controller);
+        this.txtNombre.addFocusListener(controller);
+        this.btnEliminar.addActionListener(controller);
+        this.btnEliminar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("remove.png")));
+        this.setAutoRequestFocus(true);
+        this.setAlwaysOnTop(true);
+        this.txtBuscador.addKeyListener(controller);
+        this.lblBuscar.setIcon(new ImageIcon(Objetos.imagenPath.ruta("search.png")));
+        this.header.addKeyListener(controller);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -272,6 +289,7 @@ public class TablasBase extends javax.swing.JFrame {
     private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnUltimo;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel header;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
