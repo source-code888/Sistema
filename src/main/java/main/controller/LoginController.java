@@ -31,6 +31,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
     private JPanel header;
     private int xMouse;
     private int yMouse;
+    private Estructura estructura = new Estructura();
     private JButton btnMinimizar;
 
     public LoginController(Login login, JButton btnAceptar, JButton btnClose, JButton btnMinimizar, JTextField txtUsuario, JPasswordField txtPassword, List<JLabel> labels, JPanel header) {
@@ -82,11 +83,16 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                             //La contraseña y el usuario corresponden a una cuenta
                             limpiarLoginText();
                             //System.out.println("Inicio de sesion exitoso");
-                            Estructura estructura = new Estructura(existeUsuario.get(0));
-                            estructura.setLocationRelativeTo(estructura);
-                            estructura.setExtendedState(Frame.MAXIMIZED_BOTH);
+                            long timeInit = System.currentTimeMillis();
+                            //Estructura estructura = new Estructura(existeUsuario.get(0));
+                            estructura.iniciaSesion(existeUsuario.get(0));
+                            System.out.println( "Tiempo de Estructura: " + ((Double.valueOf(String.valueOf(( System.currentTimeMillis() - timeInit))))/1000) + " segundos");
                             estructura.setVisible(true);
+                            //estructura.setLocationRelativeTo(estructura);
+                            estructura.setExtendedState(Frame.MAXIMIZED_BOTH);
+                            
                             login.dispose();
+                            
                         } else {
                             limpiarLoginText();
                             labels.get(2).setText("Contraseña incorrecta");

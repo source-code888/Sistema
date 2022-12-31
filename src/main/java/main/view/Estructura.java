@@ -12,15 +12,25 @@ import main.library.RowColorRenderer;
 
 public class Estructura extends javax.swing.JFrame {
 
-    private final Object object;
+    private  Object object;
 
     public Estructura(Object object) {
         this.object = object;
         initComponents();
         eventosEstructura();
         eventosEntrada();
-
     }
+    
+    public Estructura(){
+        initComponents();
+    }
+    
+    public void iniciaSesion(Object object){
+        this.object = object;
+        eventosEstructura();
+        eventosEntrada();
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -353,40 +363,40 @@ public class Estructura extends javax.swing.JFrame {
 
     btnEliminarMaterial.setFocusPainted(false);
 
-    lblNombreMaterial.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    lblNombreMaterial.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblNombreMaterial.setText("Nombre del material");
 
     txtNombre.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
     txtNombre.setPreferredSize(new java.awt.Dimension(64, 30));
 
-    lblUnidadMaterial.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    lblUnidadMaterial.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblUnidadMaterial.setText("Unidad");
 
     cbxUnidad.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-    lblLimiteMinimoMat.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    lblLimiteMinimoMat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblLimiteMinimoMat.setText("Limite minimo");
 
-    lblCantidadMaterial.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    lblCantidadMaterial.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblCantidadMaterial.setText("Cantidad");
 
-    lblSkuMat.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    lblSkuMat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblSkuMat.setText("SKU:");
 
     txtSku.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
 
     cbxClasificacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-    lblClasificacionMat.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    lblClasificacionMat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblClasificacionMat.setText("Clasificacion");
 
     cbxTiendas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     cbxTiendas.setToolTipText("");
 
-    lblTiendaMat.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+    lblTiendaMat.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblTiendaMat.setText("Tiendas");
 
-    lblTituloFecha.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+    lblTituloFecha.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblTituloFecha.setText("Fecha:");
 
     txtCantidad.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -421,12 +431,12 @@ public class Estructura extends javax.swing.JFrame {
                         .addComponent(lblLimiteMinimoMat, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblSkuMat, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblTiendaMat, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblClasificacionMat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtLimiteMinimo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTituloFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                         .addComponent(lblNombreMaterial, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblTituloFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addContainerGap())
     );
@@ -498,6 +508,7 @@ public class Estructura extends javax.swing.JFrame {
     tabbedPanePrincipal.addTab("Materiales", panelMateriales);
 
     jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    jPanel12.setPreferredSize(new java.awt.Dimension(264, 651));
 
     lblMaterialEntrada.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
     lblMaterialEntrada.setText("Nombre del material");
@@ -545,16 +556,15 @@ public class Estructura extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregarEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel12Layout.createSequentialGroup()
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lblFechaEntradaMaterial)
                         .addComponent(lblRecibioEntrada)
                         .addComponent(lblFechaFecha)
                         .addComponent(lblRecibioRecibio)
                         .addComponent(lblCantidadEntrada)
-                        .addComponent(txtMaterialEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCantidadEntrada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(lblMaterialEntrada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txtMaterialEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                        .addComponent(lblMaterialEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCantidadEntrada))
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addContainerGap())
     );
@@ -562,7 +572,7 @@ public class Estructura extends javax.swing.JFrame {
         jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(filler7, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                .addComponent(filler7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel12Layout.createSequentialGroup()
                     .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -657,7 +667,7 @@ public class Estructura extends javax.swing.JFrame {
                                     .addComponent(btnUltimoEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(lblPaginadorEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 496, Short.MAX_VALUE)))
+                    .addGap(0, 502, Short.MAX_VALUE)))
             .addContainerGap())
     );
     jPanel14Layout.setVerticalGroup(
@@ -668,7 +678,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(txtBuscadorEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(lblBuscadorEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel7)
@@ -679,8 +689,7 @@ public class Estructura extends javax.swing.JFrame {
                 .addComponent(btnPrimeroEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnAnteriorEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btnSiguienteEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnUltimoEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap())
+                .addComponent(btnUltimoEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
     );
 
     tabbedPaneEntradas.addTab("Lista de entradas", jPanel14);
@@ -712,7 +721,7 @@ public class Estructura extends javax.swing.JFrame {
             .addContainerGap()
             .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jScrollPane9)
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE))
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE))
             .addContainerGap())
     );
     jPanel16Layout.setVerticalGroup(
@@ -748,7 +757,7 @@ public class Estructura extends javax.swing.JFrame {
             .addContainerGap()
             .addComponent(jLabel10)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(tabbedPaneEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(tabbedPaneEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 604, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1046,11 +1055,11 @@ public class Estructura extends javax.swing.JFrame {
                         .addComponent(lblUnidadMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblCantidadSalida, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblEmpleadoSolicitante, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtUnidadMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtCantidadSalida, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtAreaEmpleadoSol, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtEmpleadoSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(txtUnidadMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                        .addComponent(txtCantidadSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                        .addComponent(txtMaterialSolicitado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                        .addComponent(txtAreaEmpleadoSol, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                        .addComponent(txtEmpleadoSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                         .addComponent(lblTituloFechaSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblFechaSalida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(0, 0, Short.MAX_VALUE)))
@@ -1511,7 +1520,7 @@ public class Estructura extends javax.swing.JFrame {
 
         //EVENTOS Tabbed pane principal
         tabbedPanePrincipal.addChangeListener(controller);
-        
+
         //EVETOS JDATE
         this.DCCFechaBusqueda.addCommitListener(controller);
         //FIN EVENTOS
