@@ -12,25 +12,28 @@ import main.library.RowColorRenderer;
 
 public class Estructura extends javax.swing.JFrame {
 
-    private  Object object;
+    private Object object;
 
     public Estructura(Object object) {
         this.object = object;
         initComponents();
         eventosEstructura();
         eventosEntrada();
+        //EVENTOS MATERIAL CONTROLLER
+        eventosMaterial();
     }
-    
-    public Estructura(){
+
+    public Estructura() {
         initComponents();
     }
-    
-    public void iniciaSesion(Object object){
+
+    public void iniciaSesion(Object object) {
         this.object = object;
         eventosEstructura();
         eventosEntrada();
+        eventosMaterial();
+        eventosSalida();
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -357,9 +360,6 @@ public class Estructura extends javax.swing.JFrame {
     jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
     btnAgregarNuevoMaterial.setFocusPainted(false);
-
-    //EVENTOS MATERIAL CONTROLLER
-    eventosMaterial();
 
     btnEliminarMaterial.setFocusPainted(false);
 
@@ -1112,8 +1112,6 @@ public class Estructura extends javax.swing.JFrame {
             .addGap(16, 16, 16))
     );
 
-    eventosSalida();
-
     javax.swing.GroupLayout panelSalidasLayout = new javax.swing.GroupLayout(panelSalidas);
     panelSalidas.setLayout(panelSalidasLayout);
     panelSalidasLayout.setHorizontalGroup(
@@ -1583,7 +1581,7 @@ public class Estructura extends javax.swing.JFrame {
         this.tbMaterialesEntrada.addKeyListener(controller);
         this.tbEntradas.addMouseListener(controller);
         this.tbEntradas.addKeyListener(controller);
-        this.tbMaterialesEntrada.setDefaultRenderer(tbMateriales.getColumnClass(1), new RowColorRenderer());
+//        this.tbMaterialesEntrada.setDefaultRenderer(tbMateriales.getColumnClass(1), new RowColorRenderer());
         this.tbEntradas.getTableHeader().setFont(new Font("Segoe UI", 1, 18));
         this.tbMaterialesEntrada.getTableHeader().setFont(new Font("Segoe UI", 1, 18));
 
@@ -1746,7 +1744,7 @@ public class Estructura extends javax.swing.JFrame {
         this.tbMaterialesSalida.addKeyListener(controller);
         this.tbEmpleadoSalida.addFocusListener(controller);
         this.tbEmpleadoSalida.getTableHeader().setFont(new Font("Segoe UI", 1, 18));
-        this.tbMaterialesSalida.setDefaultRenderer(tbMateriales.getColumnClass(1), new RowColorRenderer());
+        //this.tbMaterialesSalida.setDefaultRenderer(tbMateriales.getColumnClass(1), new RowColorRenderer());
         this.tbMaterialesSalida.getTableHeader().setFont(new Font("Segoe UI", 1, 18));
         //Eventos TabbedPane
         tabbedPaneSalidas.addChangeListener(controller);
