@@ -19,20 +19,26 @@ public class Estructura extends javax.swing.JFrame {
         initComponents();
         eventosEstructura();
         eventosEntrada();
-        //EVENTOS MATERIAL CONTROLLER
         eventosMaterial();
+        eventosSalida();
+        eventosEmpleado();
     }
 
     public Estructura() {
+        long timeInit = System.currentTimeMillis();
         initComponents();
+        System.out.println(Double.valueOf(String.valueOf(System.currentTimeMillis() - timeInit))/1000 + " Segundos");
     }
 
     public void iniciaSesion(Object object) {
+        long timeInit = System.currentTimeMillis();
         this.object = object;
         eventosEstructura();
         eventosEntrada();
         eventosMaterial();
         eventosSalida();
+        eventosEmpleado();
+        System.out.println(Double.valueOf(String.valueOf(System.currentTimeMillis() - timeInit))/1000 + " Segundos");
     }
 
     @SuppressWarnings("unchecked")
@@ -1370,8 +1376,6 @@ public class Estructura extends javax.swing.JFrame {
             .addGap(15, 15, 15))
     );
 
-    eventosEmpleado();
-
     javax.swing.GroupLayout panelEmpleadosLayout = new javax.swing.GroupLayout(panelEmpleados);
     panelEmpleados.setLayout(panelEmpleadosLayout);
     panelEmpleadosLayout.setHorizontalGroup(
@@ -1482,6 +1486,7 @@ public class Estructura extends javax.swing.JFrame {
         MaterialController controller = new MaterialController(object, this.DCCFechaBusqueda, buttons, textFields, labels, tbMateriales, spinner, combos, this.tabbedPanePrincipal);
         //FIN
         //EVENTOS
+        this.lblTituloFecha.setVisible(false);
         //EVENTOS TXT
         this.txtSku.addFocusListener(controller);
         this.txtSku.addKeyListener(controller);

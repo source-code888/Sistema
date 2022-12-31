@@ -589,6 +589,7 @@ public class MaterialController extends MouseAdapter
         Objetos.eventoComun.remarcarLabel(labels.get(7), "Tienda:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(8), "Fecha:", Color.black);
         labels.get(9).setVisible(false);
+        labels.get(8).setVisible(false);
         Objetos.eventoComun.remarcarLabel(labels.get(9), "", Color.black);
         comboModel("tienda");
         comboModel("unidad");
@@ -637,6 +638,7 @@ public class MaterialController extends MouseAdapter
                 textFields.get(1).getText(), (String) defaultTableModel.getValueAt(row, 5),
                 idUnidad, idClasificacion, idTienda, usuario.getIdUsuario());
         labels.get(8).setText("Fecha:");
+        labels.get(8).setVisible(true);
         labels.get(9).setVisible(true);
         labels.get(9).setText(material.getFechaIngreso());
         if (!textFields.get(2).getText().equals("")) {
