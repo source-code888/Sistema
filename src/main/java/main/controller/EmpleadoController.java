@@ -284,7 +284,7 @@ public class EmpleadoController extends MouseAdapter
             JTextField textField = (JTextField) source;
 
             if (e.getKeyChar() == '\n') {
-                nextTextField((JTextField) source, e);
+                textField.transferFocus();
             }
 
             if (textField.equals(textFields.get(0))) {
@@ -340,19 +340,6 @@ public class EmpleadoController extends MouseAdapter
 
             }
         }
-    }
-
-    private void nextTextField(JTextField textField, KeyEvent e) {
-        for (int i = 0; i < textFields.size(); i++) {
-            if (textField.equals(textFields.get(i))) {
-                if (i < textFields.size() - 2) {
-                    textFields.get(i + 1).requestFocus();
-                } else {
-                    this.cbxAreas.requestFocus();
-                }
-            }
-        }
-
     }
 
     private void insertarEmpleado() {
