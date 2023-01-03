@@ -34,7 +34,8 @@ public class SalidaDAO extends Conexion {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
-            String sqlSalida = "INSERT INTO salida(cantidadSalida, conceptoSalida, fechaHoraSalida, idEmpleado, idArea, idMaterial, idUnidad, idUsuario)"
+            String sqlSalida = "INSERT INTO salida(cantidadSalida, conceptoSalida, fechaHoraSalida, nombreEmpleado, areaEmpleado,"
+                    + " nombreMaterial, unidadMaterial, idUsuario)"
                     + " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             qr.insert(getConn(), sqlSalida, new ColumnListHandler(), data);
             getConn().commit();

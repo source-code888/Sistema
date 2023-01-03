@@ -9,35 +9,35 @@ public class Salida implements Serializable, Comparable {
     private int cantidadSalida;
     private String conceptoSalida;
     private String fechaHoraSalida;
-    private int idEmpleado;
-    private int idArea;
-    private int idMaterial;
-    private int idUnidad;
+    private String nombreEmpleado;
+    private String areaEmpleado;
+    private String nombreMaterial;
+    private String unidadMaterial;
     private int idUsuario;
 
-    public Salida() {
-    }
-
-    public Salida(int idSalida, int cantidadSalida, String conceptoSalida, String fechaHoraSalida, int idEmpleado, int idArea, int idMaterial, int idUnidad, int idUsuario) {
+    public Salida(int idSalida, int cantidadSalida, String conceptoSalida, String fechaHoraSalida, String nombreEmpleado, String areaEmpleado, String nombreMaterial, String unidadMaterial, int idUsuario) {
         this.idSalida = idSalida;
         this.cantidadSalida = cantidadSalida;
         this.conceptoSalida = conceptoSalida;
         this.fechaHoraSalida = fechaHoraSalida;
-        this.idEmpleado = idEmpleado;
-        this.idArea = idArea;
-        this.idMaterial = idMaterial;
-        this.idUnidad = idUnidad;
+        this.nombreEmpleado = nombreEmpleado;
+        this.areaEmpleado = areaEmpleado;
+        this.nombreMaterial = nombreMaterial;
+        this.unidadMaterial = unidadMaterial;
         this.idUsuario = idUsuario;
     }
 
-    public Salida(int cantidadSalida, String conceptoSalida, String fechaHoraSalida, int idEmpleado, int idArea, int idMaterial, int idUnidad, int idUsuario) {
+    public Salida() {
+    }
+
+    public Salida(int cantidadSalida, String conceptoSalida, String fechaHoraSalida, String nombreEmpleado, String areaEmpleado, String nombreMaterial, String unidadMaterial, int idUsuario) {
         this.cantidadSalida = cantidadSalida;
         this.conceptoSalida = conceptoSalida;
         this.fechaHoraSalida = fechaHoraSalida;
-        this.idEmpleado = idEmpleado;
-        this.idArea = idArea;
-        this.idMaterial = idMaterial;
-        this.idUnidad = idUnidad;
+        this.nombreEmpleado = nombreEmpleado;
+        this.areaEmpleado = areaEmpleado;
+        this.nombreMaterial = nombreMaterial;
+        this.unidadMaterial = unidadMaterial;
         this.idUsuario = idUsuario;
     }
 
@@ -73,36 +73,36 @@ public class Salida implements Serializable, Comparable {
         this.fechaHoraSalida = fechaHoraSalida;
     }
 
-    public int getIdEmpleado() {
-        return idEmpleado;
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
 
-    public int getIdArea() {
-        return idArea;
+    public String getAreaEmpleado() {
+        return areaEmpleado;
     }
 
-    public void setIdArea(int idArea) {
-        this.idArea = idArea;
+    public void setAreaEmpleado(String areaEmpleado) {
+        this.areaEmpleado = areaEmpleado;
     }
 
-    public int getIdMaterial() {
-        return idMaterial;
+    public String getNombreMaterial() {
+        return nombreMaterial;
     }
 
-    public void setIdMaterial(int idMaterial) {
-        this.idMaterial = idMaterial;
+    public void setNombreMaterial(String nombreMaterial) {
+        this.nombreMaterial = nombreMaterial;
     }
 
-    public int getIdUnidad() {
-        return idUnidad;
+    public String getUnidadMaterial() {
+        return unidadMaterial;
     }
 
-    public void setIdUnidad(int idUnidad) {
-        this.idUnidad = idUnidad;
+    public void setUnidadMaterial(String unidadMaterial) {
+        this.unidadMaterial = unidadMaterial;
     }
 
     public int getIdUsuario() {
@@ -112,12 +112,7 @@ public class Salida implements Serializable, Comparable {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-
-    @Override
-    public String toString() {
-        return "Salida{" + "idSalida=" + idSalida + ", cantidadSalida=" + cantidadSalida + ", conceptoSalida=" + conceptoSalida + ", fechaHoraSalida=" + fechaHoraSalida + ", idEmpleado=" + idEmpleado + ", idArea=" + idArea + ", idMaterial=" + idMaterial + ", idUnidad=" + idUnidad + ", idUsuario=" + idUsuario + '}';
-    }
-
+    
     @Override
     public int compareTo(Object o) {
         if (!(o instanceof Salida)) {

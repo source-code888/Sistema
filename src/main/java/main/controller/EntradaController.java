@@ -89,7 +89,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         } else {
             administrador = false;
         }
-
         componentMateriales = tabbedPaneEntradas.getComponent(tabbedPaneEntradas.getTabCount() - 1);
         tabbedPaneEntradas.removeTabAt(tabbedEntradas.getTabCount() - 1);
         reestablecer();
@@ -106,8 +105,10 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 reestablecer();
             }
             if (button.equals(buttons.get(1))) {
-                if(accion.equals("insert")){
-                    insertarEntrada();
+                if (validarEntrada()) {
+                    if (accion.equals("insert")) {
+                        insertarEntrada();
+                    }
                 }
             }
             if (button.equals(buttons.get(2))) {
@@ -177,6 +178,18 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                         }*/
                     }
                 }
+                if (textFields.get(0).getText().isBlank()) {
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa el nombre del material:", Color.red);
+                } else {
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre del material", COLOR_BASE);
+                }
+            }
+            if (textField.equals(textFields.get(1))) {
+                if (textFields.get(1).getText().isBlank()) {
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+                } else {
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad", COLOR_BASE);
+                }
             }
         }
 
@@ -218,7 +231,20 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     @Override
     public void focusLost(FocusEvent e) {
-
+        Object source = e.getSource();
+        if (source instanceof JTextField) {
+            JTextField textField = (JTextField) source;
+            if (textField.equals(textFields.get(0))) {
+                if (textFields.get(0).getText().isBlank()) {
+                    Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa el nombre del material:", Color.red);
+                }
+            }
+            if (textField.equals(textFields.get(1))) {
+                if (textFields.get(1).getText().isBlank()) {
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+                }
+            }
+        }
     }
 
     @Override
@@ -263,7 +289,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         textFields.get(1).setEditable(true);
 
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Nombre del material", Color.black);
-        Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad", Color.BLACK);
+        Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad", Color.black);
         labels.get(2).setVisible(false);
         labels.get(4).setVisible(false);
         labels.get(5).setVisible(false);
@@ -546,5 +572,23 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             }
         }
         buscar("");
+    }
+
+    private boolean validarEntrada() {
+        if (textFields.get(0).getText().isBlank() && textFields.get(1).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa el nombre del material:", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+            textFields.get(0).requestFocus();
+            return false;
+        } else if (textFields.get(1).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+            textFields.get(1).requestFocus();
+            return false;
+        } else if (textFields.get(0).getText().isBlank()) {
+            Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa el nombre del material:", Color.red);
+            textFields.get(0).requestFocus();
+            return false;
+        }
+        return true;
     }
 }

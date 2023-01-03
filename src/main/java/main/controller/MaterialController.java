@@ -566,13 +566,8 @@ public class MaterialController extends MouseAdapter
 
     private void reestablecer() {
         selectedRow = -1;
-        if (accion.equals("update")) {
-            actualizarLista();
-        } else {
-            materiales = new MaterialDAO().materiales();
-        }
-        accion = "insert";
         iniciarListas();
+        accion = "insert";
         // REINICIAR VALORES
         textFields.get(0).setText("");
         textFields.get(1).setText("");
@@ -657,6 +652,7 @@ public class MaterialController extends MouseAdapter
         tiendas = new TiendaDAO().tiendas();
         clasificaciones = new ClasificacionDAO().clasificaciones();
         unidades = new UnidadDAO().unidades();
+        actualizarMateriales();
     }
 
     private void nextFocus(int keyCode, Component source) {
@@ -727,5 +723,13 @@ public class MaterialController extends MouseAdapter
             }
         }
         materiales.set(index, material);
+    }
+
+    private void actualizarMateriales() {
+        if (accion.equals("update")) {
+            actualizarLista();
+        } else {
+            materiales = new MaterialDAO().materiales();
+        }
     }
 }

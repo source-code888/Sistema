@@ -12,7 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.*;
@@ -43,16 +42,16 @@ public class SalidaController extends MouseAdapter
         implements ActionListener, ChangeListener, KeyListener, FocusListener {
 
     // ELEMENTOS VISUALES
-    private JTabbedPane tabbedPaneSalidas;
-    private JTable tbSalidas;
-    private JTable tbEmpleados;
-    private JTable tbMateriales;
+    private final JTabbedPane tabbedPaneSalidas;
+    private final JTable tbSalidas;
+    private final JTable tbEmpleados;
+    private final JTable tbMateriales;
 
-    private List<JLabel> labels;
-    private List<JButton> buttons;
-    private List<JTextField> textFields;
-    private JSpinner spinner;
-    private JTextArea txtAreaConcepto;
+    private final List<JLabel> labels;
+    private final List<JButton> buttons;
+    private final List<JTextField> textFields;
+    private final JSpinner spinner;
+    private final JTextArea txtAreaConcepto;
 
     // ELEMENTOS DE LA CLASE
     private List<Salida> salidas;
@@ -162,7 +161,6 @@ public class SalidaController extends MouseAdapter
 
             if (button.equals(buttons.get(1))) {
                 reestablecer();
-
             }
             if (button.equals(buttons.get(2))) {
                 pager(METHOD_FIRST);
@@ -414,7 +412,7 @@ public class SalidaController extends MouseAdapter
                         obtenerRegistro();
                         selectedRowSalida = tbSalidas.getSelectedRow();
                     }
-                } else{
+                } else {
                     reestablecer();
                 }
             }
@@ -507,8 +505,8 @@ public class SalidaController extends MouseAdapter
             filter = salidas.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = salidas.stream()
-                    .filter(salida -> getNombreEmpleado(salida.getIdEmpleado()).toLowerCase().startsWith(data)
-                    || getNombreMaterial(salida.getIdMaterial()).toLowerCase().startsWith(data)
+                    .filter(salida -> salida.getNombreEmpleado().toLowerCase().startsWith(data)
+                    || salida.getNombreMaterial().toLowerCase().startsWith(data)
                     || salida.getFechaHoraSalida().toLowerCase().startsWith(data))
                     .skip(start).limit(rows).collect(Collectors.toList());
         }
@@ -517,13 +515,13 @@ public class SalidaController extends MouseAdapter
                     salida -> {
                         Object[] objects = {
                             salida.getIdSalida(),
-                            getNombreMaterial(salida.getIdMaterial()),
+                            salida.getNombreMaterial(),
                             salida.getCantidadSalida(),
-                            getNombreUnidad(salida.getIdUnidad()),
+                            salida.getUnidadMaterial(),
                             salida.getConceptoSalida(),
                             salida.getFechaHoraSalida(),
-                            getNombreEmpleado(salida.getIdEmpleado()),
-                            getNombreArea(salida.getIdArea()),
+                            salida.getNombreEmpleado(),
+                            salida.getAreaEmpleado(),
                             getNombreUsuarioConfirmante(salida.getIdUsuario())
                         };
                         tableModelSalidas.addRow(objects);
@@ -548,7 +546,6 @@ public class SalidaController extends MouseAdapter
                 + empleadoTemp.getApellidoMaterno();
         return nombre;
     }
-
     private String getNombreMaterial(int id) {
         return new MaterialDAO().materiales().stream().filter(material -> material.getIdMaterial() == id)
                 .collect(Collectors.toList()).get(0).getNombreMaterial();
@@ -593,31 +590,19 @@ public class SalidaController extends MouseAdapter
         String nombreArea = (String) tableModelSalidas.getValueAt(row, 7);
         String nombreUsuario = (String) tableModelSalidas.getValueAt(row, 8);
 
-        int idMaterial = new MaterialDAO().materiales().stream().filter(
-                material -> material.getNombreMaterial().equals(nombreMaterial))
-                .collect(Collectors.toList()).get(0).getIdMaterial();
-        int idUnidad = new UnidadDAO().unidades().stream().filter(
-                unidad -> unidad.getNombre().equals(nombreUnidad)).collect(Collectors.toList()).get(0).getId();
-        int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
-                empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " "
-                        + empleado.getApellidoMaterno()).equals(nombreEmpleado))
-                .collect(Collectors.toList()).get(0).getIdEmpleado();
-        int idArea = new AreaDAO().areas().stream().filter(
-                area -> area.getNombre().equals(nombreArea)).collect(Collectors.toList()).get(0).getId();
         int idUsuario = new UsuarioDAO().usuarios().stream().filter(
                 usuario -> usuario.getUsuario().equals(nombreUsuario)).collect(Collectors.toList()).get(0)
                 .getIdUsuario();
 
         salida.setIdSalida((Integer) tableModelSalidas.getValueAt(row, 0));
-        salida.setIdMaterial(idMaterial);
+        salida.setNombreMaterial(nombreMaterial);
         salida.setCantidadSalida(cantidadSalida);
-        salida.setIdUnidad(idUnidad);
+        salida.setUnidadMaterial(nombreUnidad);
         salida.setConceptoSalida(concepto);
         salida.setFechaHoraSalida(fechaSalida);
-        salida.setIdEmpleado(idEmpleado);
-        salida.setIdArea(idArea);
+        salida.setNombreEmpleado(nombreEmpleado);
+        salida.setAreaEmpleado(nombreArea);
         salida.setIdUsuario(idUsuario);
-
         textFields.get(0).setText(String.valueOf(salida.getCantidadSalida()));
         textFields.get(0).setForeground(COLOR_TEXTO);
         textFields.get(1).setText(nombreEmpleado);
@@ -1003,10 +988,10 @@ public class SalidaController extends MouseAdapter
                     textFields.get(0).getText(),
                     txtAreaConcepto.getText(),
                     getFecha(),
-                    empleado.getIdEmpleado(),
-                    empleado.getIdArea(),
-                    material.getIdMaterial(),
-                    material.getIdUnidad(),
+                    empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoPaterno(),
+                    getNombreArea(empleado.getIdArea()),
+                    getNombreMaterial(material.getIdMaterial()),
+                    getNombreUnidad(material.getIdUnidad()),
                     usuario.getIdUsuario()
                 };
                 new SalidaDAO().insert(data);
