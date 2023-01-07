@@ -163,7 +163,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                     labels.get(0).setForeground(Color.BLACK);
 
                     //if (administrador) {
-                    buscarMaterial(textFields.get(0).getText());
+                    buscarMaterial(textFields.get(0).getText().toLowerCase());
                     /*} else {
                         buscarMaterialPorOperador(textFields.get(0).getText());
                     }*/
@@ -190,6 +190,9 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad", COLOR_BASE);
                 }
+            }
+            if (textField.equals(textFields.get(2))) {
+                buscar(textField.getText().toLowerCase());
             }
         }
 
@@ -327,7 +330,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             filter = entradas.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = entradas.stream().filter(entrada
-                    -> getNombreEmpleado(entrada.getIdEmpleado()).startsWith(data) || entrada.getNombreMaterial().startsWith(data)
+                    -> getNombreEmpleado(entrada.getIdEmpleado()).toLowerCase().startsWith(data) || entrada.getNombreMaterial().toLowerCase().startsWith(data) || entrada.getFechaEntrada().startsWith(data)
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
@@ -353,15 +356,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     private String getNombreEmpleado(int id) {
         Empleado empleadoTemp = new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
-        //String nombre = new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0).getNombre();
         String nombre = empleadoTemp.getNombre() + " " + empleadoTemp.getApellidoPaterno() + " " + empleadoTemp.getApellidoMaterno();
         return nombre;
-    }
-
-    private String getNombreMaterial(int id) {
-        return new MaterialDAO().materiales().stream().filter(material
-                -> material.getIdMaterial() == id
-        ).collect(Collectors.toList()).get(0).getNombreMaterial();
     }
 
     private void mostrarRegistrosPorPagina() {
@@ -432,7 +428,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             filter = materiales.stream().collect(Collectors.toList());
         } else {
             filter = materiales.stream().filter(material
-                    -> material.getNombreMaterial().startsWith(data) || material.getSku().startsWith(data)
+                    -> material.getNombreMaterial().toLowerCase().startsWith(data) || material.getSku().startsWith(data)
             ).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {

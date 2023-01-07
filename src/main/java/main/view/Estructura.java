@@ -1517,6 +1517,7 @@ public class Estructura extends javax.swing.JFrame {
         this.txtMaterialEntrada.addFocusListener(controller);
         this.txtCantidadEntrada.addKeyListener(controller);
         this.txtCantidadEntrada.addFocusListener(controller);
+        this.txtBuscadorEntrada.addKeyListener(controller);
 
         //BOTONES
         this.btnCancelarEntrada.addActionListener(controller);

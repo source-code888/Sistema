@@ -92,7 +92,7 @@ public class EventoComun {
     }
 
     public static String getFecha() {
-        String strFormat = "dd/MM/yy - hh: mm: ss a";
+        String strFormat = "yyyy/MM/dd - hh: mm: ss a";
         SimpleDateFormat dateFormat = new SimpleDateFormat(strFormat);
         Date fecha = new Date();
         return dateFormat.format(fecha).toString();
@@ -103,7 +103,7 @@ public class EventoComun {
         /*int dia = Integer.parseInt(subCad.substring(0, 2));
         int mes = Integer.parseInt(subCad.substring(3, 5));
         int anio = Integer.parseInt(subCad.substring(6, 8));*/
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         Calendar calendar = Calendar.getInstance();
         try {
             var date = format.parse(subCad);
