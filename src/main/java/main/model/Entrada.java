@@ -8,21 +8,21 @@ public class Entrada implements Serializable, Comparable{
     private int idEntrada;
     private int cantidadEntrada;
     private String fechaEntrada;
-    private int idMaterial;
+    private String nombreMaterial;
     private int idEmpleado;
 
-    public Entrada(int idEntrada, int cantidadEntrada, String fechaEntrada, int idMaterial, int idEmpleado) {
+    public Entrada(int idEntrada, int cantidadEntrada, String fechaEntrada, String nombreMaterial, int idEmpleado) {
         this.idEntrada = idEntrada;
         this.cantidadEntrada = cantidadEntrada;
         this.fechaEntrada = fechaEntrada;
-        this.idMaterial = idMaterial;
+        this.nombreMaterial = nombreMaterial;
         this.idEmpleado = idEmpleado;
     }
 
-    public Entrada(int cantidadEntrada, String fechaEntrada, int idMaterial, int idEmpleado) {
+    public Entrada(int cantidadEntrada, String fechaEntrada, String nombreMaterial, int idEmpleado) {
         this.cantidadEntrada = cantidadEntrada;
         this.fechaEntrada = fechaEntrada;
-        this.idMaterial = idMaterial;
+        this.nombreMaterial = nombreMaterial;
         this.idEmpleado = idEmpleado;
     }
     
@@ -53,12 +53,12 @@ public class Entrada implements Serializable, Comparable{
         this.fechaEntrada = fechaEntrada;
     }
 
-    public int getIdMaterial() {
-        return idMaterial;
+    public String getNombreMaterial() {
+        return nombreMaterial;
     }
 
-    public void setIdMaterial(int idMaterial) {
-        this.idMaterial = idMaterial;
+    public void setNombreMaterial(String nombreMaterial) {
+        this.nombreMaterial = nombreMaterial;
     }
 
     public int getIdEmpleado() {
@@ -71,7 +71,7 @@ public class Entrada implements Serializable, Comparable{
 
     @Override
     public String toString() {
-        return "Entrada{" + "idEntrada=" + idEntrada + ", cantidadEntrada=" + cantidadEntrada + ", fechaEntrada=" + fechaEntrada + ", idMaterial=" + idMaterial + ", idEmpleado=" + idEmpleado + '}';
+        return "Entrada{" + "idEntrada=" + idEntrada + ", cantidadEntrada=" + cantidadEntrada + ", fechaEntrada=" + fechaEntrada + ", idMaterial=" + nombreMaterial + ", idEmpleado=" + idEmpleado + '}';
     }
 
     @Override

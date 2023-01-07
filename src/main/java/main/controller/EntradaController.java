@@ -327,7 +327,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             filter = entradas.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = entradas.stream().filter(entrada
-                    -> getNombreEmpleado(entrada.getIdEmpleado()).startsWith(data) || getNombreMaterial(entrada.getIdMaterial()).startsWith(data)
+                    -> getNombreEmpleado(entrada.getIdEmpleado()).startsWith(data) || entrada.getNombreMaterial().startsWith(data)
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
@@ -335,7 +335,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                     entrada -> {
                         Object[] objects = {
                             entrada.getIdEntrada(),
-                            getNombreMaterial(entrada.getIdMaterial()),
+                            entrada.getNombreMaterial(),
                             entrada.getCantidadEntrada(),
                             entrada.getFechaEntrada(),
                             getNombreEmpleado(entrada.getIdEmpleado()),};
@@ -389,7 +389,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             Object[] data = {
                 textFields.get(1).getText(),
                 getFecha(),
-                material.getIdMaterial(),
+                material.getNombreMaterial(),
                 usuario.getIdEmpleado()
             };
             new EntradaDAO().insert(data);
@@ -519,9 +519,10 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         String fechaEntrada = (String) tableModelEntradas.getValueAt(row, 3);
         String recibio = (String) tableModelEntradas.getValueAt(row, 4);
 
-        int idMaterial = new MaterialDAO().materiales().stream().filter(
+        /*int idMaterial = new MaterialDAO().materiales().stream().filter(
                 material -> material.getNombreMaterial().equals(nombreMaterial))
                 .collect(Collectors.toList()).get(0).getIdMaterial();
+*/
         int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
                 empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).equals(recibio)
         ).collect(Collectors.toList()).get(0).getIdEmpleado();
@@ -529,7 +530,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         entrada.setCantidadEntrada(cantidad);
         entrada.setFechaEntrada(fechaEntrada);
         entrada.setIdEmpleado(idEmpleado);
-        entrada.setIdMaterial(idMaterial);
+        entrada.setNombreMaterial(nombreMaterial);
 
         textFields.get(0).setText(nombreMaterial);
         textFields.get(0).setForeground(COLOR_TEXTO);

@@ -34,7 +34,7 @@ public class EntradaDAO extends Conexion {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
-            String sqlEntrada = "INSERT INTO entrada(cantidadEntrada, fechaEntrada, idMaterial, idEmpleado) VALUES(?, ?, ?, ?)";
+            String sqlEntrada = "INSERT INTO entrada(cantidadEntrada, fechaEntrada, nombreMaterial, idEmpleado) VALUES(?, ?, ?, ?)";
             qr.insert(getConn(), sqlEntrada, new ColumnListHandler(), data);
             getConn().commit();
         } catch (SQLException ex) {
@@ -49,7 +49,7 @@ public class EntradaDAO extends Conexion {
         try {
             final QueryRunner qr = new QueryRunner();
             getConn().setAutoCommit(false);
-            String sqlUpdate = "UPDATE entrada SET cantidadEntrada = ?, fechaEntrada = ?, idMaterial = ?, idEmpleado = ? WHERE idEntrada = " + idRegistro;
+            String sqlUpdate = "UPDATE entrada SET cantidadEntrada = ?, fechaEntrada = ?, nombreMaterial = ?, idEmpleado = ? WHERE idEntrada = " + idRegistro;
             qr.update(getConn(), sqlUpdate, data);
             getConn().commit();
         } catch (SQLException ex) {

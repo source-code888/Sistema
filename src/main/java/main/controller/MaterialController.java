@@ -157,6 +157,7 @@ public class MaterialController extends MouseAdapter
                     new MaterialDAO().remove(material.getIdMaterial());
                     reestablecer();
                 } catch (SQLException ex) {
+                    System.out.println(ex.toString());
                     JOptionPane.showMessageDialog(null, "No se puede eliminar este material.");
                 }
             }
