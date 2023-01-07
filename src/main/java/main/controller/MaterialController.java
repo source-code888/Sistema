@@ -47,7 +47,6 @@ public class MaterialController extends MouseAdapter
     private final JTable tbMateriales;
     private final List<JComboBox<String>> combos;
     private final JTabbedPane tabbedPanePrincipal;
-    private final DateChooserCombo DCCFechaBusqueda;
     // ELEMENTOS DEL PAGINADOR
     private Paginador<Material> paginador;
     private int rows = MAX_REGISTROS_SECCIONES;
@@ -55,9 +54,8 @@ public class MaterialController extends MouseAdapter
     private final JSpinner spinner;
     private Usuario usuario;
 
-    public MaterialController(Object object, DateChooserCombo DCCFechaBusqueda, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels,
+    public MaterialController(Object object, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels,
             JTable tbMateriales, JSpinner spinner, List<JComboBox<String>> combos, JTabbedPane tabbedPanePrincipal) {
-        this.DCCFechaBusqueda = DCCFechaBusqueda;
         this.buttons = buttons;
         this.textFields = textFields;
         this.labels = labels;
@@ -210,8 +208,7 @@ public class MaterialController extends MouseAdapter
         if (obj instanceof JTextField) {
             JTextField txt = (JTextField) obj;
             if (txt.equals(textFields.get(2))) {
-                if (!textFields.get(0).getText().equals("")
-                        || !getFecha().substring(0, 8).equals(DCCFechaBusqueda.getSelectedPeriodSet().toString())) {
+                if (!textFields.get(0).getText().equals("")) {
                     reestablecer();
                 }
                 textFields.get(2).requestFocus();
@@ -591,7 +588,6 @@ public class MaterialController extends MouseAdapter
         comboModel("clasificacion");
         //
         SpinnerNumberModel numberModel = new SpinnerNumberModel(20, 1, 100, 1);
-        DCCFechaBusqueda.setSelectedDate(establecerFecha());
         spinner.setModel(numberModel);
         comboModel("unidad");
         comboModel("clasificacion");
@@ -711,7 +707,7 @@ public class MaterialController extends MouseAdapter
 
     @Override
     public void onCommit(CommitEvent ce) {
-        buscar(this.DCCFechaBusqueda.getSelectedPeriodSet().toString());
+        //buscar(this.DCCFechaBusqueda.getSelectedPeriodSet().toString());
     }
 
     private void actualizarLista() {
