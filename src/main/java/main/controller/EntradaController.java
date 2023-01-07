@@ -137,6 +137,12 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 }
             }
         }
+        if (obj instanceof JSpinner) {
+            JSpinner sp = (JSpinner) obj;
+            if (sp.equals(spinner)) {
+                mostrarRegistrosPorPagina();
+            }
+        }
     }
 
     @Override
@@ -369,6 +375,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         }
         buscar("");
     }
+    
+    
 
     private void ocultarComponenteTabbedPane(String titulo) {
         if (tabbedPaneEntradas.getTabCount() > 1) {
@@ -574,11 +582,11 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     private boolean validarEntrada() {
         if (textFields.get(0).getText().isBlank() && textFields.get(1).getText().isBlank()) {
             Objetos.eventoComun.remarcarLabel(labels.get(0), "Ingresa el nombre del material:", Color.red);
-            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de entrada:", Color.red);
             textFields.get(0).requestFocus();
             return false;
         } else if (textFields.get(1).getText().isBlank()) {
-            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+            Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de entrada:", Color.red);
             textFields.get(1).requestFocus();
             return false;
         } else if (textFields.get(0).getText().isBlank()) {

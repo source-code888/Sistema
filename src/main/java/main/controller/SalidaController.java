@@ -933,7 +933,7 @@ public class SalidaController extends MouseAdapter
         int idMaterial = (Integer) tableModelMateriales.getValueAt(row, 0);
         // OBTENEMOS LOS IDS
         int idUnidad = new UnidadDAO().unidades().stream().filter(
-                unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 3)))
+                unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 4)))
                 .collect(Collectors.toList()).get(0).getId();
         // FIN
         String nombreMaterial = (String) tableModelMateriales.getValueAt(row, 1);
