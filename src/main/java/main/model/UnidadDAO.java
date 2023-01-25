@@ -1,77 +1,99 @@
 package main.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import static main.model.Conexion.*;
 
-public class UnidadDAO extends Conexion {
+public class UnidadDAO {
 
-    private QueryRunner QR = new QueryRunner();
+    private final QueryRunner QR = new QueryRunner();
+    private static UnidadDAO instance = null;
+    private static List<Unidad> unidades;
 
-    public UnidadDAO() {
+    private UnidadDAO() {
+        unidades();
     }
 
-    public List<Unidad> unidades() {
-        List<Unidad> unidades = new ArrayList<>();
+    private void unidades() {
+        Connection conn = null;
         try {
-            unidades = (List<Unidad>) QR.query(getConn(), "SELECT * FROM unidad",
+            conn = getConnection();
+            unidades = (List<Unidad>) QR.query(conn, "SELECT * FROM unidad",
                     new BeanListHandler(Unidad.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                close(getConn());
+                close(conn);
             } catch (Exception e) {
             }
         }
-        return unidades;
     }
 
     public void insert(Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlCliente = "INSERT INTO unidad(nombre) VALUES(?)";
-            qr.insert(getConn(), sqlCliente, new ColumnListHandler(), data);
-            getConn().commit();
+            QR.insert(conn, sqlCliente, new ColumnListHandler(), data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            unidades();
         }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlUpdate = "UPDATE unidad SET nombre = ? WHERE id = " + idRegistro;
-            qr.update(getConn(), sqlUpdate, data);
-            getConn().commit();
+            QR.update(conn, sqlUpdate, data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            unidades();
         }
     }
 
     public void remove(int idRegistro) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlRemove = "DELETE FROM `sistema_bd`.`unidad` WHERE (`id` = '" + idRegistro + "');";
-            qr.execute(getConn(), sqlRemove);
-            getConn().commit();
+            QR.execute(conn, sqlRemove);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            unidades();
         }
     }
+
+    public static UnidadDAO getInstance() {
+        if (instance == null) {
+            instance = new UnidadDAO();
+        }
+        return instance;
+    }
+
+    public List<Unidad> getUnidades() {
+        return unidades;
+    }
+
 }

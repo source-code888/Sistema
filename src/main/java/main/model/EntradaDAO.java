@@ -1,77 +1,99 @@
 package main.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import static main.model.Conexion.*;
 
 public class EntradaDAO extends Conexion {
 
-    private QueryRunner QR = new QueryRunner();
+    private final QueryRunner QR = new QueryRunner();
+    private static EntradaDAO instance;
+    private static List<Entrada> entradas;
 
-    public EntradaDAO() {
+    private EntradaDAO() {
+        entradas();
     }
 
-    public List<Entrada> entradas() {
-        List<Entrada> entradas = new ArrayList<>();
+    private void entradas() {
+        Connection conn = null;
         try {
-            entradas = (List<Entrada>) QR.query(getConn(), "SELECT * FROM entrada",
+            conn = getConnection();
+            entradas = (List<Entrada>) QR.query(conn, "SELECT * FROM entrada",
                     new BeanListHandler(Entrada.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                close(getConn());
+                close(conn);
             } catch (Exception e) {
             }
         }
-        return entradas;
     }
 
     public void insert(Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
-            String sqlEntrada = "INSERT INTO entrada(cantidadEntrada, fechaEntrada, nombreMaterial, idEmpleado) VALUES(?, ?, ?, ?)";
-            qr.insert(getConn(), sqlEntrada, new ColumnListHandler(), data);
-            getConn().commit();
+            conn = getConnection();
+            conn.setAutoCommit(false);
+            String sqlEntrada = "INSERT INTO entrada(cantidadEntrada, fechaEntrada, nombreMaterial, nombreEmpleado) VALUES(?, ?, ?, ?)";
+            QR.insert(conn, sqlEntrada, new ColumnListHandler(), data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            entradas();
         }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlUpdate = "UPDATE entrada SET cantidadEntrada = ?, fechaEntrada = ?, nombreMaterial = ?, idEmpleado = ? WHERE idEntrada = " + idRegistro;
-            qr.update(getConn(), sqlUpdate, data);
-            getConn().commit();
+            QR.update(conn, sqlUpdate, data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            entradas();
         }
     }
 
     public void remove(int idRegistro) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlRemove = "DELETE FROM `sistema_bd`.`entrada` WHERE (`idEntrada` = '" + idRegistro + "');";
-            qr.execute(getConn(), sqlRemove);
-            getConn().commit();
+            QR.execute(conn, sqlRemove);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            entradas();
         }
     }
+
+    public static EntradaDAO getInstance() {
+        if (instance == null) {
+            instance = new EntradaDAO();
+        }
+        return instance;
+    }
+
+    public List<Entrada> getEntradas() {
+        return entradas;
+    }
+
 }

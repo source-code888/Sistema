@@ -1,77 +1,99 @@
 package main.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import static main.model.Conexion.*;
 
-public class TiendaDAO extends Conexion {
+public class TiendaDAO{
 
-    private QueryRunner QR = new QueryRunner();
+    private final QueryRunner QR = new QueryRunner();
+    private static TiendaDAO instance = null;
+    private static List<Tienda> tiendas;
 
-    public TiendaDAO() {
+    private TiendaDAO() {
+        tiendas();
     }
 
-    public List<Tienda> tiendas() {
-        List<Tienda> tiendas = new ArrayList<>();
+    private void tiendas() {
+        Connection conn = null;
         try {
-            tiendas = (List<Tienda>) QR.query(getConn(), "SELECT * FROM tienda",
+            conn = getConnection();
+            tiendas = (List<Tienda>) QR.query(conn, "SELECT * FROM tienda",
                     new BeanListHandler(Tienda.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                close(getConn());
+                close(conn);
             } catch (Exception e) {
             }
         }
-        return tiendas;
     }
 
     public void insert(Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlCliente = "INSERT INTO tienda(nombre) VALUES(?)";
-            qr.insert(getConn(), sqlCliente, new ColumnListHandler(), data);
-            getConn().commit();
+            QR.insert(conn, sqlCliente, new ColumnListHandler(), data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            tiendas();
         }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlUpdate = "UPDATE tienda SET nombre = ? WHERE id = " + idRegistro;
-            qr.update(getConn(), sqlUpdate, data);
-            getConn().commit();
+            QR.update(conn, sqlUpdate, data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            tiendas();
         }
     }
 
     public void remove(int idRegistro) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlRemove = "DELETE FROM `sistema_bd`.`tienda` WHERE (`id` = '" + idRegistro + "');";
-            qr.execute(getConn(), sqlRemove);
-            getConn().commit();
+            QR.execute(conn, sqlRemove);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            tiendas();
         }
     }
+
+    public static TiendaDAO getInstance() {
+        if (instance == null) {
+            instance = new TiendaDAO();
+        }
+        return instance;
+    }
+
+    public List<Tienda> getTiendas() {
+        return tiendas;
+    }
+
 }

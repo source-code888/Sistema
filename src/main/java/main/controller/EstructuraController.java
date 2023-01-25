@@ -30,7 +30,7 @@ public class EstructuraController extends MouseAdapter implements ActionListener
         administrador = usuario.isAdministrador();
         guardarPaneles();
         inicializarTabbedPane();
-        
+
     }
 
     @Override
@@ -79,7 +79,6 @@ public class EstructuraController extends MouseAdapter implements ActionListener
             }
         }
     }
-
 
     private void inicializarTabbedPane() {
         if (administrador) {

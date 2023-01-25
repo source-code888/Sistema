@@ -1,6 +1,5 @@
 package main.controller;
 
-import datechooser.beans.DateChooserCombo;
 import datechooser.events.CommitEvent;
 import datechooser.events.CommitListener;
 import java.awt.Color;
@@ -467,7 +466,7 @@ public class MaterialController extends MouseAdapter
                         String tienda = tiendas.stream().filter(
                                 obj -> obj.getId() == mat.getIdTienda()).collect(Collectors.toList()).get(0)
                                 .getNombre();
-                        String us = new UsuarioDAO().usuarios().stream()
+                        String us = UsuarioDAO.getInstance().getUsuarios().stream()
                                 .filter(u -> u.getIdUsuario() == mat.getIdUsuario()).collect(Collectors.toList())
                                 .get(0).getUsuario();
 
@@ -646,9 +645,9 @@ public class MaterialController extends MouseAdapter
     }
 
     private void iniciarListas() {
-        tiendas = new TiendaDAO().tiendas();
-        clasificaciones = new ClasificacionDAO().clasificaciones();
-        unidades = new UnidadDAO().unidades();
+        tiendas = TiendaDAO.getInstance().getTiendas();
+        clasificaciones = ClasificacionDAO.getInstance().getClasificaciones();
+        unidades = UnidadDAO.getInstance().getUnidades();
         actualizarMateriales();
     }
 
@@ -726,7 +725,7 @@ public class MaterialController extends MouseAdapter
         if (accion.equals("update")) {
             actualizarLista();
         } else {
-            materiales = new MaterialDAO().materiales();
+            materiales = MaterialDAO.getInstance().getMateriales();
         }
     }
 }

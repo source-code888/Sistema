@@ -45,9 +45,8 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
     private final List<JTextField> textFields;
     private final List<JLabel> labels;
     private final JTable tbBase;
-    private final JPanel header;
 
-    public TablasBaseController(TablasBase tablaBase, String titulo, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbBase, JPanel header, JSpinner spinner) {
+    public TablasBaseController(TablasBase tablaBase, String titulo, List<JButton> buttons, List<JTextField> textFields, List<JLabel> labels, JTable tbBase, JSpinner spinner) {
         super();
         this.tablaBase = tablaBase;
         this.titulo = titulo;
@@ -55,7 +54,6 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         this.textFields = textFields;
         this.labels = labels;
         this.tbBase = tbBase;
-        this.header = header;
         this.spinner = spinner;
         labels.get(0).setText(titulo);
         reestablecer();
@@ -81,13 +79,13 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                             try {
                                 switch (titulo) {
                                     case "Area" ->
-                                        new AreaDAO().insert(data);
+                                        AreaDAO.getInstance().insert(data);
                                     case "Clasificacion" ->
-                                        new ClasificacionDAO().insert(data);
+                                        ClasificacionDAO.getInstance().insert(data);
                                     case "Tienda" ->
-                                        new TiendaDAO().insert(data);
+                                        TiendaDAO.getInstance().insert(data);
                                     case "Unidad" ->
-                                        new UnidadDAO().insert(data);
+                                        UnidadDAO.getInstance().insert(data);
                                 }
                             } catch (SQLException ex) {
                                 ex.printStackTrace(System.out);
@@ -103,13 +101,13 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                             try {
                                 switch (titulo) {
                                     case "Area" ->
-                                        new AreaDAO().update(idRegistro, data);
+                                        AreaDAO.getInstance().update(idRegistro, data);
                                     case "Clasificacion" ->
-                                        new ClasificacionDAO().update(idRegistro, data);
+                                        ClasificacionDAO.getInstance().update(idRegistro, data);
                                     case "Tienda" ->
-                                        new TiendaDAO().update(idRegistro, data);
+                                        TiendaDAO.getInstance().update(idRegistro, data);
                                     case "Unidad" ->
-                                        new UnidadDAO().update(idRegistro, data);
+                                        UnidadDAO.getInstance().update(idRegistro, data);
                                 }
                             } catch (SQLException ex) {
                                 ex.printStackTrace(System.out);
@@ -124,13 +122,13 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                 try {
                     switch (titulo) {
                         case "Area" ->
-                            new AreaDAO().remove(idRegistro);
+                            AreaDAO.getInstance().remove(idRegistro);
                         case "Clasificacion" ->
-                            new ClasificacionDAO().remove(idRegistro);
+                            ClasificacionDAO.getInstance().remove(idRegistro);
                         case "Tienda" ->
-                            new TiendaDAO().remove(idRegistro);
+                            TiendaDAO.getInstance().remove(idRegistro);
                         case "Unidad" ->
-                            new UnidadDAO().remove(idRegistro);
+                            UnidadDAO.getInstance().remove(idRegistro);
                     }
                     reestablecer();
                 } catch (SQLException ex) {
@@ -208,22 +206,22 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         lista = new ArrayList<>();
         switch (titulo) {
             case "Area" -> {
-                new AreaDAO().areas().forEach(area -> {
+                AreaDAO.getInstance().getAreas().forEach(area -> {
                     lista.add(area);
                 });
             }
             case "Clasificacion" -> {
-                new ClasificacionDAO().clasificaciones().forEach(clasificacion -> {
+                ClasificacionDAO.getInstance().getClasificaciones().forEach(clasificacion -> {
                     lista.add(clasificacion);
                 });
             }
             case "Tienda" -> {
-                new TiendaDAO().tiendas().forEach(tienda -> {
+                TiendaDAO.getInstance().getTiendas().forEach(tienda -> {
                     lista.add(tienda);
                 });
             }
             case "Unidad" -> {
-                new UnidadDAO().unidades().forEach(unidad -> {
+                UnidadDAO.getInstance().getUnidades().forEach(unidad -> {
                     lista.add(unidad);
                 });
             }

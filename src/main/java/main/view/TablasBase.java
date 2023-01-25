@@ -252,7 +252,7 @@ public class TablasBase extends javax.swing.JFrame {
         labels.add(this.lblBuscar);
         labels.add(this.lblPaginadorReg);
         labels.add(this.lblPaginador);
-        TablasBaseController controller = new TablasBaseController(this, titulo, buttons, textFields, labels, tbBase, header, spinner);
+        TablasBaseController controller = new TablasBaseController(this, titulo, buttons, textFields, labels, tbBase, spinner);
         this.btnClose.setIcon(new ImageIcon(Objetos.imagenPath.ruta("close.png")));
         this.header.addMouseListener(controller);
         this.header.addMouseMotionListener(controller);

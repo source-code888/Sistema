@@ -440,7 +440,7 @@ public class SalidaController extends MouseAdapter
     // FIN DE LOS EVENTOS
     private void reestablecer() {
         accion = "insert";
-        salidas = new SalidaDAO().salidas();
+        salidas = SalidaDAO.getInstance().getSalidas();
         if (!salidas.isEmpty()) {
             paginador = new Paginador<>(salidas, labels.get(6), rows);
         }
@@ -537,7 +537,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private String getNombreEmpleado(int id) {
-        Empleado empleadoTemp = new EmpleadoDAO().empleados().stream()
+        Empleado empleadoTemp = EmpleadoDAO.getInstance().getEmpleados().stream()
                 .filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
         // String nombre = new EmpleadoDAO().empleados().stream().filter(empleado ->
         // empleado.getIdEmpleado() ==
@@ -546,23 +546,24 @@ public class SalidaController extends MouseAdapter
                 + empleadoTemp.getApellidoMaterno();
         return nombre;
     }
+
     private String getNombreMaterial(int id) {
-        return new MaterialDAO().materiales().stream().filter(material -> material.getIdMaterial() == id)
+        return MaterialDAO.getInstance().getMateriales().stream().filter(material -> material.getIdMaterial() == id)
                 .collect(Collectors.toList()).get(0).getNombreMaterial();
     }
 
     private String getNombreArea(int id) {
-        return new AreaDAO().areas().stream().filter(area -> area.getId() == id).collect(Collectors.toList()).get(0)
+        return AreaDAO.getInstance().getAreas().stream().filter(area -> area.getId() == id).collect(Collectors.toList()).get(0)
                 .getNombre();
     }
 
     private String getNombreUnidad(int id) {
-        return new UnidadDAO().unidades().stream().filter(unidad -> unidad.getId() == id).collect(Collectors.toList())
+        return UnidadDAO.getInstance().getUnidades().stream().filter(unidad -> unidad.getId() == id).collect(Collectors.toList())
                 .get(0).getNombre();
     }
 
     private String getNombreUsuarioConfirmante(int id) {
-        return new UsuarioDAO().usuarios().stream().filter(material -> material.getIdUsuario() == id)
+        return UsuarioDAO.getInstance().getUsuarios().stream().filter(material -> material.getIdUsuario() == id)
                 .collect(Collectors.toList()).get(0).getUsuario();
     }
 
@@ -590,7 +591,7 @@ public class SalidaController extends MouseAdapter
         String nombreArea = (String) tableModelSalidas.getValueAt(row, 7);
         String nombreUsuario = (String) tableModelSalidas.getValueAt(row, 8);
 
-        int idUsuario = new UsuarioDAO().usuarios().stream().filter(
+        int idUsuario = UsuarioDAO.getInstance().getUsuarios().stream().filter(
                 usuario -> usuario.getUsuario().equals(nombreUsuario)).collect(Collectors.toList()).get(0)
                 .getIdUsuario();
 
@@ -637,7 +638,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private void buscarEmpleado(String data) {
-        empleados = new EmpleadoDAO().empleados();
+        empleados = EmpleadoDAO.getInstance().getEmpleados();
         Collections.sort(empleados);
         List<Empleado> filter;
         String titulos[] = {
@@ -667,7 +668,7 @@ public class SalidaController extends MouseAdapter
                     empleado -> {
                         boolean contratado = empleado.isContratado();
                         if (contratado) {
-                            String area = new AreaDAO().areas().stream().filter(
+                            String area = AreaDAO.getInstance().getAreas().stream().filter(
                                     obj -> obj.getId() == empleado.getIdArea()).collect(Collectors.toList()).get(0)
                                     .getNombre();
                             Object[] objects = {
@@ -695,7 +696,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private void buscarEmpleadoPorOperador(String data) {
-        empleados = new EmpleadoDAO().empleados();
+        empleados = EmpleadoDAO.getInstance().getEmpleados();
         Collections.sort(empleados);
         List<Empleado> filter;
         String titulos[] = {
@@ -723,7 +724,7 @@ public class SalidaController extends MouseAdapter
                     empleado -> {
                         boolean contratado = empleado.isContratado();
                         if (contratado) {
-                            String area = new AreaDAO().areas().stream().filter(
+                            String area = AreaDAO.getInstance().getAreas().stream().filter(
                                     obj -> obj.getId() == empleado.getIdArea()).collect(Collectors.toList()).get(0)
                                     .getNombre();
                             Object[] objects = {
@@ -752,7 +753,7 @@ public class SalidaController extends MouseAdapter
         int rowS = tbEmpleados.getSelectedRow();
         int idEmpleado = (Integer) tableModelEmpleados.getValueAt(rowS, 0);
         // OBTENER EL ID
-        int idArea = new AreaDAO().areas().stream().filter(
+        int idArea = AreaDAO.getInstance().getAreas().stream().filter(
                 area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 7)))
                 .collect(Collectors.toList()).get(0).getId();
         empleado = new Empleado(
@@ -777,7 +778,7 @@ public class SalidaController extends MouseAdapter
         int rowS = tbEmpleados.getSelectedRow();
         int idEmpleado = (Integer) tableModelEmpleados.getValueAt(rowS, 0);
         // OBTENER EL ID
-        int idArea = new AreaDAO().areas().stream().filter(
+        int idArea = AreaDAO.getInstance().getAreas().stream().filter(
                 area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 6)))
                 .collect(Collectors.toList()).get(0).getId();
 
@@ -797,7 +798,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private void buscarMaterial(String data) {
-        materiales = new MaterialDAO().materiales();
+        materiales = MaterialDAO.getInstance().getMateriales();
         Collections.sort(materiales);
         List<Material> filter = materiales;
         String titulos[] = {
@@ -823,10 +824,10 @@ public class SalidaController extends MouseAdapter
         if (!filter.isEmpty()) {
             filter.forEach(
                     material -> {
-                        String clasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
+                        String clasificacion = ClasificacionDAO.getInstance().getClasificaciones().stream().filter(
                                 obj -> obj.getId() == material.getIdClasificacion()).collect(Collectors.toList()).get(0)
                                 .getNombre();
-                        String tienda = new TiendaDAO().tiendas().stream().filter(
+                        String tienda = TiendaDAO.getInstance().getTiendas().stream().filter(
                                 obj -> obj.getId() == material.getIdTienda()).collect(Collectors.toList()).get(0)
                                 .getNombre();
                         Object[] objects = {
@@ -853,7 +854,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private void buscarMaterialPorOperador(String data) {
-        materiales = new MaterialDAO().materiales();
+        materiales = MaterialDAO.getInstance().getMateriales();
         Collections.sort(materiales);
         List<Material> filter = materiales;
         String titulos[] = {
@@ -900,13 +901,13 @@ public class SalidaController extends MouseAdapter
         int row = tbMateriales.getSelectedRow();
         int idMaterial = (Integer) tableModelMateriales.getValueAt(row, 0);
         // OBTENEMOS LOS IDS
-        int idUnidad = new UnidadDAO().unidades().stream().filter(
+        int idUnidad = UnidadDAO.getInstance().getUnidades().stream().filter(
                 unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 6)))
                 .collect(Collectors.toList()).get(0).getId();
-        int idClasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
+        int idClasificacion = ClasificacionDAO.getInstance().getClasificaciones().stream().filter(
                 clasificacion -> clasificacion.getNombre().equals((String) tableModelMateriales.getValueAt(row, 7)))
                 .collect(Collectors.toList()).get(0).getId();
-        int idTienda = new TiendaDAO().tiendas().stream().filter(
+        int idTienda = TiendaDAO.getInstance().getTiendas().stream().filter(
                 tienda -> tienda.getNombre().equals((String) tableModelMateriales.getValueAt(row, 8)))
                 .collect(Collectors.toList()).get(0).getId();
         // FIN
@@ -932,7 +933,7 @@ public class SalidaController extends MouseAdapter
         int row = tbMateriales.getSelectedRow();
         int idMaterial = (Integer) tableModelMateriales.getValueAt(row, 0);
         // OBTENEMOS LOS IDS
-        int idUnidad = new UnidadDAO().unidades().stream().filter(
+        int idUnidad = UnidadDAO.getInstance().getUnidades().stream().filter(
                 unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 4)))
                 .collect(Collectors.toList()).get(0).getId();
         // FIN
@@ -994,7 +995,7 @@ public class SalidaController extends MouseAdapter
                     getNombreUnidad(material.getIdUnidad()),
                     usuario.getIdUsuario()
                 };
-                new SalidaDAO().insert(data);
+                SalidaDAO.getInstance().insert(data);
                 material.setCantidad(material.getCantidad() - Integer.parseInt(textFields.get(0).getText()));
                 Object[] materialData = {material.getCantidad()};
                 new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData, false);
@@ -1060,12 +1061,12 @@ public class SalidaController extends MouseAdapter
     }
 
     public String getApellidoEmpleado(int id) {
-        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id)
+        return EmpleadoDAO.getInstance().getEmpleados().stream().filter(emp -> emp.getIdEmpleado() == id)
                 .collect(Collectors.toList()).get(0).getApellidoPaterno();
     }
 
     public String getContactoEmpleado(int id) {
-        return new EmpleadoDAO().empleados().stream().filter(emp -> emp.getIdEmpleado() == id)
+        return EmpleadoDAO.getInstance().getEmpleados().stream().filter(emp -> emp.getIdEmpleado() == id)
                 .collect(Collectors.toList()).get(0).getEmail();
     }
 }

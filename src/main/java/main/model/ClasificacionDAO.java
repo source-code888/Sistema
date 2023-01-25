@@ -1,77 +1,98 @@
 package main.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import static main.model.Conexion.*;
 
-public class ClasificacionDAO extends Conexion {
+public class ClasificacionDAO{
 
-    private QueryRunner QR = new QueryRunner();
+    private final QueryRunner QR = new QueryRunner();
+    private static ClasificacionDAO instance = null;
+    private static List<Clasificacion> clasificaciones;
 
-    public ClasificacionDAO() {
+    private ClasificacionDAO() {
+        clasificaciones();
     }
 
-    public List<Clasificacion> clasificaciones() {
-        List<Clasificacion> clasificaciones = new ArrayList<>();
+    private void clasificaciones() {
+        Connection conn = null;
         try {
-            clasificaciones = (List<Clasificacion>) QR.query(getConn(), "SELECT * FROM clasificacion",
+            conn = getConnection();
+            clasificaciones = (List<Clasificacion>) QR.query(conn, "SELECT * FROM clasificacion",
                     new BeanListHandler(Clasificacion.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                close(getConn());
+                close(conn);
             } catch (Exception e) {
             }
         }
-        return clasificaciones;
     }
 
     public void insert(Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
             String sqlCliente = "INSERT INTO clasificacion(nombre) VALUES(?)";
-            qr.insert(getConn(), sqlCliente, new ColumnListHandler(), data);
-            getConn().commit();
+            QR.insert(conn, sqlCliente, new ColumnListHandler(), data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            clasificaciones();
         }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlUpdate = "UPDATE clasificacion SET nombre = ? WHERE id = " + idRegistro;
-            qr.update(getConn(), sqlUpdate, data);
-            getConn().commit();
+            QR.update(conn, sqlUpdate, data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            clasificaciones();
         }
     }
 
     public void remove(int idRegistro) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlRemove = "DELETE FROM `sistema_bd`.`clasificacion` WHERE (`id` = '" + idRegistro + "');";
-            qr.execute(getConn(), sqlRemove);
-            getConn().commit();
+            QR.execute(conn, sqlRemove);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            clasificaciones();
         }
     }
+
+    public static ClasificacionDAO getInstance() {
+        if (instance == null) {
+            instance = new ClasificacionDAO();
+        }
+        return instance;
+    }
+
+    public List<Clasificacion> getClasificaciones() {
+        return clasificaciones;
+    }
+
 }

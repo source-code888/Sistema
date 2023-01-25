@@ -2,33 +2,34 @@ package main.model;
 
 import java.io.Serializable;
 
-public class Entrada implements Serializable, Comparable{
+public class Entrada implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     private int idEntrada;
     private int cantidadEntrada;
     private String fechaEntrada;
     private String nombreMaterial;
-    private int idEmpleado;
+    private String nombreEmpleado;
 
-    public Entrada(int idEntrada, int cantidadEntrada, String fechaEntrada, String nombreMaterial, int idEmpleado) {
+    public Entrada(int idEntrada, int cantidadEntrada, String fechaEntrada, String nombreMaterial, String nombreEmpleado) {
         this.idEntrada = idEntrada;
         this.cantidadEntrada = cantidadEntrada;
         this.fechaEntrada = fechaEntrada;
         this.nombreMaterial = nombreMaterial;
-        this.idEmpleado = idEmpleado;
+        this.nombreEmpleado = nombreEmpleado;
     }
 
-    public Entrada(int cantidadEntrada, String fechaEntrada, String nombreMaterial, int idEmpleado) {
+    public Entrada(int cantidadEntrada, String fechaEntrada, String nombreMaterial, String nombreEmpleado) {
         this.cantidadEntrada = cantidadEntrada;
         this.fechaEntrada = fechaEntrada;
         this.nombreMaterial = nombreMaterial;
-        this.idEmpleado = idEmpleado;
+        this.nombreEmpleado = nombreEmpleado;
     }
-    
-    public Entrada(){
-        
+
+    public Entrada() {
+
     }
+
     public int getIdEntrada() {
         return idEntrada;
     }
@@ -61,33 +62,42 @@ public class Entrada implements Serializable, Comparable{
         this.nombreMaterial = nombreMaterial;
     }
 
-    public int getIdEmpleado() {
-        return idEmpleado;
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
 
     @Override
     public String toString() {
-        return "Entrada{" + "idEntrada=" + idEntrada + ", cantidadEntrada=" + cantidadEntrada + ", fechaEntrada=" + fechaEntrada + ", idMaterial=" + nombreMaterial + ", idEmpleado=" + idEmpleado + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Entrada{");
+        sb.append("idEntrada=").append(idEntrada);
+        sb.append(", cantidadEntrada=").append(cantidadEntrada);
+        sb.append(", fechaEntrada=").append(fechaEntrada);
+        sb.append(", nombreMaterial=").append(nombreMaterial);
+        sb.append(", nombreEmpleado=").append(nombreEmpleado);
+        sb.append('}');
+        return sb.toString();
     }
-
+    
+    
     @Override
     public int compareTo(Object o) {
         if (!(o instanceof Entrada)) {
             throw new IllegalArgumentException("El objeto debe ser de tipo Entrada");
-        }else {
+        } else {
             Entrada entrada = (Entrada) o;
             if (idEntrada < entrada.idEntrada) {
                 return 1;
             } else if (idEntrada > entrada.idEntrada) {
                 return -1;
             } else {
-              return 0;  
+                return 0;
             }
-            
+
         }
     }
 

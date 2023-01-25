@@ -111,8 +111,8 @@ public class EmpleadoController extends MouseAdapter
     }
 
     private void iniciarListas() {
-        areas = new AreaDAO().areas();
-        empleados = new EmpleadoDAO().empleados();
+        areas = AreaDAO.getInstance().getAreas();
+        empleados = EmpleadoDAO.getInstance().getEmpleados();
     }
 
     private void comboModel() {
@@ -130,15 +130,15 @@ public class EmpleadoController extends MouseAdapter
         Collections.sort(empleados);
         List<Empleado> filter;
         String titulos[] = {
-                "ID",
-                "NID",
-                "Nombre",
-                "Apellido paterno",
-                "Apellido materno",
-                "Teléfono",
-                "Correo electrónico",
-                "Area",
-                "Contratado"
+            "ID",
+            "NID",
+            "Nombre",
+            "Apellido paterno",
+            "Apellido materno",
+            "Teléfono",
+            "Correo electrónico",
+            "Area",
+            "Contratado"
         };
         defaultTableModel = new TableModel(null, titulos);
 
@@ -148,8 +148,8 @@ public class EmpleadoController extends MouseAdapter
         } else {
             filter = empleados.stream()
                     .filter(empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " "
-                            + empleado.getApellidoMaterno()).toLowerCase().startsWith(data)
-                            || empleado.getApellidoPaterno().startsWith(data))
+                    + empleado.getApellidoMaterno()).toLowerCase().startsWith(data)
+                    || empleado.getApellidoPaterno().startsWith(data))
                     .skip(start).limit(rows).collect(Collectors.toList());
         }
 
@@ -162,15 +162,15 @@ public class EmpleadoController extends MouseAdapter
                                 .getNombre();
 
                         Object[] objects = {
-                                empleado.getIdEmpleado(),
-                                empleado.getNid(),
-                                empleado.getNombre(),
-                                empleado.getApellidoPaterno(),
-                                empleado.getApellidoMaterno(),
-                                empleado.getTelefono(),
-                                empleado.getEmail(),
-                                area,
-                                empleado.isContratado()
+                            empleado.getIdEmpleado(),
+                            empleado.getNid(),
+                            empleado.getNombre(),
+                            empleado.getApellidoPaterno(),
+                            empleado.getApellidoMaterno(),
+                            empleado.getTelefono(),
+                            empleado.getEmail(),
+                            area,
+                            empleado.isContratado()
                         };
 
                         defaultTableModel.addRow(objects);
@@ -348,16 +348,16 @@ public class EmpleadoController extends MouseAdapter
                     textFields.get(3).getText(), textFields.get(4).getText()), false)) {
 
                 Object[] data = {
-                        textFields.get(6).getText(),
-                        textFields.get(0).getText(),
-                        textFields.get(1).getText(),
-                        textFields.get(2).getText(),
-                        textFields.get(3).getText(),
-                        textFields.get(4).getText(),
-                        jcbContratado.isSelected(),
-                        getIdArea(cbxAreas.getSelectedItem().toString())
+                    textFields.get(6).getText(),
+                    textFields.get(0).getText(),
+                    textFields.get(1).getText(),
+                    textFields.get(2).getText(),
+                    textFields.get(3).getText(),
+                    textFields.get(4).getText(),
+                    jcbContratado.isSelected(),
+                    getIdArea(cbxAreas.getSelectedItem().toString())
                 };
-                new EmpleadoDAO().insert(data);
+                EmpleadoDAO.getInstance().insert(data);
                 reestablecer();
             }
         } catch (SQLException ex) {
@@ -398,7 +398,7 @@ public class EmpleadoController extends MouseAdapter
         }
         if (source.equals(buttons.get(1))) {
             try {
-                new EmpleadoDAO().remove(empleado.getIdEmpleado());
+                EmpleadoDAO.getInstance().remove(empleado.getIdEmpleado());
                 reestablecer();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "No se puede eliminar este empleado.");
@@ -496,16 +496,16 @@ public class EmpleadoController extends MouseAdapter
                 empleado.setEmail(textFields.get(4).getText());
                 empleado.setIdArea(idArea);
                 Object[] data = {
-                        empleado.getNid(),
-                        empleado.getNombre(),
-                        empleado.getApellidoPaterno(),
-                        empleado.getApellidoMaterno(),
-                        empleado.getTelefono(),
-                        empleado.getEmail(),
-                        jcbContratado.isSelected(),
-                        empleado.getIdArea()
+                    empleado.getNid(),
+                    empleado.getNombre(),
+                    empleado.getApellidoPaterno(),
+                    empleado.getApellidoMaterno(),
+                    empleado.getTelefono(),
+                    empleado.getEmail(),
+                    jcbContratado.isSelected(),
+                    empleado.getIdArea()
                 };
-                new EmpleadoDAO().update(empleado.getIdEmpleado(), data);
+                EmpleadoDAO.getInstance().update(empleado.getIdEmpleado(), data);
                 reestablecer();
             }
         } catch (SQLException ex) {
@@ -560,8 +560,6 @@ public class EmpleadoController extends MouseAdapter
         }
         return true;
     }
-
-   
 
     @Override
     public void stateChanged(ChangeEvent e) {

@@ -1,113 +1,136 @@
 package main.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import static main.model.Conexion.*;
 
-public class MaterialDAO extends Conexion {
+public class MaterialDAO {
 
-    private QueryRunner QR = new QueryRunner();
+    private final QueryRunner QR = new QueryRunner();
+    private static MaterialDAO instance;
+    private static List<Material> materiales;
 
     public MaterialDAO() {
-        super();
+        materiales();
     }
 
-    public List<Material> materiales() {
-        List<Material> materiales = new ArrayList<>();
+    private void materiales() {
+        Connection conn = null;
         try {
-            materiales = (List<Material>) QR.query(getConn(), "SELECT * FROM material",
+            conn = getConnection();
+            materiales = (List<Material>) QR.query(conn, "SELECT * FROM material",
                     new BeanListHandler(Material.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                close(getConn());
+                close(conn);
             } catch (Exception e) {
             }
         }
-        return materiales;
     }
 
     public void insert(Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlMaterial = "INSERT INTO "
                     + "material(nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad, idClasificacion, idTienda, idUsuario)"
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            qr.insert(getConn(), sqlMaterial, new ColumnListHandler(), data);
-            getConn().commit();
+            QR.insert(conn, sqlMaterial, new ColumnListHandler(), data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            materiales();
         }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlUpdate = "UPDATE material SET nombreMaterial = ?, cantidad = ?, limiteMinimo = ?, sku = ?, "
                     + "fechaIngreso = ?, idUnidad = ?, idClasificacion = ?, idTienda = ?, idUsuario = ? WHERE idMaterial = "
                     + idRegistro;
-            qr.update(getConn(), sqlUpdate, data);
-            getConn().commit();
+            QR.update(conn, sqlUpdate, data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            materiales();
         }
     }
 
     public void updateCantidad(int idRegistro, Object[] data, boolean usuarioYFecha) throws SQLException {
+        Connection conn = null;
         if (usuarioYFecha) {
             try {
-                final QueryRunner qr = new QueryRunner();
-                getConn().setAutoCommit(false);
+                conn = getConnection();
                 String sqlUpdate = "UPDATE material SET cantidad = ?, fechaIngreso = ?, idUsuario = ? WHERE idMaterial = "
                         + idRegistro;
-                qr.update(getConn(), sqlUpdate, data);
-                getConn().commit();
+                QR.update(conn, sqlUpdate, data);
+                conn.commit();
             } catch (SQLException ex) {
-                getConn().rollback();
+                conn.rollback();
                 throw ex;
             } finally {
-                close(getConn());
+                close(conn);
+                materiales();
             }
         } else {
             try {
-                final QueryRunner qr = new QueryRunner();
-                getConn().setAutoCommit(false);
+                conn = getConnection();
+                conn.setAutoCommit(false);
                 String sqlUpdate = "UPDATE material SET cantidad = ? WHERE idMaterial = " + idRegistro;
-                qr.update(getConn(), sqlUpdate, data);
-                getConn().commit();
+                QR.update(conn, sqlUpdate, data);
+                conn.commit();
             } catch (SQLException ex) {
-                getConn().rollback();
+                conn.rollback();
                 throw ex;
             } finally {
-                close(getConn());
+                close(conn);
+                materiales();
             }
         }
     }
 
     public void remove(int idRegistro) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlRemove = "DELETE FROM `sistema_bd`.`material` WHERE (`idMaterial` = '" + idRegistro + "');";
-            qr.execute(getConn(), sqlRemove);
-            getConn().commit();
+            QR.execute(conn, sqlRemove);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            materiales();
         }
     }
+
+    public static MaterialDAO getInstance() {
+        if (instance == null) {
+            instance = new MaterialDAO();
+        }
+        return instance;
+    }
+
+    public List<Material> getMateriales() {
+        return materiales;
+    }
+
 }

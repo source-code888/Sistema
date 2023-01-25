@@ -1,31 +1,46 @@
 package main.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import static main.model.Conexion.*;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-public class UsuarioDAO extends Conexion {
+public class UsuarioDAO {
 
-    private QueryRunner QR = new QueryRunner();
+    private final QueryRunner QR = new QueryRunner();
+    private static UsuarioDAO instance = null;
+    private static List<Usuario> usuarios;
 
-    public UsuarioDAO() {
-        super();
+    private UsuarioDAO() {
+        usuarios();
     }
 
-    public List<Usuario> usuarios() {
-        List<Usuario> cuentas = new ArrayList<>();
+    private void usuarios() {
+        Connection conn = null;
         try {
-            cuentas = (List<Usuario>) QR.query(getConn(), "SELECT * FROM usuario",
+            conn = getConnection();
+            usuarios = (List<Usuario>) QR.query(conn, "SELECT * FROM usuario",
                     new BeanListHandler(Usuario.class));
         } catch (SQLException ex) {
         } finally {
             try {
-                close(getConn());
+                close(conn);
             } catch (Exception e) {
             }
         }
-        return cuentas;
     }
+
+    public static UsuarioDAO getInstance() {
+        if (instance == null) {
+            instance = new UsuarioDAO();
+        }
+        return instance;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
 }

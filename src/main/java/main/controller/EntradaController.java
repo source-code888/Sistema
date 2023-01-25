@@ -286,7 +286,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
     private void reestablecer() {
         accion = "insert";
-        entradas = new EntradaDAO().entradas();
+        entradas = EntradaDAO.getInstance().getEntradas();
         if (!entradas.isEmpty()) {
             paginador = new Paginador<>(entradas, labels.get(3), rows);
         }
@@ -336,7 +336,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             filter = entradas.stream().skip(start).limit(rows).collect(Collectors.toList());
         } else {
             filter = entradas.stream().filter(entrada
-                    -> getNombreEmpleado(entrada.getIdEmpleado()).toLowerCase().startsWith(data) || entrada.getNombreMaterial().toLowerCase().startsWith(data) || entrada.getFechaEntrada().startsWith(data)
+                    -> entrada.getNombreEmpleado().toLowerCase().startsWith(data) || entrada.getNombreMaterial().toLowerCase().startsWith(data) || entrada.getFechaEntrada().startsWith(data)
             ).skip(start).limit(rows).collect(Collectors.toList());
         }
         if (!filter.isEmpty()) {
@@ -347,7 +347,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                             entrada.getNombreMaterial(),
                             entrada.getCantidadEntrada(),
                             entrada.getFechaEntrada(),
-                            getNombreEmpleado(entrada.getIdEmpleado()),};
+                            entrada.getNombreEmpleado(),};
                         tableModelEntradas.addRow(objects);
                     }
             );
@@ -360,10 +360,19 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         tbEntradas.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
-    private String getNombreEmpleado(int id) {
-        Empleado empleadoTemp = new EmpleadoDAO().empleados().stream().filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
-        String nombre = empleadoTemp.getNombre() + " " + empleadoTemp.getApellidoPaterno() + " " + empleadoTemp.getApellidoMaterno();
-        return nombre;
+    private String getNombreEmpleadoById(int id) {
+        StringBuilder sb = new StringBuilder();
+        List<Empleado> empleados = EmpleadoDAO.getInstance().getEmpleados().stream().
+                filter(emp -> emp.getIdEmpleado() == id)
+                .collect(Collectors.toList());
+        if (!empleados.isEmpty()) {
+            sb.append(empleados.get(0).getNombre());
+            sb.append(" ");
+            sb.append(empleados.get(0).getApellidoPaterno());
+            sb.append(" ");
+            sb.append(empleados.get(0).getApellidoMaterno());
+        }
+        return sb.toString();
     }
 
     private void mostrarRegistrosPorPagina() {
@@ -375,8 +384,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         }
         buscar("");
     }
-    
-    
 
     private void ocultarComponenteTabbedPane(String titulo) {
         if (tabbedPaneEntradas.getTabCount() > 1) {
@@ -394,9 +401,9 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 textFields.get(1).getText(),
                 getFecha(),
                 material.getNombreMaterial(),
-                usuario.getIdEmpleado()
+                getNombreEmpleadoById(usuario.getIdUsuario())
             };
-            new EntradaDAO().insert(data);
+            EntradaDAO.getInstance().insert(data);
             material.setCantidad(material.getCantidad() + Integer.parseInt(textFields.get(1).getText()));
             Object[] materialData = {material.getCantidad(), getFecha(), material.getIdUsuario()};
             new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData, true);
@@ -416,7 +423,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private void buscarMaterial(String data) {
-        materiales = new MaterialDAO().materiales();
+        materiales = MaterialDAO.getInstance().getMateriales();
         Collections.sort(materiales);
         List<Material> filter = materiales;
         String titulos[] = {
@@ -442,10 +449,10 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         if (!filter.isEmpty()) {
             filter.forEach(
                     material -> {
-                        String clasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
+                        String clasificacion = ClasificacionDAO.getInstance().getClasificaciones().stream().filter(
                                 obj -> obj.getId() == material.getIdClasificacion()
                         ).collect(Collectors.toList()).get(0).getNombre();
-                        String tienda = new TiendaDAO().tiendas().stream().filter(
+                        String tienda = TiendaDAO.getInstance().getTiendas().stream().filter(
                                 obj -> obj.getId() == material.getIdTienda()
                         ).collect(Collectors.toList()).get(0).getNombre();
                         Object[] objects = {
@@ -473,13 +480,13 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private String getNombreUnidad(int id) {
-        return new UnidadDAO().unidades().stream().filter(unidad
+        return UnidadDAO.getInstance().getUnidades().stream().filter(unidad
                 -> unidad.getId() == id
         ).collect(Collectors.toList()).get(0).getNombre();
     }
 
     private String getNombreUsuarioConfirmante(int id) {
-        return new UsuarioDAO().usuarios().stream().filter(material
+        return UsuarioDAO.getInstance().getUsuarios().stream().filter(material
                 -> material.getIdUsuario() == id
         ).collect(Collectors.toList()).get(0).getUsuario();
     }
@@ -488,13 +495,13 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         int row = tbMateriales.getSelectedRow();
         int idMaterial = (Integer) tableModelMateriales.getValueAt(row, 0);
         //OBTENEMOS LOS IDS
-        int idUnidad = new UnidadDAO().unidades().stream().filter(
+        int idUnidad = UnidadDAO.getInstance().getUnidades().stream().filter(
                 unidad -> unidad.getNombre().equals((String) tableModelMateriales.getValueAt(row, 6))
         ).collect(Collectors.toList()).get(0).getId();
-        int idClasificacion = new ClasificacionDAO().clasificaciones().stream().filter(
+        int idClasificacion = ClasificacionDAO.getInstance().getClasificaciones().stream().filter(
                 clasificacion -> clasificacion.getNombre().equals((String) tableModelMateriales.getValueAt(row, 7)
                 )).collect(Collectors.toList()).get(0).getId();
-        int idTienda = new TiendaDAO().tiendas().stream().filter(
+        int idTienda = TiendaDAO.getInstance().getTiendas().stream().filter(
                 tienda -> tienda.getNombre().equals((String) tableModelMateriales.getValueAt(row, 8)
                 )).collect(Collectors.toList()).get(0).getId();
         //FIN 
@@ -523,17 +530,9 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         String fechaEntrada = (String) tableModelEntradas.getValueAt(row, 3);
         String recibio = (String) tableModelEntradas.getValueAt(row, 4);
 
-        /*int idMaterial = new MaterialDAO().materiales().stream().filter(
-                material -> material.getNombreMaterial().equals(nombreMaterial))
-                .collect(Collectors.toList()).get(0).getIdMaterial();
-*/
-        int idEmpleado = new EmpleadoDAO().empleados().stream().filter(
-                empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno()).equals(recibio)
-        ).collect(Collectors.toList()).get(0).getIdEmpleado();
-
         entrada.setCantidadEntrada(cantidad);
         entrada.setFechaEntrada(fechaEntrada);
-        entrada.setIdEmpleado(idEmpleado);
+        entrada.setNombreEmpleado(recibio);
         entrada.setNombreMaterial(nombreMaterial);
 
         textFields.get(0).setText(nombreMaterial);

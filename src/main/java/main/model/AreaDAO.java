@@ -1,77 +1,101 @@
 package main.model;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import static main.model.Conexion.*;
 
-public class AreaDAO extends Conexion {
+public class AreaDAO {
 
-    private QueryRunner QR = new QueryRunner();
+    private final QueryRunner QR = new QueryRunner();
+    private static List<Area> areas;
+    private static AreaDAO instance = null;
 
-    public AreaDAO() {
+    private AreaDAO() {
+        areas();
     }
 
-    public List<Area> areas() {
-        List<Area> areas = new ArrayList<>();
+    private void areas() {
+        areas = new ArrayList<>();
+        Connection conn = null;
         try {
-            areas = (List<Area>) QR.query(getConn(), "SELECT * FROM area",
+            conn = Conexion.getConnection();
+            areas = (List<Area>) QR.query(conn, "SELECT * FROM area",
                     new BeanListHandler(Area.class));
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
             try {
-                close(getConn());
-            } catch (Exception e) {
+                close(conn);
+            } catch (SQLException e) {
             }
         }
-        return areas;
     }
 
     public void insert(Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = Conexion.getConnection();
+            conn.setAutoCommit(false);
             String sqlCliente = "INSERT INTO area(nombre) VALUES(?)";
-            qr.insert(getConn(), sqlCliente, new ColumnListHandler(), data);
-            getConn().commit();
+            QR.insert(conn, sqlCliente, new ColumnListHandler(), data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            areas();
         }
     }
 
     public void update(int idRegistro, Object[] data) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = Conexion.getConnection();
+            conn.setAutoCommit(false);
             String sqlUpdate = "UPDATE area SET nombre = ? WHERE id = " + idRegistro;
-            qr.update(getConn(), sqlUpdate, data);
-            getConn().commit();
+            QR.update(conn, sqlUpdate, data);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            areas();
         }
     }
 
     public void remove(int idRegistro) throws SQLException {
+        Connection conn = null;
         try {
-            final QueryRunner qr = new QueryRunner();
-            getConn().setAutoCommit(false);
+            conn = Conexion.getConnection();
+            conn.setAutoCommit(false);
             String sqlRemove = "DELETE FROM `sistema_bd`.`area` WHERE (`id` = '" + idRegistro + "');";
-            qr.execute(getConn(), sqlRemove);
-            getConn().commit();
+            QR.execute(conn, sqlRemove);
+            conn.commit();
         } catch (SQLException ex) {
-            getConn().rollback();
+            conn.rollback();
             throw ex;
         } finally {
-            close(getConn());
+            close(conn);
+            areas();
         }
     }
+
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public static AreaDAO getInstance() {
+        if (instance == null) {
+            instance = new AreaDAO();
+        }
+        return instance;
+    }
+
 }
