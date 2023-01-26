@@ -62,34 +62,7 @@ public class EventoComun {
         label.setForeground(color);
     }
 
-    public static boolean existente(boolean skip, Object[] elements, Object element, JTextField request) {
-        if (elements == null || element == null) {
-            throw new IllegalArgumentException("Argumentos invalidos.");
-        }
-        if (elements[0] instanceof Material) {
-            List<Material> materiales = new ArrayList<>();
-            Material material = (Material) element;
-            for (Object obj : elements) {
-                materiales.add((Material) obj);
-            }
-            for (Material mat : materiales) {
-                if (skip) {
-                    if (mat.getIdMaterial() != material.getIdMaterial()) {
-                        if (mat.getSku().equals(material.getSku())) {
-                            return true;
-                        }
-                    }
-                    continue;
-                } else {
-                    if (mat.getSku().equals(material.getSku())) {
-                        return true;
-                    }
-                }
-            }
-
-        }
-        return false;
-    }
+    
 
     public static String getFecha() {
         String strFormat = "yyyy/MM/dd - hh: mm: ss a";

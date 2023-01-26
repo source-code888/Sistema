@@ -578,9 +578,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private void obtenerRegistro() {
-
         accion = "update";
-        salida = new Salida();
         int row = tbSalidas.getSelectedRow();
         String nombreMaterial = (String) tableModelSalidas.getValueAt(row, 1);
         String nombreUnidad = (String) tableModelSalidas.getValueAt(row, 3);
@@ -590,20 +588,20 @@ public class SalidaController extends MouseAdapter
         String nombreEmpleado = (String) tableModelSalidas.getValueAt(row, 6);
         String nombreArea = (String) tableModelSalidas.getValueAt(row, 7);
         String nombreUsuario = (String) tableModelSalidas.getValueAt(row, 8);
-
         int idUsuario = UsuarioDAO.getInstance().getUsuarios().stream().filter(
-                usuario -> usuario.getUsuario().equals(nombreUsuario)).collect(Collectors.toList()).get(0)
+                us -> us.getUsuario().equals(nombreUsuario)).collect(Collectors.toList()).get(0)
                 .getIdUsuario();
-
-        salida.setIdSalida((Integer) tableModelSalidas.getValueAt(row, 0));
-        salida.setNombreMaterial(nombreMaterial);
-        salida.setCantidadSalida(cantidadSalida);
-        salida.setUnidadMaterial(nombreUnidad);
-        salida.setConceptoSalida(concepto);
-        salida.setFechaHoraSalida(fechaSalida);
-        salida.setNombreEmpleado(nombreEmpleado);
-        salida.setAreaEmpleado(nombreArea);
-        salida.setIdUsuario(idUsuario);
+        salida = new Salida.SalidaBuilder()
+                .idSalida((Integer) tableModelSalidas.getValueAt(row, 0))
+                .nombreMaterial(nombreMaterial)
+                .cantidadSalida(cantidadSalida)
+                .unidadMaterial(nombreUnidad)
+                .conceptoSalida(concepto)
+                .fechaHoraSalida(fechaSalida)
+                .nombreEmpleado(nombreEmpleado)
+                .areaEmpleado(nombreArea)
+                .idUsuario(idUsuario)
+                .build();
         textFields.get(0).setText(String.valueOf(salida.getCantidadSalida()));
         textFields.get(0).setForeground(COLOR_TEXTO);
         textFields.get(1).setText(nombreEmpleado);
@@ -614,15 +612,12 @@ public class SalidaController extends MouseAdapter
         textFields.get(3).setForeground(COLOR_TEXTO);
         textFields.get(4).setText(nombreArea);
         textFields.get(4).setForeground(COLOR_TEXTO);
-
         textFields.get(0).setEditable(false);
         textFields.get(1).setEditable(false);
         textFields.get(2).setEditable(false);
         textFields.get(3).setEditable(false);
         textFields.get(4).setEditable(false);
-
         txtAreaConcepto.setText(concepto);
-
         txtAreaConcepto.setForeground(COLOR_TEXTO);
         txtAreaConcepto.setEditable(false);
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Cantidad salida:", COLOR_BASE);
@@ -756,16 +751,17 @@ public class SalidaController extends MouseAdapter
         int idArea = AreaDAO.getInstance().getAreas().stream().filter(
                 area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 7)))
                 .collect(Collectors.toList()).get(0).getId();
-        empleado = new Empleado(
-                idEmpleado,
-                (String) tableModelEmpleados.getValueAt(rowS, 1),
-                (String) tableModelEmpleados.getValueAt(rowS, 2),
-                (String) tableModelEmpleados.getValueAt(rowS, 3),
-                (String) tableModelEmpleados.getValueAt(rowS, 4),
-                (String) tableModelEmpleados.getValueAt(rowS, 5),
-                (String) tableModelEmpleados.getValueAt(rowS, 6),
-                (Boolean) tableModelEmpleados.getValueAt(rowS, 8),
-                idArea);
+        empleado = new Empleado.EmpleadoBuilder()
+                .idEmpleado(idEmpleado)
+                .nid((String) tableModelEmpleados.getValueAt(rowS, 1))
+                .nombre((String) tableModelEmpleados.getValueAt(rowS, 2))
+                .apellidoPaterno((String) tableModelEmpleados.getValueAt(rowS, 3))
+                .apellidoMaterno((String) tableModelEmpleados.getValueAt(rowS, 4))
+                .telefono((String) tableModelEmpleados.getValueAt(rowS, 5))
+                .email((String) tableModelEmpleados.getValueAt(rowS, 6))
+                .contratado((Boolean) tableModelEmpleados.getValueAt(rowS, 8))
+                .idArea(idArea)
+                .build();
         textFields.get(1).setText(getNombreEmpleado(idEmpleado));
         textFields.get(2).setText(getNombreArea(empleado.getIdArea()));
         Objetos.eventoComun.remarcarLabel(labels.get(2), "Empleado solicitante:", COLOR_BASE);
@@ -781,14 +777,15 @@ public class SalidaController extends MouseAdapter
         int idArea = AreaDAO.getInstance().getAreas().stream().filter(
                 area -> area.getNombre().equals((String) tableModelEmpleados.getValueAt(rowS, 6)))
                 .collect(Collectors.toList()).get(0).getId();
-
-        empleado = new Empleado(
-                idEmpleado, (String) tableModelEmpleados.getValueAt(rowS, 1),
-                (String) tableModelEmpleados.getValueAt(rowS, 2),
-                (String) tableModelEmpleados.getValueAt(rowS, 3),
-                (String) tableModelEmpleados.getValueAt(rowS, 4),
-                (String) tableModelEmpleados.getValueAt(rowS, 5),
-                idArea);
+        empleado = new Empleado.EmpleadoBuilder()
+                .idEmpleado(idEmpleado)
+                .nid((String) tableModelEmpleados.getValueAt(rowS, 1))
+                .nombre((String) tableModelEmpleados.getValueAt(rowS, 2))
+                .apellidoPaterno((String) tableModelEmpleados.getValueAt(rowS, 3))
+                .apellidoMaterno((String) tableModelEmpleados.getValueAt(rowS, 4))
+                .telefono((String) tableModelEmpleados.getValueAt(rowS, 5))
+                .idArea(idArea)
+                .build();
         textFields.get(1).setText(getNombreEmpleado(idEmpleado));
         textFields.get(2).setText(getNombreArea(empleado.getIdArea()));
         Objetos.eventoComun.remarcarLabel(labels.get(2), "Empleado solicitante:", COLOR_BASE);
@@ -916,8 +913,18 @@ public class SalidaController extends MouseAdapter
         int limiteMinimo = (Integer) tableModelMateriales.getValueAt(row, 3);
         String sku = (String) tableModelMateriales.getValueAt(row, 4);
         String fechaIngreso = (String) tableModelMateriales.getValueAt(row, 5);
-        material = new Material(idMaterial, nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad,
-                idClasificacion, idTienda, usuario.getIdUsuario());
+        material = new Material.MaterialBuilder()
+                .idMaterial(idMaterial)
+                .nombreMaterial(nombreMaterial)
+                .cantidad(cantidad)
+                .limiteMinimo(limiteMinimo)
+                .sku(sku)
+                .fechaIngreso(fechaIngreso)
+                .idUnidad(idUnidad)
+                .idClasificacion(idClasificacion)
+                .idTienda(idTienda)
+                .idUsuario(usuario.getIdUsuario())
+                .build();
         textFields.get(3).setText(material.getNombreMaterial());
         textFields.get(4).setText(getNombreUnidad(material.getIdUnidad()));
         Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado", COLOR_BASE);
@@ -939,7 +946,13 @@ public class SalidaController extends MouseAdapter
         // FIN
         String nombreMaterial = (String) tableModelMateriales.getValueAt(row, 1);
         int cantidad = (Integer) tableModelMateriales.getValueAt(row, 2);
-        material = new Material(idMaterial, nombreMaterial, cantidad, idUnidad, usuario.getIdUsuario());
+        material = new Material.MaterialBuilder()
+                .idMaterial(idMaterial)
+                .nombreMaterial(nombreMaterial)
+                .cantidad(cantidad)
+                .idUnidad(idUnidad)
+                .idUsuario(usuario.getIdUsuario())
+                .build();
         textFields.get(3).setText(material.getNombreMaterial());
         textFields.get(4).setText(getNombreUnidad(material.getIdUnidad()));
         Objetos.eventoComun.remarcarLabel(labels.get(4), "Material solicitado", COLOR_BASE);

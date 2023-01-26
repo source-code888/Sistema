@@ -18,53 +18,16 @@ public class Empleado implements Serializable, Comparable {
     public Empleado() {
     }
 
-    public Empleado(int idEmpleado, String nid, String nombre, String apellidoPaterno, String apellidoMaterno,
-            String telefono, String email, boolean contratado, int idArea) {
-        this.idEmpleado = idEmpleado;
-        this.nid = nid;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
-        this.email = email;
-        this.contratado = contratado;
-        this.idArea = idArea;
-    }
-
-    public Empleado(String nid, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
-            String email, boolean contratado, int idArea) {
-        this.nid = nid;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
-        this.email = email;
-        this.contratado = contratado;
-        this.idArea = idArea;
-    }
-
-    public Empleado(int idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,
-            String email, int idArea) {
-        this.idEmpleado = idEmpleado;
-        this.nombre = nombre;
-        this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = apellidoMaterno;
-        this.telefono = telefono;
-        this.email = email;
-        this.idArea = idArea;
-    }
-
-    public Empleado(int idEmpleado, String nid, String telefono, String email) {
-        this.idEmpleado = idEmpleado;
-        this.nid = nid;
-        this.telefono = telefono;
-        this.email = email;
-    }
-
-    public Empleado(String nid, String telefono, String email) {
-        this.nid = nid;
-        this.telefono = telefono;
-        this.email = email;
+    public Empleado(EmpleadoBuilder builder) {
+        this.idEmpleado = builder.idEmpleado;
+        this.nid = builder.nid;
+        this.nombre = builder.nombre;
+        this.apellidoPaterno = builder.apellidoPaterno;
+        this.apellidoMaterno = builder.apellidoMaterno;
+        this.telefono = builder.telefono;
+        this.email = builder.email;
+        this.contratado = builder.contratado;
+        this.idArea = builder.idArea;
     }
 
     public int getIdEmpleado() {
@@ -152,5 +115,67 @@ public class Empleado implements Serializable, Comparable {
             throw new IllegalArgumentException("Argumento inválido");
         }
         return nombre.compareToIgnoreCase(((Empleado) o).nombre);
+    }
+
+    public static class EmpleadoBuilder {
+
+        private int idEmpleado;
+        private String nid;
+        private String nombre;
+        private String apellidoPaterno;
+        private String apellidoMaterno;
+        private String telefono;
+        private String email;
+        private boolean contratado;
+        private int idArea;
+
+        public EmpleadoBuilder idEmpleado(int idEmpleado) {
+            this.idEmpleado = idEmpleado;
+            return this;
+        }
+
+        public EmpleadoBuilder nid(String nid) {
+            this.nid = nid;
+            return this;
+        }
+
+        public EmpleadoBuilder nombre(String nombre) {
+            this.nombre = nombre;
+            return this;
+        }
+
+        public EmpleadoBuilder apellidoPaterno(String apellidoPaterno) {
+            this.apellidoPaterno = apellidoPaterno;
+            return this;
+        }
+
+        public EmpleadoBuilder apellidoMaterno(String apellidoMaterno) {
+            this.apellidoMaterno = apellidoMaterno;
+            return this;
+        }
+
+        public EmpleadoBuilder telefono(String telefono) {
+            this.telefono = telefono;
+            return this;
+        }
+
+        public EmpleadoBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public EmpleadoBuilder contratado(boolean contratado) {
+            this.contratado = contratado;
+            return this;
+        }
+
+        public EmpleadoBuilder idArea(int idArea) {
+            this.idArea = idArea;
+            return this;
+        }
+
+        public Empleado build() {
+            return new Empleado(this);
+        }
     }
 }

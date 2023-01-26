@@ -77,6 +77,7 @@ public class MaterialDAO {
         if (usuarioYFecha) {
             try {
                 conn = getConnection();
+                conn.setAutoCommit(false);
                 String sqlUpdate = "UPDATE material SET cantidad = ?, fechaIngreso = ?, idUsuario = ? WHERE idMaterial = "
                         + idRegistro;
                 QR.update(conn, sqlUpdate, data);

@@ -19,48 +19,17 @@ public class Material implements Serializable, Comparable {
     private int idTienda;
     private int idUsuario;
 
-    public Material(int idMaterial, String nombreMaterial, int cantidad, int limiteMinimo, String sku,
-            String fechaIngreso, int idUnidad, int idClasificacion, int idTienda, int idUsuario) {
-        this.idMaterial = idMaterial;
-        this.nombreMaterial = nombreMaterial;
-        this.cantidad = cantidad;
-        this.limiteMinimo = limiteMinimo;
-        this.sku = sku;
-        this.fechaIngreso = fechaIngreso;
-        this.idUnidad = idUnidad;
-        this.idClasificacion = idClasificacion;
-        this.idTienda = idTienda;
-        this.idUsuario = idUsuario;
-    }
-
-    public Material(String nombreMaterial, int cantidad, int limiteMinimo, String sku, String fechaIngreso,
-            int idUnidad, int idClasificacion, int idTienda, int idUsuario) {
-        this.nombreMaterial = nombreMaterial;
-        this.cantidad = cantidad;
-        this.limiteMinimo = limiteMinimo;
-        this.sku = sku;
-        this.fechaIngreso = fechaIngreso;
-        this.idUnidad = idUnidad;
-        this.idClasificacion = idClasificacion;
-        this.idTienda = idTienda;
-        this.idUsuario = idUsuario;
-    }
-
-    public Material(int idMaterial, String nombreMaterial, int cantidad, int idUnidad, int idUsuario) {
-        this.idMaterial = idMaterial;
-        this.nombreMaterial = nombreMaterial;
-        this.cantidad = cantidad;
-        this.idUnidad = idUnidad;
-        this.idUsuario = idUsuario;
-    }
-
-    public Material(int idMaterial, String sku) {
-        this.idMaterial = idMaterial;
-        this.sku = sku;
-    }
-
-    public Material(String sku) {
-        this.sku = sku;
+    public Material(MaterialBuilder builder) {
+        this.idMaterial = builder.idMaterial;
+        this.nombreMaterial = builder.nombreMaterial;
+        this.cantidad = builder.cantidad;
+        this.limiteMinimo = builder.limiteMinimo;
+        this.sku = builder.sku;
+        this.fechaIngreso = builder.fechaIngreso;
+        this.idUnidad = builder.idUnidad;
+        this.idClasificacion = builder.idClasificacion;
+        this.idTienda = builder.idTienda;
+        this.idUsuario = builder.idUsuario;
     }
 
     public Material() {
@@ -187,6 +156,78 @@ public class Material implements Serializable, Comparable {
         }
         Material mat = (Material) o;
         return nombreMaterial.compareToIgnoreCase(mat.nombreMaterial);
+
     }
 
+    public static class MaterialBuilder {
+
+        private int idMaterial;
+        private String nombreMaterial;
+        private int cantidad;
+        private int limiteMinimo;
+        private String sku;
+        private String fechaIngreso;
+        private int idUnidad;
+        private int idClasificacion;
+        private int idTienda;
+        private int idUsuario;
+
+        public MaterialBuilder() {
+
+        }
+
+        public MaterialBuilder idMaterial(int idMaterial) {
+            this.idMaterial = idMaterial;
+            return this;
+        }
+
+        public MaterialBuilder nombreMaterial(String nombreMaterial) {
+            this.nombreMaterial = nombreMaterial;
+            return this;
+        }
+
+        public MaterialBuilder cantidad(int cantidad) {
+            this.cantidad = cantidad;
+            return this;
+        }
+
+        public MaterialBuilder limiteMinimo(int limiteMinimo) {
+            this.limiteMinimo = limiteMinimo;
+            return this;
+        }
+
+        public MaterialBuilder sku(String sku) {
+            this.sku = sku;
+            return this;
+        }
+
+        public MaterialBuilder fechaIngreso(String fechaIngreso) {
+            this.fechaIngreso = fechaIngreso;
+            return this;
+        }
+
+        public MaterialBuilder idUnidad(int idUnidad) {
+            this.idUnidad = idUnidad;
+            return this;
+        }
+
+        public MaterialBuilder idClasificacion(int idClasificacion) {
+            this.idClasificacion = idClasificacion;
+            return this;
+        }
+
+        public MaterialBuilder idTienda(int idTienda) {
+            this.idTienda = idTienda;
+            return this;
+        }
+
+        public MaterialBuilder idUsuario(int idUsuario) {
+            this.idUsuario = idUsuario;
+            return this;
+        }
+
+        public Material build() {
+            return new Material(this);
+        }
+    }
 }

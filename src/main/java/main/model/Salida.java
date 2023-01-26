@@ -15,30 +15,19 @@ public class Salida implements Serializable, Comparable {
     private String unidadMaterial;
     private int idUsuario;
 
-    public Salida(int idSalida, int cantidadSalida, String conceptoSalida, String fechaHoraSalida, String nombreEmpleado, String areaEmpleado, String nombreMaterial, String unidadMaterial, int idUsuario) {
-        this.idSalida = idSalida;
-        this.cantidadSalida = cantidadSalida;
-        this.conceptoSalida = conceptoSalida;
-        this.fechaHoraSalida = fechaHoraSalida;
-        this.nombreEmpleado = nombreEmpleado;
-        this.areaEmpleado = areaEmpleado;
-        this.nombreMaterial = nombreMaterial;
-        this.unidadMaterial = unidadMaterial;
-        this.idUsuario = idUsuario;
-    }
-
     public Salida() {
     }
 
-    public Salida(int cantidadSalida, String conceptoSalida, String fechaHoraSalida, String nombreEmpleado, String areaEmpleado, String nombreMaterial, String unidadMaterial, int idUsuario) {
-        this.cantidadSalida = cantidadSalida;
-        this.conceptoSalida = conceptoSalida;
-        this.fechaHoraSalida = fechaHoraSalida;
-        this.nombreEmpleado = nombreEmpleado;
-        this.areaEmpleado = areaEmpleado;
-        this.nombreMaterial = nombreMaterial;
-        this.unidadMaterial = unidadMaterial;
-        this.idUsuario = idUsuario;
+    public Salida(SalidaBuilder builder) {
+        this.idSalida = builder.idSalida;
+        this.cantidadSalida = builder.cantidadSalida;
+        this.conceptoSalida = builder.conceptoSalida;
+        this.fechaHoraSalida = builder.fechaHoraSalida;
+        this.nombreEmpleado = builder.nombreEmpleado;
+        this.areaEmpleado = builder.areaEmpleado;
+        this.nombreMaterial = builder.nombreMaterial;
+        this.unidadMaterial = builder.unidadMaterial;
+        this.idUsuario = builder.idUsuario;
     }
 
     public int getIdSalida() {
@@ -112,7 +101,7 @@ public class Salida implements Serializable, Comparable {
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
+
     @Override
     public int compareTo(Object o) {
         if (!(o instanceof Salida)) {
@@ -128,4 +117,65 @@ public class Salida implements Serializable, Comparable {
         }
     }
 
+    public static class SalidaBuilder {
+
+        private int idSalida;
+        private int cantidadSalida;
+        private String conceptoSalida;
+        private String fechaHoraSalida;
+        private String nombreEmpleado;
+        private String areaEmpleado;
+        private String nombreMaterial;
+        private String unidadMaterial;
+        private int idUsuario;
+
+        public SalidaBuilder idSalida(int idSalida) {
+            this.idSalida = idSalida;
+            return this;
+        }
+
+        public SalidaBuilder cantidadSalida(int cantidadSalida) {
+            this.cantidadSalida = cantidadSalida;
+            return this;
+        }
+
+        public SalidaBuilder conceptoSalida(String conceptoSalida) {
+            this.conceptoSalida = conceptoSalida;
+            return this;
+        }
+
+        public SalidaBuilder fechaHoraSalida(String fechaHoraSalida) {
+            this.fechaHoraSalida = fechaHoraSalida;
+            return this;
+        }
+
+        public SalidaBuilder nombreEmpleado(String nombreEmpleado) {
+            this.nombreEmpleado = nombreEmpleado;
+            return this;
+        }
+
+        public SalidaBuilder areaEmpleado(String areaEmpleado) {
+            this.areaEmpleado = areaEmpleado;
+            return this;
+        }
+
+        public SalidaBuilder nombreMaterial(String nombreMaterial) {
+            this.nombreMaterial = nombreMaterial;
+            return this;
+        }
+
+        public SalidaBuilder unidadMaterial(String unidadMaterial) {
+            this.unidadMaterial = unidadMaterial;
+            return this;
+        }
+
+        public SalidaBuilder idUsuario(int idUsuario) {
+            this.idUsuario = idUsuario;
+            return this;
+        }
+
+        public Salida build() {
+            return new Salida(this);
+        }
+    }
 }

@@ -92,8 +92,7 @@ public class MaterialController extends MouseAdapter
                     int limiteMinMat = Integer.parseInt(textFields.get(4).getText());
                     //
                     if (accion.equals("insert")) {
-                        if (!existente(false, materiales.toArray(),
-                                new Material(sku), textFields.get(0))) {
+                        if (!existente(false, new Material.MaterialBuilder().sku(sku).build())) {
                             try {
                                 int idUsuario = usuario.getIdUsuario();
                                 Object[] data = {
@@ -116,18 +115,8 @@ public class MaterialController extends MouseAdapter
                         }
 
                     } else if (accion.equals("update")) {
-                        if (!existente(true, materiales.toArray(),
-                                new Material(material.getIdMaterial(), sku),
-                                textFields.get(0))) {
+                        if (!existente(true, new Material.MaterialBuilder().idMaterial(material.getIdMaterial()).sku(sku).build())) {
                             String fechaIngreso = getFecha();
-                            material.setNombreMaterial(nombreMaterial);
-                            material.setCantidad(cantidadMat);
-                            material.setLimiteMinimo(limiteMinMat);
-                            material.setSku(sku);
-                            material.setFechaIngreso(fechaIngreso);
-                            material.setIdUnidad(idUnidad);
-                            material.setIdClasificacion(idClasificacion);
-                            material.setIdTienda(idTienda);
                             try {
                                 Object[] data = {
                                     nombreMaterial,
@@ -142,6 +131,7 @@ public class MaterialController extends MouseAdapter
                                 };
                                 new MaterialDAO().update(material.getIdMaterial(), data);
                             } catch (SQLException ex) {
+                                ex.printStackTrace(System.out);
                                 JOptionPane.showMessageDialog(null, "Hubo un error.");
                             }
                         }
@@ -623,11 +613,19 @@ public class MaterialController extends MouseAdapter
                 tienda -> tienda.getNombre().equals(combos.get(2).getSelectedItem().toString()))
                 .collect(Collectors.toList()).get(0).getId();
         // FIN
-        material = new Material(idMaterial, textFields.get(0).getText(),
-                Integer.parseInt(textFields.get(3).getText()),
-                Integer.parseInt(textFields.get(4).getText()),
-                textFields.get(1).getText(), (String) defaultTableModel.getValueAt(row, 5),
-                idUnidad, idClasificacion, idTienda, usuario.getIdUsuario());
+        material = new Material.MaterialBuilder()
+                .idMaterial(idMaterial)
+                .nombreMaterial(textFields.get(0).getText())
+                .cantidad(Integer.parseInt(textFields.get(3).getText()))
+                .limiteMinimo(Integer.parseInt(textFields.get(4).getText()))
+                .sku(textFields.get(1).getText())
+                .fechaIngreso((String) defaultTableModel.getValueAt(row, 5))
+                .idUnidad(idUnidad)
+                .idClasificacion(idClasificacion)
+                .idTienda(idTienda)
+                .idUsuario(usuario.getIdUsuario())
+                .build();
+
         labels.get(8).setText("Fecha:");
         labels.get(8).setVisible(true);
         labels.get(9).setVisible(true);
@@ -727,5 +725,23 @@ public class MaterialController extends MouseAdapter
         } else {
             materiales = MaterialDAO.getInstance().getMateriales();
         }
+    }
+
+    public boolean existente(boolean skip, Material mate) {
+        for (Material mat : materiales) {
+            if (skip) {
+                if (mat.getIdMaterial() != mate.getIdMaterial()) {
+                    if (mat.getSku().equals(mate.getSku())) {
+                        return true;
+                    }
+                }
+                continue;
+            } else {
+                if (mat.getSku().equals(mate.getSku())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

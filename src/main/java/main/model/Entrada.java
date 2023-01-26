@@ -11,19 +11,12 @@ public class Entrada implements Serializable, Comparable {
     private String nombreMaterial;
     private String nombreEmpleado;
 
-    public Entrada(int idEntrada, int cantidadEntrada, String fechaEntrada, String nombreMaterial, String nombreEmpleado) {
-        this.idEntrada = idEntrada;
-        this.cantidadEntrada = cantidadEntrada;
-        this.fechaEntrada = fechaEntrada;
-        this.nombreMaterial = nombreMaterial;
-        this.nombreEmpleado = nombreEmpleado;
-    }
-
-    public Entrada(int cantidadEntrada, String fechaEntrada, String nombreMaterial, String nombreEmpleado) {
-        this.cantidadEntrada = cantidadEntrada;
-        this.fechaEntrada = fechaEntrada;
-        this.nombreMaterial = nombreMaterial;
-        this.nombreEmpleado = nombreEmpleado;
+    public Entrada(EntradaBuilder builder) {
+        this.idEntrada = builder.idEntrada;
+        this.cantidadEntrada = builder.cantidadEntrada;
+        this.fechaEntrada = builder.fechaEntrada;
+        this.nombreMaterial = builder.nombreMaterial;
+        this.nombreEmpleado = builder.nombreEmpleado;
     }
 
     public Entrada() {
@@ -82,8 +75,7 @@ public class Entrada implements Serializable, Comparable {
         sb.append('}');
         return sb.toString();
     }
-    
-    
+
     @Override
     public int compareTo(Object o) {
         if (!(o instanceof Entrada)) {
@@ -97,8 +89,44 @@ public class Entrada implements Serializable, Comparable {
             } else {
                 return 0;
             }
-
         }
     }
 
+    public static class EntradaBuilder {
+
+        private int idEntrada;
+        private int cantidadEntrada;
+        private String fechaEntrada;
+        private String nombreMaterial;
+        private String nombreEmpleado;
+
+        public EntradaBuilder idEntrada(int idEntrada) {
+            this.idEntrada = idEntrada;
+            return this;
+        }
+
+        public EntradaBuilder cantidadEntrada(int cantidadEntrada) {
+            this.cantidadEntrada = cantidadEntrada;
+            return this;
+        }
+
+        public EntradaBuilder fechaEntrada(String fechaEntrada) {
+            this.fechaEntrada = fechaEntrada;
+            return this;
+        }
+
+        public EntradaBuilder nombreMaterial(String nombreMaterial) {
+            this.nombreMaterial = nombreMaterial;
+            return this;
+        }
+
+        public EntradaBuilder nombreEmpleado(String nombreEmpleado) {
+            this.nombreEmpleado = nombreEmpleado;
+            return this;
+        }
+
+        public Entrada build() {
+            return new Entrada(this);
+        }
+    }
 }

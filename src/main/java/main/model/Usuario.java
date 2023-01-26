@@ -12,21 +12,15 @@ public class Usuario implements Serializable {
     private int idEmpleado;
 
     public Usuario() {
+        
     }
 
-    public Usuario(int idUsuario, String usuario, String password, boolean administrador, int idEmpleado) {
-        this.idUsuario = idUsuario;
-        this.usuario = usuario;
-        this.password = password;
-        this.administrador = administrador;
-        this.idEmpleado = idEmpleado;
-    }
-
-    public Usuario(String usuario, String password, boolean administrador, int idEmpleado) {
-        this.usuario = usuario;
-        this.password = password;
-        this.administrador = administrador;
-        this.idEmpleado = idEmpleado;
+    public Usuario(UsuarioBuilder builder) {
+        this.idUsuario = builder.idUsuario;
+        this.usuario = builder.usuario;
+        this.password = builder.password;
+        this.administrador = builder.administrador;
+        this.idEmpleado = builder.idEmpleado;
     }
 
     public boolean isAdministrador() {
@@ -74,4 +68,41 @@ public class Usuario implements Serializable {
         return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", password=" + password + ", idEmpleado=" + idEmpleado + '}';
     }
 
+    public static class UsuarioBuilder {
+
+        private int idUsuario;
+        private String usuario;
+        private String password;
+        private boolean administrador;
+        private int idEmpleado;
+
+        public UsuarioBuilder idUsuario(int idUsuario) {
+            this.idUsuario = idUsuario;
+            return this;
+        }
+
+        public UsuarioBuilder usuario(String usuario) {
+            this.usuario = usuario;
+            return this;
+        }
+
+        public UsuarioBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UsuarioBuilder administrador(boolean administrador) {
+            this.administrador = administrador;
+            return this;
+        }
+
+        public UsuarioBuilder idEmpleado(int idEmpleado) {
+            this.idEmpleado = idEmpleado;
+            return this;
+        }
+
+        public Usuario build() {
+            return new Usuario(this);
+        }
+    }
 }

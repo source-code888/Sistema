@@ -240,12 +240,6 @@ public class EmpleadoController extends MouseAdapter
                     Objetos.eventoComun.remarcarLabel(labels.get(4), "Ingresa un correo electrónico", Color.red);
                 }
             }
-
-            /*
-             * if (cbxAreas.getSelectedItem() == null) {
-             * remarcarLabel(labels.get(5), "Selecciona una area", Color.red);
-             * }
-             */
         }
     }
 
@@ -344,9 +338,12 @@ public class EmpleadoController extends MouseAdapter
 
     private void insertarEmpleado() {
         try {
-            if (noExiste(new Empleado(textFields.get(6).getText(),
-                    textFields.get(3).getText(), textFields.get(4).getText()), false)) {
-
+            if (noExiste(
+                    new Empleado.EmpleadoBuilder()
+                            .nid(textFields.get(6).getText())
+                            .telefono(textFields.get(3).getText())
+                            .email(textFields.get(4).getText()).build(),
+                    false)) {
                 Object[] data = {
                     textFields.get(6).getText(),
                     textFields.get(0).getText(),
@@ -459,18 +456,17 @@ public class EmpleadoController extends MouseAdapter
         int idArea = areas.stream().filter(
                 area -> area.getNombre().equals(cbxAreas.getSelectedItem().toString())).collect(Collectors.toList())
                 .get(0).getId();
-
-        empleado = new Empleado(
-                idEmpleado,
-                textFields.get(6).getText(),
-                textFields.get(0).getText(),
-                textFields.get(1).getText(),
-                textFields.get(2).getText(),
-                textFields.get(3).getText(),
-                textFields.get(4).getText(),
-                jcbContratado.isSelected(),
-                idArea);
-
+        empleado = new Empleado.EmpleadoBuilder()
+                .idEmpleado(idEmpleado)
+                .nid(textFields.get(6).getText())
+                .nombre(textFields.get(0).getText())
+                .apellidoPaterno(textFields.get(1).getText())
+                .apellidoMaterno(textFields.get(2).getText())
+                .telefono(textFields.get(3).getText())
+                .email(textFields.get(4).getText())
+                .contratado(jcbContratado.isSelected())
+                .idArea(idArea)
+                .build();
         if (!textFields.get(5).getText().equals("")) {
             textFields.get(5).setText("");
         }
@@ -486,8 +482,13 @@ public class EmpleadoController extends MouseAdapter
                 .get(0).getId();
 
         try {
-            if (noExiste(new Empleado(empleado.getIdEmpleado(), textFields.get(6).getText(),
-                    textFields.get(3).getText(), textFields.get(4).getText()), true)) {
+            if (noExiste(
+                    new Empleado.EmpleadoBuilder()
+                            .idEmpleado(empleado.getIdEmpleado())
+                            .nid(textFields.get(6).getText())
+                            .telefono(textFields.get(3).getText())
+                            .email(textFields.get(4).getText()).build(),
+                    false)) {
                 empleado.setNid(textFields.get(6).getText());
                 empleado.setNombre(textFields.get(0).getText());
                 empleado.setApellidoPaterno(textFields.get(1).getText());
@@ -565,8 +566,8 @@ public class EmpleadoController extends MouseAdapter
     public void stateChanged(ChangeEvent e) {
         Object obj = e.getSource();
         if (obj instanceof JSpinner) {
-            JSpinner spinner = (JSpinner) obj;
-            if (spinner.equals(this.spinner)) {
+            JSpinner sp = (JSpinner) obj;
+            if (sp.equals(this.spinner)) {
                 mostrarRegistrosPorPagina();
             }
         }

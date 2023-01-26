@@ -38,6 +38,7 @@ public class ClasificacionDAO{
         Connection conn = null;
         try {
             conn = getConnection();
+            conn.setAutoCommit(false);
             String sqlCliente = "INSERT INTO clasificacion(nombre) VALUES(?)";
             QR.insert(conn, sqlCliente, new ColumnListHandler(), data);
             conn.commit();

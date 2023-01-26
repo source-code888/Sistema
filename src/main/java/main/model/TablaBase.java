@@ -17,8 +17,6 @@ public class TablaBase implements Serializable {
     public TablaBase() {
     }
     
-    
-
     public int getId() {
         return id;
     }

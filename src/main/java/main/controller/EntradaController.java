@@ -510,7 +510,18 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         int limiteMinimo = (Integer) tableModelMateriales.getValueAt(row, 3);
         String sku = (String) tableModelMateriales.getValueAt(row, 4);
         String fechaIngreso = (String) tableModelMateriales.getValueAt(row, 5);
-        material = new Material(idMaterial, nombreMaterial, cantidad, limiteMinimo, sku, fechaIngreso, idUnidad, idClasificacion, idTienda, usuario.getIdUsuario());
+        material = new Material.MaterialBuilder()
+                .idMaterial(idMaterial)
+                .nombreMaterial(nombreMaterial)
+                .cantidad(cantidad)
+                .limiteMinimo(limiteMinimo)
+                .sku(sku)
+                .fechaIngreso(fechaIngreso)
+                .idUnidad(idUnidad)
+                .idClasificacion(idClasificacion)
+                .idTienda(idTienda)
+                .idUsuario(usuario.getIdUsuario())
+                .build();
         textFields.get(0).setText(material.getNombreMaterial());
         //textFields.get(4).setText(getNombreUnidad(material.getIdUnidad()));
         Objetos.eventoComun.remarcarLabel(labels.get(0), "Material solicitado", COLOR_BASE);
