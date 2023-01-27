@@ -406,7 +406,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             EntradaDAO.getInstance().insert(data);
             material.setCantidad(material.getCantidad() + Integer.parseInt(textFields.get(1).getText()));
             Object[] materialData = {material.getCantidad(), getFecha(), material.getIdUsuario()};
-            new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData, true);
+            MaterialDAO.getInstance().updateCantidad(material.getIdMaterial(), materialData, true);
             reestablecer();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

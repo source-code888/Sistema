@@ -14,7 +14,7 @@ public class MaterialDAO {
     private static MaterialDAO instance;
     private static List<Material> materiales;
 
-    public MaterialDAO() {
+    private MaterialDAO() {
         materiales();
     }
 
@@ -29,7 +29,7 @@ public class MaterialDAO {
         } finally {
             try {
                 close(conn);
-            } catch (Exception e) {
+            } catch (SQLException e) {
             }
         }
     }

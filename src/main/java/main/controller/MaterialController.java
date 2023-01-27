@@ -106,7 +106,7 @@ public class MaterialController extends MouseAdapter
                                     idTienda,
                                     idUsuario
                                 };
-                                new MaterialDAO().insert(data);
+                                MaterialDAO.getInstance().insert(data);
                                 reestablecer();
                             } catch (SQLException ex) {
                             }
@@ -129,7 +129,7 @@ public class MaterialController extends MouseAdapter
                                     idTienda,
                                     material.getIdUsuario()
                                 };
-                                new MaterialDAO().update(material.getIdMaterial(), data);
+                                MaterialDAO.getInstance().update(material.getIdMaterial(), data);
                             } catch (SQLException ex) {
                                 ex.printStackTrace(System.out);
                                 JOptionPane.showMessageDialog(null, "Hubo un error.");
@@ -143,7 +143,7 @@ public class MaterialController extends MouseAdapter
             if (btn.equals(buttons.get(1))) {
                 try {
                     // BOton eliminar
-                    new MaterialDAO().remove(material.getIdMaterial());
+                    MaterialDAO.getInstance().remove(material.getIdMaterial());
                     reestablecer();
                 } catch (SQLException ex) {
                     System.out.println(ex.toString());

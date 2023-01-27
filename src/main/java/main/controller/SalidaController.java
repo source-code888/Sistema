@@ -1011,7 +1011,7 @@ public class SalidaController extends MouseAdapter
                 SalidaDAO.getInstance().insert(data);
                 material.setCantidad(material.getCantidad() - Integer.parseInt(textFields.get(0).getText()));
                 Object[] materialData = {material.getCantidad()};
-                new MaterialDAO().updateCantidad(material.getIdMaterial(), materialData, false);
+                MaterialDAO.getInstance().updateCantidad(material.getIdMaterial(), materialData, false);
                 reestablecer();
             } else {
                 JOptionPane.showMessageDialog(null, "La cantidad de stock del material es insuficiente");
