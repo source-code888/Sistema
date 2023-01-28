@@ -36,7 +36,6 @@ import main.model.UsuarioDAO;
 import static main.library.Objetos.*;
 import static main.library.EventoComun.*;
 import main.library.RenderCheckBox;
-import main.view.Estructura;
 
 public class SalidaController extends MouseAdapter
         implements ActionListener, ChangeListener, KeyListener, FocusListener {
@@ -78,7 +77,6 @@ public class SalidaController extends MouseAdapter
     private Paginador<Salida> paginador;
     private int rows = MAX_REGISTROS_SECCIONES;
     private int pagNum = 1;
-    private Estructura estructura;
 
     public SalidaController(Object object, JTabbedPane tabbedPaneSalidas, JTable tbSalidas, JTable tbEmpleados,
             JTable tbMateriales, List<JLabel> labels, List<JButton> buttons, List<JTextField> textFields,
@@ -89,7 +87,6 @@ public class SalidaController extends MouseAdapter
         } else {
             administrador = false;
         }
-        this.estructura = estructura;
         this.tabbedPaneSalidas = tabbedPaneSalidas;
         this.tbSalidas = tbSalidas;
         this.tbEmpleados = tbEmpleados;
@@ -192,6 +189,7 @@ public class SalidaController extends MouseAdapter
             JSpinner sp = (JSpinner) obj;
             if (sp.equals(spinner)) {
                 mostrarRegistrosPorPagina();
+                buscar(textFields.get(5).getText());
             }
         }
     }
@@ -318,7 +316,8 @@ public class SalidaController extends MouseAdapter
             }
             if (txt.equals(textFields.get(5))) {
                 if (e.getKeyChar() != '\n') {
-                    buscar(textFields.get(5).getText().toLowerCase());
+                    buscar(textFields.get(5).getText());
+                    mostrarRegistrosPorPagina();
                 } else {
                     if (tbSalidas.getRowCount() > 0) {
                         tbSalidas.setRowSelectionInterval(0, 0);
@@ -468,9 +467,8 @@ public class SalidaController extends MouseAdapter
         Objetos.eventoComun.remarcarLabel(labels.get(7), "", Color.black);
         SpinnerNumberModel numberModel = new SpinnerNumberModel(20, 1, 100, 1);
         spinner.setModel(numberModel);
-
-        buscar("");
         mostrarRegistrosPorPagina();
+        buscar("");
         buttons.get(1).setVisible(true);
 
         salida = null;
@@ -486,7 +484,6 @@ public class SalidaController extends MouseAdapter
     }
 
     private void buscar(String data) {
-        Collections.sort(salidas);
         List<Salida> filter;
         String titulos[] = {
             "ID",
@@ -501,28 +498,21 @@ public class SalidaController extends MouseAdapter
         };
         tableModelSalidas = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
-        if (data.equals("")) {
-            filter = salidas.stream().skip(start).limit(rows).collect(Collectors.toList());
-        } else {
-            filter = salidas.stream()
-                    .filter(salida -> salida.getNombreEmpleado().toLowerCase().startsWith(data)
-                    || salida.getNombreMaterial().toLowerCase().startsWith(data)
-                    || salida.getFechaHoraSalida().toLowerCase().startsWith(data))
-                    .skip(start).limit(rows).collect(Collectors.toList());
-        }
+        filter = salidaLst(data).stream().skip(start).limit(rows).collect(Collectors.toList());
+        Collections.sort(filter);
         if (!filter.isEmpty()) {
             filter.forEach(
-                    salida -> {
+                    sa -> {
                         Object[] objects = {
-                            salida.getIdSalida(),
-                            salida.getNombreMaterial(),
-                            salida.getCantidadSalida(),
-                            salida.getUnidadMaterial(),
-                            salida.getConceptoSalida(),
-                            salida.getFechaHoraSalida(),
-                            salida.getNombreEmpleado(),
-                            salida.getAreaEmpleado(),
-                            getNombreUsuarioConfirmante(salida.getIdUsuario())
+                            sa.getIdSalida(),
+                            sa.getNombreMaterial(),
+                            sa.getCantidadSalida(),
+                            sa.getUnidadMaterial(),
+                            sa.getConceptoSalida(),
+                            sa.getFechaHoraSalida(),
+                            sa.getNombreEmpleado(),
+                            sa.getAreaEmpleado(),
+                            getNombreUsuarioConfirmante(sa.getIdUsuario())
                         };
                         tableModelSalidas.addRow(objects);
                     });
@@ -538,7 +528,7 @@ public class SalidaController extends MouseAdapter
 
     private String getNombreEmpleado(int id) {
         Empleado empleadoTemp = EmpleadoDAO.getInstance().getEmpleados().stream()
-                .filter(empleado -> empleado.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
+                .filter(emp -> emp.getIdEmpleado() == id).collect(Collectors.toList()).get(0);
         // String nombre = new EmpleadoDAO().empleados().stream().filter(empleado ->
         // empleado.getIdEmpleado() ==
         // id).collect(Collectors.toList()).get(0).getNombre();
@@ -548,7 +538,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private String getNombreMaterial(int id) {
-        return MaterialDAO.getInstance().getMateriales().stream().filter(material -> material.getIdMaterial() == id)
+        return MaterialDAO.getInstance().getMateriales().stream().filter(mat -> mat.getIdMaterial() == id)
                 .collect(Collectors.toList()).get(0).getNombreMaterial();
     }
 
@@ -563,7 +553,7 @@ public class SalidaController extends MouseAdapter
     }
 
     private String getNombreUsuarioConfirmante(int id) {
-        return UsuarioDAO.getInstance().getUsuarios().stream().filter(material -> material.getIdUsuario() == id)
+        return UsuarioDAO.getInstance().getUsuarios().stream().filter(us -> us.getIdUsuario() == id)
                 .collect(Collectors.toList()).get(0).getUsuario();
     }
 
@@ -571,10 +561,10 @@ public class SalidaController extends MouseAdapter
         pagNum = 1;
         Number box = (Number) spinner.getValue();
         rows = box.intValue();
-        if (!salidas.isEmpty()) {
-            paginador = new Paginador<>(salidas, labels.get(6), rows);
+        List<Salida> lista = salidaLst(textFields.get(5).getText());
+        if (!lista.isEmpty()) {
+            paginador = new Paginador<>(lista, labels.get(6), rows);
         }
-        buscar("");
     }
 
     private void obtenerRegistro() {
@@ -1024,29 +1014,25 @@ public class SalidaController extends MouseAdapter
     }
 
     private void pager(String method) {
+        String filtro = textFields.get(5).getText();
+        if (salidaLst(filtro).isEmpty()) {
+            return;
+        }
         switch (method) {
             case METHOD_FIRST -> {
-                if (!salidas.isEmpty()) {
-                    pagNum = paginador.primero();
-                }
+                pagNum = paginador.primero();
             }
             case METHOD_LAST -> {
-                if (!salidas.isEmpty()) {
-                    pagNum = paginador.anterior();
-                }
+                pagNum = paginador.anterior();
             }
             case METHOD_NEXT -> {
-                if (!salidas.isEmpty()) {
-                    pagNum = paginador.siguiente();
-                }
+                pagNum = paginador.siguiente();
             }
             case METHOD_LATEST -> {
-                if (!salidas.isEmpty()) {
-                    pagNum = paginador.ultimo();
-                }
+                pagNum = paginador.ultimo();
             }
         }
-        buscar("");
+        buscar(filtro);
     }
 
     private void mostrarTablaEmpleado() {
@@ -1073,13 +1059,14 @@ public class SalidaController extends MouseAdapter
         }
     }
 
-    public String getApellidoEmpleado(int id) {
-        return EmpleadoDAO.getInstance().getEmpleados().stream().filter(emp -> emp.getIdEmpleado() == id)
-                .collect(Collectors.toList()).get(0).getApellidoPaterno();
-    }
-
-    public String getContactoEmpleado(int id) {
-        return EmpleadoDAO.getInstance().getEmpleados().stream().filter(emp -> emp.getIdEmpleado() == id)
-                .collect(Collectors.toList()).get(0).getEmail();
+    private List<Salida> salidaLst(String filtro) {
+        if (filtro.isBlank()) {
+            return salidas;
+        }
+        return salidas.stream()
+                .filter(salida -> salida.getNombreEmpleado().toLowerCase().startsWith(filtro.toLowerCase())
+                || salida.getNombreMaterial().toLowerCase().startsWith(filtro.toLowerCase())
+                || salida.getFechaHoraSalida().toLowerCase().startsWith(filtro.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

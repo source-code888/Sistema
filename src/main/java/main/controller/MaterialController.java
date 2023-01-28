@@ -203,6 +203,7 @@ public class MaterialController extends MouseAdapter
                 }
                 textFields.get(2).requestFocus();
                 buscar(textFields.get(2).getText());
+                mostrarRegistrosPorPagina();
             }
             if (txt.equals(textFields.get(0))) {
                 if (textFields.get(0).getText().isBlank()) {
@@ -296,6 +297,7 @@ public class MaterialController extends MouseAdapter
             JSpinner sp = (JSpinner) obj;
             if (sp.equals(spinner)) {
                 mostrarRegistrosPorPagina();
+                buscar(textFields.get(2).getText());
             }
         }
         if (obj instanceof JTabbedPane) {
@@ -303,7 +305,7 @@ public class MaterialController extends MouseAdapter
             if (pane.equals(tabbedPanePrincipal)) {
                 if (tabbedPanePrincipal.getSelectedIndex() == 0) {
                     iniciarListas();
-                    buscar("");
+                    buscar(textFields.get(2).getText());
                 }
             }
         }
@@ -436,14 +438,7 @@ public class MaterialController extends MouseAdapter
         };
         defaultTableModel = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
-        if (data.equals("")) {
-            filter = materiales.stream().skip(start).limit(rows).collect(Collectors.toList());
-        } else {
-            filter = materiales.stream()
-                    .filter(mat -> mat.getNombreMaterial().startsWith(data)
-                    || mat.getSku().startsWith(data) || mat.getFechaIngreso().startsWith(data))
-                    .skip(start).limit(rows).collect(Collectors.toList());
-        }
+        filter = materialesLst(data).stream().skip(start).limit(rows).collect(Collectors.toList());
         if (!filter.isEmpty()) {
             filter.forEach(
                     (Material mat) -> {
@@ -516,39 +511,47 @@ public class MaterialController extends MouseAdapter
     }
 
     private void pager(String method) {
+        String filtro = textFields.get(2).getText();
+        if (materialesLst(filtro).isEmpty()) {
+            return;
+        }
         switch (method) {
             case METHOD_FIRST -> {
-                if (!materiales.isEmpty()) {
-                    pagNum = paginador.primero();
-                }
+                pagNum = paginador.primero();
             }
             case METHOD_LAST -> {
-                if (!materiales.isEmpty()) {
-                    pagNum = paginador.anterior();
-                }
+                pagNum = paginador.anterior();
             }
             case METHOD_NEXT -> {
-                if (!materiales.isEmpty()) {
-                    pagNum = paginador.siguiente();
-                }
+                pagNum = paginador.siguiente();
             }
             case METHOD_LATEST -> {
-                if (!materiales.isEmpty()) {
-                    pagNum = paginador.ultimo();
-                }
+                pagNum = paginador.ultimo();
             }
         }
-        buscar("");
+        buscar(filtro);
     }
 
     private void mostrarRegistrosPorPagina() {
         pagNum = 1;
         Number box = (Number) spinner.getValue();
         rows = box.intValue();
-        if (!materiales.isEmpty()) {
-            paginador = new Paginador<>(materiales, labels.get(0), rows);
+        List<Material> lista = materialesLst(textFields.get(2).getText());
+        if (!lista.isEmpty()) {
+            paginador = new Paginador<>(lista, labels.get(0), rows);
         }
-        buscar("");
+    }
+
+    public List<Material> materialesLst(String filtro) {
+        if (filtro.isBlank()) {
+            return materiales;
+        }
+        return materiales.stream()
+                .filter(
+                        mat -> mat.getNombreMaterial().startsWith(filtro)
+                        || mat.getSku().startsWith(filtro)
+                        || mat.getFechaIngreso().startsWith(filtro)
+                ).collect(Collectors.toList());
     }
 
     private void reestablecer() {
@@ -582,9 +585,9 @@ public class MaterialController extends MouseAdapter
         comboModel("unidad");
         comboModel("clasificacion");
         comboModel("tienda");
-        buscar("");
         mostrarRegistrosPorPagina();
         buttons.get(1).setVisible(false);
+        buscar("");
         material = null;
     }
 

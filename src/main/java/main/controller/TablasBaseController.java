@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JButton;
@@ -177,13 +178,8 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         };
         defaultTableModel = new DefaultTableModel(null, titulos);
         int start = (pagNum - 1) * rows;
-        if (data.equals("")) {
-            filter = lista.stream().skip(start).limit(rows).collect(Collectors.toList());
-        } else {
-            filter = lista.stream().filter(base
-                    -> base.getNombre().startsWith(data)
-            ).skip(start).limit(rows).collect(Collectors.toList());
-        }
+        filter = tablaLst(data).stream().skip(start).limit(rows).collect(Collectors.toList());
+        Collections.sort(filter);
         if (!filter.isEmpty()) {
             filter.forEach(
                     base -> {
@@ -229,40 +225,35 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
     }
 
     public void pager(String method) {
+        String filtro = textFields.get(1).getText();
+        if (tablaLst(filtro).isEmpty()) {
+            return;
+        }
         switch (method) {
             case METHOD_FIRST -> {
-                if (!lista.isEmpty()) {
-                    pagNum = paginador.primero();
-                }
-
+                pagNum = paginador.primero();
             }
             case METHOD_LAST -> {
-                if (!lista.isEmpty()) {
-                    pagNum = paginador.anterior();
-                }
+                pagNum = paginador.anterior();
             }
             case METHOD_NEXT -> {
-                if (!lista.isEmpty()) {
-                    pagNum = paginador.siguiente();
-                }
+                pagNum = paginador.siguiente();
             }
             case METHOD_LATEST -> {
-                if (!lista.isEmpty()) {
-                    pagNum = paginador.ultimo();
-                }
+                pagNum = paginador.ultimo();
             }
         }
-        buscar("");
+        buscar(filtro);
     }
 
     private void mostrarRegistrosPorPagina() {
         pagNum = 1;
         Number box = (Number) spinner.getValue();
         rows = box.intValue();
-        if (!lista.isEmpty()) {
-            paginador = new Paginador<>(lista, labels.get(4), rows);
+        List<TablaBase> tablaBaseLst = tablaLst(textFields.get(1).getText());
+        if (!tablaBaseLst.isEmpty()) {
+            paginador = new Paginador<>(tablaBaseLst, labels.get(4), rows);
         }
-        buscar("");
     }
 
     private void reestablecer() {
@@ -282,8 +273,8 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
         }
         SpinnerNumberModel numberModel = new SpinnerNumberModel(10, 1, 100, 1);
         spinner.setModel(numberModel);
-        buscar("");
         mostrarRegistrosPorPagina();
+        buscar("");
         buttons.get(1).setVisible(false);
     }
 
@@ -294,6 +285,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
             JSpinner sp = (JSpinner) obj;
             if (sp.equals(spinner)) {
                 mostrarRegistrosPorPagina();
+                buscar(textFields.get(1).getText());
             }
         }
     }
@@ -326,6 +318,7 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                 }
                 textFields.get(1).requestFocus();
                 buscar(textFields.get(1).getText());
+                mostrarRegistrosPorPagina();
             }
             if (txt.equals(textFields.get(0))) {
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -399,6 +392,15 @@ public class TablasBaseController extends MouseAdapter implements ActionListener
                 }
             }
         }
+    }
+
+    private List<TablaBase> tablaLst(String filtro) {
+        if (filtro.isBlank()) {
+            return lista;
+        }
+        return lista.stream()
+                .filter(base -> base.getNombre().toLowerCase().startsWith(filtro.toLowerCase())
+                ).collect(Collectors.toList());
     }
 
 }

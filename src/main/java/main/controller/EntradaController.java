@@ -141,6 +141,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             JSpinner sp = (JSpinner) obj;
             if (sp.equals(spinner)) {
                 mostrarRegistrosPorPagina();
+                buscar(textFields.get(2).getText());
             }
         }
     }
@@ -167,21 +168,11 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 if (e.getKeyChar() != '\n') {
                     material = null;
                     labels.get(0).setForeground(Color.BLACK);
-
-                    //if (administrador) {
                     buscarMaterial(textFields.get(0).getText().toLowerCase());
-                    /*} else {
-                        buscarMaterialPorOperador(textFields.get(0).getText());
-                    }*/
                 } else {
                     if (tbMateriales.getRowCount() > 0) {
                         tbMateriales.setRowSelectionInterval(0, 0);
-
-                        //if (administrador) {
                         obtenerMaterial();
-                        /*} else {
-                            obtenerMaterialPorOperador();
-                        }*/
                     }
                 }
                 if (textFields.get(0).getText().isBlank()) {
@@ -198,7 +189,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
                 }
             }
             if (textField.equals(textFields.get(2))) {
-                buscar(textField.getText().toLowerCase());
+                buscar(textField.getText());
+                mostrarRegistrosPorPagina();
             }
         }
 
@@ -306,9 +298,9 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
 
         SpinnerNumberModel numberModel = new SpinnerNumberModel(20, 1, 100, 1);
         spinner.setModel(numberModel);
+        mostrarRegistrosPorPagina();
 
         buscar("");
-        mostrarRegistrosPorPagina();
 
         buttons.get(0).setVisible(true);
         entrada = null;
@@ -321,7 +313,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private void buscar(String data) {
-        Collections.sort(entradas);
         List<Entrada> filter;
         String titulos[] = {
             "ID",
@@ -332,13 +323,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         };
         tableModelEntradas = new TableModel(null, titulos);
         int start = (pagNum - 1) * rows;
-        if (data.equals("")) {
-            filter = entradas.stream().skip(start).limit(rows).collect(Collectors.toList());
-        } else {
-            filter = entradas.stream().filter(entrada
-                    -> entrada.getNombreEmpleado().toLowerCase().startsWith(data) || entrada.getNombreMaterial().toLowerCase().startsWith(data) || entrada.getFechaEntrada().startsWith(data)
-            ).skip(start).limit(rows).collect(Collectors.toList());
-        }
+        filter = entradaLst(data).stream().skip(start).limit(rows).collect(Collectors.toList());
+        Collections.sort(filter);
         if (!filter.isEmpty()) {
             filter.forEach(
                     entrada -> {
@@ -379,10 +365,10 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         pagNum = 1;
         Number box = (Number) spinner.getValue();
         rows = box.intValue();
-        if (!entradas.isEmpty()) {
-            paginador = new Paginador<>(entradas, labels.get(3), rows);
+        List<Entrada> lista = entradaLst(textFields.get(2).getText());
+        if (!lista.isEmpty()) {
+            paginador = new Paginador<>(lista, labels.get(3), rows);
         }
-        buscar("");
     }
 
     private void ocultarComponenteTabbedPane(String titulo) {
@@ -417,7 +403,6 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
         if (tabbedPaneEntradas.getTabCount() < 2) {
             tabbedPaneEntradas.addTab("Materiales", componentMateriales);
             tabbedPaneEntradas.setSelectedIndex(tabbedPaneEntradas.getTabCount() - 1);
-            //if(administrador){
             buscarMaterial("");
         }
     }
@@ -486,8 +471,8 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private String getNombreUsuarioConfirmante(int id) {
-        return UsuarioDAO.getInstance().getUsuarios().stream().filter(material
-                -> material.getIdUsuario() == id
+        return UsuarioDAO.getInstance().getUsuarios().stream().filter(emp
+                -> emp.getIdUsuario() == id
         ).collect(Collectors.toList()).get(0).getUsuario();
     }
 
@@ -564,29 +549,25 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private void pager(String method) {
+        String filtro = textFields.get(2).getText();
+        if (entradaLst(filtro).isEmpty()) {
+            return;
+        }
         switch (method) {
             case METHOD_FIRST -> {
-                if (!entradas.isEmpty()) {
-                    pagNum = paginador.primero();
-                }
+                pagNum = paginador.primero();
             }
             case METHOD_LAST -> {
-                if (!entradas.isEmpty()) {
-                    pagNum = paginador.anterior();
-                }
+                pagNum = paginador.anterior();
             }
             case METHOD_NEXT -> {
-                if (!entradas.isEmpty()) {
-                    pagNum = paginador.siguiente();
-                }
+                pagNum = paginador.siguiente();
             }
             case METHOD_LATEST -> {
-                if (!entradas.isEmpty()) {
-                    pagNum = paginador.ultimo();
-                }
+                pagNum = paginador.ultimo();
             }
         }
-        buscar("");
+        buscar(filtro);
     }
 
     private boolean validarEntrada() {
@@ -605,5 +586,16 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             return false;
         }
         return true;
+    }
+
+    private List<Entrada> entradaLst(String filtro) {
+        if (filtro.isEmpty()) {
+            return entradas;
+        }
+        return entradas.stream()
+                .filter(entrada -> entrada.getNombreEmpleado().toLowerCase().startsWith(filtro.toLowerCase())
+                || entrada.getNombreMaterial().toLowerCase().startsWith(filtro.toLowerCase())
+                || entrada.getFechaEntrada().startsWith(filtro.toLowerCase())
+                ).collect(Collectors.toList());
     }
 }

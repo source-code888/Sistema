@@ -2,7 +2,7 @@ package main.model;
 
 import java.io.Serializable;
 
-public class TablaBase implements Serializable {
+public class TablaBase implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     protected int id;
@@ -13,10 +13,9 @@ public class TablaBase implements Serializable {
         this.nombre = nombre;
     }
 
-
     public TablaBase() {
     }
-    
+
     public int getId() {
         return id;
     }
@@ -37,5 +36,20 @@ public class TablaBase implements Serializable {
     public String toString() {
         return "TablaBase{" + "id=" + id + ", nombre=" + nombre + '}';
     }
-    
+
+    @Override
+    public int compareTo(Object o) {
+        if (!(o instanceof TablaBase)) {
+            throw new IllegalArgumentException("El objeto debe ser de tipo Salida");
+        }
+        TablaBase tablaBase = (TablaBase) o;
+        if (id < tablaBase.id) {
+            return 1;
+        } else if (id > tablaBase.id) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
 }

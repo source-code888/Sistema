@@ -94,7 +94,6 @@ public class EmpleadoController extends MouseAdapter
         jcbContratado.setSelected(true);
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(20, 1, 100, 1);
         spinner.setModel(spinnerModel);
-        buscar("");
         mostrarRegistrosPorPagina();
         buttons.get(1).setVisible(false);
         empleado = null;
@@ -107,6 +106,7 @@ public class EmpleadoController extends MouseAdapter
         Objetos.eventoComun.remarcarLabel(labels.get(5), "Area:", Color.black);
         Objetos.eventoComun.remarcarLabel(labels.get(7), "NID:", Color.black);
 
+        buscar("");
         textFields.get(6).requestFocus();
     }
 
@@ -127,7 +127,6 @@ public class EmpleadoController extends MouseAdapter
     }
 
     private void buscar(String data) {
-        Collections.sort(empleados);
         List<Empleado> filter;
         String titulos[] = {
             "ID",
@@ -141,20 +140,10 @@ public class EmpleadoController extends MouseAdapter
             "Contratado"
         };
         defaultTableModel = new TableModel(null, titulos);
-
         int start = (pagNum - 1) * rows;
-        if (data.equals("")) {
-            filter = empleados.stream().skip(start).limit(rows).collect(Collectors.toList());
-        } else {
-            filter = empleados.stream()
-                    .filter(empleado -> (empleado.getNombre() + " " + empleado.getApellidoPaterno() + " "
-                    + empleado.getApellidoMaterno()).toLowerCase().startsWith(data)
-                    || empleado.getApellidoPaterno().startsWith(data))
-                    .skip(start).limit(rows).collect(Collectors.toList());
-        }
-
+        filter = empleadoLst(data).stream().skip(start).limit(rows).collect(Collectors.toList());
+        Collections.sort(filter);
         if (!filter.isEmpty()) {
-
             filter.forEach(
                     empleado -> {
                         String area = areas.stream().filter(
@@ -189,10 +178,10 @@ public class EmpleadoController extends MouseAdapter
         pagNum = 1;
         Number box = (Number) spinner.getValue();
         rows = box.intValue();
-        if (!empleados.isEmpty()) {
-            paginador = new Paginador<>(empleados, labels.get(6), rows);
+        List<Empleado> lista = empleadoLst(textFields.get(5).getText());
+        if (!lista.isEmpty()) {
+            paginador = new Paginador<>(lista, labels.get(6), rows);
         }
-        buscar("");
     }
 
     @Override
@@ -327,11 +316,11 @@ public class EmpleadoController extends MouseAdapter
 
             if (textField.equals(textFields.get(5))) {
                 if (textField.equals(textFields.get(5))) {
-                    reestablecer();
-                    textFields.get(5).requestFocus();
-                    buscar(textFields.get(5).getText().toLowerCase());
+                    /*reestablecer();
+                    textFields.get(5).requestFocus();*/
+                    buscar(textFields.get(5).getText());
+                    mostrarRegistrosPorPagina();
                 }
-
             }
         }
     }
@@ -342,8 +331,8 @@ public class EmpleadoController extends MouseAdapter
                     new Empleado.EmpleadoBuilder()
                             .nid(textFields.get(6).getText())
                             .telefono(textFields.get(3).getText())
-                            .email(textFields.get(4).getText()).build(),
-                    false)) {
+                            .email(textFields.get(4).getText()).build()
+            )) {
                 Object[] data = {
                     textFields.get(6).getText(),
                     textFields.get(0).getText(),
@@ -413,7 +402,6 @@ public class EmpleadoController extends MouseAdapter
         if (source.equals(buttons.get(5))) {
             pager(METHOD_LATEST);
         }
-
         if (source.equals(cbxAreas)) {
             Objetos.eventoComun.remarcarLabel(labels.get(5), "Area", COLOR_BASE);
         }
@@ -487,8 +475,7 @@ public class EmpleadoController extends MouseAdapter
                             .idEmpleado(empleado.getIdEmpleado())
                             .nid(textFields.get(6).getText())
                             .telefono(textFields.get(3).getText())
-                            .email(textFields.get(4).getText()).build(),
-                    false)) {
+                            .email(textFields.get(4).getText()).build())) {
                 empleado.setNid(textFields.get(6).getText());
                 empleado.setNombre(textFields.get(0).getText());
                 empleado.setApellidoPaterno(textFields.get(1).getText());
@@ -569,60 +556,45 @@ public class EmpleadoController extends MouseAdapter
             JSpinner sp = (JSpinner) obj;
             if (sp.equals(this.spinner)) {
                 mostrarRegistrosPorPagina();
+                buscar(textFields.get(5).getText());
             }
         }
     }
 
     private void pager(String method) {
+        String filtro = textFields.get(5).getText();
+        if (empleadoLst(filtro).isEmpty()) {
+            return;
+        }
         switch (method) {
             case METHOD_FIRST -> {
-                if (!empleados.isEmpty()) {
-                    pagNum = paginador.primero();
-                }
-
+                pagNum = paginador.primero();
             }
             case METHOD_LAST -> {
-                if (!empleados.isEmpty()) {
-                    pagNum = paginador.anterior();
-                }
+                pagNum = paginador.anterior();
             }
             case METHOD_NEXT -> {
-                if (!empleados.isEmpty()) {
-                    pagNum = paginador.siguiente();
-                }
+                pagNum = paginador.siguiente();
             }
             case METHOD_LATEST -> {
-                if (!empleados.isEmpty()) {
-                    pagNum = paginador.ultimo();
-                }
+                pagNum = paginador.ultimo();
             }
         }
-        buscar("");
+        buscar(filtro);
     }
 
-    private boolean noExiste(Empleado emp, boolean idActivo) {
+    private boolean noExiste(Empleado emp) {
         boolean nidE, emailE, telE;
-        if (idActivo) {
-            emailE = (empleados.stream().filter(
-                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado())
-                    .collect(Collectors.toList()).size() == 1);
-            telE = (empleados.stream().filter(
-                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado())
-                    .collect(Collectors.toList()).size() == 1);
-            nidE = (empleados.stream().filter(
-                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado())
-                    .collect(Collectors.toList()).size() == 1);
-        } else {
-            emailE = (empleados.stream().filter(
-                    e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado())
-                    .collect(Collectors.toList()).size() == 1);
-            telE = (empleados.stream().filter(
-                    e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado())
-                    .collect(Collectors.toList()).size() == 1);
-            nidE = (empleados.stream().filter(
-                    e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado())
-                    .collect(Collectors.toList()).size() == 1);
-        }
+        emailE = (empleados.stream().filter(
+                e -> emp.getEmail().equals(e.getEmail()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                .collect(Collectors.toList()).size() == 1);
+        telE = (empleados.stream().filter(
+                e -> emp.getTelefono().equals(e.getTelefono()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                .collect(Collectors.toList()).size() == 1);
+        nidE = (empleados.stream().filter(
+                e -> emp.getNid().equals(e.getNid()) && emp.getIdEmpleado() != e.getIdEmpleado())
+                .collect(Collectors.toList()).size() == 1);
+
         if (emailE && telE && nidE) {
             Objetos.eventoComun.remarcarLabel(labels.get(3), "El teléfono ya existe", Color.red);
             Objetos.eventoComun.remarcarLabel(labels.get(4), "El correo ya existe", Color.red);
@@ -643,5 +615,15 @@ public class EmpleadoController extends MouseAdapter
             return false;
         }
         return true;
+    }
+
+    private List<Empleado> empleadoLst(String filtro) {
+        if (filtro.isBlank()) {
+            return empleados;
+        }
+        return empleados.stream()
+                .filter(emp -> (emp.getNombre() + " " + emp.getApellidoPaterno() + " "
+                + emp.getApellidoMaterno()).toLowerCase().startsWith(filtro.toLowerCase())
+                || emp.getApellidoPaterno().startsWith(filtro.toLowerCase())).collect(Collectors.toList());
     }
 }
