@@ -86,7 +86,7 @@ public class LoginController extends MouseAdapter implements ActionListener, Key
                             long timeInit = System.currentTimeMillis();
                             //Estructura estructura = new Estructura(existeUsuario.get(0));
                             estructura.iniciaSesion(existeUsuario.get(0));
-                            System.out.println("Tiempo de Estructura: " + ((Double.valueOf(String.valueOf((System.currentTimeMillis() - timeInit)))) / 1000) + " segundos");
+                            //System.out.println("Tiempo de Estructura: " + ((Double.valueOf(String.valueOf((System.currentTimeMillis() - timeInit)))) / 1000) + " segundos");
                             estructura.setVisible(true);
                             //estructura.setLocationRelativeTo(estructura);
                             estructura.setExtendedState(Frame.MAXIMIZED_BOTH);

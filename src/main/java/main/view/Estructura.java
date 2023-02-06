@@ -27,7 +27,7 @@ public class Estructura extends javax.swing.JFrame {
     public Estructura() {
         long timeInit = System.currentTimeMillis();
         initComponents();
-        System.out.println(Double.valueOf(String.valueOf(System.currentTimeMillis() - timeInit))/1000 + " Segundos");
+        //System.out.println(Double.valueOf(String.valueOf(System.currentTimeMillis() - timeInit))/1000 + " Segundos");
     }
 
     public void iniciaSesion(Object object) {
@@ -38,7 +38,7 @@ public class Estructura extends javax.swing.JFrame {
         eventosMaterial();
         eventosSalida();
         eventosEmpleado();
-        System.out.println(Double.valueOf(String.valueOf(System.currentTimeMillis() - timeInit))/1000 + " Segundos");
+        //System.out.println(Double.valueOf(String.valueOf(System.currentTimeMillis() - timeInit))/1000 + " Segundos");
     }
 
     @SuppressWarnings("unchecked")
@@ -925,10 +925,8 @@ public class Estructura extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(tabbedPaneSalidas))
+                    .addComponent(tabbedPaneSalidas)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(

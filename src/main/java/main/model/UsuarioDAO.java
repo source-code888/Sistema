@@ -12,7 +12,8 @@ public class UsuarioDAO {
     private final QueryRunner QR = new QueryRunner();
     private static UsuarioDAO instance = null;
     private static List<Usuario> usuarios;
-
+    private static List<Usuario> usuario;
+    
     private UsuarioDAO() {
         usuarios();
     }
@@ -37,6 +38,22 @@ public class UsuarioDAO {
             instance = new UsuarioDAO();
         }
         return instance;
+    }
+    public List<Usuario> usuario(int id) {
+        Connection conn = null;
+        
+        try {
+            conn = getConnection();
+            usuario = (List<Usuario>) QR.query(conn, "SELECT idEmpleado FROM usuario where idUsuario = " + id,
+                    new BeanListHandler(Usuario.class));
+        } catch (SQLException ex) {
+        } finally {
+            try {
+                close(conn);
+            } catch (Exception e) {
+            }
+        }
+        return usuario;
     }
 
     public List<Usuario> getUsuarios() {

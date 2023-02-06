@@ -23,7 +23,7 @@ public class Paginador<T> {
         
         numPag = 1;
         maxReg = dataList.size();
-        System.out.println(maxReg);
+        //System.out.println(maxReg);
         pageCount = maxReg / regPorPagina;
         if ((maxReg % regPorPagina) > 0) {
             pageCount++;

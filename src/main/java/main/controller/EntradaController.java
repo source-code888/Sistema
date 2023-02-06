@@ -183,9 +183,13 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             }
             if (textField.equals(textFields.get(1))) {
                 if (textFields.get(1).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de entrada:", Color.red);
                 } else {
                     Objetos.eventoComun.remarcarLabel(labels.get(1), "Cantidad", COLOR_BASE);
+                }
+                
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    textField.transferFocus();
                 }
             }
             if (textField.equals(textFields.get(2))) {
@@ -242,7 +246,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             }
             if (textField.equals(textFields.get(1))) {
                 if (textFields.get(1).getText().isBlank()) {
-                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de ebtrada:", Color.red);
+                    Objetos.eventoComun.remarcarLabel(labels.get(1), "Ingresa la cantidad de entrada:", Color.red);
                 }
             }
         }
@@ -347,10 +351,14 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
     }
 
     private String getNombreEmpleadoById(int id) {
+      
         StringBuilder sb = new StringBuilder();
+        //
+        
         List<Empleado> empleados = EmpleadoDAO.getInstance().getEmpleados().stream().
-                filter(emp -> emp.getIdEmpleado() == id)
+                filter(emp -> emp.getIdEmpleado() == UsuarioDAO.getInstance().usuario(id).get(0).getIdEmpleado())
                 .collect(Collectors.toList());
+      
         if (!empleados.isEmpty()) {
             sb.append(empleados.get(0).getNombre());
             sb.append(" ");
@@ -394,6 +402,7 @@ public class EntradaController extends MouseAdapter implements ActionListener, C
             Object[] materialData = {material.getCantidad(), getFecha(), material.getIdUsuario()};
             MaterialDAO.getInstance().updateCantidad(material.getIdMaterial(), materialData, true);
             reestablecer();
+            
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
